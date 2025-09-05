@@ -26,7 +26,7 @@ interface DataFlow {
 
 export function LivingIntelligenceCanvas() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const animationRef = useRef<number>();
+  const animationRef = useRef<number | undefined>(undefined);
   const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
   const nodesRef = useRef<DataNode[]>([]);
   const flowsRef = useRef<DataFlow[]>([]);

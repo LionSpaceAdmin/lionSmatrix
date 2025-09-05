@@ -13,8 +13,8 @@ const IntelligencePanel: React.FC<IntelligencePanelProps> = ({ actor, onClose })
   const [actorData, setActorData] = useState<any>(null)
   
   useEffect(() => {
-    if (actor && INTELLIGENCE_DATA.intelligence_panel_data[actor]) {
-      setActorData(INTELLIGENCE_DATA.intelligence_panel_data[actor])
+    if (actor && (INTELLIGENCE_DATA.intelligence_panel_data as any)[actor]) {
+      setActorData((INTELLIGENCE_DATA.intelligence_panel_data as any)[actor])
     } else {
       setActorData(null)
     }
