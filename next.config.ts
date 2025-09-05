@@ -1,7 +1,12 @@
-import type { NextConfig } from "next";
+import type { NextConfig } from 'next';
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  transpilePackages: ['@lionspace/ui', '@lionspace/i18n'],
+  experimental: {
+    turbo: {
+      root: '../../'
+    }
+  }
 };
 
 export default nextConfig;
