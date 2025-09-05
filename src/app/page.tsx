@@ -6,12 +6,10 @@ import { LanguageSwitcher } from '@/app/_components/language-switcher';
 import { CommandTerminal } from '@/app/_components/terminal/command-terminal';
 import { DataStreamDisplay } from '@/app/_components/terminal/data-stream-display';
 import { StatusIndicator, StatusPanel } from '@/app/_components/terminal/status-indicator';
-import { IntelligenceCard, IntelligenceGrid, IntelligenceIcons } from '@/app/_components/terminal/intelligence-card';
+import { IntelligenceGrid, IntelligenceIcons } from '@/app/_components/terminal/intelligence-card';
 import Link from 'next/link';
 import { 
   Shield, 
-  Target, 
-  Activity, 
   BarChart3, 
   Terminal,
   Database,

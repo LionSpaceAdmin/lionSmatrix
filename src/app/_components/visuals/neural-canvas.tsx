@@ -67,7 +67,7 @@ export function NeuralCanvas() {
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
       // Update and draw nodes
-      nodesRef.current.forEach((node, i) => {
+      nodesRef.current.forEach((node) => {
         // Update position
         node.x += node.vx;
         node.y += node.vy;

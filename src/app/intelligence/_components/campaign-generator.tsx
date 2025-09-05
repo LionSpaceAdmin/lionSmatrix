@@ -30,7 +30,7 @@ export function CampaignGenerator() {
     try {
       const response = await generateCampaign(selectedTarget);
       setCampaignPlan(response.text || 'Failed to generate campaign');
-    } catch (error) {
+    } catch (_error) {
       setCampaignPlan('Error generating campaign plan');
     } finally {
       setLoading(false);

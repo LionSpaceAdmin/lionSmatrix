@@ -17,7 +17,7 @@ export interface NarrativeData {
 }
 
 // Mock implementation for development
-export async function analyzeText(text: string): Promise<AnalysisResult> {
+export async function analyzeText(_text: string): Promise<AnalysisResult> {
   // Simulate API delay
   await new Promise(resolve => setTimeout(resolve, 1000));
   
@@ -37,7 +37,7 @@ export async function analyzeText(text: string): Promise<AnalysisResult> {
   };
 }
 
-export async function trackNarratives(keywords: string[]): Promise<NarrativeData[]> {
+export async function trackNarratives(_keywords: string[]): Promise<NarrativeData[]> {
   // Simulate API delay
   await new Promise(resolve => setTimeout(resolve, 800));
   
@@ -61,7 +61,7 @@ export async function trackNarratives(keywords: string[]): Promise<NarrativeData
   ];
 }
 
-export async function generateThreatReport(data: any): Promise<string> {
+export async function generateThreatReport(_data: Record<string, unknown>): Promise<string> {
   // Simulate API delay
   await new Promise(resolve => setTimeout(resolve, 1200));
   

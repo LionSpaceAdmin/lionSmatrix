@@ -17,7 +17,7 @@ export function ThreatAnalysis() {
     try {
       const response = await analyzeText(input);
       setResult(response.text || response.error || 'Analysis failed');
-    } catch (error) {
+    } catch (_error) {
       setResult('Error performing analysis');
     } finally {
       setLoading(false);
@@ -31,7 +31,7 @@ export function ThreatAnalysis() {
     try {
       const response = await trackNarratives(input);
       setResult(response.text || response.error || 'Analysis failed');
-    } catch (error) {
+    } catch (_error) {
       setResult('Error tracking narratives');
     } finally {
       setLoading(false);

@@ -32,6 +32,8 @@ export interface WargameEngineState {
   edges: Edge[]
   hoveredNode: string | null
   selectedNode: string | null
+  focusedNodeIndex: number
+  keyboardMode: boolean
   isInitialized: boolean
 }
 
@@ -60,7 +62,9 @@ export const useWargameEngine = (
   
   const [hoveredNode, setHoveredNode] = useState<string | null>(null)
   const [selectedNode, setSelectedNode] = useState<string | null>(null)
+  const [focusedNodeIndex, setFocusedNodeIndex] = useState<number>(-1)
   const [isInitialized, setIsInitialized] = useState(false)
+  const [keyboardMode, setKeyboardMode] = useState(false)
   
   // Initialize nodes and edges data
   const initializeNetworkData = useCallback(() => {
@@ -81,8 +85,8 @@ export const useWargameEngine = (
         vx: 0,
         vy: 0,
         label: actor,
-        risk: (actorData as any)[actor]?.risk_level as 'HIGH' | 'MEDIUM' | 'LOW' || 'LOW',
-        connections: (actorData as any)[actor]?.network_connections || [],
+        risk: (actorData as Record<string, any>)[actor]?.risk_level as 'HIGH' | 'MEDIUM' | 'LOW' || 'LOW',
+        connections: (actorData as Record<string, any>)[actor]?.network_connections || [],
         isHovered: false,
         isSelected: false
       }
@@ -189,13 +193,16 @@ export const useWargameEngine = (
     })
   }, [])
   
-  // Optimized rendering function
+  // Optimized rendering function with keyboard focus support
   const renderNetwork = useCallback(() => {
     const canvas = canvasRef.current
     if (!canvas) return
     
     const ctx = canvas.getContext('2d')
     if (!ctx) return
+    
+    // Update focus states before rendering
+    updateNodeFocusStates()
     
     // Clear canvas
     ctx.clearRect(0, 0, canvas.width, canvas.height)
@@ -217,8 +224,21 @@ export const useWargameEngine = (
     
     ctx.stroke()
     
-    // Draw nodes with optimized shadow rendering
+    // Draw nodes with optimized shadow rendering and focus states
     nodesRef.current.forEach(node => {
+      const isFocused = (node as Node & { isFocused?: boolean }).isFocused
+      
+      // Draw focus ring for keyboard navigation
+      if (isFocused) {
+        ctx.beginPath()
+        ctx.arc(node.x, node.y, 35, 0, Math.PI * 2)
+        ctx.strokeStyle = '#6EE7B7'
+        ctx.lineWidth = 3
+        ctx.setLineDash([5, 5])
+        ctx.stroke()
+        ctx.setLineDash([]) // Reset dash pattern
+      }
+      
       // Node circle
       ctx.beginPath()
       ctx.arc(node.x, node.y, 25, 0, Math.PI * 2)
@@ -228,9 +248,9 @@ export const useWargameEngine = (
         ctx.fillStyle = '#FFB700'
         ctx.shadowBlur = 20
         ctx.shadowColor = '#FFB700'
-      } else if (node.isHovered) {
+      } else if (node.isHovered || isFocused) {
         ctx.fillStyle = '#6EE7B7'
-        ctx.shadowBlur = 15
+        ctx.shadowBlur = isFocused ? 20 : 15
         ctx.shadowColor = '#6EE7B7'
       } else if (node.risk === 'HIGH') {
         ctx.fillStyle = '#D43F3F'
@@ -249,14 +269,14 @@ export const useWargameEngine = (
       ctx.fill()
       ctx.shadowBlur = 0
       
-      // Draw border
-      ctx.strokeStyle = node.isHovered ? '#6EE7B7' : 'rgba(255, 255, 255, 0.3)'
-      ctx.lineWidth = 2
+      // Draw border with enhanced focus indication
+      ctx.strokeStyle = (node.isHovered || isFocused) ? '#6EE7B7' : 'rgba(255, 255, 255, 0.3)'
+      ctx.lineWidth = isFocused ? 3 : 2
       ctx.stroke()
       
-      // Draw label
-      ctx.fillStyle = '#FFFFFF'
-      ctx.font = node.isHovered ? 'bold 12px monospace' : '11px monospace'
+      // Draw label with enhanced visibility for focused nodes
+      ctx.fillStyle = isFocused ? '#FFFFFF' : '#FFFFFF'
+      ctx.font = (node.isHovered || isFocused) ? 'bold 12px monospace' : '11px monospace'
       ctx.textAlign = 'center'
       ctx.textBaseline = 'middle'
       
@@ -276,8 +296,15 @@ export const useWargameEngine = (
         ctx.fillStyle = '#FF0000'
         ctx.fill()
       }
+      
+      // Draw focus indicator text for screen readers
+      if (isFocused && keyboardMode) {
+        ctx.fillStyle = '#6EE7B7'
+        ctx.font = 'bold 10px monospace'
+        ctx.fillText('FOCUSED', node.x, node.y + 45)
+      }
     })
-  }, [])
+  }, [updateNodeFocusStates, keyboardMode])
   
   // Throttled mouse move handler for performance
   const handleMouseMove = useCallback((e: MouseEvent) => {
@@ -348,6 +375,94 @@ export const useWargameEngine = (
     }
   }, [onNodeClick])
   
+  // Keyboard navigation handlers
+  const handleKeyDown = useCallback((e: KeyboardEvent) => {
+    const nodes = nodesRef.current
+    if (nodes.length === 0) return
+    
+    switch (e.key) {
+      case 'Tab':
+        e.preventDefault()
+        setKeyboardMode(true)
+        if (focusedNodeIndex === -1) {
+          setFocusedNodeIndex(0)
+        } else {
+          const nextIndex = e.shiftKey 
+            ? (focusedNodeIndex - 1 + nodes.length) % nodes.length
+            : (focusedNodeIndex + 1) % nodes.length
+          setFocusedNodeIndex(nextIndex)
+        }
+        break
+        
+      case 'ArrowRight':
+      case 'ArrowDown':
+        e.preventDefault()
+        setKeyboardMode(true)
+        if (focusedNodeIndex === -1) {
+          setFocusedNodeIndex(0)
+        } else {
+          setFocusedNodeIndex((focusedNodeIndex + 1) % nodes.length)
+        }
+        break
+        
+      case 'ArrowLeft':
+      case 'ArrowUp':
+        e.preventDefault()
+        setKeyboardMode(true)
+        if (focusedNodeIndex === -1) {
+          setFocusedNodeIndex(nodes.length - 1)
+        } else {
+          setFocusedNodeIndex((focusedNodeIndex - 1 + nodes.length) % nodes.length)
+        }
+        break
+        
+      case 'Enter':
+      case ' ':
+        e.preventDefault()
+        if (focusedNodeIndex >= 0 && focusedNodeIndex < nodes.length) {
+          const focusedNode = nodes[focusedNodeIndex]
+          // Clear all selections first
+          nodes.forEach(node => { node.isSelected = false })
+          // Select the focused node
+          focusedNode.isSelected = true
+          setSelectedNode(focusedNode.id)
+          onNodeClick?.(focusedNode.id)
+        }
+        break
+        
+      case 'Escape':
+        e.preventDefault()
+        setFocusedNodeIndex(-1)
+        setKeyboardMode(false)
+        // Clear all selections
+        nodes.forEach(node => { 
+          node.isSelected = false
+          node.isHovered = false
+        })
+        setSelectedNode(null)
+        setHoveredNode(null)
+        onNodeClick?.(null)
+        break
+    }
+  }, [focusedNodeIndex, onNodeClick])
+  
+  // Update node focus states based on keyboard navigation
+  const updateNodeFocusStates = useCallback(() => {
+    const nodes = nodesRef.current
+    nodes.forEach((node, index) => {
+      // Add focus state to nodes
+      (node as Node & { isFocused?: boolean }).isFocused = keyboardMode && index === focusedNodeIndex
+      
+      // Update hover state for focused node when in keyboard mode
+      if (keyboardMode && index === focusedNodeIndex) {
+        node.isHovered = true
+        setHoveredNode(node.id)
+      } else if (keyboardMode) {
+        node.isHovered = false
+      }
+    })
+  }, [keyboardMode, focusedNodeIndex])
+  
   // Debounced resize handler
   const handleResize = useMemo(() => {
     let timeoutId: NodeJS.Timeout
@@ -399,12 +514,20 @@ export const useWargameEngine = (
     // Add event listeners
     canvas.addEventListener('mousemove', handleMouseMove)
     canvas.addEventListener('click', handleClick)
+    canvas.addEventListener('keydown', handleKeyDown)
     window.addEventListener('resize', handleResize)
+    
+    // Make canvas focusable for keyboard events
+    canvas.setAttribute('tabindex', '0')
+    canvas.setAttribute('role', 'application')
+    canvas.setAttribute('aria-label', 'Interactive intelligence network visualization. Use Tab or arrow keys to navigate between nodes, Enter or Space to select, Escape to clear selection.')
+    canvas.style.outline = 'none' // Remove default focus outline since we have custom focus indicators
     
     // Cleanup function
     return () => {
       canvas.removeEventListener('mousemove', handleMouseMove)
       canvas.removeEventListener('click', handleClick)
+      canvas.removeEventListener('keydown', handleKeyDown)
       window.removeEventListener('resize', handleResize)
       
       if (animationFrameRef.current) {
@@ -416,7 +539,7 @@ export const useWargameEngine = (
       edgesRef.current = []
       mouseRef.current = { x: 0, y: 0 }
     }
-  }, [isInitialized, runPhysicsSimulation, renderNetwork, handleMouseMove, handleClick, handleResize])
+  }, [isInitialized, runPhysicsSimulation, renderNetwork, handleMouseMove, handleClick, handleKeyDown, handleResize])
   
   // Initialize network data on mount
   useEffect(() => {
@@ -429,6 +552,8 @@ export const useWargameEngine = (
     edges: edgesRef.current,
     hoveredNode,
     selectedNode,
+    focusedNodeIndex,
+    keyboardMode,
     isInitialized
   }
   

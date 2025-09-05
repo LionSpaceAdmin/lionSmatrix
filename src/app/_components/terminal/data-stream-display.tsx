@@ -9,7 +9,7 @@ interface DataEntry {
   type: 'info' | 'warning' | 'error' | 'success';
   source: string;
   message: string;
-  data?: Record<string, any>;
+  data?: Record<string, unknown>;
 }
 
 interface DataStreamDisplayProps {

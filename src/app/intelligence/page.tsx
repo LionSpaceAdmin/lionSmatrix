@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { Tabs, TabsList, TabsTrigger, TabsContent, KpiCard } from '@/components/ui/tabs';
+import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
 import { AnalyticsDashboard } from './_components/analytics-dashboard';
 import { ThreatAnalysis } from './_components/threat-analysis';
 import { OsintArchive } from './_components/osint-archive';
