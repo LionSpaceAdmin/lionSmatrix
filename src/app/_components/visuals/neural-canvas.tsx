@@ -13,7 +13,7 @@ interface Node {
 
 export function NeuralCanvas() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const animationRef = useRef<number>();
+  const animationRef = useRef<number | undefined>(undefined);
   const nodesRef = useRef<Node[]>([]);
 
   useEffect(() => {

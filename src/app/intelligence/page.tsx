@@ -2,24 +2,23 @@
 
 import { useState } from 'react';
 import { Tabs, TabsList, TabsTrigger, TabsContent, KpiCard } from '@/components/ui/tabs';
-// Temporarily disabled - components not yet implemented
-// import { AnalyticsDashboard } from '@/components/intelligence/AnalyticsDashboard';
-// import { ThreatAnalysis } from '@/components/intelligence/ThreatAnalysis';
-// import { OsintArchive } from '@/components/intelligence/OsintArchive';
-// import { CampaignGenerator } from '@/components/intelligence/CampaignGenerator';
+import { AnalyticsDashboard } from './_components/analytics-dashboard';
+import { ThreatAnalysis } from './_components/threat-analysis';
+import { OsintArchive } from './_components/osint-archive';
+import { CampaignGenerator } from './_components/campaign-generator';
 
 export default function IntelligencePage() {
   const [activeTab, setActiveTab] = useState('analytics');
 
   return (
-    <div className="min-h-screen bg-black">
+    <div className="min-h-screen bg-terminal-bg font-terminal">
       <div className="max-w-7xl mx-auto px-4 py-8">
         <header className="mb-8">
-          <h1 className="text-4xl font-bold text-green-400 mb-2 font-mono">
-            Intelligence Hub
+          <h1 className="text-4xl font-bold text-terminal-cyan mb-2 terminal-glow">
+            INTELLIGENCE HUB
           </h1>
-          <p className="text-gray-400">
-            Navigate narratives with precision. Verify truth with confidence.
+          <p className="text-terminal-text/70 font-terminal">
+            NAVIGATE NARRATIVES WITH PRECISION • VERIFY TRUTH WITH CONFIDENCE
           </p>
         </header>
 
@@ -52,138 +51,105 @@ export default function IntelligencePage() {
           </TabsList>
 
           <TabsContent value="analytics">
-            <div className="bg-black/50 border border-green-400/20 rounded-lg p-6">
-              <h2 className="text-2xl font-bold text-green-400 mb-4 font-mono">
-                Analytics
-              </h2>
-              <p className="text-gray-400 mb-6">
-                Analytics dashboard will be implemented here
-              </p>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                <KpiCard title="Data Sources" value="12" trend={5.2} />
-                <KpiCard title="Active Queries" value="8" trend={-2.1} />
-                <KpiCard title="Insights Generated" value="47" trend={12.8} />
-              </div>
-            </div>
+            <AnalyticsDashboard />
           </TabsContent>
 
           <TabsContent value="threat-analysis">
-            <div className="bg-black/50 border border-green-400/20 rounded-lg p-6">
-              <h2 className="text-2xl font-bold text-green-400 mb-4 font-mono">
-                Threat Analysis
-              </h2>
-              <p className="text-gray-400 mb-6">
-                Threat analysis tools will be implemented here
-              </p>
-            </div>
+            <ThreatAnalysis />
           </TabsContent>
 
           <TabsContent value="osint-archive">
-            <div className="bg-black/50 border border-green-400/20 rounded-lg p-6">
-              <h2 className="text-2xl font-bold text-green-400 mb-4 font-mono">
-                OSINT Archive
-              </h2>
-              <p className="text-gray-400 mb-6">
-                OSINT archive functionality will be implemented here
-              </p>
-            </div>
+            <OsintArchive />
           </TabsContent>
 
           <TabsContent value="campaign-generator">
-            <div className="bg-black/50 border border-green-400/20 rounded-lg p-6">
-              <h2 className="text-2xl font-bold text-green-400 mb-4 font-mono">
-                Campaign Generator
-              </h2>
-              <p className="text-gray-400 mb-6">
-                Campaign generator will be implemented here
-              </p>
-            </div>
+            <CampaignGenerator />
           </TabsContent>
 
           <TabsContent value="strategic-assessment">
-            <div className="bg-black/50 border border-green-400/20 rounded-lg p-6">
-              <h2 className="text-2xl font-bold text-green-400 mb-4 font-mono">
-                Strategic Assessment
+            <div className="terminal-card rounded-lg p-6">
+              <h2 className="text-2xl font-bold text-terminal-cyan mb-4 font-terminal terminal-glow">
+                STRATEGIC ASSESSMENT
               </h2>
-              <p className="text-gray-400 mb-6">
-                Analyze strategic implications and generate comprehensive assessments
+              <p className="text-terminal-text/70 mb-6 font-terminal">
+                ANALYZE STRATEGIC IMPLICATIONS AND GENERATE COMPREHENSIVE ASSESSMENTS
               </p>
               <input
                 type="text"
-                className="w-full p-3 bg-black border border-green-400/30 rounded-md text-white focus:ring-2 focus:ring-green-400 focus:outline-none"
+                className="terminal-input w-full p-3 rounded-md focus-terminal"
                 placeholder="Enter topic or situation for strategic assessment..."
               />
-              <button className="mt-4 px-6 py-3 bg-green-400/20 border border-green-400 text-green-400 rounded-md hover:bg-green-400/30 transition-all">
+              <button className="terminal-button mt-4 px-6 py-3 rounded-md font-terminal font-bold uppercase tracking-wider">
                 Generate Assessment
               </button>
             </div>
           </TabsContent>
 
           <TabsContent value="influence-mapper">
-            <div className="bg-black/50 border border-green-400/20 rounded-lg p-6">
-              <h2 className="text-2xl font-bold text-green-400 mb-4 font-mono">
-                Influence Mapper
+            <div className="terminal-card rounded-lg p-6">
+              <h2 className="text-2xl font-bold text-terminal-cyan mb-4 font-terminal terminal-glow">
+                INFLUENCE MAPPER
               </h2>
-              <p className="text-gray-400 mb-6">
-                Map influence networks and identify key actors
+              <p className="text-terminal-text/70 mb-6 font-terminal">
+                MAP INFLUENCE NETWORKS AND IDENTIFY KEY ACTORS
               </p>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <input
                   type="text"
-                  className="w-full p-3 bg-black border border-green-400/30 rounded-md text-white focus:ring-2 focus:ring-green-400 focus:outline-none"
+                  className="terminal-input w-full p-3 rounded-md focus-terminal"
                   placeholder="Target entity or individual..."
                 />
                 <input
                   type="text"
-                  className="w-full p-3 bg-black border border-green-400/30 rounded-md text-white focus:ring-2 focus:ring-green-400 focus:outline-none"
+                  className="terminal-input w-full p-3 rounded-md focus-terminal"
                   placeholder="Topic or domain of influence..."
                 />
               </div>
-              <button className="mt-4 px-6 py-3 bg-green-400/20 border border-green-400 text-green-400 rounded-md hover:bg-green-400/30 transition-all">
+              <button className="terminal-button mt-4 px-6 py-3 rounded-md font-terminal font-bold uppercase tracking-wider">
                 Map Influence Network
               </button>
             </div>
           </TabsContent>
 
           <TabsContent value="news-pulse">
-            <div className="bg-black/50 border border-green-400/20 rounded-lg p-6">
-              <h2 className="text-2xl font-bold text-green-400 mb-4 font-mono">
-                News Pulse
+            <div className="terminal-card rounded-lg p-6">
+              <h2 className="text-2xl font-bold text-terminal-cyan mb-4 font-terminal terminal-glow">
+                NEWS PULSE
               </h2>
-              <p className="text-gray-400 mb-6">
-                Real-time news monitoring and sentiment analysis
+              <p className="text-terminal-text/70 mb-6 font-terminal">
+                REAL-TIME NEWS MONITORING AND SENTIMENT ANALYSIS
               </p>
               <input
                 type="text"
-                className="w-full p-3 bg-black border border-green-400/30 rounded-md text-white focus:ring-2 focus:ring-green-400 focus:outline-none"
+                className="terminal-input w-full p-3 rounded-md focus-terminal"
                 placeholder="Enter keywords or topics to monitor..."
               />
-              <button className="mt-4 px-6 py-3 bg-green-400/20 border border-green-400 text-green-400 rounded-md hover:bg-green-400/30 transition-all">
+              <button className="terminal-button mt-4 px-6 py-3 rounded-md font-terminal font-bold uppercase tracking-wider">
                 Start Monitoring
               </button>
             </div>
           </TabsContent>
 
           <TabsContent value="investigation">
-            <div className="bg-black/50 border border-green-400/20 rounded-lg p-6">
-              <h2 className="text-2xl font-bold text-green-400 mb-4 font-mono">
-                Investigation
+            <div className="terminal-card rounded-lg p-6">
+              <h2 className="text-2xl font-bold text-terminal-cyan mb-4 font-terminal terminal-glow">
+                INVESTIGATION
               </h2>
-              <p className="text-gray-400 mb-6">
-                Deep dive investigation and research assistant
+              <p className="text-terminal-text/70 mb-6 font-terminal">
+                DEEP DIVE INVESTIGATION AND RESEARCH ASSISTANT
               </p>
-              <div className="bg-black rounded-lg p-4 h-96 overflow-y-auto mb-4 border border-green-400/20">
-                <div className="bg-green-400/10 rounded p-3 mb-2">
-                  <p className="text-green-400">Ready to assist with your investigation. What would you like to explore?</p>
+              <div className="bg-terminal-bg rounded-lg p-4 h-96 overflow-y-auto mb-4 border border-terminal-border">
+                <div className="bg-terminal-cyan/10 rounded p-3 mb-2 border border-terminal-cyan/30">
+                  <p className="text-terminal-cyan font-terminal">READY TO ASSIST WITH YOUR INVESTIGATION. WHAT WOULD YOU LIKE TO EXPLORE?</p>
                 </div>
               </div>
               <div className="flex gap-4">
                 <input
                   type="text"
-                  className="flex-grow p-3 bg-black border border-green-400/30 rounded-md text-white focus:ring-2 focus:ring-green-400 focus:outline-none"
+                  className="terminal-input flex-grow p-3 rounded-md focus-terminal"
                   placeholder="Ask a question or describe what you're investigating..."
                 />
-                <button className="px-6 py-3 bg-green-400/20 border border-green-400 text-green-400 rounded-md hover:bg-green-400/30 transition-all">
+                <button className="terminal-button px-6 py-3 rounded-md font-terminal font-bold uppercase tracking-wider">
                   Send
                 </button>
               </div>
