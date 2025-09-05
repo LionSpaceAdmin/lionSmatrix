@@ -1,5 +1,8 @@
 import type { Metadata, Viewport } from 'next';
+import { Inter } from 'next/font/google';
 import './globals.css';
+
+const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
   title: 'LionSpace - Intelligence Platform for Truth Verification',
@@ -28,7 +31,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" dir="ltr" className="dark" suppressHydrationWarning>
-      <body className="bg-background text-foreground font-sans dark:bg-background dark:text-foreground font-mono">{children}</body>
+      <body className={`${inter.className} bg-background text-foreground font-sans dark:bg-background dark:text-foreground`}>
+        {children}
+      </body>
     </html>
   );
 }
