@@ -7,9 +7,9 @@ import { useTranslation } from '@/contexts/translation-context';
 
 // Placeholder data for now
 const osintActors = [
-  { id: '1', name: 'Target Alpha', type: 'State Actor' },
-  { id: '2', name: 'Target Beta', type: 'Hacktivist Group' },
-  { id: '3', name: 'Target Gamma', type: 'Criminal Network' },
+  { id: '1', name: 'Target Alpha', type: 'State Actor', platform: 'Multiple', audience: 1500000 },
+  { id: '2', name: 'Target Beta', type: 'Hacktivist Group', platform: 'Telegram', audience: 850000 },
+  { id: '3', name: 'Target Gamma', type: 'Criminal Network', platform: 'Dark Web', audience: 250000 },
 ];
 
 const generateCampaign = async (target: string) => {
@@ -30,7 +30,7 @@ export function CampaignGenerator() {
     try {
       const response = await generateCampaign(selectedTarget);
       setCampaignPlan(response.text || 'Failed to generate campaign');
-    } catch (error) {
+    } catch (_error) {
       setCampaignPlan('Error generating campaign plan');
     } finally {
       setLoading(false);

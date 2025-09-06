@@ -2,11 +2,7 @@
 
 import { useState } from 'react';
 import { useTranslation } from '@/contexts/translation-context';
-// import { analyzeText, trackNarratives } from '@/lib/api/gemini';
-
-// Placeholder functions
-const analyzeText = async (text: string) => ({ analysis: `Analysis of: ${text}` });
-const trackNarratives = async (text: string) => ({ narratives: [`Narrative from: ${text}`] });
+import { analyzeText, trackNarratives } from '@/lib/api/gemini';
 
 export function ThreatAnalysis() {
   const { t } = useTranslation();
@@ -20,8 +16,8 @@ export function ThreatAnalysis() {
     setLoading(true);
     try {
       const response = await analyzeText(input);
-      setResult(response.analysis || 'Analysis failed');
-    } catch (error) {
+      setResult(response.text || response.error || 'Analysis failed');
+    } catch (_error) {
       setResult('Error performing analysis');
     } finally {
       setLoading(false);
@@ -34,8 +30,8 @@ export function ThreatAnalysis() {
     setLoading(true);
     try {
       const response = await trackNarratives(input);
-      setResult(response.narratives?.join(', ') || 'Analysis failed');
-    } catch (error) {
+      setResult(response.text || response.error || 'Analysis failed');
+    } catch (_error) {
       setResult('Error tracking narratives');
     } finally {
       setLoading(false);

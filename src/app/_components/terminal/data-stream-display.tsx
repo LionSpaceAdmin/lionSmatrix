@@ -34,7 +34,7 @@ export function DataStreamDisplay({
   const [entries, setEntries] = useState<DataEntry[]>([]);
   const [isPaused, setIsPaused] = useState(false);
   const streamRef = useRef<HTMLDivElement>(null);
-  const intervalRef = useRef<NodeJS.Timeout | null>(null);
+  const intervalRef = useRef<NodeJS.Timeout | undefined>(undefined);
 
   // Simulate data stream
   useEffect(() => {
@@ -193,7 +193,7 @@ export function DataStreamDisplay({
                     <div className="mt-1 text-terminal-muted">
                       {Object.entries(entry.data).map(([key, value]) => (
                         <span key={key} className="mr-3">
-                          {key}: <span className="text-terminal-cyan">{String(value)}</span>
+                          {key}: <span className="text-terminal-cyan">{value}</span>
                         </span>
                       ))}
                     </div>

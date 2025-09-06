@@ -9,27 +9,12 @@ interface IntelligencePanelProps {
   onClose: () => void
 }
 
-interface ActorData {
-  name: string;
-  alias: string;
-  followers: string;
-  platforms: string[];
-  risk_level: string;
-  keywords: string[];
-  narratives: string[];
-  network_connections: string[];
-  activity_summary: string;
-  last_activity: string;
-  engagement_rate: string;
-  content_frequency: string;
-}
-
 const IntelligencePanel: React.FC<IntelligencePanelProps> = ({ actor, onClose }) => {
-  const [actorData, setActorData] = useState<ActorData | null>(null)
+  const [actorData, setActorData] = useState<Record<string, any> | null>(null)
   
   useEffect(() => {
-    if (actor && INTELLIGENCE_DATA.intelligence_panel_data[actor as keyof typeof INTELLIGENCE_DATA.intelligence_panel_data]) {
-      setActorData(INTELLIGENCE_DATA.intelligence_panel_data[actor as keyof typeof INTELLIGENCE_DATA.intelligence_panel_data])
+    if (actor && (INTELLIGENCE_DATA.intelligence_panel_data as Record<string, any>)[actor]) {
+      setActorData((INTELLIGENCE_DATA.intelligence_panel_data as Record<string, any>)[actor])
     } else {
       setActorData(null)
     }
@@ -55,6 +40,7 @@ const IntelligencePanel: React.FC<IntelligencePanelProps> = ({ actor, onClose })
             exit={{ opacity: 0 }}
             className="fixed inset-0 bg-black/50 z-40"
             onClick={onClose}
+            aria-hidden="true"
           />
           
           {/* Panel */}
@@ -64,20 +50,33 @@ const IntelligencePanel: React.FC<IntelligencePanelProps> = ({ actor, onClose })
             exit={{ x: '100%' }}
             transition={{ type: 'spring', damping: 25, stiffness: 300 }}
             className="fixed right-0 top-0 h-full w-full md:w-[500px] bg-black/95 backdrop-blur-lg border-l border-green-500/30 z-50 overflow-hidden"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="intelligence-panel-title"
+            aria-describedby="intelligence-panel-description"
           >
             <div className="h-full flex flex-col">
               {/* Header */}
               <div className="p-6 border-b border-green-500/20">
                 <div className="flex items-center justify-between">
-                  <h2 className="text-2xl font-bold text-green-400 font-mono">
+                  <h2 
+                    id="intelligence-panel-title"
+                    className="text-2xl font-bold text-green-400 font-mono"
+                  >
                     INTELLIGENCE PROFILE
                   </h2>
                   <button
                     onClick={onClose}
-                    className="text-green-400 hover:text-green-300 transition-colors p-2"
-                    title="Close panel"
+                    className="text-green-400 hover:text-green-300 transition-colors p-2 focus-terminal"
+                    aria-label="Close intelligence profile panel"
                   >
-                    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg 
+                      className="w-6 h-6" 
+                      fill="none" 
+                      stroke="currentColor" 
+                      viewBox="0 0 24 24"
+                      aria-hidden="true"
+                    >
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                     </svg>
                   </button>
@@ -85,20 +84,31 @@ const IntelligencePanel: React.FC<IntelligencePanelProps> = ({ actor, onClose })
               </div>
               
               {/* Content */}
-              <div className="flex-1 overflow-y-auto p-6 space-y-6">
+              <div 
+                id="intelligence-panel-description"
+                className="flex-1 overflow-y-auto p-6 space-y-6"
+                role="main"
+              >
                 {/* Primary Info */}
-                <div className="space-y-4">
+                <section className="space-y-4" aria-labelledby="actor-info-heading">
                   <div>
-                    <h3 className="text-xl font-bold text-green-300 mb-2 font-mono">
+                    <h3 
+                      id="actor-info-heading"
+                      className="text-xl font-bold text-green-300 mb-2 font-mono"
+                    >
                       {actorData.name}
                     </h3>
-                    <p className="text-green-400/70 font-mono text-sm">@{actorData.alias}</p>
+                    <p className="text-green-400/70 font-mono text-sm" aria-label="Actor alias">@{actorData.alias}</p>
                   </div>
                   
                   {/* Risk Level */}
-                  <div className="flex items-center space-x-4">
+                  <div className="flex items-center space-x-4" role="group" aria-label="Risk assessment">
                     <span className="text-green-400/70 font-mono text-sm">RISK LEVEL:</span>
-                    <span className={`px-3 py-1 rounded-full border font-mono text-sm font-bold ${getRiskColor(actorData.risk_level)}`}>
+                    <span 
+                      className={`px-3 py-1 rounded-full border font-mono text-sm font-bold ${getRiskColor(actorData.risk_level)}`}
+                      role="status"
+                      aria-label={`Risk level: ${actorData.risk_level}`}
+                    >
                       {actorData.risk_level}
                     </span>
                   </div>
@@ -114,7 +124,7 @@ const IntelligencePanel: React.FC<IntelligencePanelProps> = ({ actor, onClose })
                       <p className="text-green-300 font-bold font-mono">{actorData.engagement_rate || 'N/A'}</p>
                     </div>
                   </div>
-                </div>
+                </section>
                 
                 {/* Platforms */}
                 <div>
