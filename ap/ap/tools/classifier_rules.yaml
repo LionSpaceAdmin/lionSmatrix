@@ -1,0 +1,23 @@
+# Keyword-based classifier rules per chapter (regex, case-insensitive)
+1:
+  - '(?i)vision|doctrine|חזון|דוקטרינה|cognitive|principle|purpose'
+2:
+  - '(?i)ia|information architecture|ux|flows|sitemap|navigation|ניווט|זרימות'
+3:
+  - '(?i)content modules|prompt|narrative|prebunk|debunk|תוכן|תבניות|נרטיב'
+4:
+  - '(?i)osint|open\s*source\s*intelligence|targets|יעדים|מקורות\s*פתוחים'
+5:
+  - '(?i)architecture|stack|system design|microservice|diagram|data\s*flow|ארכיטקטורה'
+6:
+  - '(?i)design system|tokens|oklch|typography|components|grid|טוקנים|עיצוב'
+7:
+  - '(?i)engine|gemini|ai|tracker|real[- ]?time|intelligence engine|מנוע'
+8:
+  - '(?i)security|auth|privacy|rbac|csp|rate.?limit|אבטחה|פרטיות|הרשאות'
+9:
+  - '(?i)performance|a11y|seo|lighthouse|kpi|lcp|inp|cls|ביצועים|מדדים'
+10:
+  - '(?i)deployment|ci/cd|pipeline|testing|qa|סביבות|בדיקות|השקה'
+11:
+  - '(?i)agent|raci|roadmap|milestone|phases|אחריות|מפת\s*דרכים'

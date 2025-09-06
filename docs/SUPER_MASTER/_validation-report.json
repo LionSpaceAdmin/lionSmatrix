@@ -1,0 +1,63 @@
+{
+  "checks": [
+    {
+      "name": "chapters_count",
+      "ok": true
+    },
+    {
+      "name": "chapters_populated",
+      "ok": true,
+      "counts": {
+        "1": 81,
+        "2": 465,
+        "3": 53,
+        "4": 37,
+        "5": 1747,
+        "6": 140,
+        "7": 281,
+        "8": 223,
+        "9": 93,
+        "10": 127,
+        "11": 21
+      }
+    },
+    {
+      "name": "no_external_refs",
+      "ok": true,
+      "count": 0
+    },
+    {
+      "name": "no_style_blocks_in_body",
+      "ok": true
+    },
+    {
+      "name": "no_rule_strings_in_output",
+      "ok": true,
+      "leaked": []
+    },
+    {
+      "name": "provenance_coverage",
+      "ok": true,
+      "missing": [],
+      "missing_count": 0
+    },
+    {
+      "name": "secrets_redacted",
+      "ok": true,
+      "redactions_in_doc": 1981
+    },
+    {
+      "name": "code_dir_ltr",
+      "ok": true
+    },
+    {
+      "name": "dedupe_report_exists",
+      "ok": true
+    },
+    {
+      "name": "conflicts_report_exists",
+      "ok": true
+    }
+  ],
+  "pass": true
+}

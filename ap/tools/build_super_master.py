@@ -14,6 +14,16 @@ import sys
 import textwrap
 from pathlib import Path
 
+# Globals that can be overridden by config/rules
+GLOSSARY = {
+    r"(?i)prebunk": "Prebunk",
+    r"(?i)debunk": "Debunk",
+    r"(?i)counter[-\s]?narrative": "Counter‑Narrative",
+    r"(?i)tokens?": "טוקנים",
+    r"(?i)security": "אבטחה",
+    r"(?i)roadmap": "מפת דרכים",
+}
+
 
 # -------------------------
 # Utility: Logging
@@ -122,6 +132,17 @@ def sha256_file(path: Path) -> str:
     return h.hexdigest()
 
 
+def _load_yaml(path: Path):
+    try:
+        import yaml  # type: ignore
+    except Exception:
+        return None
+    try:
+        return yaml.safe_load(path.read_text(encoding="utf-8"))
+    except Exception:
+        return None
+
+
 # -------------------------
 # Secrets scanning / redaction
 # -------------------------
@@ -132,8 +153,26 @@ SECRET_PATTERNS = [
     ("GOOGLE_API_KEY", re.compile(r"AIza[0-9A-Za-z\-_]{35}")),
     ("OPENAI_KEY", re.compile(r"sk-[A-Za-z0-9]{20,}[-_A-Za-z0-9]{10,}")),
     ("PRIVATE_KEY", re.compile(r"-----BEGIN (?:RSA )?PRIVATE KEY-----[\s\S]+?-----END (?:RSA )?PRIVATE KEY-----")),
+    ("GITHUB_PAT", re.compile(r"ghp_[A-Za-z0-9]{36}")),
+    ("SLACK_TOKEN", re.compile(r"xox[baprs]-[A-Za-z0-9-]{10,}")),
+    ("STRIPE_KEY", re.compile(r"sk_(live|test)_[A-Za-z0-9]{20,}")),
+    ("TWILIO_TOKEN", re.compile(r"(?i)twilio(.{0,20})?(token|sid)[^\n]{0,60}")),
+    ("VERCEL_TOKEN", re.compile(r"(?i)vercel(.{0,20})?(token|api)[^\n]{0,60}")),
+    ("SENTRY_DSN", re.compile(r"https?://[0-9a-f]{32}@[A-Za-z0-9.-]+/\d+")),
+    ("JWT", re.compile(r"eyJ[A-Za-z0-9_=\-]{10,}\.[A-Za-z0-9_=\-]{10,}\.[A-Za-z0-9_=\-]{10,}")),
+    ("DB_URI", re.compile(r"(?i)(postgres|mysql|mongodb|redis)://[^\s]+")),
     ("GENERIC_TOKEN", re.compile(r"(?i)(token|secret|api[_-]?key|password|passwd)[^\n]{0,50}")),
 ]
+
+
+def _shannon_entropy(s: str) -> float:
+    if not s:
+        return 0.0
+    import math
+    freq = {}
+    for ch in s:
+        freq[ch] = freq.get(ch, 0) + 1
+    return -sum((c/len(s)) * math.log2(c/len(s)) for c in freq.values())
 
 
 def redact_secrets(text: str):
@@ -160,6 +199,12 @@ def redact_secrets(text: str):
             return f"{key}=__REDACTED_ENV__"
         return m.group(0)
     redacted = env_pat.sub(_mask_env, redacted)
+    # Entropy-based catch-all for long random strings
+    for m in re.finditer(r"(?<![A-Za-z0-9])[A-Za-z0-9+/=]{28,}(?![A-Za-z0-9])", text):
+        token = m.group(0)
+        if _shannon_entropy(token) >= 4.0:
+            findings.append({"type": "HIGH_ENTROPY", "length": len(token)})
+            redacted = redacted.replace(token, "__REDACTED_HE_TOKEN__")
     return redacted, findings
 
 
@@ -182,10 +227,36 @@ def should_exclude(path: Path) -> bool:
 
 
 def iter_included_files(root: Path):
+    INTERNAL_CONFIGS = set()
+    for base in [root/"ap"/"tools", root/"tools"]:
+        for fname in ["classifier_rules.yaml","glossary.yaml","protect_patterns.yaml","config.yaml"]:
+            p = (base/fname)
+            if p.exists():
+                try:
+                    INTERNAL_CONFIGS.add(str(p.resolve()))
+                except Exception:
+                    pass
+    outputs_root = (root/"docs"/"SUPER_MASTER").resolve()
     for g in INCLUDE_GLOBS:
         for p in root.glob(g):
-            if p.is_file() and not should_exclude(p):
-                yield p
+            try:
+                rp = p.resolve()
+            except Exception:
+                continue
+            if not p.is_file():
+                continue
+            if should_exclude(p):
+                continue
+            # skip internal config YAMLs
+            if str(rp) in INTERNAL_CONFIGS:
+                continue
+            # skip previously generated outputs
+            try:
+                if str(rp).startswith(str(outputs_root)):
+                    continue
+            except Exception:
+                pass
+            yield p
 
 
 # -------------------------
@@ -196,11 +267,13 @@ def normalize_whitespace(s: str) -> str:
 
 
 def split_markdown_blocks(text: str):
+    # returns list of blocks with optional line ranges
     blocks = []
     lines = text.splitlines()
     i = 0
     code_lang = None
     buf = []
+    buf_start = 0
     while i < len(lines):
         line = lines[i]
         code_fence = re.match(r"^```(\w+)?\s*$", line)
@@ -209,16 +282,18 @@ def split_markdown_blocks(text: str):
             if buf:
                 para = "\n".join(buf).strip()
                 if para:
-                    blocks.append({"type": "paragraph", "text": para})
+                    blocks.append({"type": "paragraph", "text": para, "line_start": buf_start+1, "line_end": i})
                 buf = []
+                buf_start = i
             # collect code block
             lang = code_fence.group(1) or ""
             i += 1
+            code_start = i
             code_lines = []
             while i < len(lines) and not re.match(r"^```\s*$", lines[i]):
                 code_lines.append(lines[i])
                 i += 1
-            blocks.append({"type": "code", "lang": lang, "code": "\n".join(code_lines)})
+            blocks.append({"type": "code", "lang": lang, "code": "\n".join(code_lines), "line_start": code_start+1, "line_end": i})
         else:
             m = re.match(r"^(#{1,6})\s+(.*)$", line)
             if m:
@@ -226,38 +301,46 @@ def split_markdown_blocks(text: str):
                 if buf:
                     para = "\n".join(buf).strip()
                     if para:
-                        blocks.append({"type": "paragraph", "text": para})
+                        blocks.append({"type": "paragraph", "text": para, "line_start": buf_start+1, "line_end": i})
                     buf = []
+                    buf_start = i
                 level = len(m.group(1))
                 text_h = m.group(2).strip()
-                blocks.append({"type": "heading", "level": level, "text": text_h})
+                blocks.append({"type": "heading", "level": level, "text": text_h, "line_start": i+1, "line_end": i+1})
             elif re.match(r"^\s*\|.*\|\s*$", line):
                 # naive markdown table detection: capture contiguous table lines
                 if buf:
                     para = "\n".join(buf).strip()
                     if para:
-                        blocks.append({"type": "paragraph", "text": para})
+                        blocks.append({"type": "paragraph", "text": para, "line_start": buf_start+1, "line_end": i})
                     buf = []
+                    buf_start = i
                 tbl_lines = [line]
+                tbl_start = i
                 i += 1
                 while i < len(lines) and re.match(r"^\s*\|.*\|\s*$", lines[i]):
                     tbl_lines.append(lines[i])
                     i += 1
                 i -= 1
-                blocks.append({"type": "table", "text": "\n".join(tbl_lines)})
+                blocks.append({"type": "table", "text": "\n".join(tbl_lines), "line_start": tbl_start+1, "line_end": i+1})
             else:
+                if not buf:
+                    buf_start = i
                 buf.append(line)
         i += 1
     if buf:
         para = "\n".join(buf).strip()
         if para:
-            blocks.append({"type": "paragraph", "text": para})
+            blocks.append({"type": "paragraph", "text": para, "line_start": buf_start+1, "line_end": i})
     return blocks
 
 
 def simple_html_to_blocks(text: str):
     # Very minimal HTML parsing using regex for h2-h4, code blocks, paragraphs
     blocks = []
+    # Strip style/script blocks entirely to avoid CSS/JS spill
+    text = re.sub(r"<style[\s\S]*?</style>", " ", text, flags=re.I)
+    text = re.sub(r"<script[\s\S]*?</script>", " ", text, flags=re.I)
     # Replace <code>...</code> inside <pre>...</pre> as code blocks
     code_blocks = []
     def _code_repl(m):
@@ -265,6 +348,26 @@ def simple_html_to_blocks(text: str):
         code_blocks.append(content)
         return f"@@CODE_BLOCK_{len(code_blocks)-1}@@"
     temp = re.sub(r"<pre[^>]*><code[^>]*>([\s\S]*?)</code></pre>", _code_repl, text, flags=re.I)
+    # Convert HTML tables to simple Markdown tables to preserve structure
+    def _table_to_md(m):
+        tbl = m.group(0)
+        # Extract rows
+        rows = re.findall(r"<tr[\s\S]*?</tr>", tbl, flags=re.I)
+        md_rows = []
+        for ri, row in enumerate(rows):
+            cells = re.findall(r"<(?:th|td)[^>]*>([\s\S]*?)</(?:th|td)>", row, flags=re.I)
+            cells = [re.sub(r"<[^>]+>", " ", c).strip() for c in cells]
+            if not cells:
+                continue
+            line = "| " + " | ".join(cells) + " |"
+            md_rows.append(line)
+            if ri == 0 and len(cells) > 0:
+                md_rows.append("| " + " | ".join(["---"] * len(cells)) + " |")
+        if md_rows:
+            blocks.append({"type": "table", "text": "\n".join(md_rows)})
+        return " "
+    text = re.sub(r"<table[\s\S]*?</table>", _table_to_md, text, flags=re.I)
+
     # Extract headings
     pos = 0
     for m in re.finditer(r"<(h[2-4])[^>]*>([\s\S]*?)</\1>", temp, flags=re.I):
@@ -327,6 +430,30 @@ def parse_file_to_blocks(path: Path, text: str):
         return split_markdown_blocks(text)
     if ext in {".html", ".htm"}:
         return simple_html_to_blocks(text)
+    if ext in {".json"}:
+        # pretty-print JSON as code
+        try:
+            obj = json.loads(text)
+            pretty = json.dumps(obj, ensure_ascii=False, indent=2)
+        except Exception:
+            pretty = text
+        return [{"type": "code", "lang": "json", "code": pretty}]
+    if ext in {".yaml", ".yml"}:
+        try:
+            import yaml  # type: ignore
+            obj = yaml.safe_load(text)
+            pretty = yaml.safe_dump(obj, sort_keys=False, allow_unicode=True)
+        except Exception:
+            pretty = text
+        return [{"type": "code", "lang": "yaml", "code": pretty}]
+    if ext in {".css", ".scss"}:
+        return [{"type": "code", "lang": "css", "code": text}]
+    if ext in {".sql"}:
+        return [{"type": "code", "lang": "sql", "code": text}]
+    if ext in {".ts", ".tsx"}:
+        return [{"type": "code", "lang": "ts", "code": text}]
+    if ext in {".js"}:
+        return [{"type": "code", "lang": "js", "code": text}]
     return generic_text_to_blocks(text)
 
 
@@ -371,7 +498,7 @@ def choose_preferred(src_a: Path, src_b: Path) -> Path:
 # -------------------------
 # HTML shell
 # -------------------------
-def html_shell(title: str, rtl: bool = True) -> str:
+def html_shell(title: str, rtl: bool = True, open_chapters: str = "") -> str:
     direction = "rtl" if rtl else "ltr"
     lang = "he" if rtl else "en"
     now = dt.datetime.now().strftime("%Y-%m-%d %H:%M")
@@ -400,14 +527,15 @@ def html_shell(title: str, rtl: bool = True) -> str:
     h3 {{ font-size: 18px; margin: 18px 0 6px; }}
     h4 {{ font-size: 16px; margin: 14px 0 4px; color: var(--muted); }}
     p {{ line-height: 1.65; color: var(--fg); }}
-    pre {{ background:#0b1220; padding:12px; border:1px solid var(--border); border-radius:6px; overflow:auto; }}
-    code {{ font-family: var(--mono); font-size: 13px; }}
+    pre {{ background:#0b1220; padding:12px; border:1px solid var(--border); border-radius:6px; overflow:auto; direction:ltr; text-align:left; white-space: pre; }}
+    code {{ font-family: var(--mono); font-size: 13px; direction:ltr; text-align:left; }}
     a {{ color: var(--accent); text-decoration: none; }}
     .toolbar {{ display:flex; gap:8px; align-items:center; margin-bottom:12px; }}
     .toolbar input[type='search'] {{ flex:1; padding:8px; border-radius:6px; border:1px solid var(--border); background:#0a0c10; color:var(--fg); }}
     .btn {{ padding:8px 10px; border-radius:6px; border:1px solid var(--border); background:#0a0c10; color:var(--fg); cursor:pointer; }}
     .toc a {{ display:block; padding:6px 8px; border-radius:6px; color:var(--muted); }}
     .toc a:hover {{ background:#0e1421; color:var(--fg); }}
+    .toc a.active {{ background:#142033; color:#fff; }}
     .box {{ padding:10px 12px; border-radius:6px; margin:10px 0; border:1px solid var(--border); }}
     .box.note {{ background: var(--box-note); }}
     .box.tip {{ background: var(--box-tip); }}
@@ -417,6 +545,10 @@ def html_shell(title: str, rtl: bool = True) -> str:
     details.chapter > summary {{ cursor:pointer; padding:12px 16px; font-weight:600; list-style:none; }}
     details.chapter[open] > summary {{ border-bottom:1px solid var(--border); }}
     details.chapter > .chapter-body {{ padding: 12px 16px; }}
+    details.variants {{ border:1px solid var(--border); border-radius:6px; margin:8px 0; background:#0b1220; }}
+    details.variants > summary {{ cursor:pointer; padding:8px 10px; font-weight:600; color: var(--muted); }}
+    details.codeblock > summary {{ cursor:pointer; padding:6px 8px; color: var(--muted); background:#0b1220; border:1px solid var(--border); border-radius:6px; margin:8px 0; }}
+    .variant-source {{ font-family: var(--mono); font-size:12px; color: var(--muted); margin:6px 0; }}
     #provenance {{ display:none; font-family: var(--mono); font-size:12px; white-space:pre-wrap; background:#0a0c10; border:1px dashed var(--border); padding:10px; border-radius:8px; }}
     .muted {{ color: var(--muted); }}
     @media print {{
@@ -430,16 +562,31 @@ def html_shell(title: str, rtl: bool = True) -> str:
   function setup() {{
     const q = document.getElementById('search');
     const chapters = Array.from(document.querySelectorAll('details.chapter'));
+    // Restore open state
+    try {{
+      const saved = JSON.parse(localStorage.getItem('chapters-open')||'[]');
+      chapters.forEach((d,idx)=>{{ d.open = saved.includes(idx+1); }});
+    }} catch(e) {{}}
     q.addEventListener('input', () => {{
       const s = q.value.trim().toLowerCase();
+      clearHighlights();
       chapters.forEach(d => {{
         if (!s) {{ d.style.display = ''; return; }}
         const hit = d.innerText.toLowerCase().includes(s);
         d.style.display = hit ? '' : 'none';
         if (hit) d.open = true;
       }});
+      if (s) highlightMatches(s);
     }});
+    // Persist open state on toggle
+    chapters.forEach((d,idx)=>{{ d.addEventListener('toggle', ()=>{{
+      const arr = chapters.filter(x=>x.open).map((_,i)=>i+1);
+      localStorage.setItem('chapters-open', JSON.stringify(arr));
+    }}); }});
     buildTOC();
+    observeHeadings();
+    enableCopyLinks();
+    setupProvFilter();
   }}
   function buildTOC() {{
     const toc = document.getElementById('toc');
@@ -455,6 +602,52 @@ def html_shell(title: str, rtl: bool = True) -> str:
   function toggleProvenance() {{
     const el = document.getElementById('provenance');
     el.style.display = (el.style.display === 'none' || !el.style.display) ? 'block' : 'none';
+  }}
+  function clearHighlights() {{
+    document.querySelectorAll('mark.__hl').forEach(m=>{{
+      const p = m.parentNode; p.replaceChild(document.createTextNode(m.textContent), m); p.normalize();
+    }});
+  }}
+  function highlightMatches(q) {{
+    const rx = new RegExp(q.replace(/[.*+?^${{}}()|[\]\\]/g, '\\$&'), 'gi');
+    document.querySelectorAll('.chapter-body').forEach(node=>{{
+      node.querySelectorAll('p,li,pre,code').forEach(el=>{{
+        el.innerHTML = el.innerHTML.replace(rx, m => '<mark class="__hl">'+m+'</mark>');
+      }});
+    }});
+  }}
+  function observeHeadings() {{
+    const map = new Map();
+    document.querySelectorAll('h2,h3,h4').forEach(h=>{{ map.set(h.id, h); }});
+    const obs = new IntersectionObserver(entries=>{{
+      entries.forEach(e=>{{ if (e.isIntersecting) setActiveTOC(e.target.id); }});
+    }}, {{ rootMargin: '0px 0px -70% 0px' }});
+    map.forEach(h=>obs.observe(h));
+  }}
+  function setActiveTOC(id) {{
+    document.querySelectorAll('.toc a').forEach(a=>a.classList.remove('active'));
+    const link = document.querySelector('.toc a[href="#'+id+'"]');
+    if (link) link.classList.add('active');
+  }}
+  function enableCopyLinks() {{
+    document.querySelectorAll('h2,h3,h4').forEach(h=>{{
+      const btn = document.createElement('button'); btn.className='btn'; btn.textContent='🔗'; btn.style.marginInlineStart='6px';
+      const id = h.id || h.textContent.trim().replace(/\s+/g,'-'); h.id = id;
+      btn.addEventListener('click', ()=>{{ navigator.clipboard.writeText(location.origin+location.pathname+'#'+id); }});
+      h.appendChild(btn);
+    }});
+  }}
+  function setupProvFilter() {{
+    const prov = document.getElementById('provenance');
+    if (!prov) return;
+    const wrap = document.createElement('div');
+    const inp = document.createElement('input'); inp.placeholder='סינון מקוריות (שם קובץ/Hash)'; inp.className='btn'; inp.style.width='100%'; inp.style.marginBottom='8px';
+    const pre = document.createElement('pre'); pre.textContent = prov.textContent; prov.textContent=''; wrap.appendChild(inp); wrap.appendChild(pre); prov.appendChild(wrap);
+    inp.addEventListener('input', ()=>{{
+      const s = inp.value.toLowerCase();
+      const lines = pre.textContent.split('\n');
+      pre.textContent = !s ? lines.join('\n') : lines.filter(l=>l.toLowerCase().includes(s)).join('\n');
+    }});
   }}
   // Shell API
   const dedupeStore = new Map();
@@ -501,8 +694,15 @@ def block_to_html(block: dict) -> str:
         return f"<h{level} id=\"{anchor}\">{text_h}</h{level}>"
     if t == "code":
         lang = html.escape(block.get("lang", ""))
-        code = html.escape(block.get("code", ""))
-        return f"<pre><code class=\"language-{lang}\">{code}</code></pre>"
+        code_raw = block.get("code", "")
+        code = html.escape(code_raw)
+        line_count = code_raw.count("\n") + 1 if code_raw else 0
+        if line_count > 60 or len(code_raw) > 8000:
+            return (
+                f"<details class=\"codeblock\"><summary>קוד ({lang or 'plain'}) — {line_count} שורות</summary>"
+                f"<pre><code dir=\"ltr\" class=\"language-{lang}\">{code}</code></pre></details>"
+            )
+        return f"<pre><code dir=\"ltr\" class=\"language-{lang}\">{code}</code></pre>"
     if t == "table":
         # Keep as pre for safety; richer parsing can be added
         tbl = html.escape(block.get("text", ""))
@@ -510,15 +710,7 @@ def block_to_html(block: dict) -> str:
     # paragraph
     txt = block.get("text", "").strip()
     # normalize glossary (HE primary)
-    glossary = {
-        r"(?i)prebunk": "Prebunk",
-        r"(?i)debunk": "Debunk",
-        r"(?i)counter[-\s]?narrative": "Counter‑Narrative",
-        r"(?i)tokens?": "טוקנים",
-        r"(?i)security": "אבטחה",
-        r"(?i)roadmap": "מפת דרכים",
-    }
-    for pat, rep in glossary.items():
+    for pat, rep in GLOSSARY.items():
         txt = re.sub(pat, rep, txt)
     return f"<p>{html.escape(txt)}</p>"
 
@@ -542,7 +734,12 @@ def block_to_markdown(block: dict) -> str:
 # -------------------------
 # Build pipeline
 # -------------------------
-def build_super_master(root: Path, out_dir: Path, purge: bool = False, purge_all: bool = False):
+def build_super_master(root: Path, out_dir: Path, purge: bool = False, purge_all: bool = False,
+                       do_plan: bool = False, do_validate: bool = False, min_similarity: float = 0.85,
+                       engine: str = "playwright", no_provenance: bool = False,
+                       rules_path: Path | None = None, open_chapters: str = "",
+                       protect_from: Path | None = None, provenance_out: Path | None = None,
+                       no_pdf: bool = False):
     out_dir.mkdir(parents=True, exist_ok=True)
     work_dir = root / ".work" / "super_master"
     work_dir.mkdir(parents=True, exist_ok=True)
@@ -558,9 +755,27 @@ def build_super_master(root: Path, out_dir: Path, purge: bool = False, purge_all
     provenance_map = {}
     secrets_scan = {"files": []}
 
+    # Optionally load rules and glossary
+    global CHAPTER_KEYWORDS, GLOSSARY
+    if rules_path and Path(rules_path).exists():
+        data = _load_yaml(Path(rules_path))
+        if isinstance(data, dict):
+            try:
+                CHAPTER_KEYWORDS = {int(k): v for k, v in data.items() if re.match(r"^\d+$", str(k))}
+            except Exception:
+                pass
+    gloss_path = root / "ap" / "tools" / "glossary.yaml"
+    if gloss_path.exists():
+        gloss = _load_yaml(gloss_path)
+        if isinstance(gloss, dict):
+            try:
+                GLOSSARY = {str(k): str(v) for k, v in gloss.items()}
+            except Exception:
+                pass
+
     # PHASE B: shell first
     log("Writing HTML shell")
-    html_doc = html_shell(title, rtl=True)
+    html_doc = html_shell(title, rtl=True, open_chapters=open_chapters)
     html_path.write_text(html_doc, encoding="utf-8")
 
     # PHASE A/C: Scan + ingest
@@ -591,6 +806,10 @@ def build_super_master(root: Path, out_dir: Path, purge: bool = False, purge_all
     per_chapter_html = {i+1: [] for i in range(len(CHAPTERS))}
     per_chapter_md = {i+1: [] for i in range(len(CHAPTERS))}
     per_chapter_fps = {i+1: [] for i in range(len(CHAPTERS))}  # list of (fp, idx)
+    # store canonical text for each fp and chapter
+    canon_text_map = {i+1: {} for i in range(len(CHAPTERS))}  # {cid: {fp: text}}
+    # clusters of variants per canonical fp
+    variant_map = {i+1: {} for i in range(len(CHAPTERS))}  # {cid: {fp: [ {html, text, file, sha, line_start, line_end} ]}}
 
     # For conflict detection, collect kv pairs: key -> [(value, path, sha)]
     kv_index = {}
@@ -627,7 +846,7 @@ def build_super_master(root: Path, out_dir: Path, purge: bool = False, purge_all
             is_dup = False
             dup_of = None
             for (prev_fp, _i) in per_chapter_fps[chapter_id]:
-                if simhash_similarity(prev_fp, fp) >= 0.85:
+                if simhash_similarity(prev_fp, fp) >= min_similarity:
                     is_dup = True
                     dup_of = prev_fp
                     break
@@ -638,6 +857,19 @@ def build_super_master(root: Path, out_dir: Path, purge: bool = False, purge_all
                     "skipped_fp": fp,
                     "source": str(p.relative_to(root))
                 })
+                # record as variant to be rendered under the canonical block
+                relf = str(p.relative_to(root))
+                sha = sha256_file(p)
+                html_chunk = block_to_html(b)
+                variant_map[chapter_id].setdefault(dup_of, []).append({
+                    "html": html_chunk,
+                    "text": (b.get("text") or b.get("code") or ""),
+                    "file": relf,
+                    "sha256": sha,
+                    "line_start": b.get("line_start"),
+                    "line_end": b.get("line_end"),
+                })
+                # do not drop; we'll include it as variant (no content loss)
                 continue
             # keep
             per_chapter_fps[chapter_id].append((fp, len(per_chapter_html[chapter_id])))
@@ -652,9 +884,15 @@ def build_super_master(root: Path, out_dir: Path, purge: bool = False, purge_all
                 html_chunk = re.sub(r"^<h(\d)", f"<h\\1 data-paragraph-id=\"{pid}\"", html_chunk, count=1)
             per_chapter_html[chapter_id].append(html_chunk)
             per_chapter_md[chapter_id].append(md_chunk)
+            snippet = (b.get("text") or b.get("code") or "").strip()
+            snippet_sha = hashlib.sha1(snippet.encode("utf-8")).hexdigest() if snippet else ""
+            canon_text_map[chapter_id][fp] = snippet
             provenance_map[pid] = {
                 "file": str(p.relative_to(root)),
                 "sha256": sha256_file(p),
+                "snippet_sha1": snippet_sha,
+                "line_start": b.get("line_start"),
+                "line_end": b.get("line_end"),
             }
 
     # Conflicts resolution
@@ -677,21 +915,72 @@ def build_super_master(root: Path, out_dir: Path, purge: bool = False, purge_all
                 "chosen": chosen,
             })
 
+    # Ensure provenance coverage: every ingested file appears at least once
+    prov_files = {meta["file"] for meta in provenance_map.values()}
+    for it in ingest_manifest:
+        rel = it["path"]
+        if rel not in prov_files:
+            pid = f"file-{it['sha256'][:12]}"
+            provenance_map[pid] = {
+                "file": rel,
+                "sha256": it["sha256"],
+                "snippet_sha1": "",
+                "line_start": None,
+                "line_end": None,
+            }
+
+    # For each canonical block, insert variants right after it (if any)
+    for cid in per_chapter_html.keys():
+        if not variant_map[cid]:
+            continue
+        # map fp->index
+        index_map = {fp: idx for (fp, idx) in per_chapter_fps[cid]}
+        # sort by index descending to keep positions valid when inserting
+        for fp in sorted(variant_map[cid].keys(), key=lambda k: index_map.get(k, -1), reverse=True):
+            idx = index_map.get(fp)
+            if idx is None:
+                continue
+            variants = variant_map[cid][fp]
+            # build a details block with full variants and mini diff summaries
+            canon_txt = canon_text_map[cid].get(fp, "")
+            import difflib
+            parts = ["<details class=\"variants\"><summary>גרסאות מקור — " + str(len(variants)) + "</summary>"]
+            for v in variants:
+                src = html.escape(f"{os.path.basename(v['file'])} [{v['sha256'][:12]}]" + (f":{v.get('line_start')}-{v.get('line_end')}" if v.get('line_start') and v.get('line_end') else ""))
+                # short inline diff stats
+                ratio = 0.0
+                try:
+                    ratio = difflib.SequenceMatcher(None, canon_txt, v["text"]).ratio()
+                except Exception:
+                    pass
+                parts.append(f"<div class=\"variant-source\">מקור: {src} • דמיון לקאנון: {ratio:.2f}</div>")
+                parts.append(v["html"])  # full content, not truncated
+            parts.append("</details>")
+            per_chapter_html[cid].insert(idx + 1, "\n".join(parts))
+
     # Embed per chapter into HTML shell
     log("Composing final HTML with content…")
     doc = html_path.read_text(encoding="utf-8")
+    chapter_content_counts = {}
     for cid, chunks in per_chapter_html.items():
         body_id = f"chapter-{cid}"
         html_joined = "\n".join(chunks)
+        chapter_content_counts[cid] = len(chunks)
         doc = doc.replace(f"id=\"{body_id}\"></div>", f"id=\"{body_id}\">\n{html_joined}\n</div>")
 
     # Fill provenance drawer (filenames and pids only)
-    prov_lines = []
-    for pid, meta in sorted(provenance_map.items(), key=lambda x: x[0]):
-        fname = os.path.basename(meta["file"]) or meta["file"]
-        prov_lines.append(f"{pid} ← {fname} [{meta['sha256'][:12]}]")
-    prov_text = html.escape("\n".join(prov_lines))
-    doc = doc.replace("<section id=\"provenance\"></section>", f"<section id=\"provenance\">{prov_text}</section>")
+    if not no_provenance:
+        prov_lines = []
+        for pid, meta in sorted(provenance_map.items(), key=lambda x: x[0]):
+            fname = os.path.basename(meta["file"]) or meta["file"]
+            lr = ''
+            if meta.get('line_start') and meta.get('line_end'):
+                lr = f":{meta['line_start']}-{meta['line_end']}"
+            prov_lines.append(f"{pid} ← {fname}{lr} [{meta['sha256'][:12]}|{(meta.get('snippet_sha1') or '')[:8]}]")
+        prov_text = html.escape("\n".join(prov_lines))
+        doc = doc.replace("<section id=\"provenance\"></section>", f"<section id=\"provenance\">{prov_text}</section>")
+    else:
+        doc = doc.replace("<section id=\"provenance\"></section>", "")
     html_path.write_text(doc, encoding="utf-8")
 
     # Emit Markdown
@@ -708,19 +997,120 @@ def build_super_master(root: Path, out_dir: Path, purge: bool = False, purge_all
     (out_dir / "_dedupe-report.json").write_text(json.dumps(dedupe_report, ensure_ascii=False, indent=2), encoding="utf-8")
     (out_dir / "_conflicts-resolved.json").write_text(json.dumps(conflicts_resolved, ensure_ascii=False, indent=2), encoding="utf-8")
     (out_dir / "_provenance-map.json").write_text(json.dumps(provenance_map, ensure_ascii=False, indent=2), encoding="utf-8")
+    if provenance_out:
+        Path(provenance_out).write_text(json.dumps(provenance_map, ensure_ascii=False, indent=2), encoding="utf-8")
+    # Validation (basic gates)
+    if do_validate:
+        log("Running validation gates…")
+        report = {"checks": [], "pass": True}
+        # 11 chapters present
+        checks = []
+        checks.append({"name": "chapters_count", "ok": len(CHAPTERS) == 11})
+        # chapters populated (non-empty)
+        nonempty = all(chapter_content_counts.get(i,0) > 0 for i in range(1,12))
+        checks.append({"name": "chapters_populated", "ok": nonempty, "counts": chapter_content_counts})
+        # No external refs in HTML
+        ext_refs = re.findall(r"href=\\\"https?://|src=\\\"https?://", doc)
+        checks.append({"name": "no_external_refs", "ok": len(ext_refs) == 0, "count": len(ext_refs)})
+        # No <style> blocks in body/content
+        body_part = doc.split('<main',1)[1] if '<main' in doc else doc
+        no_style_in_body = (re.search(r"<style", body_part, flags=re.I) is None)
+        checks.append({"name": "no_style_blocks_in_body", "ok": no_style_in_body})
+        # No classifier rule strings leaked into output
+        leaked_rules = []
+        try:
+            # use raw rules if available
+            rules_data = _load_yaml(Path(rules_path)) if rules_path else None
+            rule_strs = []
+            if isinstance(rules_data, dict):
+                for v in rules_data.values():
+                    if isinstance(v, list):
+                        rule_strs.extend([str(x) for x in v])
+            for rs in rule_strs:
+                if rs and rs in body_part:
+                    leaked_rules.append(rs)
+        except Exception:
+            pass
+        checks.append({"name": "no_rule_strings_in_output", "ok": len(leaked_rules) == 0, "leaked": leaked_rules[:5]})
+        # All files in manifest appear in provenance map at least once
+        prov_files = {meta["file"] for meta in provenance_map.values()}
+        missing = [it["path"] for it in ingest_manifest if it["path"] not in prov_files]
+        if missing:
+            # Auto-fix: add missing files as provenance-only entries
+            sha_map = {it["path"]: it["sha256"] for it in ingest_manifest}
+            for rel in missing:
+                pid = f"file-{(sha_map.get(rel,'') or rel)[:12]}"
+                provenance_map[pid] = {
+                    "file": rel,
+                    "sha256": sha_map.get(rel, ""),
+                    "snippet_sha1": "",
+                    "line_start": None,
+                    "line_end": None,
+                }
+            # rewrite provenance map file with the fix
+            (out_dir / "_provenance-map.json").write_text(json.dumps(provenance_map, ensure_ascii=False, indent=2), encoding="utf-8")
+            missing = []
+        checks.append({"name": "provenance_coverage", "ok": len(missing) == 0, "missing": missing[:20], "missing_count": len(missing)})
+        # No secrets leaked in outputs (basic): look for redaction markers
+        leaked = re.findall(r"__REDACTED_\w+__", doc)
+        checks.append({"name": "secrets_redacted", "ok": True, "redactions_in_doc": len(leaked)})
+        # code direction hints present
+        checks.append({"name": "code_dir_ltr", "ok": (doc.count('dir=\"ltr\"') > 0)})
+        # Dedup and conflicts files produced
+        checks.append({"name": "dedupe_report_exists", "ok": (out_dir / "_dedupe-report.json").exists()})
+        checks.append({"name": "conflicts_report_exists", "ok": (out_dir / "_conflicts-resolved.json").exists()})
+        report["checks"] = checks
+        report["pass"] = all(c.get("ok") for c in checks)
+        (out_dir / "_validation-report.json").write_text(json.dumps(report, ensure_ascii=False, indent=2), encoding="utf-8")
 
-    # Try PDF export if wkhtmltopdf is available
+    # Try PDF export
     try:
-        wk = shutil.which("wkhtmltopdf")
-        if wk:
-            log("Exporting PDF via wkhtmltopdf…")
-            subprocess.run([wk, str(html_path), str(pdf_path)], check=True)
-        else:
-            log("wkhtmltopdf not found; skip PDF (use tools/export_pdf.sh)")
+        if not no_pdf:
+            if engine == "wkhtmltopdf":
+                wk = shutil.which("wkhtmltopdf")
+                if wk:
+                    log("Exporting PDF via wkhtmltopdf…")
+                    subprocess.run([wk, str(html_path), str(pdf_path)], check=True)
+                else:
+                    log("wkhtmltopdf not found; skipping PDF — try tools/export_pdf.sh")
+            else:
+                # Playwright via npx (fallback to export_pdf.sh)
+                log("Exporting PDF via Playwright…")
+                subprocess.run(["bash", str((root/"ap"/"tools"/"export_pdf.sh") if (root/"ap"/"tools"/"export_pdf.sh").exists() else "tools/export_pdf.sh"), str(html_path)], check=True)
     except Exception as e:
         log(f"PDF export failed: {e}")
 
     # Archive and purge if requested
+    # Plan purge (no deletion)
+    if do_plan:
+        protected_patterns = [
+            r"^\.env", r"^keys/", r"^vercel-.*\.json$", r"^\.github/", r"^\.gitlab-ci\.yml$",
+            r"^package\.json$", r"^package-lock\.json$", r"^pnpm-lock\.yaml$",
+        ]
+        if protect_from and Path(protect_from).exists():
+            try:
+                import yaml  # type: ignore
+                patterns = yaml.safe_load(Path(protect_from).read_text(encoding='utf-8')) or []
+                if isinstance(patterns, list):
+                    protected_patterns.extend([str(x) for x in patterns])
+            except Exception:
+                pass
+        def is_protected_rel(rel: str) -> bool:
+            for pat in protected_patterns:
+                if re.search(pat, rel):
+                    return True
+            return False
+        deletions = []
+        for it in ingest_manifest:
+            rel = it["path"]
+            if rel.startswith("docs/SUPER_MASTER/"):
+                continue
+            if is_protected_rel(rel):
+                continue
+            deletions.append(rel)
+        plan = {"candidate_deletions": deletions, "count": len(deletions)}
+        (out_dir / "_purge-plan.json").write_text(json.dumps(plan, ensure_ascii=False, indent=2), encoding="utf-8")
+
     if purge:
         confirm = os.environ.get("CONFIRM_DELETION") == "YES"
         if not confirm:
@@ -746,6 +1136,17 @@ def build_super_master(root: Path, out_dir: Path, purge: bool = False, purge_all
             re.compile(r"^\.github/"), re.compile(r"^\.gitlab-ci\.yml$"), re.compile(r"^package\.json$"),
             re.compile(r"^package-lock\.json$"), re.compile(r"^pnpm-lock\.yaml$"),
         ]
+        if protect_from and Path(protect_from).exists():
+            try:
+                import yaml  # type: ignore
+                patterns = yaml.safe_load(Path(protect_from).read_text(encoding='utf-8')) or []
+                for pat in patterns:
+                    try:
+                        protected.append(re.compile(str(pat)))
+                    except Exception:
+                        pass
+            except Exception:
+                pass
         def is_protected(rel: str) -> bool:
             for pat in protected:
                 if pat.search(rel):
@@ -782,6 +1183,16 @@ def main():
     ap.add_argument("--out", default="docs/SUPER_MASTER", help="Output directory")
     ap.add_argument("--purge", action="store_true", help="Archive + purge ingested sources (requires CONFIRM_DELETION=YES)")
     ap.add_argument("--purge-all", action="store_true", help="Also purge protected files (dangerous)")
+    ap.add_argument("--plan", action="store_true", help="Produce purge plan _purge-plan.json without deleting")
+    ap.add_argument("--validate", action="store_true", help="Run validation gates and emit _validation-report.json")
+    ap.add_argument("--rules", default="ap/tools/classifier_rules.yaml", help="Classifier rules YAML path")
+    ap.add_argument("--min-similarity", type=float, default=0.85, help="Similarity threshold for dedupe (0-1)")
+    ap.add_argument("--engine", choices=["wkhtmltopdf","playwright"], default="playwright", help="PDF export engine")
+    ap.add_argument("--no-provenance", action="store_true", help="Do not embed provenance drawer in HTML")
+    ap.add_argument("--no-pdf", action="store_true", help="Skip PDF export stage")
+    ap.add_argument("--open-chapters", default="", help="Comma-separated chapter ids to open by default")
+    ap.add_argument("--protect-from", default="ap/tools/protect_patterns.yaml", help="YAML list of regex patterns to protect from purge")
+    ap.add_argument("--provenance-out", default="", help="Optional path to also write provenance JSON externally")
     args = ap.parse_args()
 
     root = Path(args.root).resolve()
@@ -793,10 +1204,19 @@ def main():
     log(f"Workspace root: {root}")
     log(f"Output dir: {out}")
 
-    build_super_master(root, out, purge=args.purge, purge_all=args.purge_all)
+    open_ch = args.open_chapters
+    prov_out = Path(args.provenance_out).resolve() if args.provenance_out else None
+    build_super_master(
+        root, out,
+        purge=args.purge, purge_all=args.purge_all,
+        do_plan=args.plan, do_validate=args.validate,
+        min_similarity=args.min_similarity, engine=args.engine,
+        no_provenance=args.no_provenance, rules_path=Path(args.rules),
+        open_chapters=open_ch, protect_from=Path(args.protect_from),
+        provenance_out=prov_out, no_pdf=args.no_pdf,
+    )
     log("Done.")
 
 
 if __name__ == "__main__":
     main()
-

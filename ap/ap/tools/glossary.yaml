@@ -1,0 +1,7 @@
+# Regex -> replacement (applied to paragraphs), HE primary
+'(?i)prebunk': 'Prebunk'
+'(?i)debunk': 'Debunk'
+'(?i)counter[-\s]?narrative': 'Counter‑Narrative'
+'(?i)tokens?': 'טוקנים'
+'(?i)security': 'אבטחה'
+'(?i)roadmap': 'מפת דרכים'

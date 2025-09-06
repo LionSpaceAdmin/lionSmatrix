@@ -1,0 +1,71 @@
+{
+  "items": [
+    {
+      "key": "name",
+      "values": {
+        "Deploy": [
+          "/Users/daniel/modern-nextjs-app/ap/critical_issues.md"
+        ],
+        "Deploy to Production": [
+          "/Users/daniel/modern-nextjs-app/ap/LIONSPACE_MEGA_MASTER_PLAN.md"
+        ],
+        "Deploy Production": [
+          "/Users/daniel/modern-nextjs-app/ap/system_design.md"
+        ]
+      },
+      "chosen": "Deploy to Production"
+    },
+    {
+      "key": "on",
+      "values": {
+        "push": [
+          "/Users/daniel/modern-nextjs-app/ap/critical_issues.md"
+        ],
+        "push:": [
+          "/Users/daniel/modern-nextjs-app/ap/LIONSPACE_MEGA_MASTER_PLAN.md",
+          "/Users/daniel/modern-nextjs-app/ap/system_design.md"
+        ]
+      },
+      "chosen": "push:"
+    },
+    {
+      "key": "- https",
+      "values": {
+        "//www.lionsofzion.io/api/auth/callback/google": [
+          "/Users/daniel/modern-nextjs-app/ap/DEPLOYMENT_STATUS_FINAL.md",
+          "/Users/daniel/modern-nextjs-app/ap/VERCEL_GCP_UPDATE_INSTRUCTIONS.md"
+        ],
+        "//lionsofzion.io/api/auth/callback/google": [
+          "/Users/daniel/modern-nextjs-app/ap/DEPLOYMENT_STATUS_FINAL.md",
+          "/Users/daniel/modern-nextjs-app/ap/VERCEL_GCP_UPDATE_INSTRUCTIONS.md"
+        ],
+        "//v0-lion-space.__REDACTED_VERCEL_TOKEN__": [
+          "/Users/daniel/modern-nextjs-app/ap/DEPLOYMENT_STATUS_FINAL.md",
+          "/Users/daniel/modern-nextjs-app/ap/VERCEL_GCP_UPDATE_INSTRUCTIONS.md"
+        ],
+        "//lionsofzion.io": [
+          "/Users/daniel/modern-nextjs-app/ap/VERCEL_GCP_UPDATE_INSTRUCTIONS.md"
+        ],
+        "//www.lionsofzion.io": [
+          "/Users/daniel/modern-nextjs-app/ap/VERCEL_GCP_UPDATE_INSTRUCTIONS.md"
+        ],
+        "//v0-lion-space.vercel.app": [
+          "/Users/daniel/modern-nextjs-app/ap/VERCEL_GCP_UPDATE_INSTRUCTIONS.md"
+        ]
+      },
+      "chosen": "//v0-lion-space.__REDACTED_VERCEL_TOKEN__"
+    },
+    {
+      "key": "style e fill",
+      "values": {
+        "#1E293B,stroke:#6EE7B7,stroke-width:1px": [
+          "/Users/daniel/modern-nextjs-app/ap/site-mapping-and-fixes.html"
+        ],
+        "#1E293B,stroke:#FFD700,stroke-width:2px": [
+          "/Users/daniel/modern-nextjs-app/ap/site-mapping-and-fixes.html"
+        ]
+      },
+      "chosen": "#1E293B,stroke:#FFD700,stroke-width:2px"
+    }
+  ]
+}

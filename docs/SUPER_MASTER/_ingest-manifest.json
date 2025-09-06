@@ -45,6 +45,26 @@
     "sha256": "b8b8fa4669ab69aebab4f0da49040cc30ddfab823cc51ed48526843ef1187cf3"
   },
   {
+    "path": "ap/ap/tools/classifier_rules.yaml",
+    "size": 1057,
+    "sha256": "5e592bc495b8bf6c0fa3f9c2f2179c6fe69b5cfee8c44de6d69716138e896a46"
+  },
+  {
+    "path": "ap/ap/tools/config.yaml",
+    "size": 393,
+    "sha256": "00c317c0c917d690e2e29e517fd613f48b5f31f9f11368923eb450971ebc747c"
+  },
+  {
+    "path": "ap/ap/tools/glossary.yaml",
+    "size": 253,
+    "sha256": "5b046478b3cebc8b7cd85d5e164f2f10ead61d6b259230abba34ff55e926f9d4"
+  },
+  {
+    "path": "ap/ap/tools/protect_patterns.yaml",
+    "size": 157,
+    "sha256": "3b3babcba67f88cb1ccd1dd61d001a8ef2ca8e0fc3d7fcbb1a7ba4497b4201d0"
+  },
+  {
     "path": "ap/audit_report.md",
     "size": 8393,
     "sha256": "d9c36f6dafcb3415d7e0ea71632e3e4a4c0e2266835f3a2229199bcb3e66ae24"
@@ -195,9 +215,54 @@
     "sha256": "0f4d625152b05130a6648a5e1e8cf79ba782180c622b1961c64e0d3557121aa3"
   },
   {
+    "path": "ap/preview_SUPER_MASTER/_conflicts-resolved.json",
+    "size": 2369,
+    "sha256": "9118c69c5c5cbee942edd0d5590f06cd21b08d70c3a9369b7689456ab0d2ce06"
+  },
+  {
+    "path": "ap/preview_SUPER_MASTER/_dedupe-report.json",
+    "size": 19024,
+    "sha256": "8edc37824d87caaee29bea7f1aafa7a008c728661afc20502ed062b070abcdcb"
+  },
+  {
+    "path": "ap/preview_SUPER_MASTER/_ingest-manifest.json",
+    "size": 6254,
+    "sha256": "d11d538166b8a57ad4971b1a8762535a55e0c7b501cb3d3370b805a0c128fed7"
+  },
+  {
+    "path": "ap/preview_SUPER_MASTER/_provenance-map.json",
+    "size": 328927,
+    "sha256": "b0a4883986a08624d037604aacf2e59d6ef95c0898691a08fb3bdabea9156677"
+  },
+  {
+    "path": "ap/preview_SUPER_MASTER/_purge-plan.json",
+    "size": 1535,
+    "sha256": "50be59138bb155fa7b62283113068bf582f0df741c64d62beb023545a5b77be5"
+  },
+  {
+    "path": "ap/preview_SUPER_MASTER/_secrets-scan.json",
+    "size": 70158,
+    "sha256": "b59c86e9e880f7c66cbf360ce43f8f1fa3f13eb1d2e1511e8fdbb475a0b40e69"
+  },
+  {
+    "path": "ap/preview_SUPER_MASTER/_validation-report.json",
+    "size": 1036,
+    "sha256": "4d1f0745a843a782571cc2832df8b199827a4c2acac96eb4805fb14b0afaefd5"
+  },
+  {
+    "path": "ap/preview_SUPER_MASTER/LIONSPACE_SUPER_MASTER_DOCUMENT.html",
+    "size": 520938,
+    "sha256": "5228ba647727064841b70edb0d77b38d48a2df764bd8007308b8401c5efd5f84"
+  },
+  {
+    "path": "ap/preview_SUPER_MASTER/LIONSPACE_SUPER_MASTER_DOCUMENT.md",
+    "size": 280499,
+    "sha256": "5bdce3341ca680c903917c6eaa979026b4314dd92494fc4b5a9108859f128bc6"
+  },
+  {
     "path": "ap/README_SUPER_MASTER.md",
-    "size": 1134,
-    "sha256": "19532dd33ddbe7b285b8716592770d7acf4852a418c6f17653a025070b4313ce"
+    "size": 2012,
+    "sha256": "fc5427b630d3d9f7e0fbbfcdf85c07453bb0a4d027b743e36a2f90fe9ab9e823"
   },
   {
     "path": "ap/site-mapping-and-fixes.html",
@@ -216,8 +281,8 @@
   },
   {
     "path": "ap/tools/export_pdf.sh",
-    "size": 1019,
-    "sha256": "5f08ca4e31aed1b66977df29c0224785051046cad54cd525ae6bc8950a1c912b"
+    "size": 963,
+    "sha256": "b177c6ee8202d14e931317f49fcbbdc6a6e0e65442023b143148ab72e0525da3"
   },
   {
     "path": "ap/vercel-config.json",
@@ -248,11 +313,6 @@
     "path": "desigen_data/cognitive_warfare_messages_multilingual.json",
     "size": 17348,
     "sha256": "3c9fcbe6456645dcaa3c6df80d8474a39323cf96b6e86615d9adfc3437b2a5b7"
-  },
-  {
-    "path": "docs/SUPER_MASTER/LIONSPACE_SUPER_MASTER_DOCUMENT.html",
-    "size": 7081,
-    "sha256": "e5dbf52fc57f23fa1a621115812ca62db8688033e9806319dd7ff306e91fe2a3"
   },
   {
     "path": "github/.claude/agents/github-org-restructure.md",

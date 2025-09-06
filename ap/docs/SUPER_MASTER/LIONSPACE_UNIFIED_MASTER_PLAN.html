@@ -1,0 +1,203 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>LIONSPACE — Unified Master Plan</title>
+<style>
+:root { --bg:#0e1116; --fg:#e6edf3; --muted:#9da7b3; --border:#21262d; --accent:#4db6ff; }
+html,body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif}
+main{max-width:980px;margin:0 auto;padding:24px}
+h1,h2,h3{margin:16px 0;color:var(--fg)}
+code,pre{direction:ltr;text-align:left;background:#0b1220;border:1px solid var(--border);border-radius:6px}
+pre{padding:12px;overflow:auto}
+a{color:var(--accent);text-decoration:none}
+hr{border:0;border-top:1px solid var(--border);margin:16px 0}
+</style>
+</head>
+<body><main><h1>LIONSPACE — Unified Master Plan</h1>
+<br/>
+<div>מסמך זה מאחד את כל תכניות העבודה הקיימות (MEGA/UNIFIED/COMPLETE, system_design, feature_status, technical_debt, phase reports, deployment summaries) למסמך־על אחד, קוהרנטי וברור. הוא כתוב בעברית עם מונחים טכניים באנגלית היכן שנדרש. אין נספחים; אין שכפולים; אין אזכורי רג׳קס/כללי מסווג — רק התוכן הקנוני.</div>
+<br/>
+<div>גרסת מסמך: 2025‑09‑07 • מצב: Pre‑Production (עם חסרים מהותיים)</div>
+<br/>
+<hr/>
+<br/>
+<h2>1) חזון ומטרות הפלטפורמה</h2>
+<br/>
+<div>LIONSPACE היא פלטפורמת Cognitive Warfare/OSINT מודרנית שמעניקה למשתמש מקצועי “עמדת מודיעין” אזרחית מתקדמת: איסוף, ניתוח, זיהוי נרטיבים, ניטור איומים, ובניית קמפייני השפעה נגדיים (Prebunk/Debunk/Counter‑Narrative) — בממשק Web טרמינלי מהיר ונקי.</div>
+<br/>
+<div>עיקרי החזון:</div>
+<div>• “Arm Yourself with the Truth” — מנוע אמת פרגמטי הבנוי על Data + AI + ניתוח אנושי.</div>
+<div>• חוויית “War‑Room Terminal” עם Dashboard חי, Threat Feed, ו־Workflows סדורים.</div>
+<div>• שקיפות מלאה: כל טענה נשענת על מקורות ניתנים לאימות (OSINT + לוגים מערכתיים).</div>
+<br/>
+<div>יעדים טכניים (יעדי ליבה):</div>
+<div>• מובייל/דסקטופ מהירים (LCP ≤ 1.5s, Lighthouse ≥ 95), אבטחה חזקה (RBAC, CSP, Rate‑Limit), ותצורת פרודקשן ניתנת לסקייל.</div>
+<div>• אינטגרציה ל‑Gemini (Google Generative AI) כ־Analysis Engine, עם יכולת החלפה/ריבוי מודלים בהמשך.</div>
+<br/>
+<hr/>
+<br/>
+<h2>2) תחום וכיסוי (In‑Scope / Out‑of‑Scope)</h2>
+<br/>
+<div>In‑Scope (שלב V1):</div>
+<div>• Web App רספונסיבי (Next.js 15, App Router) + API Routes.</div>
+<div>• מנוע זיהוי/מעקב נרטיבים (AI + חוקים), OSINT Intake/Archive, Threat Feed חי.</div>
+<div>• קמפייני נגד (Counter/Prebunk/Debunk) עם תבניות מבוססות נתונים.</div>
+<div>• Dashboard מדדים + אנליזות (KPIs, תובנות AI, מצב מערכת).</div>
+<div>• Auth (OAuth Google) + RBAC בסיסי; PostgreSQL + Prisma; Observability בסיסי.</div>
+<br/>
+<div>Out‑of‑Scope (V1):</div>
+<div>• מובייל native; ML מודל־בית; תשלומים; הרחבות Marketplace; Kubernetes מלא (אלא אם יידרש סקל).</div>
+<br/>
+<hr/>
+<br/>
+<h2>3) יכולות ליבה ו‑Use‑Cases</h2>
+<br/>
+<div>יכולות:</div>
+<div>1. Threat Intelligence: זיהוי נרטיבים/איומים, תיוג חומרה, מעקב בזמן אמת, והיסטוריית אירועים.</div>
+<div>2. OSINT Operations: איסוף ממקורות פתוחים, אימות, ארכוב, חיפוש מתקדם, הפקה לדוחות.</div>
+<div>3. Counter‑Operations: יצירת קמפייני השפעה נגדיים (תבניות, פרסונות, ערוצים) עם A/B ו‑KPIs.</div>
+<div>4. Analytics &amp; Reporting: דשבורדים חיים, דוחות PDF/HTML, יצוא נתונים.</div>
+<div>5. Governance &amp; Security: הרשאות תפקידיות, לוגים, מעקב פעילות, ניהול סודות.</div>
+<br/>
+<div>Use‑Cases טיפוסיים:</div>
+<div>• Analyst בודק גל דה‑מידע, מפיק הערכת מצב, ומפעיל קמפיין נגד.</div>
+<div>• Team Lead פוקח דשבורד מטריקות (Threats/Campaigns) ומאשר פעולות.</div>
+<div>• OSINT Operator מעלה מקורות, מתייג ומאמת, ומייצא ראיות לדוח.</div>
+<br/>
+<hr/>
+<br/>
+<h2>4) ארכיטקטורה לוגית (ללא קוד)</h2>
+<br/>
+<div>שכבות מערכת:</div>
+<div>1. Client (Next.js Web): ממשקי Dashboard/War‑Room/OSINT/Reports; state קל; i18n + RTL.</div>
+<div>2. API Gateway (Next.js API Routes): אימות, Rate‑Limit, ולידציה (Zod), תקנון תגובות/שגיאות.</div>
+<div>3. Services (Business Layer):</div>
+<div>• IntelligenceEngine (AI orchestration, narrative tracking, threat scoring)</div>
+<div>• OSINTService (ingest, verify, archive, search)</div>
+<div>• CampaignService (generate/optimize/track)</div>
+<div>• AnalyticsService (metrics/events/dashboards)</div>
+<div>4. Data Layer: PostgreSQL (Prisma), Redis (cache), Object Storage לקבצים (GCS/S3).</div>
+<div>5. Integrations: Google OAuth, Gemini API, News APIs, Sentry, Vercel Analytics.</div>
+<br/>
+<div>עקרונות:</div>
+<div>• “API‑First”: כל פעולה נסגרת ב‑API עם סוגי נתונים קבועים.</div>
+<div>• “Secure by Default”: RBAC, CSP, CSRF, ולידציה קפדנית, Rate‑Limit.</div>
+<div>• “Observability‑Ready”: טרייסים, לוגים מבניים, מטריקות עסקיות וטכניות.</div>
+<br/>
+<hr/>
+<br/>
+<h2>5) מודולים/שירותים ותפקידם (תיאורי)</h2>
+<br/>
+<div>• AuthService: OAuth Google (NextAuth), JWT/Sessions, RBAC (roles: admin, analyst, viewer), ניהול פרופיל.</div>
+<div>• IntelligenceEngine: ניתוחי Gemini, חישוב Threat Score, קלסטר נרטיבים, עדכוני real‑time (SSE/WebSocket).</div>
+<div>• OSINTService: איסוף/ייבוא, אימות, ארכוב, אינדוקס חיפוש; ניהול מקורות ותיעוד אמינות.</div>
+<div>• CampaignService: תבניות Counter/Prebunk/Debunk, יצירה וטיוב, ניטור ביצועים, יצוא.</div>
+<div>• AnalyticsService: KPIs/metrics, Dashboards, Alerts; שילוב Vercel Analytics + Sentry.</div>
+<div>• AdminService: ניהול משתמשים/תפקידים, קונפיג, לוגים, יצוא ביקורות.</div>
+<br/>
+<hr/>
+<br/>
+<h2>6) נתונים ושכבת אינטגרציה (בקצרה)</h2>
+<br/>
+<div>מודל בסיסי (טבלאי):</div>
+<div>• users, sessions — חשבונות וגישה.</div>
+<div>• intelligence_reports — דוחות ניתוח (content, analysis, threat_level, status).</div>
+<div>• campaigns — קמפיינים (objectives, audiences, channels, metrics).</div>
+<div>• osint_data — נתוני OSINT (source, content, metadata, verified, indicators).</div>
+<br/>
+<div>זרימות עיקריות:</div>
+<div>• Client → API → IntelligenceEngine (AI call) → persist report → Dashboard/Threat Feed מתעדכן.</div>
+<div>• Ingest → Verify → Archive → Search/Export (OSINT lifecycle).</div>
+<br/>
+<div>אינטגרציות:</div>
+<div>• Google OAuth (Auth), Gemini (AI), Sentry (Errors), News APIs (איסוף), GCS/S3 (קבצים).</div>
+<br/>
+<hr/>
+<br/>
+<h2>7) אבטחה, הרשאות ומדיניות</h2>
+<br/>
+<div>Authentication/Authorization:</div>
+<div>• OAuth2 (Google), NextAuth, JWT/Sessions; RBAC תפקידים; MFA בהמשך.</div>
+<br/>
+<div>Application Security:</div>
+<div>• ולידציה (Zod), הגנת CSRF, Rate‑Limit, כותרות אבטחה (CSP/Strict‑Transport‑Security/Frame‑Options), הימנעות מחשיפת מפתחות בקוד/מסמכים.</div>
+<br/>
+<div>Data Security:</div>
+<div>• הצפנה בתעבורה (TLS 1.3) ובמנוחה (AES‑256), מסכות PII, Audit Logs, מדיניות שמירה/מחיקה, גיבויים מוצפנים.</div>
+<br/>
+<div>Privacy/Compliance:</div>
+<div>• הכנה ל‑GDPR/CCPA (זכויות גישה/מחיקה, שקיפות עיבוד, DPA).</div>
+<br/>
+<hr/>
+<br/>
+<h2>8) תפעול, ניטור ו‑SLO/KPIs</h2>
+<br/>
+<div>SLO יעד:</div>
+<div>• זמינות 99.9%, זמן תגובה API p95 &lt; 200ms, שגיאות &lt; 0.1%.</div>
+<br/>
+<div>Observability:</div>
+<div>• Sentry (שגיאות), Vercel Analytics (ביצועים), לוגים מבניים, מטריקות מותאמות (activeUsers, analysisCount, threatDetections, cpu/mem/db).</div>
+<br/>
+<div>KPIs עסקיים/שימוש:</div>
+<div>• Engagement (&gt;5m session), Retention (&gt;40% WAU), שימוש ≥ 3 פיצ׳רים לסשן, קצב גידול 20% MoM.</div>
+<br/>
+<hr/>
+<br/>
+<h2>9) מפת דרך מרוכזת (Roadmap)</h2>
+<br/>
+<div>Phase 0 — Stabilize (Days 1‑3)</div>
+<div>• תיקון build, סיום exports/Routes/TS, סידור env, ריצת smoke על כל המסכים.</div>
+<br/>
+<div>Phase 1 — Auth + Data (Week 1)</div>
+<div>• NextAuth עם Google, מודל users/sessions, הגנת RBAC; בחירת DB (PostgreSQL/Supabase), Prisma + מיגרציות.</div>
+<br/>
+<div>Phase 2 — Intelligence Core (Weeks 2‑3)</div>
+<div>• חיבור Gemini, endpoints /intelligence/*, שמירת reports, Threat Feed חי, Dashboard אמיתי.</div>
+<br/>
+<div>Phase 3 — OSINT + Archive (Week 4)</div>
+<div>• Intake/Verify/Archive/Search, ניהול מקורות, יצוא דוחות.</div>
+<br/>
+<div>Phase 4 — Campaigns (Weeks 5‑6)</div>
+<div>• תבניות Counter/Prebunk/Debunk, Generator, ניטור ביצועים.</div>
+<br/>
+<div>Phase 5 — Hardening &amp; QA (Week 7)</div>
+<div>• בדיקות (Unit/Int/E2E), ביצועים (Code‑split/Lazy), אבטחה (CSP/Rate‑Limit), Docs.</div>
+<br/>
+<div>Phase 6 — Launch (Week 8)</div>
+<div>• Deploy מלא, דומיין, מטמונים/CDN, גיבויים, מעקב פוסט‑השקה.</div>
+<br/>
+<hr/>
+<br/>
+<h2>10) סיכוני מפתח והנחות עבודה</h2>
+<br/>
+<div>סיכונים:</div>
+<div>• חשיפת סודות/מפתחות היסטוריים — נדרש סקר סודות והחלפה.</div>
+<div>• תלות גבוהה במודל יחיד (Gemini) — יש להכין ממשק pluggable לריבוי מודלים.</div>
+<div>• חסר Backend/Data כיום — דורש תיאום זמנים ומשאבים (3–6 שבועות).</div>
+<div>• ביצועים/סקיילינג — ללא Cache/Queue תיתכן שחיקה ב‑p95.</div>
+<br/>
+<div>הנחות:</div>
+<div>• Vercel + GCP זמינים; PostgreSQL מנוהל (Supabase) מועדף ל‑TTV מהיר; Redis מנוהל (Upstash).</div>
+<div>• צוות 3–4 מפתחים בספרינט דו‑שבועי; תעדוף אבטחה/תפעול מוקדם.</div>
+<br/>
+<hr/>
+<br/>
+<h2>11) מפת שמות מאוחדת (Alias Map)</h2>
+<br/>
+<div>| שם במקורות | שם קאנוני | הערות |</div>
+<div>|---|---|---|</div>
+<div>| LionSpace / LIONSPACE / lionspace-next | LIONSPACE | שם הפלטפורמה |</div>
+<div>| cognitive‑warrior | Intelligence Engine | רכיב/יכולת ניתוח ואיתור נרטיבים |</div>
+<div>| War Room | War‑Room | מסך/אזור מבצעי בזמן אמת |</div>
+<div>| Unified Platform / platform | Platform | אזור מאוחד בתוך האפליקציה |</div>
+<div>| News Pulse / Analytics | Analytics | מודול מדדים/ניתוח חדשותי |</div>
+<div>| Investigation Terminal | Investigation Terminal | טרמינל חקירתי (CLI UI) |</div>
+<div>| Prebunk/Debunk/Counter‑Narrative | Counter Ops | משפחת יכולות לקמפיינים נגדיים |</div>
+<br/>
+<div>הערה: טבלת הכינויים תתרחב תוך כדי אינטגרציה מול הקוד והקונפיג (שלב הבא).</div>
+<br/>
+<hr/>
+<br/>
+<div>סוף מסמך. זהו הקאנון המאוחד — ניסוח אחד, רציף וברור, שמרכז את כל המקורות לתכנית עבודה אחת. השלב הבא יהיה לגזור ממנו דיאגרמות (ארכיטקטורה/זרימות/CI‑CD), טבלאות ENV/Routes, וצעדי מימוש ממוקדים.</div>
+<br/></main></body></html>
