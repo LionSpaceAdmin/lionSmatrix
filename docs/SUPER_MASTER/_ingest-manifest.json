@@ -1,0 +1,762 @@
+[
+  {
+    "path": ".claude/agents/frontend-designer.md",
+    "size": 19070,
+    "sha256": "e56b9d994e0cc2fc975c8fa072669b5f409623b0c627ccb4b1314f3c661096fa"
+  },
+  {
+    "path": ".claude/agents/nextjs-project-manager.md",
+    "size": 8264,
+    "sha256": "5ce13a813615b24836b899f28358d4a54ad845f126028cefd5f5169ee07678d4"
+  },
+  {
+    "path": ".claude/agents/nextjs-project-orchestrator.md",
+    "size": 8812,
+    "sha256": "d2f463560d12f851f9aca6759bcda090926e597a7afe317eceecd2294fb66c46"
+  },
+  {
+    "path": ".claude/settings.local.json",
+    "size": 1021,
+    "sha256": "004e84302bbc24f16984b4a6865f4da79326ecbf4dad11ee2e4568719b7bb14f"
+  },
+  {
+    "path": ".turbo/cache/01f331b7b1702827-meta.json",
+    "size": 42,
+    "sha256": "389e9127d2197fb5f68a4c67cfa5852b0ffc15c0b121689b9039b28d53e4efca"
+  },
+  {
+    "path": ".turbo/cache/9585e42c19f314a2-meta.json",
+    "size": 42,
+    "sha256": "bb417d516eefb1bed0b1420ba83c8919f0fe8955c7d5bd82025cdf65b46717b6"
+  },
+  {
+    "path": ".turbo/cache/b4d870125e749599-meta.json",
+    "size": 42,
+    "sha256": "48ef4f5094456048713c2a5fe0672bf47a0ae46d8ecb1f756b3b7e97b410e1a3"
+  },
+  {
+    "path": ".turbo/cache/bd2ccf0d6ad10077-meta.json",
+    "size": 42,
+    "sha256": "cdd50b155dd098751b0fc59787ff0cf42b6a38b973d891f625d712e260dfdd4a"
+  },
+  {
+    "path": ".turbo/cache/c58d825e929a7708-meta.json",
+    "size": 42,
+    "sha256": "b8b8fa4669ab69aebab4f0da49040cc30ddfab823cc51ed48526843ef1187cf3"
+  },
+  {
+    "path": "ap/audit_report.md",
+    "size": 8393,
+    "sha256": "d9c36f6dafcb3415d7e0ea71632e3e4a4c0e2266835f3a2229199bcb3e66ae24"
+  },
+  {
+    "path": "ap/cognitivewarrior-analysis.html",
+    "size": 51339,
+    "sha256": "e3daafdd6ae22ea71cfbec542fd0a533e9d576af49c0d8430dc9bcfece507806"
+  },
+  {
+    "path": "ap/critical_issues.md",
+    "size": 7758,
+    "sha256": "f6980aca5e242f6b125403184ce7daa35635aa2b832891c661a1a40efe3bdfd3"
+  },
+  {
+    "path": "ap/DEPLOYMENT_STATUS_FINAL.md",
+    "size": 3859,
+    "sha256": "78450348df1c333950e94987b88ec2d39a4146d7b3b1600631c75498a987f27c"
+  },
+  {
+    "path": "ap/feature_status.md",
+    "size": 7618,
+    "sha256": "386c37bf5425bf6c1458ee745312108f472f99ece6fdc163622d4df076e6ee72"
+  },
+  {
+    "path": "ap/FINAL_DEPLOYMENT_SUMMARY.md",
+    "size": 2675,
+    "sha256": "3ddb2721e72a4b604cb5ed3186475f233334c962232d9f0d62a6211cc7a4d186"
+  },
+  {
+    "path": "ap/gcp-complete-config.json",
+    "size": 4268,
+    "sha256": "08e33a9194de3f61d11d25f593d45bf34427f879617c229cef9f78e06db8ed82"
+  },
+  {
+    "path": "ap/google-oauth-credentials-latest.json",
+    "size": 722,
+    "sha256": "e7a79927b8fcea32274e66ca5ad65c7d2ff08818dab510ad16184c0a52e6fe4e"
+  },
+  {
+    "path": "ap/google-oauth-credentials.json",
+    "size": 529,
+    "sha256": "9d63c10354a24afadead5619b79ee4686fe69d1397038b30ee80780a11ee5120"
+  },
+  {
+    "path": "ap/keys/gh_pat.txt",
+    "size": 41,
+    "sha256": "2b60fb22b71c52ce42ba2777b163c406549b7c057476d671c6a35bfddb636d0d"
+  },
+  {
+    "path": "ap/lions-space-migration-report.html",
+    "size": 22713,
+    "sha256": "9e4aa4733e1ff6025f82dc97ff1be1bf2ed419adab03105af197c5f37d5179c1"
+  },
+  {
+    "path": "ap/lionspace-complete-config-updated.json",
+    "size": 6563,
+    "sha256": "0e78eb3649991a38d375bd52c31e1ffe91739cb9c635047272f64281a852abbf"
+  },
+  {
+    "path": "ap/lionspace-deployment-package/AGENT_INSTRUCTIONS.md",
+    "size": 2265,
+    "sha256": "6f25c18e5289285dfe9edbabfa573cef3768c4c0ce1c530584f586108da4d0bf"
+  },
+  {
+    "path": "ap/lionspace-deployment-package/google-oauth-credentials-latest.json",
+    "size": 722,
+    "sha256": "e7a79927b8fcea32274e66ca5ad65c7d2ff08818dab510ad16184c0a52e6fe4e"
+  },
+  {
+    "path": "ap/lionspace-deployment-package/lionspace-complete-config-updated.json",
+    "size": 6687,
+    "sha256": "93319e059fbe387d5646278e8681e860f0a0d14c9126e8086b4b1955f0eb7501"
+  },
+  {
+    "path": "ap/lionspace-deployment-package/lionspace-service-account-key.json",
+    "size": 2347,
+    "sha256": "0e391ae474032820f3fe3595c64ab174703f959bf36ae01831f70a536ab3a7a8"
+  },
+  {
+    "path": "ap/lionspace-deployment-package/setup-vercel-env.sh",
+    "size": 2430,
+    "sha256": "b96b592bd3dea8020d4c1fe200e490501ebcf6ab57e5057fceea1e1067ecc291"
+  },
+  {
+    "path": "ap/lionspace-service-account-key.json",
+    "size": 2347,
+    "sha256": "0e391ae474032820f3fe3595c64ab174703f959bf36ae01831f70a536ab3a7a8"
+  },
+  {
+    "path": "ap/LIONSPACE_COMPLETE_DOCUMENTATION.md",
+    "size": 8997,
+    "sha256": "65f61d969ed7aaa208c72bb6587305ebb07d58484d37e2d58fcf77e5198f4e49"
+  },
+  {
+    "path": "ap/LIONSPACE_MEGA_MASTER_PLAN.md",
+    "size": 34068,
+    "sha256": "19c0e50ca635550d121541cbb0ffba9c30619e816a5f1d3eba712a6362d4fdab"
+  },
+  {
+    "path": "ap/LIONSPACE_SUPER_MASTER1_DOCUMENT.md",
+    "size": 4770,
+    "sha256": "a485f5c895fe4879fc331167e91c76989905898f3c84fca421dd0ba28879bd91"
+  },
+  {
+    "path": "ap/LIONSPACE_SUPER_MASTER_DOCUMENT.html",
+    "size": 11786,
+    "sha256": "0463270a50b6b898e0695350974b0189eb70aad79258623897c339b146d4212f"
+  },
+  {
+    "path": "ap/LIONSPACE_SUPER_MASTER_DOCUMENT.md",
+    "size": 7390,
+    "sha256": "861e060e7ca39838639ff553217fee4ffc88524046b8b8e12e080f30c9dbfa74"
+  },
+  {
+    "path": "ap/LIONSPACE_TECHNICAL_GUIDE.md",
+    "size": 33887,
+    "sha256": "d81c096fb4884c22967a4b161e9e886d83120a44fd72aa766d2d766fa4eb0c54"
+  },
+  {
+    "path": "ap/LIONSPACE_UNIFIED_MASTER_PLAN.md",
+    "size": 12388,
+    "sha256": "f9a1beabe97ea3c018d86d800bfbdf6982e11deed2a08a134e5d03a3172e7df0"
+  },
+  {
+    "path": "ap/LOZ_agents_full_static_v1.html",
+    "size": 24334,
+    "sha256": "4f44f072d6f53a7ad073923fd240e3fa1228b2589deec4994b21a0ead688aaef"
+  },
+  {
+    "path": "ap/LOZ_claude_agents_catalog_full.html",
+    "size": 75870,
+    "sha256": "adf249df66ecd92a2a1df71c1139e853bdacc4e36873ab02b0ca321589a79c84"
+  },
+  {
+    "path": "ap/phase1_refactoring_report.md",
+    "size": 7348,
+    "sha256": "1597e327163e7a6b46efb8c8e97c9d21b6fa98d041e02eb85d7d9861dff38a71"
+  },
+  {
+    "path": "ap/phase2_visual_compliance_report.md",
+    "size": 9830,
+    "sha256": "d18b23eee7dbd343cf081c7d145e7bd11a17fa7faf699e3c9585d84012391e8f"
+  },
+  {
+    "path": "ap/phase3_final_readiness_report.md",
+    "size": 11035,
+    "sha256": "0f4d625152b05130a6648a5e1e8cf79ba782180c622b1961c64e0d3557121aa3"
+  },
+  {
+    "path": "ap/README_SUPER_MASTER.md",
+    "size": 1134,
+    "sha256": "19532dd33ddbe7b285b8716592770d7acf4852a418c6f17653a025070b4313ce"
+  },
+  {
+    "path": "ap/site-mapping-and-fixes.html",
+    "size": 47798,
+    "sha256": "60d549f2c3634c5c914fe5d2ea746026df280cc25f6916950470ed264b336f8a"
+  },
+  {
+    "path": "ap/system_design.md",
+    "size": 12283,
+    "sha256": "266012714a2c66d67c522e02ebd27bfa10082bfda5b22139723c211aaface81a"
+  },
+  {
+    "path": "ap/technical_debt.md",
+    "size": 8207,
+    "sha256": "a293bfb39d25414df0f3ea035349af379cc04c165be17495b3288093d8c5f8dc"
+  },
+  {
+    "path": "ap/tools/export_pdf.sh",
+    "size": 1019,
+    "sha256": "5f08ca4e31aed1b66977df29c0224785051046cad54cd525ae6bc8950a1c912b"
+  },
+  {
+    "path": "ap/vercel-config.json",
+    "size": 491,
+    "sha256": "efc112af312b37307f273028740b1f11da51f1a824e725822915b5a894883df7"
+  },
+  {
+    "path": "ap/vercel-deployment-config.json",
+    "size": 969,
+    "sha256": "5dc5c938e75ab0a51e5e45d8d7c0d7e3015778a0b2c8fb36bb91a7ee489a242d"
+  },
+  {
+    "path": "ap/vercel-gcp-integration.json",
+    "size": 2320,
+    "sha256": "50610d088eed68042f0b2a8f2ca394f58a964d5ae70ff807a05a6f3a3058423e"
+  },
+  {
+    "path": "ap/VERCEL_GCP_UPDATE_INSTRUCTIONS.md",
+    "size": 2804,
+    "sha256": "8990783d22355a1928dbb32b9ccb3463a40f57b063be1e63bd909011f9ac6072"
+  },
+  {
+    "path": "CLAUDE.md",
+    "size": 987,
+    "sha256": "10218502a6032da47d66defaaaa68145629d27e15e389dcfecfa3d394915f5ff"
+  },
+  {
+    "path": "desigen_data/cognitive_warfare_messages_multilingual.json",
+    "size": 17348,
+    "sha256": "3c9fcbe6456645dcaa3c6df80d8474a39323cf96b6e86615d9adfc3437b2a5b7"
+  },
+  {
+    "path": "docs/SUPER_MASTER/LIONSPACE_SUPER_MASTER_DOCUMENT.html",
+    "size": 7081,
+    "sha256": "e5dbf52fc57f23fa1a621115812ca62db8688033e9806319dd7ff306e91fe2a3"
+  },
+  {
+    "path": "github/.claude/agents/github-org-restructure.md",
+    "size": 5470,
+    "sha256": "db9f66a8af5ecbe2b08e8dec3e6287d2b6558ba8aacc70c12d978b396754a67e"
+  },
+  {
+    "path": "github/.claude/settings.local.json",
+    "size": 1842,
+    "sha256": "7337676783d0bcc085153dc4a44d3a84453fe4f5521e4002aaa4926025832a42"
+  },
+  {
+    "path": "github/add-vercel-env-vars.sh",
+    "size": 2826,
+    "sha256": "8502ab19db18389438dfca176eb7fafe2fcbe336820d769b4d0105a5b96ccab3"
+  },
+  {
+    "path": "github/ap/codespaces-diagnosis-report.md",
+    "size": 4414,
+    "sha256": "825ab5cea7f3d2638da1551847a71ff89ffd07e3f840eecdfcefba8cdad41a73"
+  },
+  {
+    "path": "github/ap/DEPLOYMENT_STATUS_FINAL.md",
+    "size": 3859,
+    "sha256": "78450348df1c333950e94987b88ec2d39a4146d7b3b1600631c75498a987f27c"
+  },
+  {
+    "path": "github/ap/FINAL_DEPLOYMENT_SUMMARY.md",
+    "size": 2675,
+    "sha256": "3ddb2721e72a4b604cb5ed3186475f233334c962232d9f0d62a6211cc7a4d186"
+  },
+  {
+    "path": "github/ap/gcp-complete-config.json",
+    "size": 4268,
+    "sha256": "08e33a9194de3f61d11d25f593d45bf34427f879617c229cef9f78e06db8ed82"
+  },
+  {
+    "path": "github/ap/google-oauth-credentials-latest.json",
+    "size": 722,
+    "sha256": "e7a79927b8fcea32274e66ca5ad65c7d2ff08818dab510ad16184c0a52e6fe4e"
+  },
+  {
+    "path": "github/ap/google-oauth-credentials.json",
+    "size": 529,
+    "sha256": "9d63c10354a24afadead5619b79ee4686fe69d1397038b30ee80780a11ee5120"
+  },
+  {
+    "path": "github/ap/keys/gh_pat.txt",
+    "size": 41,
+    "sha256": "2b60fb22b71c52ce42ba2777b163c406549b7c057476d671c6a35bfddb636d0d"
+  },
+  {
+    "path": "github/ap/lions-space-migration-report.html",
+    "size": 22713,
+    "sha256": "9e4aa4733e1ff6025f82dc97ff1be1bf2ed419adab03105af197c5f37d5179c1"
+  },
+  {
+    "path": "github/ap/lionspace-complete-config-updated.json",
+    "size": 6563,
+    "sha256": "0e78eb3649991a38d375bd52c31e1ffe91739cb9c635047272f64281a852abbf"
+  },
+  {
+    "path": "github/ap/lionspace-deployment-package/AGENT_INSTRUCTIONS.md",
+    "size": 2265,
+    "sha256": "6f25c18e5289285dfe9edbabfa573cef3768c4c0ce1c530584f586108da4d0bf"
+  },
+  {
+    "path": "github/ap/lionspace-deployment-package/google-oauth-credentials-latest.json",
+    "size": 722,
+    "sha256": "e7a79927b8fcea32274e66ca5ad65c7d2ff08818dab510ad16184c0a52e6fe4e"
+  },
+  {
+    "path": "github/ap/lionspace-deployment-package/lionspace-complete-config-updated.json",
+    "size": 6687,
+    "sha256": "93319e059fbe387d5646278e8681e860f0a0d14c9126e8086b4b1955f0eb7501"
+  },
+  {
+    "path": "github/ap/lionspace-deployment-package/lionspace-service-account-key.json",
+    "size": 2347,
+    "sha256": "0e391ae474032820f3fe3595c64ab174703f959bf36ae01831f70a536ab3a7a8"
+  },
+  {
+    "path": "github/ap/lionspace-deployment-package/setup-vercel-env.sh",
+    "size": 2430,
+    "sha256": "b96b592bd3dea8020d4c1fe200e490501ebcf6ab57e5057fceea1e1067ecc291"
+  },
+  {
+    "path": "github/ap/lionspace-service-account-key.json",
+    "size": 2347,
+    "sha256": "0e391ae474032820f3fe3595c64ab174703f959bf36ae01831f70a536ab3a7a8"
+  },
+  {
+    "path": "github/ap/LIONSPACE_TECHNICAL_GUIDE.md",
+    "size": 33887,
+    "sha256": "d81c096fb4884c22967a4b161e9e886d83120a44fd72aa766d2d766fa4eb0c54"
+  },
+  {
+    "path": "github/ap/vercel-config.json",
+    "size": 491,
+    "sha256": "efc112af312b37307f273028740b1f11da51f1a824e725822915b5a894883df7"
+  },
+  {
+    "path": "github/ap/vercel-deployment-config.json",
+    "size": 969,
+    "sha256": "5dc5c938e75ab0a51e5e45d8d7c0d7e3015778a0b2c8fb36bb91a7ee489a242d"
+  },
+  {
+    "path": "github/ap/vercel-gcp-integration.json",
+    "size": 2320,
+    "sha256": "50610d088eed68042f0b2a8f2ca394f58a964d5ae70ff807a05a6f3a3058423e"
+  },
+  {
+    "path": "github/ap/VERCEL_GCP_UPDATE_INSTRUCTIONS.md",
+    "size": 2804,
+    "sha256": "8990783d22355a1928dbb32b9ccb3463a40f57b063be1e63bd909011f9ac6072"
+  },
+  {
+    "path": "google-oauth-credentials-latest.json",
+    "size": 722,
+    "sha256": "e7a79927b8fcea32274e66ca5ad65c7d2ff08818dab510ad16184c0a52e6fe4e"
+  },
+  {
+    "path": "lionspace-service-account-key.json",
+    "size": 2347,
+    "sha256": "0e391ae474032820f3fe3595c64ab174703f959bf36ae01831f70a536ab3a7a8"
+  },
+  {
+    "path": "next-env.d.ts",
+    "size": 262,
+    "sha256": "85ae5aee75f011967cf2d25cbc342f62d69314e9d925f7f4aa3456fc2cffcca6"
+  },
+  {
+    "path": "next.config.ts",
+    "size": 1612,
+    "sha256": "34cfd853a744ca4a23c194678e58e0fc11ee9ccde4c34ee6c424d47580341918"
+  },
+  {
+    "path": "package-lock.json",
+    "size": 391085,
+    "sha256": "82527702efd71359178e8173ed6460a930910ada8fa233fd84b67f3489753eba"
+  },
+  {
+    "path": "package.json",
+    "size": 2804,
+    "sha256": "d4a9cfc44621faef709d1e3f0fa0b0f5775c94bae00dc13f8441eb47165c0f54"
+  },
+  {
+    "path": "public/desigen_data/cognitive_warfare_messages_multilingual.json",
+    "size": 17348,
+    "sha256": "3c9fcbe6456645dcaa3c6df80d8474a39323cf96b6e86615d9adfc3437b2a5b7"
+  },
+  {
+    "path": "public/fix-green-circle.css",
+    "size": 940,
+    "sha256": "605efed65cc83640a3b3d92f5d5aeeab61f86b833682607a203cb9c339bab807"
+  },
+  {
+    "path": "public/manifest.json",
+    "size": 646,
+    "sha256": "b538aff00922486f210326b3468ce2097bc749a3ce685a53ba5aaa67c09f0de5"
+  },
+  {
+    "path": "public/robots.txt",
+    "size": 123,
+    "sha256": "6498c64ed11366b5dd35a429d3419b6b0a1057862c009b29ed44db6d132a1480"
+  },
+  {
+    "path": "README.md",
+    "size": 7177,
+    "sha256": "19d0ddd88dee9c72992c6d7593f9631aeb27611208d56be021b2e444af25ec03"
+  },
+  {
+    "path": "scripts/check_movement.js",
+    "size": 1557,
+    "sha256": "7b73ad2b2c532068dd57fe3dab6db21acfcb9b6111a22fcb324478e01063e597"
+  },
+  {
+    "path": "scripts/cleanup-and-sync.sh",
+    "size": 8837,
+    "sha256": "73dfa61cdcd923194c26fb0c725dd73c94e83f71f2a6e7bcab4d9bb7da638fc4"
+  },
+  {
+    "path": "scripts/create-app-icon.sh",
+    "size": 4081,
+    "sha256": "2704f03f9ec6dffb4393603fedc0404a6c6381d1503ca255b3c9c04b05835ddf"
+  },
+  {
+    "path": "scripts/launch-lionspace.sh",
+    "size": 11823,
+    "sha256": "69c89a48d0406f5e79f508f034b25d3ca1b806e6a87e696cc291e66772e8df83"
+  },
+  {
+    "path": "scripts/measure_words.js",
+    "size": 5248,
+    "sha256": "24811a0ee70bc934f940693f83134a25216e3eb8951cc4eeb1e806508af5573f"
+  },
+  {
+    "path": "scripts/screenshot.js",
+    "size": 1652,
+    "sha256": "adda161c04cd6626c35a68cf22d97b39f1ab381c7a9d5c4b998639a316070be3"
+  },
+  {
+    "path": "scripts/sync-monitor.sh",
+    "size": 7942,
+    "sha256": "287aa85ba611e9b880b290a98f553e4abb70f5067694dd0eaf87704e7360cc39"
+  },
+  {
+    "path": "src/app/(auth)/join/page.tsx",
+    "size": 2737,
+    "sha256": "1388a8069383a50b6f2ebf143adc8568d12d5def0ed55de082c82e1c7df30dbe"
+  },
+  {
+    "path": "src/app/(platform)/layout.tsx",
+    "size": 313,
+    "sha256": "26f939a59ba1951dd9a5264c93159adda9a3491e205fe00b31374709343b15ce"
+  },
+  {
+    "path": "src/app/(platform)/platform/page.tsx",
+    "size": 16698,
+    "sha256": "1158c80a29e4680fdd25d2b20e9ddaf930bfd586f9df87e49863dac179db33ef"
+  },
+  {
+    "path": "src/app/_components/language-switcher.tsx",
+    "size": 1236,
+    "sha256": "ff330dbe937777d42d9ac671a80f6d83e2f6bc61fe0f8ff01c0a77cf3af573aa"
+  },
+  {
+    "path": "src/app/_components/shared/actiongrid.tsx",
+    "size": 1223,
+    "sha256": "80b8fb23e719729a9261880763e82a6d3e6a149ba5957b9f4572fd781543e01a"
+  },
+  {
+    "path": "src/app/_components/shared/alertbanner.tsx",
+    "size": 1067,
+    "sha256": "3df088c7aecce1347e8eb124b64d4dcbd5e8548df687ebf74bb2a41698fc85b9"
+  },
+  {
+    "path": "src/app/_components/shared/narrativecard.tsx",
+    "size": 1488,
+    "sha256": "d0a03a7e28cd61879aa6a5acfcb322355e52cf3ced83bff2184977e786d7b964"
+  },
+  {
+    "path": "src/app/_components/terminal/command-terminal.tsx",
+    "size": 6338,
+    "sha256": "8d8150c235cb0475eb620e8f6d2feb5f388fff101cf5fb697ac213816d212786"
+  },
+  {
+    "path": "src/app/_components/terminal/data-stream-display.tsx",
+    "size": 7080,
+    "sha256": "884504d0fc38aa84752e96293b3dcd59d55aa994c912c1bdfefbd8a906f036b4"
+  },
+  {
+    "path": "src/app/_components/terminal/intelligence-card.tsx",
+    "size": 7161,
+    "sha256": "b99c5667d12b1f501c2cf42d4f9b83f6b519000020887e49618285d4d744b7a1"
+  },
+  {
+    "path": "src/app/_components/terminal/status-indicator.tsx",
+    "size": 5790,
+    "sha256": "6c038567ad2aafd3d3a704cd8af8724fb4fae45e957addfb353c4128e2ef282a"
+  },
+  {
+    "path": "src/app/_components/visuals/intelligence-data.ts",
+    "size": 27064,
+    "sha256": "164a6a7c9cf12395f7a7159c8e5efe4e4d429c429c57717fbb2647b96b6c2cb4"
+  },
+  {
+    "path": "src/app/_components/visuals/IntelligencePanel.tsx",
+    "size": 10239,
+    "sha256": "cab7b8bb8da5f645ea29a7e347e32ab74a62169246e98cd760b9f33ed0779382"
+  },
+  {
+    "path": "src/app/_components/visuals/living-intelligence-canvas.tsx",
+    "size": 8777,
+    "sha256": "d7d1c84f340b1d2a9472df09c56f771dfa76796cf80b7614dea121a3d5362a02"
+  },
+  {
+    "path": "src/app/_components/visuals/MatrixBackground.tsx",
+    "size": 17635,
+    "sha256": "b8a2c4019aafe52bc4eaa083836459f83a817310b1732e63acb8368731965476"
+  },
+  {
+    "path": "src/app/_components/visuals/NeuralNetworkCanvas.tsx",
+    "size": 1046,
+    "sha256": "d55a30eb1796a8ec2239af9c6c5829d3169ef9d009cdeb5ac97eb9d595fd9cd7"
+  },
+  {
+    "path": "src/app/_components/visuals/use-wargame-engine.ts",
+    "size": 17668,
+    "sha256": "8236b4822138e40c948a25043b69fd909b8e7b80ad0fff80518041373c3226b0"
+  },
+  {
+    "path": "src/app/api/health/route.ts",
+    "size": 279,
+    "sha256": "dbbb4992ac359ee79fd2a2dfb8710ef8f01b52d2795e7ad7fa2a3093da681759"
+  },
+  {
+    "path": "src/app/api/middleware.ts",
+    "size": 1770,
+    "sha256": "f8fff485d1b9707ece1c7d197cef29d56d5094652c76540733c9c3151b9f8841"
+  },
+  {
+    "path": "src/app/error.tsx",
+    "size": 1344,
+    "sha256": "3d69752b2a87e322074351a13a1dba0f7c2b8248c0c97d1a90c46c03ae4936a6"
+  },
+  {
+    "path": "src/app/global-error.tsx",
+    "size": 1117,
+    "sha256": "3bee26dcc3a7ece7e94fef21f3ac22162407fc02e6ddcf68d10bbabed5339b2c"
+  },
+  {
+    "path": "src/app/globals.css",
+    "size": 13453,
+    "sha256": "3813cd17e6e2e92d6aa6659dbb510e388b20e7f5d687aaca7fe54d1261354d97"
+  },
+  {
+    "path": "src/app/layout.tsx",
+    "size": 2591,
+    "sha256": "6f47f4808a9bc666e17e5ce83c9e4c83c9f5cf2a7690b77fdcf68e0ffca98a28"
+  },
+  {
+    "path": "src/app/matrix/page.tsx",
+    "size": 335,
+    "sha256": "c8371d163dd49e9ae41140aa84deaf4a5263fabf5385f5daef4e8ad262611f12"
+  },
+  {
+    "path": "src/app/not-found.tsx",
+    "size": 761,
+    "sha256": "4351cb8488b06a6c7a5c1c18bfdf7fdafc0ba6cdd030c1af181c01dfdeeceb98"
+  },
+  {
+    "path": "src/app/page.tsx",
+    "size": 11075,
+    "sha256": "7f59fb5130bbaaba9ee5a445bb1a5693d5b41818333bdfeb8b92292d10d074f7"
+  },
+  {
+    "path": "src/app/providers.tsx",
+    "size": 148,
+    "sha256": "ec976284563ca953c75c197dc2a16cda9d45a7885559f6e710ebae4f9282a3af"
+  },
+  {
+    "path": "src/app/sitemap.ts",
+    "size": 815,
+    "sha256": "d74d4022956a8342d4c9f4304e640cf319bbef1b916db0c453299c506ea10909"
+  },
+  {
+    "path": "src/components/auth/AuthModal.tsx",
+    "size": 5552,
+    "sha256": "7f9f4a4a3bea2a343de6220ae1e2f6012972982d9d52fa4360d796f0953984d2"
+  },
+  {
+    "path": "src/components/backgrounds/EnhancedUnifiedBackground.tsx",
+    "size": 18306,
+    "sha256": "1d4ee8f56e6252a0d015ad46cf2062d6a1a1cfd4e2af99101d54aca77ebf2662"
+  },
+  {
+    "path": "src/components/backgrounds/MatrixWarfareBackground.tsx",
+    "size": 18147,
+    "sha256": "1d6d8c6db88040930549550d9b69cadb0dea74e71c9d5d245b7563b5ab3b38d4"
+  },
+  {
+    "path": "src/components/backgrounds/UnifiedBackground.tsx",
+    "size": 8428,
+    "sha256": "9b6685f4088af69ed6308301ff6cac81436b214bcec8b917fb26480e9ecf08c3"
+  },
+  {
+    "path": "src/components/dev/component-inspector.tsx",
+    "size": 12033,
+    "sha256": "2b10a00d4a7dd496a2578ecf8d78ca7532a5468d4f84600ffda9554c4462f602"
+  },
+  {
+    "path": "src/components/landing/LandingHero.tsx",
+    "size": 5054,
+    "sha256": "25114e7031f83f59e6583d1ad13a0b9f6ef6f8913c30b66c24b18f8e5a4b2d2e"
+  },
+  {
+    "path": "src/components/terminal-ui/display/terminal-card.tsx",
+    "size": 3791,
+    "sha256": "b9aaf4a1be050c6cf7cc84c4b167c51ac17c652834d487a7e76bcba7fb461b4f"
+  },
+  {
+    "path": "src/components/terminal-ui/forms/terminal-button.tsx",
+    "size": 6222,
+    "sha256": "42b81f8ee020989353647c3632f24463db5d58e238d3428ebd726383d1cae3ae"
+  },
+  {
+    "path": "src/components/terminal-ui/forms/terminal-input.tsx",
+    "size": 5198,
+    "sha256": "03257cc6450f9e391b05e15e57e0e920edc3da0d79ef85bab467ae3961642e31"
+  },
+  {
+    "path": "src/components/terminal-ui/index.ts",
+    "size": 599,
+    "sha256": "5d374dd4cb93ad248f90733ffc86274b0fe32a08ac596e7219472ee6b90c1217"
+  },
+  {
+    "path": "src/components/terminal-ui/layout/navigation-header.tsx",
+    "size": 5193,
+    "sha256": "6481e3a224a8e25063d5385a57bb75d4a6a37f21c38fb8b32f485679e40191a3"
+  },
+  {
+    "path": "src/components/terminal-ui/layout/terminal-hero.tsx",
+    "size": 9666,
+    "sha256": "5bf4c6eac79d34f5b4f72754bed99fd38c1facaf78bbcbc6c6421a387362c963"
+  },
+  {
+    "path": "src/components/terminal-ui/types.ts",
+    "size": 4326,
+    "sha256": "e0106606830130d0639f4fc85539a8644595cde438d3e669929aeb6289fa8d23"
+  },
+  {
+    "path": "src/components/ui/grid.tsx",
+    "size": 2340,
+    "sha256": "7bac215dd43b64a4e1b7f3f2755b9ced417748f03b71e62c181fab4c3f3ada23"
+  },
+  {
+    "path": "src/components/ui/tabs.tsx",
+    "size": 2980,
+    "sha256": "298cded193b639489b8301a3e744e18e34a6f8928c1400cf28b9572a97f39a56"
+  },
+  {
+    "path": "src/contexts/translation-context.tsx",
+    "size": 7593,
+    "sha256": "2e9ea93b21391cac229acb87765d5537d6906882b505d8b7ed86bac41d128257"
+  },
+  {
+    "path": "src/data/cognitive_warfare_messages_multilingual.json",
+    "size": 17348,
+    "sha256": "3c9fcbe6456645dcaa3c6df80d8474a39323cf96b6e86615d9adfc3437b2a5b7"
+  },
+  {
+    "path": "src/lib/api/gemini.ts",
+    "size": 2739,
+    "sha256": "c2aaba59c8014fc6b5d3eb692e2b8038de6ab0ee80538dea21ff7404b9c10fa9"
+  },
+  {
+    "path": "src/lib/data-loaders.ts",
+    "size": 16877,
+    "sha256": "89b75f25dfe2c4ad3fb22dffeb72a58de873bb098bbe6259ce8b6afdb8d173da"
+  },
+  {
+    "path": "src/lib/data-parsers.ts",
+    "size": 8521,
+    "sha256": "abc2935fdb7786ccdb6e7eb872e3d943754ecf1e75e36da561deba17c89067de"
+  },
+  {
+    "path": "src/lib/data/osint-actors.ts",
+    "size": 3165,
+    "sha256": "a7c7e2819173cc4633ebc6ba07e1fdeb8d34f2f602478a196623e2d205a3dfac"
+  },
+  {
+    "path": "src/lib/env.ts",
+    "size": 1706,
+    "sha256": "432f9ab3cabdc39c6a5569cbabe71029f8886c43f5d2c3e39f89e80f38712695"
+  },
+  {
+    "path": "src/lib/tailwindui/component-registry.ts",
+    "size": 19901,
+    "sha256": "841791baf64bfdefbc62a1a6a72bb580686096f9ea0a09fea4e794ae64ef348a"
+  },
+  {
+    "path": "src/lib/tailwindui/design-tokens.ts",
+    "size": 14050,
+    "sha256": "a84f0f0e5dc9975d86b8ff418cbcc90bfc233be0c4ed9d364662befd2bcd2bd5"
+  },
+  {
+    "path": "src/lib/tailwindui/README.md",
+    "size": 8967,
+    "sha256": "ced593f078cd524b518b1e29cd3552dce553d9279e2a5ebdc9c0aeaf98e2dffa"
+  },
+  {
+    "path": "src/lib/tailwindui/test-integration.ts",
+    "size": 3735,
+    "sha256": "bd0f5dc0a663bb33f4de7e34aff59f4f2542231a0f5eb827394b42ff4f89f073"
+  },
+  {
+    "path": "src/lib/utils.ts",
+    "size": 313,
+    "sha256": "aca3e0451a6da540e5ba446a10c7c0ee87ecd7d28bdca7a641013eb14830a7c2"
+  },
+  {
+    "path": "src/middleware.ts",
+    "size": 886,
+    "sha256": "0f4f6302abc2e2878fbfb380a4f60295ee26a9f8c2d3299dc4cb208c0261fb08"
+  },
+  {
+    "path": "src/types/raw-imports.d.ts",
+    "size": 243,
+    "sha256": "a87a0a969c60940ba40bce8963c6cb0d39f126d197a5e7345f2bb5e654adec8e"
+  },
+  {
+    "path": "tailwind.config.ts",
+    "size": 6367,
+    "sha256": "1bbacfc2696439ec9e9b95d77ecd6631d42bcb943b0967dcef0d0bb4966cd2ba"
+  },
+  {
+    "path": "tsconfig.json",
+    "size": 673,
+    "sha256": "81dbd019fa4579f2c845e6abc30e15b0dc2b916e95cb7c7794561bdc9ba185c4"
+  },
+  {
+    "path": "visual_audit.md",
+    "size": 7654,
+    "sha256": "6925ccc24b5135ae8f197ed7f69d9bb420617767a41c9ddeaa17362c1b21c3ca"
+  }
+]

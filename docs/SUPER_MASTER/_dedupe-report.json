@@ -1,0 +1,2848 @@
+{
+  "duplicates": [
+    {
+      "chapter": 5,
+      "duplicate_of": 15839993211892712943,
+      "skipped_fp": 15839993211892712943,
+      "source": ".claude/agents/nextjs-project-manager.md"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 14036722898253752914,
+      "skipped_fp": 14036722898253752914,
+      "source": ".claude/agents/nextjs-project-orchestrator.md"
+    },
+    {
+      "chapter": 2,
+      "duplicate_of": 677675979634888666,
+      "skipped_fp": 677675979634888666,
+      "source": ".claude/agents/nextjs-project-orchestrator.md"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 15839993211892712943,
+      "skipped_fp": 15839993211892712943,
+      "source": ".claude/agents/nextjs-project-orchestrator.md"
+    },
+    {
+      "chapter": 2,
+      "duplicate_of": 16040679016036960753,
+      "skipped_fp": 16040679016036960753,
+      "source": ".claude/agents/nextjs-project-orchestrator.md"
+    },
+    {
+      "chapter": 7,
+      "duplicate_of": 12815135808349786631,
+      "skipped_fp": 12815135808349786631,
+      "source": ".claude/agents/nextjs-project-orchestrator.md"
+    },
+    {
+      "chapter": 2,
+      "duplicate_of": 15224365759142785596,
+      "skipped_fp": 15224365759142785596,
+      "source": ".claude/agents/nextjs-project-orchestrator.md"
+    },
+    {
+      "chapter": 2,
+      "duplicate_of": 10356655655274766592,
+      "skipped_fp": 10311617459961029392,
+      "source": ".claude/agents/nextjs-project-orchestrator.md"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 4443977440216059195,
+      "skipped_fp": 4443977440216059195,
+      "source": "ap/audit_report.md"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 5689115031956115560,
+      "skipped_fp": 5689115031956115560,
+      "source": "ap/cognitivewarrior-analysis.html"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 5689115031956115560,
+      "skipped_fp": 5689115031956115560,
+      "source": "ap/cognitivewarrior-analysis.html"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 5689115031956115560,
+      "skipped_fp": 5689115031956115560,
+      "source": "ap/cognitivewarrior-analysis.html"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 15501146994932009897,
+      "skipped_fp": 15501146994932009897,
+      "source": "ap/cognitivewarrior-analysis.html"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 5689115031956115560,
+      "skipped_fp": 5689115031956115560,
+      "source": "ap/cognitivewarrior-analysis.html"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 8767363865355615839,
+      "skipped_fp": 8767363865355615839,
+      "source": "ap/cognitivewarrior-analysis.html"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 5689115031956115560,
+      "skipped_fp": 5689115031956115560,
+      "source": "ap/cognitivewarrior-analysis.html"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 15501146994932009897,
+      "skipped_fp": 15501146994932009897,
+      "source": "ap/cognitivewarrior-analysis.html"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 5689115031956115560,
+      "skipped_fp": 5689115031956115560,
+      "source": "ap/cognitivewarrior-analysis.html"
+    },
+    {
+      "chapter": 10,
+      "duplicate_of": 18446743867433677823,
+      "skipped_fp": 14986008753394939903,
+      "source": "ap/cognitivewarrior-analysis.html"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 15501146994932009897,
+      "skipped_fp": 15501146994932009897,
+      "source": "ap/cognitivewarrior-analysis.html"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 5689115031956115560,
+      "skipped_fp": 5689115031956115560,
+      "source": "ap/cognitivewarrior-analysis.html"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 15501146994932009897,
+      "skipped_fp": 15501146994932009897,
+      "source": "ap/cognitivewarrior-analysis.html"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 5689115031956115560,
+      "skipped_fp": 5689115031956115560,
+      "source": "ap/cognitivewarrior-analysis.html"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 15501146994932009897,
+      "skipped_fp": 15501146994932009897,
+      "source": "ap/cognitivewarrior-analysis.html"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 4443977440216059195,
+      "skipped_fp": 4443977440216059195,
+      "source": "ap/critical_issues.md"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 18374545450108714995,
+      "skipped_fp": 8646629740838387703,
+      "source": "ap/critical_issues.md"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 4443977440216059195,
+      "skipped_fp": 4443977440216059195,
+      "source": "ap/critical_issues.md"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 18154916091065752411,
+      "skipped_fp": 18154916091065752411,
+      "source": "ap/critical_issues.md"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 4443977440216059195,
+      "skipped_fp": 4443977440216059195,
+      "source": "ap/DEPLOYMENT_STATUS_FINAL.md"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 4443977440216059195,
+      "skipped_fp": 4443977440216059195,
+      "source": "ap/DEPLOYMENT_STATUS_FINAL.md"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 4443977440216059195,
+      "skipped_fp": 4443977440216059195,
+      "source": "ap/feature_status.md"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 4443977440216059195,
+      "skipped_fp": 4443977440216059195,
+      "source": "ap/feature_status.md"
+    },
+    {
+      "chapter": 7,
+      "duplicate_of": 17649560334699945983,
+      "skipped_fp": 17649560334699945983,
+      "source": "ap/FINAL_DEPLOYMENT_SUMMARY.md"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 13256620102534294484,
+      "skipped_fp": 13256620102534294484,
+      "source": "ap/FINAL_DEPLOYMENT_SUMMARY.md"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 15501146994932009897,
+      "skipped_fp": 15501146994932009897,
+      "source": "ap/lions-space-migration-report.html"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 8067952407266377711,
+      "skipped_fp": 17003164471140530111,
+      "source": "ap/lions-space-migration-report.html"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 18068437168298122015,
+      "skipped_fp": 18068437168298122015,
+      "source": "ap/lions-space-migration-report.html"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 5689115031956115560,
+      "skipped_fp": 5689115031956115560,
+      "source": "ap/lions-space-migration-report.html"
+    },
+    {
+      "chapter": 10,
+      "duplicate_of": 18446743867433677823,
+      "skipped_fp": 17292696529021166591,
+      "source": "ap/lions-space-migration-report.html"
+    },
+    {
+      "chapter": 10,
+      "duplicate_of": 18446743867433677823,
+      "skipped_fp": 14986009028591608831,
+      "source": "ap/lionspace-deployment-package/AGENT_INSTRUCTIONS.md"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 17437372297822775954,
+      "skipped_fp": 17437372297822775954,
+      "source": "ap/lionspace-deployment-package/AGENT_INSTRUCTIONS.md"
+    },
+    {
+      "chapter": 8,
+      "duplicate_of": 6521046227269434650,
+      "skipped_fp": 6521046227269434650,
+      "source": "ap/lionspace-deployment-package/google-oauth-credentials-latest.json"
+    },
+    {
+      "chapter": 1,
+      "duplicate_of": 8173763144029504810,
+      "skipped_fp": 8173763144031601960,
+      "source": "ap/lionspace-deployment-package/lionspace-complete-config-updated.json"
+    },
+    {
+      "chapter": 7,
+      "duplicate_of": 17649560334699945983,
+      "skipped_fp": 17649560334699945983,
+      "source": "ap/lionspace-deployment-package/setup-vercel-env.sh"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 4356081239363295944,
+      "skipped_fp": 4356081239363295944,
+      "source": "ap/lionspace-service-account-key.json"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 4443977440216059195,
+      "skipped_fp": 4443977440216059195,
+      "source": "ap/LIONSPACE_COMPLETE_DOCUMENTATION.md"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 4443977440216059195,
+      "skipped_fp": 4443977440216059195,
+      "source": "ap/LIONSPACE_COMPLETE_DOCUMENTATION.md"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 4443977440216059195,
+      "skipped_fp": 4443977440216059195,
+      "source": "ap/LIONSPACE_COMPLETE_DOCUMENTATION.md"
+    },
+    {
+      "chapter": 8,
+      "duplicate_of": 18445530143708409589,
+      "skipped_fp": 18445530143708409589,
+      "source": "ap/LIONSPACE_COMPLETE_DOCUMENTATION.md"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 4443977440216059195,
+      "skipped_fp": 4443977440216059195,
+      "source": "ap/LIONSPACE_COMPLETE_DOCUMENTATION.md"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 4443977440216059195,
+      "skipped_fp": 4443977440216059195,
+      "source": "ap/LIONSPACE_COMPLETE_DOCUMENTATION.md"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 191234474930828198,
+      "skipped_fp": 191234474930828198,
+      "source": "ap/LIONSPACE_COMPLETE_DOCUMENTATION.md"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 4443977440216059195,
+      "skipped_fp": 4443977440216059195,
+      "source": "ap/LIONSPACE_MEGA_MASTER_PLAN.md"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 4443977440216059195,
+      "skipped_fp": 4443977440216059195,
+      "source": "ap/LIONSPACE_MEGA_MASTER_PLAN.md"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 4443977440216059195,
+      "skipped_fp": 4443977440216059195,
+      "source": "ap/LIONSPACE_MEGA_MASTER_PLAN.md"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 4443977440216059195,
+      "skipped_fp": 4443977440216059195,
+      "source": "ap/LIONSPACE_MEGA_MASTER_PLAN.md"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 4443977440216059195,
+      "skipped_fp": 4443977440216059195,
+      "source": "ap/LIONSPACE_MEGA_MASTER_PLAN.md"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 16140049458375163391,
+      "skipped_fp": 15852665688963416053,
+      "source": "ap/LIONSPACE_MEGA_MASTER_PLAN.md"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 13204377631270626803,
+      "skipped_fp": 13204377631270626803,
+      "source": "ap/LIONSPACE_MEGA_MASTER_PLAN.md"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 11859553537011923029,
+      "skipped_fp": 11859553537011923029,
+      "source": "ap/LIONSPACE_SUPER_MASTER1_DOCUMENT.md"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 11859553537011923029,
+      "skipped_fp": 11859553537011923029,
+      "source": "ap/LIONSPACE_SUPER_MASTER1_DOCUMENT.md"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 11859553537011923029,
+      "skipped_fp": 11859553537011923029,
+      "source": "ap/LIONSPACE_SUPER_MASTER1_DOCUMENT.md"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 11859553537011923029,
+      "skipped_fp": 11859553537011923029,
+      "source": "ap/LIONSPACE_SUPER_MASTER1_DOCUMENT.md"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 11859553537011923029,
+      "skipped_fp": 11859553537011923029,
+      "source": "ap/LIONSPACE_SUPER_MASTER1_DOCUMENT.md"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 11859553537011923029,
+      "skipped_fp": 11859553537011923029,
+      "source": "ap/LIONSPACE_SUPER_MASTER1_DOCUMENT.md"
+    },
+    {
+      "chapter": 10,
+      "duplicate_of": 18443083315762161663,
+      "skipped_fp": 18442803352345502719,
+      "source": "ap/LIONSPACE_SUPER_MASTER1_DOCUMENT.md"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 11859553537011923029,
+      "skipped_fp": 11859553537011923029,
+      "source": "ap/LIONSPACE_SUPER_MASTER1_DOCUMENT.md"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 11859553537011923029,
+      "skipped_fp": 11859553537011923029,
+      "source": "ap/LIONSPACE_SUPER_MASTER1_DOCUMENT.md"
+    },
+    {
+      "chapter": 1,
+      "duplicate_of": 18410706478416527097,
+      "skipped_fp": 18410706478416527097,
+      "source": "ap/LIONSPACE_SUPER_MASTER_DOCUMENT.md"
+    },
+    {
+      "chapter": 3,
+      "duplicate_of": 2817437720647743402,
+      "skipped_fp": 3393889676287686584,
+      "source": "ap/LIONSPACE_SUPER_MASTER_DOCUMENT.md"
+    },
+    {
+      "chapter": 3,
+      "duplicate_of": 13956844168828771333,
+      "skipped_fp": 14265362733259414541,
+      "source": "ap/LIONSPACE_SUPER_MASTER_DOCUMENT.md"
+    },
+    {
+      "chapter": 1,
+      "duplicate_of": 14403111990260919160,
+      "skipped_fp": 14403110332403542905,
+      "source": "ap/LIONSPACE_SUPER_MASTER_DOCUMENT.md"
+    },
+    {
+      "chapter": 6,
+      "duplicate_of": 6512196202600201089,
+      "skipped_fp": 11123811594316935049,
+      "source": "ap/LIONSPACE_SUPER_MASTER_DOCUMENT.md"
+    },
+    {
+      "chapter": 3,
+      "duplicate_of": 8790141533972854127,
+      "skipped_fp": 8789998493845017965,
+      "source": "ap/LIONSPACE_SUPER_MASTER_DOCUMENT.md"
+    },
+    {
+      "chapter": 3,
+      "duplicate_of": 18144424694422131814,
+      "skipped_fp": 15838440949800452326,
+      "source": "ap/LIONSPACE_SUPER_MASTER_DOCUMENT.md"
+    },
+    {
+      "chapter": 9,
+      "duplicate_of": 17275225523919683401,
+      "skipped_fp": 17275225523919683401,
+      "source": "ap/LIONSPACE_SUPER_MASTER_DOCUMENT.md"
+    },
+    {
+      "chapter": 8,
+      "duplicate_of": 6131919405155121647,
+      "skipped_fp": 6131919677885544943,
+      "source": "ap/LIONSPACE_SUPER_MASTER_DOCUMENT.md"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 4443977440216059195,
+      "skipped_fp": 4443977440216059195,
+      "source": "ap/LIONSPACE_UNIFIED_MASTER_PLAN.md"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 18154916091065752411,
+      "skipped_fp": 18154916091065752411,
+      "source": "ap/LIONSPACE_UNIFIED_MASTER_PLAN.md"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 4443977440216059195,
+      "skipped_fp": 4443977440216059195,
+      "source": "ap/LIONSPACE_UNIFIED_MASTER_PLAN.md"
+    },
+    {
+      "chapter": 2,
+      "duplicate_of": 17031349597496545495,
+      "skipped_fp": 17031349597496545495,
+      "source": "ap/LIONSPACE_UNIFIED_MASTER_PLAN.md"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 3773343509293727527,
+      "skipped_fp": 3773343509293727527,
+      "source": "ap/LIONSPACE_UNIFIED_MASTER_PLAN.md"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 12480591393962585783,
+      "skipped_fp": 12480591393962585783,
+      "source": "ap/LIONSPACE_UNIFIED_MASTER_PLAN.md"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 191234474930828198,
+      "skipped_fp": 191234474930828198,
+      "source": "ap/LIONSPACE_UNIFIED_MASTER_PLAN.md"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 18154916091065752411,
+      "skipped_fp": 18154916091065752411,
+      "source": "ap/phase1_refactoring_report.md"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 18356671522816122719,
+      "skipped_fp": 13753957514974584155,
+      "source": "ap/phase1_refactoring_report.md"
+    },
+    {
+      "chapter": 9,
+      "duplicate_of": 12524496263623736978,
+      "skipped_fp": 12672975415212507034,
+      "source": "ap/phase1_refactoring_report.md"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 191234474930828198,
+      "skipped_fp": 191234474930828198,
+      "source": "ap/phase1_refactoring_report.md"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 18154916091065752411,
+      "skipped_fp": 18154916091065752411,
+      "source": "ap/phase2_visual_compliance_report.md"
+    },
+    {
+      "chapter": 10,
+      "duplicate_of": 4594429172691886072,
+      "skipped_fp": 4594429172691886072,
+      "source": "ap/phase2_visual_compliance_report.md"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 191234474930828198,
+      "skipped_fp": 191234474930828198,
+      "source": "ap/phase2_visual_compliance_report.md"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 18154916091065752411,
+      "skipped_fp": 18154916091065752411,
+      "source": "ap/phase3_final_readiness_report.md"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 16591208237586169703,
+      "skipped_fp": 16591208237586169703,
+      "source": "ap/phase3_final_readiness_report.md"
+    },
+    {
+      "chapter": 2,
+      "duplicate_of": 16068013160917888747,
+      "skipped_fp": 18372721474133819385,
+      "source": "ap/phase3_final_readiness_report.md"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 17852176554390454143,
+      "skipped_fp": 17852176554390454143,
+      "source": "ap/phase3_final_readiness_report.md"
+    },
+    {
+      "chapter": 10,
+      "duplicate_of": 16694562320044375615,
+      "skipped_fp": 16694562320044375615,
+      "source": "ap/phase3_final_readiness_report.md"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 11644959028751431240,
+      "skipped_fp": 11644959028751431240,
+      "source": "ap/phase3_final_readiness_report.md"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 8267427250089967607,
+      "skipped_fp": 8267427250089967607,
+      "source": "ap/phase3_final_readiness_report.md"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 191234474930828198,
+      "skipped_fp": 191234474930828198,
+      "source": "ap/phase3_final_readiness_report.md"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 12678718163419905531,
+      "skipped_fp": 12678718163419905531,
+      "source": "ap/site-mapping-and-fixes.html"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 1161235628158421807,
+      "skipped_fp": 1161235628158421807,
+      "source": "ap/site-mapping-and-fixes.html"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 1949571961496644974,
+      "skipped_fp": 1949571961496644974,
+      "source": "ap/system_design.md"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 4443977440216059195,
+      "skipped_fp": 4443977440216059195,
+      "source": "ap/system_design.md"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 4443977440216059195,
+      "skipped_fp": 4443977440216059195,
+      "source": "ap/system_design.md"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 4443977440216059195,
+      "skipped_fp": 4443977440216059195,
+      "source": "ap/system_design.md"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 15296835198047530220,
+      "skipped_fp": 15296835198047530220,
+      "source": "ap/system_design.md"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 4443977440216059195,
+      "skipped_fp": 4443977440216059195,
+      "source": "ap/system_design.md"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 4443977440216059195,
+      "skipped_fp": 4443977440216059195,
+      "source": "ap/system_design.md"
+    },
+    {
+      "chapter": 9,
+      "duplicate_of": 18446545469701619679,
+      "skipped_fp": 18446545469701619679,
+      "source": "ap/system_design.md"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 4443977440216059195,
+      "skipped_fp": 4443977440216059195,
+      "source": "ap/system_design.md"
+    },
+    {
+      "chapter": 10,
+      "duplicate_of": 14409733590228711409,
+      "skipped_fp": 14409733590228711409,
+      "source": "ap/system_design.md"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 4443977440216059195,
+      "skipped_fp": 4443977440216059195,
+      "source": "ap/system_design.md"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 4443977440216059195,
+      "skipped_fp": 4443977440216059195,
+      "source": "ap/technical_debt.md"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 18374545450108714995,
+      "skipped_fp": 8646629740838387703,
+      "source": "ap/technical_debt.md"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 4443977440216059195,
+      "skipped_fp": 4443977440216059195,
+      "source": "ap/technical_debt.md"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 4443977440216059195,
+      "skipped_fp": 4443977440216059195,
+      "source": "ap/technical_debt.md"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 8773405628274402938,
+      "skipped_fp": 8773405628274402938,
+      "source": "ap/technical_debt.md"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 6912884105864017663,
+      "skipped_fp": 18153864412622485503,
+      "source": "ap/technical_debt.md"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 191234474930828198,
+      "skipped_fp": 191234474930828198,
+      "source": "ap/technical_debt.md"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 18068437168298122015,
+      "skipped_fp": 18068437168298122015,
+      "source": "ap/VERCEL_GCP_UPDATE_INSTRUCTIONS.md"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 12678718163419905531,
+      "skipped_fp": 12678718163419905531,
+      "source": "github/ap/codespaces-diagnosis-report.md"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 13995982254900279501,
+      "skipped_fp": 13995982254900279501,
+      "source": "github/ap/DEPLOYMENT_STATUS_FINAL.md"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 14130666463486487127,
+      "skipped_fp": 14130666463486487127,
+      "source": "github/ap/DEPLOYMENT_STATUS_FINAL.md"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 10763213865073199575,
+      "skipped_fp": 10763213865073199575,
+      "source": "github/ap/DEPLOYMENT_STATUS_FINAL.md"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 15807473169521152468,
+      "skipped_fp": 15807473169521152468,
+      "source": "github/ap/DEPLOYMENT_STATUS_FINAL.md"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 8060277163425650686,
+      "skipped_fp": 8060277163425650686,
+      "source": "github/ap/DEPLOYMENT_STATUS_FINAL.md"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 17962616323123054736,
+      "skipped_fp": 17962616323123054736,
+      "source": "github/ap/DEPLOYMENT_STATUS_FINAL.md"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 6987232514865413418,
+      "skipped_fp": 6987232514865413418,
+      "source": "github/ap/DEPLOYMENT_STATUS_FINAL.md"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 13740480813839925241,
+      "skipped_fp": 13740480813839925241,
+      "source": "github/ap/DEPLOYMENT_STATUS_FINAL.md"
+    },
+    {
+      "chapter": 7,
+      "duplicate_of": 11738380259744079391,
+      "skipped_fp": 11738380259744079391,
+      "source": "github/ap/DEPLOYMENT_STATUS_FINAL.md"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 13796732369570361243,
+      "skipped_fp": 13796732369570361243,
+      "source": "github/ap/DEPLOYMENT_STATUS_FINAL.md"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 2622390368559974471,
+      "skipped_fp": 2622390368559974471,
+      "source": "github/ap/DEPLOYMENT_STATUS_FINAL.md"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 7470179652040204623,
+      "skipped_fp": 7470179652040204623,
+      "source": "github/ap/DEPLOYMENT_STATUS_FINAL.md"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 17536664138353030649,
+      "skipped_fp": 17536664138353030649,
+      "source": "github/ap/DEPLOYMENT_STATUS_FINAL.md"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 13884441589622825000,
+      "skipped_fp": 13884441589622825000,
+      "source": "github/ap/DEPLOYMENT_STATUS_FINAL.md"
+    },
+    {
+      "chapter": 2,
+      "duplicate_of": 2738169430435418079,
+      "skipped_fp": 2738169430435418079,
+      "source": "github/ap/DEPLOYMENT_STATUS_FINAL.md"
+    },
+    {
+      "chapter": 7,
+      "duplicate_of": 7887507701550918042,
+      "skipped_fp": 7887507701550918042,
+      "source": "github/ap/DEPLOYMENT_STATUS_FINAL.md"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 4443977440216059195,
+      "skipped_fp": 4443977440216059195,
+      "source": "github/ap/DEPLOYMENT_STATUS_FINAL.md"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 7171276922416119526,
+      "skipped_fp": 7171276922416119526,
+      "source": "github/ap/DEPLOYMENT_STATUS_FINAL.md"
+    },
+    {
+      "chapter": 7,
+      "duplicate_of": 16139773343522827385,
+      "skipped_fp": 16139773343522827385,
+      "source": "github/ap/DEPLOYMENT_STATUS_FINAL.md"
+    },
+    {
+      "chapter": 7,
+      "duplicate_of": 18301811677423599209,
+      "skipped_fp": 18301811677423599209,
+      "source": "github/ap/DEPLOYMENT_STATUS_FINAL.md"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 13256620102534294484,
+      "skipped_fp": 13256620102534294484,
+      "source": "github/ap/DEPLOYMENT_STATUS_FINAL.md"
+    },
+    {
+      "chapter": 2,
+      "duplicate_of": 2443042078015339803,
+      "skipped_fp": 2443042078015339803,
+      "source": "github/ap/DEPLOYMENT_STATUS_FINAL.md"
+    },
+    {
+      "chapter": 8,
+      "duplicate_of": 18152231031693635517,
+      "skipped_fp": 18152231031693635517,
+      "source": "github/ap/DEPLOYMENT_STATUS_FINAL.md"
+    },
+    {
+      "chapter": 8,
+      "duplicate_of": 6514474291920879506,
+      "skipped_fp": 6514474291920879506,
+      "source": "github/ap/DEPLOYMENT_STATUS_FINAL.md"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 18246165664190000766,
+      "skipped_fp": 18246165664190000766,
+      "source": "github/ap/DEPLOYMENT_STATUS_FINAL.md"
+    },
+    {
+      "chapter": 2,
+      "duplicate_of": 2830225015063095158,
+      "skipped_fp": 2830225015063095158,
+      "source": "github/ap/DEPLOYMENT_STATUS_FINAL.md"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 18068437168298122015,
+      "skipped_fp": 18068437168298122015,
+      "source": "github/ap/DEPLOYMENT_STATUS_FINAL.md"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 18293533914288825721,
+      "skipped_fp": 18293533914288825721,
+      "source": "github/ap/DEPLOYMENT_STATUS_FINAL.md"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 12103384054547209727,
+      "skipped_fp": 12103384054547209727,
+      "source": "github/ap/DEPLOYMENT_STATUS_FINAL.md"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 18221521717111268763,
+      "skipped_fp": 18221521717111268763,
+      "source": "github/ap/DEPLOYMENT_STATUS_FINAL.md"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 13795911964919572987,
+      "skipped_fp": 13795911964919572987,
+      "source": "github/ap/DEPLOYMENT_STATUS_FINAL.md"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 4443977440216059195,
+      "skipped_fp": 4443977440216059195,
+      "source": "github/ap/DEPLOYMENT_STATUS_FINAL.md"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 17437372297822775954,
+      "skipped_fp": 17437372297822775954,
+      "source": "github/ap/DEPLOYMENT_STATUS_FINAL.md"
+    },
+    {
+      "chapter": 7,
+      "duplicate_of": 9187333204786487291,
+      "skipped_fp": 9187333204786487291,
+      "source": "github/ap/DEPLOYMENT_STATUS_FINAL.md"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 11163653575671076501,
+      "skipped_fp": 11163653575671076501,
+      "source": "github/ap/DEPLOYMENT_STATUS_FINAL.md"
+    },
+    {
+      "chapter": 7,
+      "duplicate_of": 3413630333291059163,
+      "skipped_fp": 3413630333291059163,
+      "source": "github/ap/DEPLOYMENT_STATUS_FINAL.md"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 15140857382634257325,
+      "skipped_fp": 15140857382634257325,
+      "source": "github/ap/FINAL_DEPLOYMENT_SUMMARY.md"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 7331722790626022658,
+      "skipped_fp": 7331722790626022658,
+      "source": "github/ap/FINAL_DEPLOYMENT_SUMMARY.md"
+    },
+    {
+      "chapter": 8,
+      "duplicate_of": 18122414355155247029,
+      "skipped_fp": 18122414355155247029,
+      "source": "github/ap/FINAL_DEPLOYMENT_SUMMARY.md"
+    },
+    {
+      "chapter": 2,
+      "duplicate_of": 6514121565552369384,
+      "skipped_fp": 6514121565552369384,
+      "source": "github/ap/FINAL_DEPLOYMENT_SUMMARY.md"
+    },
+    {
+      "chapter": 7,
+      "duplicate_of": 17649560334699945983,
+      "skipped_fp": 17649560334699945983,
+      "source": "github/ap/FINAL_DEPLOYMENT_SUMMARY.md"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 15278167459745301749,
+      "skipped_fp": 15278167459745301749,
+      "source": "github/ap/FINAL_DEPLOYMENT_SUMMARY.md"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 13256620102534294484,
+      "skipped_fp": 13256620102534294484,
+      "source": "github/ap/FINAL_DEPLOYMENT_SUMMARY.md"
+    },
+    {
+      "chapter": 2,
+      "duplicate_of": 11127319165284379022,
+      "skipped_fp": 11127319165284379022,
+      "source": "github/ap/FINAL_DEPLOYMENT_SUMMARY.md"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 9074717780874780541,
+      "skipped_fp": 9074717780874780541,
+      "source": "github/ap/FINAL_DEPLOYMENT_SUMMARY.md"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 7926245110562012178,
+      "skipped_fp": 7926245110562012178,
+      "source": "github/ap/FINAL_DEPLOYMENT_SUMMARY.md"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 15525807870930042807,
+      "skipped_fp": 15525807870930042807,
+      "source": "github/ap/FINAL_DEPLOYMENT_SUMMARY.md"
+    },
+    {
+      "chapter": 2,
+      "duplicate_of": 11414141977940577239,
+      "skipped_fp": 11414141977940577239,
+      "source": "github/ap/FINAL_DEPLOYMENT_SUMMARY.md"
+    },
+    {
+      "chapter": 2,
+      "duplicate_of": 6764361964025716645,
+      "skipped_fp": 6764361964025716645,
+      "source": "github/ap/FINAL_DEPLOYMENT_SUMMARY.md"
+    },
+    {
+      "chapter": 2,
+      "duplicate_of": 9097005517493886304,
+      "skipped_fp": 9097005517493886304,
+      "source": "github/ap/FINAL_DEPLOYMENT_SUMMARY.md"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 2017291287891049303,
+      "skipped_fp": 2017291287891049303,
+      "source": "github/ap/FINAL_DEPLOYMENT_SUMMARY.md"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 1423064112267835959,
+      "skipped_fp": 1423064112267835959,
+      "source": "github/ap/FINAL_DEPLOYMENT_SUMMARY.md"
+    },
+    {
+      "chapter": 2,
+      "duplicate_of": 17298726995574083797,
+      "skipped_fp": 17298726995574083797,
+      "source": "github/ap/FINAL_DEPLOYMENT_SUMMARY.md"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 2766800632142422747,
+      "skipped_fp": 2766800632142422747,
+      "source": "github/ap/FINAL_DEPLOYMENT_SUMMARY.md"
+    },
+    {
+      "chapter": 2,
+      "duplicate_of": 7796929996475108269,
+      "skipped_fp": 7796929996475108269,
+      "source": "github/ap/FINAL_DEPLOYMENT_SUMMARY.md"
+    },
+    {
+      "chapter": 8,
+      "duplicate_of": 17351451825851117334,
+      "skipped_fp": 17351451825851117334,
+      "source": "github/ap/FINAL_DEPLOYMENT_SUMMARY.md"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 17257789270167318719,
+      "skipped_fp": 17257789270167318719,
+      "source": "github/ap/FINAL_DEPLOYMENT_SUMMARY.md"
+    },
+    {
+      "chapter": 10,
+      "duplicate_of": 680569505280844980,
+      "skipped_fp": 680569505280844980,
+      "source": "github/ap/FINAL_DEPLOYMENT_SUMMARY.md"
+    },
+    {
+      "chapter": 7,
+      "duplicate_of": 15396487504757784945,
+      "skipped_fp": 15396487504757784945,
+      "source": "github/ap/FINAL_DEPLOYMENT_SUMMARY.md"
+    },
+    {
+      "chapter": 1,
+      "duplicate_of": 2333298647548638552,
+      "skipped_fp": 2333298647548638552,
+      "source": "github/ap/gcp-complete-config.json"
+    },
+    {
+      "chapter": 8,
+      "duplicate_of": 6521046227269434650,
+      "skipped_fp": 6521046227269434650,
+      "source": "github/ap/google-oauth-credentials-latest.json"
+    },
+    {
+      "chapter": 8,
+      "duplicate_of": 5994061285265479443,
+      "skipped_fp": 5994061285265479443,
+      "source": "github/ap/google-oauth-credentials.json"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 9691091138087387485,
+      "skipped_fp": 9691091138087387485,
+      "source": "github/ap/keys/gh_pat.txt"
+    },
+    {
+      "chapter": 6,
+      "duplicate_of": 13243554110373354436,
+      "skipped_fp": 13243554110373354436,
+      "source": "github/ap/lions-space-migration-report.html"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 12678718163419905531,
+      "skipped_fp": 12678718163419905531,
+      "source": "github/ap/lions-space-migration-report.html"
+    },
+    {
+      "chapter": 8,
+      "duplicate_of": 3314964791137585879,
+      "skipped_fp": 3314964791137585879,
+      "source": "github/ap/lions-space-migration-report.html"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 1079385951118555647,
+      "skipped_fp": 1079385951118555647,
+      "source": "github/ap/lions-space-migration-report.html"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 14128963457548795907,
+      "skipped_fp": 14128963457548795907,
+      "source": "github/ap/lions-space-migration-report.html"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 18112702265070968823,
+      "skipped_fp": 18112702265070968823,
+      "source": "github/ap/lions-space-migration-report.html"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 9276469549840822755,
+      "skipped_fp": 9276469549840822755,
+      "source": "github/ap/lions-space-migration-report.html"
+    },
+    {
+      "chapter": 8,
+      "duplicate_of": 8673827312008949133,
+      "skipped_fp": 8673827312008949133,
+      "source": "github/ap/lions-space-migration-report.html"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 11486421950301468670,
+      "skipped_fp": 11486421950301468670,
+      "source": "github/ap/lions-space-migration-report.html"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 17004451964829679591,
+      "skipped_fp": 17004451964829679591,
+      "source": "github/ap/lions-space-migration-report.html"
+    },
+    {
+      "chapter": 7,
+      "duplicate_of": 633244031002968588,
+      "skipped_fp": 633244031002968588,
+      "source": "github/ap/lions-space-migration-report.html"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 9101773738526620405,
+      "skipped_fp": 9101773738526620405,
+      "source": "github/ap/lions-space-migration-report.html"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 13824325412904763391,
+      "skipped_fp": 13824325412904763391,
+      "source": "github/ap/lions-space-migration-report.html"
+    },
+    {
+      "chapter": 8,
+      "duplicate_of": 5469667109339562146,
+      "skipped_fp": 5469667109339562146,
+      "source": "github/ap/lions-space-migration-report.html"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 17212752790942105411,
+      "skipped_fp": 17212752790942105411,
+      "source": "github/ap/lions-space-migration-report.html"
+    },
+    {
+      "chapter": 1,
+      "duplicate_of": 17414953895423064286,
+      "skipped_fp": 17414953895423064286,
+      "source": "github/ap/lions-space-migration-report.html"
+    },
+    {
+      "chapter": 8,
+      "duplicate_of": 6847814559919163970,
+      "skipped_fp": 6847814559919163970,
+      "source": "github/ap/lions-space-migration-report.html"
+    },
+    {
+      "chapter": 8,
+      "duplicate_of": 9481421324719110945,
+      "skipped_fp": 9481421324719110945,
+      "source": "github/ap/lions-space-migration-report.html"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 14887064889770047211,
+      "skipped_fp": 14887064889770047211,
+      "source": "github/ap/lions-space-migration-report.html"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 9951534520630029443,
+      "skipped_fp": 9951534520630029443,
+      "source": "github/ap/lions-space-migration-report.html"
+    },
+    {
+      "chapter": 7,
+      "duplicate_of": 18233576522201551783,
+      "skipped_fp": 18233576522201551783,
+      "source": "github/ap/lions-space-migration-report.html"
+    },
+    {
+      "chapter": 8,
+      "duplicate_of": 7436753942727475621,
+      "skipped_fp": 7436753942727475621,
+      "source": "github/ap/lions-space-migration-report.html"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 8067952407266377711,
+      "skipped_fp": 8067952407266377711,
+      "source": "github/ap/lions-space-migration-report.html"
+    },
+    {
+      "chapter": 1,
+      "duplicate_of": 8604730901188380405,
+      "skipped_fp": 8604730901188380405,
+      "source": "github/ap/lions-space-migration-report.html"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 13413847875412496412,
+      "skipped_fp": 13413847875412496412,
+      "source": "github/ap/lions-space-migration-report.html"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 13673338578910130119,
+      "skipped_fp": 13673338578910130119,
+      "source": "github/ap/lions-space-migration-report.html"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 18048175505275051006,
+      "skipped_fp": 18048175505275051006,
+      "source": "github/ap/lions-space-migration-report.html"
+    },
+    {
+      "chapter": 8,
+      "duplicate_of": 6843889630030916776,
+      "skipped_fp": 6843889630030916776,
+      "source": "github/ap/lions-space-migration-report.html"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 4334865051342329620,
+      "skipped_fp": 4334865051342329620,
+      "source": "github/ap/lions-space-migration-report.html"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 15501146994932009897,
+      "skipped_fp": 15501146994932009897,
+      "source": "github/ap/lions-space-migration-report.html"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 12371238569345794015,
+      "skipped_fp": 12371238569345794015,
+      "source": "github/ap/lions-space-migration-report.html"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 18266529247355298504,
+      "skipped_fp": 18266529247355298504,
+      "source": "github/ap/lions-space-migration-report.html"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 7860329457167106011,
+      "skipped_fp": 7860329457167106011,
+      "source": "github/ap/lions-space-migration-report.html"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 895238677473864498,
+      "skipped_fp": 895238677473864498,
+      "source": "github/ap/lions-space-migration-report.html"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 16067144646038912383,
+      "skipped_fp": 16067144646038912383,
+      "source": "github/ap/lions-space-migration-report.html"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 6519292427138686583,
+      "skipped_fp": 6519292427138686583,
+      "source": "github/ap/lions-space-migration-report.html"
+    },
+    {
+      "chapter": 8,
+      "duplicate_of": 9006970556242197799,
+      "skipped_fp": 9006970556242197799,
+      "source": "github/ap/lions-space-migration-report.html"
+    },
+    {
+      "chapter": 8,
+      "duplicate_of": 6916085814946157254,
+      "skipped_fp": 6916085814946157254,
+      "source": "github/ap/lions-space-migration-report.html"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 8067952407266377711,
+      "skipped_fp": 17003164471140530111,
+      "source": "github/ap/lions-space-migration-report.html"
+    },
+    {
+      "chapter": 8,
+      "duplicate_of": 17130495525091530439,
+      "skipped_fp": 17130495525091530439,
+      "source": "github/ap/lions-space-migration-report.html"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 1161235628158421807,
+      "skipped_fp": 1161235628158421807,
+      "source": "github/ap/lions-space-migration-report.html"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 5922122049872235561,
+      "skipped_fp": 5922122049872235561,
+      "source": "github/ap/lions-space-migration-report.html"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 12336246418842839710,
+      "skipped_fp": 12336246418842839710,
+      "source": "github/ap/lions-space-migration-report.html"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 9861205554188387080,
+      "skipped_fp": 9861205554188387080,
+      "source": "github/ap/lions-space-migration-report.html"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 18192642520211480278,
+      "skipped_fp": 18192642520211480278,
+      "source": "github/ap/lions-space-migration-report.html"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 13681790239250231167,
+      "skipped_fp": 13681790239250231167,
+      "source": "github/ap/lions-space-migration-report.html"
+    },
+    {
+      "chapter": 1,
+      "duplicate_of": 11321907325458114245,
+      "skipped_fp": 11321907325458114245,
+      "source": "github/ap/lions-space-migration-report.html"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 18068437168298122015,
+      "skipped_fp": 18068437168298122015,
+      "source": "github/ap/lions-space-migration-report.html"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 5689115031956115560,
+      "skipped_fp": 5689115031956115560,
+      "source": "github/ap/lions-space-migration-report.html"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 13715607107068444651,
+      "skipped_fp": 13715607107068444651,
+      "source": "github/ap/lions-space-migration-report.html"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 3948827697536887762,
+      "skipped_fp": 3948827697536887762,
+      "source": "github/ap/lions-space-migration-report.html"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 7222952480892911734,
+      "skipped_fp": 7222952480892911734,
+      "source": "github/ap/lions-space-migration-report.html"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 10697857082285224837,
+      "skipped_fp": 10697857082285224837,
+      "source": "github/ap/lions-space-migration-report.html"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 17572762001635832369,
+      "skipped_fp": 17572762001635832369,
+      "source": "github/ap/lions-space-migration-report.html"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 15740265753706849247,
+      "skipped_fp": 15740265753706849247,
+      "source": "github/ap/lions-space-migration-report.html"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 15660681024064114046,
+      "skipped_fp": 15660681024064114046,
+      "source": "github/ap/lions-space-migration-report.html"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 13807399799343234808,
+      "skipped_fp": 13807399799343234808,
+      "source": "github/ap/lions-space-migration-report.html"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 18444126514421749247,
+      "skipped_fp": 18444126514421749247,
+      "source": "github/ap/lions-space-migration-report.html"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 16013266997340011177,
+      "skipped_fp": 16013266997340011177,
+      "source": "github/ap/lions-space-migration-report.html"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 18446702738298099327,
+      "skipped_fp": 18446702738298099327,
+      "source": "github/ap/lions-space-migration-report.html"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 11126316044711883321,
+      "skipped_fp": 11126316044711883321,
+      "source": "github/ap/lions-space-migration-report.html"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 7073537134397003653,
+      "skipped_fp": 7073537134397003653,
+      "source": "github/ap/lions-space-migration-report.html"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 14215304066207358857,
+      "skipped_fp": 14215304066207358857,
+      "source": "github/ap/lions-space-migration-report.html"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 2662885217076150943,
+      "skipped_fp": 2662885217076150943,
+      "source": "github/ap/lions-space-migration-report.html"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 15852344850645843959,
+      "skipped_fp": 15852344850645843959,
+      "source": "github/ap/lions-space-migration-report.html"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 5547459465452857332,
+      "skipped_fp": 5547459465452857332,
+      "source": "github/ap/lions-space-migration-report.html"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 16867465301833168607,
+      "skipped_fp": 16867465301833168607,
+      "source": "github/ap/lions-space-migration-report.html"
+    },
+    {
+      "chapter": 8,
+      "duplicate_of": 15958214461677406073,
+      "skipped_fp": 15958214461677406073,
+      "source": "github/ap/lions-space-migration-report.html"
+    },
+    {
+      "chapter": 10,
+      "duplicate_of": 18446743867433677823,
+      "skipped_fp": 17292696529021166591,
+      "source": "github/ap/lions-space-migration-report.html"
+    },
+    {
+      "chapter": 8,
+      "duplicate_of": 3096385009690708586,
+      "skipped_fp": 3096385009690708586,
+      "source": "github/ap/lions-space-migration-report.html"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 6601162066057533261,
+      "skipped_fp": 6601162066057533261,
+      "source": "github/ap/lions-space-migration-report.html"
+    },
+    {
+      "chapter": 2,
+      "duplicate_of": 18087568796238738645,
+      "skipped_fp": 18087568796238738645,
+      "source": "github/ap/lions-space-migration-report.html"
+    },
+    {
+      "chapter": 1,
+      "duplicate_of": 8173763144029504810,
+      "skipped_fp": 8173763144029504810,
+      "source": "github/ap/lionspace-complete-config-updated.json"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 1386527287941768832,
+      "skipped_fp": 1386527287941768832,
+      "source": "github/ap/lionspace-deployment-package/AGENT_INSTRUCTIONS.md"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 1794656465392048860,
+      "skipped_fp": 1794656465392048860,
+      "source": "github/ap/lionspace-deployment-package/AGENT_INSTRUCTIONS.md"
+    },
+    {
+      "chapter": 1,
+      "duplicate_of": 17358914668739358091,
+      "skipped_fp": 17358914668739358091,
+      "source": "github/ap/lionspace-deployment-package/AGENT_INSTRUCTIONS.md"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 18117699687249606331,
+      "skipped_fp": 18117699687249606331,
+      "source": "github/ap/lionspace-deployment-package/AGENT_INSTRUCTIONS.md"
+    },
+    {
+      "chapter": 2,
+      "duplicate_of": 14361628628320618585,
+      "skipped_fp": 14361628628320618585,
+      "source": "github/ap/lionspace-deployment-package/AGENT_INSTRUCTIONS.md"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 5764325794650225470,
+      "skipped_fp": 5764325794650225470,
+      "source": "github/ap/lionspace-deployment-package/AGENT_INSTRUCTIONS.md"
+    },
+    {
+      "chapter": 2,
+      "duplicate_of": 18424221578435077871,
+      "skipped_fp": 18424221578435077871,
+      "source": "github/ap/lionspace-deployment-package/AGENT_INSTRUCTIONS.md"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 15117242730489869529,
+      "skipped_fp": 15117242730489869529,
+      "source": "github/ap/lionspace-deployment-package/AGENT_INSTRUCTIONS.md"
+    },
+    {
+      "chapter": 8,
+      "duplicate_of": 9216464895273825151,
+      "skipped_fp": 9216464895273825151,
+      "source": "github/ap/lionspace-deployment-package/AGENT_INSTRUCTIONS.md"
+    },
+    {
+      "chapter": 8,
+      "duplicate_of": 16398532849215107055,
+      "skipped_fp": 16398532849215107055,
+      "source": "github/ap/lionspace-deployment-package/AGENT_INSTRUCTIONS.md"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 9719442967916358875,
+      "skipped_fp": 9719442967916358875,
+      "source": "github/ap/lionspace-deployment-package/AGENT_INSTRUCTIONS.md"
+    },
+    {
+      "chapter": 7,
+      "duplicate_of": 7908637119587544063,
+      "skipped_fp": 7908637119587544063,
+      "source": "github/ap/lionspace-deployment-package/AGENT_INSTRUCTIONS.md"
+    },
+    {
+      "chapter": 7,
+      "duplicate_of": 17690103531043634798,
+      "skipped_fp": 17690103531043634798,
+      "source": "github/ap/lionspace-deployment-package/AGENT_INSTRUCTIONS.md"
+    },
+    {
+      "chapter": 7,
+      "duplicate_of": 9667719358871251069,
+      "skipped_fp": 9667719358871251069,
+      "source": "github/ap/lionspace-deployment-package/AGENT_INSTRUCTIONS.md"
+    },
+    {
+      "chapter": 8,
+      "duplicate_of": 13001774582306077980,
+      "skipped_fp": 13001774582306077980,
+      "source": "github/ap/lionspace-deployment-package/AGENT_INSTRUCTIONS.md"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 1396125790290648047,
+      "skipped_fp": 1396125790290648047,
+      "source": "github/ap/lionspace-deployment-package/AGENT_INSTRUCTIONS.md"
+    },
+    {
+      "chapter": 7,
+      "duplicate_of": 16708244872523087805,
+      "skipped_fp": 16708244872523087805,
+      "source": "github/ap/lionspace-deployment-package/AGENT_INSTRUCTIONS.md"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 9991523251723246338,
+      "skipped_fp": 9991523251723246338,
+      "source": "github/ap/lionspace-deployment-package/AGENT_INSTRUCTIONS.md"
+    },
+    {
+      "chapter": 10,
+      "duplicate_of": 6368789870405703679,
+      "skipped_fp": 6368789870405703679,
+      "source": "github/ap/lionspace-deployment-package/AGENT_INSTRUCTIONS.md"
+    },
+    {
+      "chapter": 2,
+      "duplicate_of": 3605749687587425424,
+      "skipped_fp": 3605749687587425424,
+      "source": "github/ap/lionspace-deployment-package/AGENT_INSTRUCTIONS.md"
+    },
+    {
+      "chapter": 10,
+      "duplicate_of": 18446743867433677823,
+      "skipped_fp": 14986009028591608831,
+      "source": "github/ap/lionspace-deployment-package/AGENT_INSTRUCTIONS.md"
+    },
+    {
+      "chapter": 2,
+      "duplicate_of": 12454977790601756927,
+      "skipped_fp": 12454977790601756927,
+      "source": "github/ap/lionspace-deployment-package/AGENT_INSTRUCTIONS.md"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 17437372297822775954,
+      "skipped_fp": 17437372297822775954,
+      "source": "github/ap/lionspace-deployment-package/AGENT_INSTRUCTIONS.md"
+    },
+    {
+      "chapter": 8,
+      "duplicate_of": 4192023813888970531,
+      "skipped_fp": 4192023813888970531,
+      "source": "github/ap/lionspace-deployment-package/AGENT_INSTRUCTIONS.md"
+    },
+    {
+      "chapter": 8,
+      "duplicate_of": 6521046227269434650,
+      "skipped_fp": 6521046227269434650,
+      "source": "github/ap/lionspace-deployment-package/google-oauth-credentials-latest.json"
+    },
+    {
+      "chapter": 1,
+      "duplicate_of": 8173763144029504810,
+      "skipped_fp": 8173763144031601960,
+      "source": "github/ap/lionspace-deployment-package/lionspace-complete-config-updated.json"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 4356081239363295944,
+      "skipped_fp": 4356081239363295944,
+      "source": "github/ap/lionspace-deployment-package/lionspace-service-account-key.json"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 9222667795357495258,
+      "skipped_fp": 9222667795357495258,
+      "source": "github/ap/lionspace-deployment-package/setup-vercel-env.sh"
+    },
+    {
+      "chapter": 2,
+      "duplicate_of": 13521528871515455626,
+      "skipped_fp": 13521528871515455626,
+      "source": "github/ap/lionspace-deployment-package/setup-vercel-env.sh"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 9939714494024766966,
+      "skipped_fp": 9939714494024766966,
+      "source": "github/ap/lionspace-deployment-package/setup-vercel-env.sh"
+    },
+    {
+      "chapter": 2,
+      "duplicate_of": 17419077958227424094,
+      "skipped_fp": 17419077958227424094,
+      "source": "github/ap/lionspace-deployment-package/setup-vercel-env.sh"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 13575653404824833208,
+      "skipped_fp": 13575653404824833208,
+      "source": "github/ap/lionspace-deployment-package/setup-vercel-env.sh"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 2622645541699787640,
+      "skipped_fp": 2622645541699787640,
+      "source": "github/ap/lionspace-deployment-package/setup-vercel-env.sh"
+    },
+    {
+      "chapter": 2,
+      "duplicate_of": 2912274100301484609,
+      "skipped_fp": 2912274100301484609,
+      "source": "github/ap/lionspace-deployment-package/setup-vercel-env.sh"
+    },
+    {
+      "chapter": 2,
+      "duplicate_of": 17933869847561345470,
+      "skipped_fp": 17933869847561345470,
+      "source": "github/ap/lionspace-deployment-package/setup-vercel-env.sh"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 16928871562578941683,
+      "skipped_fp": 16928871562578941683,
+      "source": "github/ap/lionspace-deployment-package/setup-vercel-env.sh"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 5222873247866605500,
+      "skipped_fp": 5222873247866605500,
+      "source": "github/ap/lionspace-deployment-package/setup-vercel-env.sh"
+    },
+    {
+      "chapter": 8,
+      "duplicate_of": 15720273892534898484,
+      "skipped_fp": 15720273892534898484,
+      "source": "github/ap/lionspace-deployment-package/setup-vercel-env.sh"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 13471343717591992124,
+      "skipped_fp": 13471343717591992124,
+      "source": "github/ap/lionspace-deployment-package/setup-vercel-env.sh"
+    },
+    {
+      "chapter": 7,
+      "duplicate_of": 17649560334699945983,
+      "skipped_fp": 17649560334699945983,
+      "source": "github/ap/lionspace-deployment-package/setup-vercel-env.sh"
+    },
+    {
+      "chapter": 7,
+      "duplicate_of": 4214094948240246200,
+      "skipped_fp": 4214094948240246200,
+      "source": "github/ap/lionspace-deployment-package/setup-vercel-env.sh"
+    },
+    {
+      "chapter": 8,
+      "duplicate_of": 10826541485453032250,
+      "skipped_fp": 10826541485453032250,
+      "source": "github/ap/lionspace-deployment-package/setup-vercel-env.sh"
+    },
+    {
+      "chapter": 8,
+      "duplicate_of": 10880551252099501363,
+      "skipped_fp": 10880551252099501363,
+      "source": "github/ap/lionspace-deployment-package/setup-vercel-env.sh"
+    },
+    {
+      "chapter": 8,
+      "duplicate_of": 15852018655751534303,
+      "skipped_fp": 15852018655751534303,
+      "source": "github/ap/lionspace-deployment-package/setup-vercel-env.sh"
+    },
+    {
+      "chapter": 8,
+      "duplicate_of": 13419883831579322332,
+      "skipped_fp": 13419883831579322332,
+      "source": "github/ap/lionspace-deployment-package/setup-vercel-env.sh"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 12258068810741063757,
+      "skipped_fp": 12258068810741063757,
+      "source": "github/ap/lionspace-deployment-package/setup-vercel-env.sh"
+    },
+    {
+      "chapter": 2,
+      "duplicate_of": 11880167836348878756,
+      "skipped_fp": 11880167836348878756,
+      "source": "github/ap/lionspace-deployment-package/setup-vercel-env.sh"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 16128810644441221119,
+      "skipped_fp": 16128810644441221119,
+      "source": "github/ap/lionspace-deployment-package/setup-vercel-env.sh"
+    },
+    {
+      "chapter": 2,
+      "duplicate_of": 18363251520053034791,
+      "skipped_fp": 18363251520053034791,
+      "source": "github/ap/lionspace-deployment-package/setup-vercel-env.sh"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 4356081239363295944,
+      "skipped_fp": 4356081239363295944,
+      "source": "github/ap/lionspace-service-account-key.json"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 14041994620791986631,
+      "skipped_fp": 14041994620791986631,
+      "source": "github/ap/LIONSPACE_TECHNICAL_GUIDE.md"
+    },
+    {
+      "chapter": 2,
+      "duplicate_of": 5393866160624882926,
+      "skipped_fp": 5393866160624882926,
+      "source": "github/ap/LIONSPACE_TECHNICAL_GUIDE.md"
+    },
+    {
+      "chapter": 2,
+      "duplicate_of": 2747394377473269486,
+      "skipped_fp": 2747394377473269486,
+      "source": "github/ap/LIONSPACE_TECHNICAL_GUIDE.md"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 16145973691289326286,
+      "skipped_fp": 16145973691289326286,
+      "source": "github/ap/LIONSPACE_TECHNICAL_GUIDE.md"
+    },
+    {
+      "chapter": 2,
+      "duplicate_of": 13903915631442573814,
+      "skipped_fp": 13903915631442573814,
+      "source": "github/ap/LIONSPACE_TECHNICAL_GUIDE.md"
+    },
+    {
+      "chapter": 6,
+      "duplicate_of": 17036073304582039745,
+      "skipped_fp": 17036073304582039745,
+      "source": "github/ap/LIONSPACE_TECHNICAL_GUIDE.md"
+    },
+    {
+      "chapter": 2,
+      "duplicate_of": 14214709002299204388,
+      "skipped_fp": 14214709002299204388,
+      "source": "github/ap/LIONSPACE_TECHNICAL_GUIDE.md"
+    },
+    {
+      "chapter": 6,
+      "duplicate_of": 7068817090716417482,
+      "skipped_fp": 7068817090716417482,
+      "source": "github/ap/LIONSPACE_TECHNICAL_GUIDE.md"
+    },
+    {
+      "chapter": 2,
+      "duplicate_of": 3124197468929264419,
+      "skipped_fp": 3124197468929264419,
+      "source": "github/ap/LIONSPACE_TECHNICAL_GUIDE.md"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 17357314824459043956,
+      "skipped_fp": 17357314824459043956,
+      "source": "github/ap/LIONSPACE_TECHNICAL_GUIDE.md"
+    },
+    {
+      "chapter": 2,
+      "duplicate_of": 12517350100871538638,
+      "skipped_fp": 12517350100871538638,
+      "source": "github/ap/LIONSPACE_TECHNICAL_GUIDE.md"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 14907362492961942613,
+      "skipped_fp": 14907362492961942613,
+      "source": "github/ap/LIONSPACE_TECHNICAL_GUIDE.md"
+    },
+    {
+      "chapter": 2,
+      "duplicate_of": 1810579716302213522,
+      "skipped_fp": 1810579716302213522,
+      "source": "github/ap/LIONSPACE_TECHNICAL_GUIDE.md"
+    },
+    {
+      "chapter": 6,
+      "duplicate_of": 14306518639424508538,
+      "skipped_fp": 14306518639424508538,
+      "source": "github/ap/LIONSPACE_TECHNICAL_GUIDE.md"
+    },
+    {
+      "chapter": 2,
+      "duplicate_of": 6946231101032796155,
+      "skipped_fp": 6946231101032796155,
+      "source": "github/ap/LIONSPACE_TECHNICAL_GUIDE.md"
+    },
+    {
+      "chapter": 2,
+      "duplicate_of": 13578352586309354223,
+      "skipped_fp": 13578352586309354223,
+      "source": "github/ap/LIONSPACE_TECHNICAL_GUIDE.md"
+    },
+    {
+      "chapter": 2,
+      "duplicate_of": 13382194324175979150,
+      "skipped_fp": 13382194324175979150,
+      "source": "github/ap/LIONSPACE_TECHNICAL_GUIDE.md"
+    },
+    {
+      "chapter": 2,
+      "duplicate_of": 10063002617723619121,
+      "skipped_fp": 10063002617723619121,
+      "source": "github/ap/LIONSPACE_TECHNICAL_GUIDE.md"
+    },
+    {
+      "chapter": 2,
+      "duplicate_of": 12881766156857331311,
+      "skipped_fp": 12881766156857331311,
+      "source": "github/ap/LIONSPACE_TECHNICAL_GUIDE.md"
+    },
+    {
+      "chapter": 2,
+      "duplicate_of": 6403282429617833532,
+      "skipped_fp": 6403282429617833532,
+      "source": "github/ap/LIONSPACE_TECHNICAL_GUIDE.md"
+    },
+    {
+      "chapter": 1,
+      "duplicate_of": 12304465986400146033,
+      "skipped_fp": 12304465986400146033,
+      "source": "github/ap/LIONSPACE_TECHNICAL_GUIDE.md"
+    },
+    {
+      "chapter": 2,
+      "duplicate_of": 16538384817240079795,
+      "skipped_fp": 16538384817240079795,
+      "source": "github/ap/vercel-config.json"
+    },
+    {
+      "chapter": 7,
+      "duplicate_of": 17363183563557117227,
+      "skipped_fp": 17363183563557117227,
+      "source": "github/ap/vercel-deployment-config.json"
+    },
+    {
+      "chapter": 2,
+      "duplicate_of": 2837277212345052361,
+      "skipped_fp": 2837277212345052361,
+      "source": "github/ap/vercel-gcp-integration.json"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 18432828445973998846,
+      "skipped_fp": 18432828445973998846,
+      "source": "github/ap/VERCEL_GCP_UPDATE_INSTRUCTIONS.md"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 3420961273072725631,
+      "skipped_fp": 3420961273072725631,
+      "source": "github/ap/VERCEL_GCP_UPDATE_INSTRUCTIONS.md"
+    },
+    {
+      "chapter": 2,
+      "duplicate_of": 8642406305408744950,
+      "skipped_fp": 8642406305408744950,
+      "source": "github/ap/VERCEL_GCP_UPDATE_INSTRUCTIONS.md"
+    },
+    {
+      "chapter": 2,
+      "duplicate_of": 995960896354132005,
+      "skipped_fp": 995960896354132005,
+      "source": "github/ap/VERCEL_GCP_UPDATE_INSTRUCTIONS.md"
+    },
+    {
+      "chapter": 7,
+      "duplicate_of": 8602454146529227064,
+      "skipped_fp": 8602454146529227064,
+      "source": "github/ap/VERCEL_GCP_UPDATE_INSTRUCTIONS.md"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 9725877757666008694,
+      "skipped_fp": 9725877757666008694,
+      "source": "github/ap/VERCEL_GCP_UPDATE_INSTRUCTIONS.md"
+    },
+    {
+      "chapter": 7,
+      "duplicate_of": 1695640342893147044,
+      "skipped_fp": 1695640342893147044,
+      "source": "github/ap/VERCEL_GCP_UPDATE_INSTRUCTIONS.md"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 11802100485103298892,
+      "skipped_fp": 11802100485103298892,
+      "source": "github/ap/VERCEL_GCP_UPDATE_INSTRUCTIONS.md"
+    },
+    {
+      "chapter": 7,
+      "duplicate_of": 17141240698806842413,
+      "skipped_fp": 17141240698806842413,
+      "source": "github/ap/VERCEL_GCP_UPDATE_INSTRUCTIONS.md"
+    },
+    {
+      "chapter": 8,
+      "duplicate_of": 693055060056227423,
+      "skipped_fp": 693055060056227423,
+      "source": "github/ap/VERCEL_GCP_UPDATE_INSTRUCTIONS.md"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 7625730445936989545,
+      "skipped_fp": 7625730445936989545,
+      "source": "github/ap/VERCEL_GCP_UPDATE_INSTRUCTIONS.md"
+    },
+    {
+      "chapter": 2,
+      "duplicate_of": 406318917508881284,
+      "skipped_fp": 406318917508881284,
+      "source": "github/ap/VERCEL_GCP_UPDATE_INSTRUCTIONS.md"
+    },
+    {
+      "chapter": 8,
+      "duplicate_of": 11645037255704685687,
+      "skipped_fp": 11645037255704685687,
+      "source": "github/ap/VERCEL_GCP_UPDATE_INSTRUCTIONS.md"
+    },
+    {
+      "chapter": 8,
+      "duplicate_of": 6623967112975203616,
+      "skipped_fp": 6623967112975203616,
+      "source": "github/ap/VERCEL_GCP_UPDATE_INSTRUCTIONS.md"
+    },
+    {
+      "chapter": 7,
+      "duplicate_of": 4716051795958119315,
+      "skipped_fp": 4716051795958119315,
+      "source": "github/ap/VERCEL_GCP_UPDATE_INSTRUCTIONS.md"
+    },
+    {
+      "chapter": 2,
+      "duplicate_of": 13026883742288860233,
+      "skipped_fp": 13026883742288860233,
+      "source": "github/ap/VERCEL_GCP_UPDATE_INSTRUCTIONS.md"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 16815274950733584287,
+      "skipped_fp": 16815274950733584287,
+      "source": "github/ap/VERCEL_GCP_UPDATE_INSTRUCTIONS.md"
+    },
+    {
+      "chapter": 10,
+      "duplicate_of": 10613387221257599963,
+      "skipped_fp": 10613387221257599963,
+      "source": "github/ap/VERCEL_GCP_UPDATE_INSTRUCTIONS.md"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 11244290548535736349,
+      "skipped_fp": 11244290548535736349,
+      "source": "github/ap/VERCEL_GCP_UPDATE_INSTRUCTIONS.md"
+    },
+    {
+      "chapter": 2,
+      "duplicate_of": 8440385202843605857,
+      "skipped_fp": 8440385202843605857,
+      "source": "github/ap/VERCEL_GCP_UPDATE_INSTRUCTIONS.md"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 18068437168298122015,
+      "skipped_fp": 18068437168298122015,
+      "source": "github/ap/VERCEL_GCP_UPDATE_INSTRUCTIONS.md"
+    },
+    {
+      "chapter": 2,
+      "duplicate_of": 10137238534962924763,
+      "skipped_fp": 10137238534962924763,
+      "source": "github/ap/VERCEL_GCP_UPDATE_INSTRUCTIONS.md"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 13086500679559153955,
+      "skipped_fp": 13086500679559153955,
+      "source": "github/ap/VERCEL_GCP_UPDATE_INSTRUCTIONS.md"
+    },
+    {
+      "chapter": 2,
+      "duplicate_of": 13642866422739301537,
+      "skipped_fp": 13642866422739301537,
+      "source": "github/ap/VERCEL_GCP_UPDATE_INSTRUCTIONS.md"
+    },
+    {
+      "chapter": 8,
+      "duplicate_of": 6521046227269434650,
+      "skipped_fp": 6521046227269434650,
+      "source": "google-oauth-credentials-latest.json"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 4356081239363295944,
+      "skipped_fp": 4356081239363295944,
+      "source": "lionspace-service-account-key.json"
+    },
+    {
+      "chapter": 1,
+      "duplicate_of": 4690931136125513156,
+      "skipped_fp": 4690931136125513156,
+      "source": "public/desigen_data/cognitive_warfare_messages_multilingual.json"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 4443977440216059195,
+      "skipped_fp": 4443977440216059195,
+      "source": "README.md"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 14753792327456377759,
+      "skipped_fp": 14753792327456377759,
+      "source": "README.md"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 4443977440216059195,
+      "skipped_fp": 4443977440216059195,
+      "source": "README.md"
+    },
+    {
+      "chapter": 2,
+      "duplicate_of": 8626151882648559382,
+      "skipped_fp": 8626151882648559382,
+      "source": "README.md"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 5386591557354500520,
+      "skipped_fp": 5386591557354500520,
+      "source": "README.md"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 18437664802951883774,
+      "skipped_fp": 18437664802951883774,
+      "source": "README.md"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 8046481174327967204,
+      "skipped_fp": 8046481174327967204,
+      "source": "README.md"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 8267427250089967607,
+      "skipped_fp": 8267427250089967607,
+      "source": "README.md"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 9222667795357495258,
+      "skipped_fp": 9222667795357495258,
+      "source": "scripts/cleanup-and-sync.sh"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 9222667795357495258,
+      "skipped_fp": 9222667795357495258,
+      "source": "scripts/create-app-icon.sh"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 9222667795357495258,
+      "skipped_fp": 9222667795357495258,
+      "source": "scripts/launch-lionspace.sh"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 13617754537107353579,
+      "skipped_fp": 13617754537107353579,
+      "source": "scripts/launch-lionspace.sh"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 16383742596156297633,
+      "skipped_fp": 16383742596156297633,
+      "source": "scripts/launch-lionspace.sh"
+    },
+    {
+      "chapter": 7,
+      "duplicate_of": 12797393954764810142,
+      "skipped_fp": 4006371880184117198,
+      "source": "scripts/measure_words.js"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 9222667795357495258,
+      "skipped_fp": 9222667795357495258,
+      "source": "scripts/sync-monitor.sh"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 4237567818794961714,
+      "skipped_fp": 4237567818794961714,
+      "source": "scripts/sync-monitor.sh"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 702798725987226997,
+      "skipped_fp": 702798725987226997,
+      "source": "scripts/sync-monitor.sh"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 8646413716876092790,
+      "skipped_fp": 8646413716876092790,
+      "source": "scripts/sync-monitor.sh"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 11200033622596033080,
+      "skipped_fp": 11200033622596033080,
+      "source": "scripts/sync-monitor.sh"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 17865407756117995423,
+      "skipped_fp": 17865407756117995423,
+      "source": "src/app/(platform)/layout.tsx"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 17865407756117995423,
+      "skipped_fp": 17865407756117995423,
+      "source": "src/app/(platform)/platform/page.tsx"
+    },
+    {
+      "chapter": 6,
+      "duplicate_of": 7905906056998290070,
+      "skipped_fp": 7833852860996428454,
+      "source": "src/app/(platform)/platform/page.tsx"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 17865407756117995423,
+      "skipped_fp": 17865407756117995423,
+      "source": "src/app/_components/language-switcher.tsx"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 17865407756117995423,
+      "skipped_fp": 17865407756117995423,
+      "source": "src/app/_components/terminal/command-terminal.tsx"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 17865407756117995423,
+      "skipped_fp": 17865407756117995423,
+      "source": "src/app/_components/terminal/data-stream-display.tsx"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 17865407756117995423,
+      "skipped_fp": 17865407756117995423,
+      "source": "src/app/_components/terminal/intelligence-card.tsx"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 17865407756117995423,
+      "skipped_fp": 17865407756117995423,
+      "source": "src/app/_components/terminal/status-indicator.tsx"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 17865407756117995423,
+      "skipped_fp": 17865407756117995423,
+      "source": "src/app/_components/visuals/IntelligencePanel.tsx"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 4537553882000046783,
+      "skipped_fp": 9221302371400793023,
+      "source": "src/app/_components/visuals/IntelligencePanel.tsx"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 17865407756117995423,
+      "skipped_fp": 17865407756117995423,
+      "source": "src/app/_components/visuals/living-intelligence-canvas.tsx"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 17865407756117995423,
+      "skipped_fp": 17865407756117995423,
+      "source": "src/app/_components/visuals/MatrixBackground.tsx"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 1397365869154398043,
+      "skipped_fp": 1397365869154398043,
+      "source": "src/app/_components/visuals/MatrixBackground.tsx"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 765424342980385358,
+      "skipped_fp": 765424342980385358,
+      "source": "src/app/_components/visuals/MatrixBackground.tsx"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 17865407756117995423,
+      "skipped_fp": 17865407756117995423,
+      "source": "src/app/_components/visuals/NeuralNetworkCanvas.tsx"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 17865407756117995423,
+      "skipped_fp": 17865407756117995423,
+      "source": "src/app/_components/visuals/use-wargame-engine.ts"
+    },
+    {
+      "chapter": 2,
+      "duplicate_of": 5828414851248959643,
+      "skipped_fp": 4666451521377417371,
+      "source": "src/app/_components/visuals/use-wargame-engine.ts"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 1728256150758723934,
+      "skipped_fp": 1728256150758723934,
+      "source": "src/app/_components/visuals/use-wargame-engine.ts"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 9396462630429024622,
+      "skipped_fp": 9396462630429024622,
+      "source": "src/app/_components/visuals/use-wargame-engine.ts"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 3287540093781832969,
+      "skipped_fp": 4593659854705947913,
+      "source": "src/app/_components/visuals/use-wargame-engine.ts"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 17865407756117995423,
+      "skipped_fp": 17865407756117995423,
+      "source": "src/app/error.tsx"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 17865407756117995423,
+      "skipped_fp": 17865407756117995423,
+      "source": "src/app/global-error.tsx"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 10303653060734639103,
+      "skipped_fp": 10303653060734639103,
+      "source": "src/app/global-error.tsx"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 6324042504956318663,
+      "skipped_fp": 5171051179214803918,
+      "source": "src/app/globals.css"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 17865407756117995423,
+      "skipped_fp": 17865407756117995423,
+      "source": "src/app/matrix/page.tsx"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 17865407756117995423,
+      "skipped_fp": 17865407756117995423,
+      "source": "src/app/page.tsx"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 17865407756117995423,
+      "skipped_fp": 17865407756117995423,
+      "source": "src/app/providers.tsx"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 17865407756117995423,
+      "skipped_fp": 17865407756117995423,
+      "source": "src/components/auth/AuthModal.tsx"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 17865407756117995423,
+      "skipped_fp": 17865407756117995423,
+      "source": "src/components/backgrounds/EnhancedUnifiedBackground.tsx"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 1728256150758723934,
+      "skipped_fp": 1728256150758723934,
+      "source": "src/components/backgrounds/EnhancedUnifiedBackground.tsx"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 14689545166066542571,
+      "skipped_fp": 14689545166066542571,
+      "source": "src/components/backgrounds/EnhancedUnifiedBackground.tsx"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 14689545166066542571,
+      "skipped_fp": 14689545166066542571,
+      "source": "src/components/backgrounds/EnhancedUnifiedBackground.tsx"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 15816629268239874039,
+      "skipped_fp": 15816629268239874039,
+      "source": "src/components/backgrounds/EnhancedUnifiedBackground.tsx"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 765424342980385358,
+      "skipped_fp": 765424342980385358,
+      "source": "src/components/backgrounds/EnhancedUnifiedBackground.tsx"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 17865407756117995423,
+      "skipped_fp": 17865407756117995423,
+      "source": "src/components/backgrounds/MatrixWarfareBackground.tsx"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 14886745880915344541,
+      "skipped_fp": 14886751397801196733,
+      "source": "src/components/backgrounds/MatrixWarfareBackground.tsx"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 15405421611787920327,
+      "skipped_fp": 15405421611787920327,
+      "source": "src/components/backgrounds/MatrixWarfareBackground.tsx"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 1728256150758723934,
+      "skipped_fp": 1728256150758723934,
+      "source": "src/components/backgrounds/MatrixWarfareBackground.tsx"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 13681684349649018367,
+      "skipped_fp": 13681684349649018367,
+      "source": "src/components/backgrounds/MatrixWarfareBackground.tsx"
+    },
+    {
+      "chapter": 6,
+      "duplicate_of": 12807922937754974606,
+      "skipped_fp": 12807922937754974606,
+      "source": "src/components/backgrounds/MatrixWarfareBackground.tsx"
+    },
+    {
+      "chapter": 6,
+      "duplicate_of": 5434139062896152451,
+      "skipped_fp": 5434139062896152451,
+      "source": "src/components/backgrounds/MatrixWarfareBackground.tsx"
+    },
+    {
+      "chapter": 9,
+      "duplicate_of": 9156935180130610678,
+      "skipped_fp": 9156935180130610678,
+      "source": "src/components/backgrounds/MatrixWarfareBackground.tsx"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 14689545166066542571,
+      "skipped_fp": 14689545166066542571,
+      "source": "src/components/backgrounds/MatrixWarfareBackground.tsx"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 14689545166066542571,
+      "skipped_fp": 14689545166066542571,
+      "source": "src/components/backgrounds/MatrixWarfareBackground.tsx"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 14689545166066542571,
+      "skipped_fp": 14689545166066542571,
+      "source": "src/components/backgrounds/MatrixWarfareBackground.tsx"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 15816629268239874039,
+      "skipped_fp": 15816629268239874039,
+      "source": "src/components/backgrounds/MatrixWarfareBackground.tsx"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 765424342980385358,
+      "skipped_fp": 765424342980385358,
+      "source": "src/components/backgrounds/MatrixWarfareBackground.tsx"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 17865407756117995423,
+      "skipped_fp": 17865407756117995423,
+      "source": "src/components/backgrounds/UnifiedBackground.tsx"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 16707902355061369411,
+      "skipped_fp": 16707902355061369411,
+      "source": "src/components/backgrounds/UnifiedBackground.tsx"
+    },
+    {
+      "chapter": 2,
+      "duplicate_of": 9138682212622702241,
+      "skipped_fp": 9138682212622702241,
+      "source": "src/components/backgrounds/UnifiedBackground.tsx"
+    },
+    {
+      "chapter": 2,
+      "duplicate_of": 15638490970707169907,
+      "skipped_fp": 15638490970103198304,
+      "source": "src/components/backgrounds/UnifiedBackground.tsx"
+    },
+    {
+      "chapter": 6,
+      "duplicate_of": 15240394344777600113,
+      "skipped_fp": 15240394344777600113,
+      "source": "src/components/backgrounds/UnifiedBackground.tsx"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 14886745880915344541,
+      "skipped_fp": 14886745880915344541,
+      "source": "src/components/backgrounds/UnifiedBackground.tsx"
+    },
+    {
+      "chapter": 2,
+      "duplicate_of": 1191624503391268513,
+      "skipped_fp": 1191624503391268513,
+      "source": "src/components/backgrounds/UnifiedBackground.tsx"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 1728256150758723934,
+      "skipped_fp": 1728256150758723934,
+      "source": "src/components/backgrounds/UnifiedBackground.tsx"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 13681684349649018367,
+      "skipped_fp": 13681684349649018367,
+      "source": "src/components/backgrounds/UnifiedBackground.tsx"
+    },
+    {
+      "chapter": 2,
+      "duplicate_of": 11477597919806106824,
+      "skipped_fp": 11477597644928199880,
+      "source": "src/components/backgrounds/UnifiedBackground.tsx"
+    },
+    {
+      "chapter": 2,
+      "duplicate_of": 2853820342385830169,
+      "skipped_fp": 549103241717410057,
+      "source": "src/components/backgrounds/UnifiedBackground.tsx"
+    },
+    {
+      "chapter": 2,
+      "duplicate_of": 5762879621986562894,
+      "skipped_fp": 5762879621986562894,
+      "source": "src/components/backgrounds/UnifiedBackground.tsx"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 11504847945740218303,
+      "skipped_fp": 11504847945740218303,
+      "source": "src/components/backgrounds/UnifiedBackground.tsx"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 17257678369526665151,
+      "skipped_fp": 17257678369526665151,
+      "source": "src/components/backgrounds/UnifiedBackground.tsx"
+    },
+    {
+      "chapter": 2,
+      "duplicate_of": 10186156907784560793,
+      "skipped_fp": 10186156907784560793,
+      "source": "src/components/backgrounds/UnifiedBackground.tsx"
+    },
+    {
+      "chapter": 6,
+      "duplicate_of": 12807922937754974606,
+      "skipped_fp": 12807922937754974606,
+      "source": "src/components/backgrounds/UnifiedBackground.tsx"
+    },
+    {
+      "chapter": 6,
+      "duplicate_of": 5434139062896152451,
+      "skipped_fp": 5434139062896152451,
+      "source": "src/components/backgrounds/UnifiedBackground.tsx"
+    },
+    {
+      "chapter": 2,
+      "duplicate_of": 15365959228747054816,
+      "skipped_fp": 15365959228747054816,
+      "source": "src/components/backgrounds/UnifiedBackground.tsx"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 10684024486130666598,
+      "skipped_fp": 10684024486130666598,
+      "source": "src/components/backgrounds/UnifiedBackground.tsx"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 13174876334653594553,
+      "skipped_fp": 13174876300293921721,
+      "source": "src/components/backgrounds/UnifiedBackground.tsx"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 15559879395891526107,
+      "skipped_fp": 15559879395891526107,
+      "source": "src/components/backgrounds/UnifiedBackground.tsx"
+    },
+    {
+      "chapter": 2,
+      "duplicate_of": 11474320977760491035,
+      "skipped_fp": 11474320977760491035,
+      "source": "src/components/backgrounds/UnifiedBackground.tsx"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 14689545166066542571,
+      "skipped_fp": 14689545166066542571,
+      "source": "src/components/backgrounds/UnifiedBackground.tsx"
+    },
+    {
+      "chapter": 2,
+      "duplicate_of": 15096379486533239792,
+      "skipped_fp": 15096379486533239792,
+      "source": "src/components/backgrounds/UnifiedBackground.tsx"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 15816629268239874039,
+      "skipped_fp": 15816629268239874039,
+      "source": "src/components/backgrounds/UnifiedBackground.tsx"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 765424342980385358,
+      "skipped_fp": 765424342980385358,
+      "source": "src/components/backgrounds/UnifiedBackground.tsx"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 11698632425926489688,
+      "skipped_fp": 11698632425926489688,
+      "source": "src/components/backgrounds/UnifiedBackground.tsx"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 17865407756117995423,
+      "skipped_fp": 17865407756117995423,
+      "source": "src/components/dev/component-inspector.tsx"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 17865407756117995423,
+      "skipped_fp": 17865407756117995423,
+      "source": "src/components/landing/LandingHero.tsx"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 17865407756117995423,
+      "skipped_fp": 17865407756117995423,
+      "source": "src/components/terminal-ui/display/terminal-card.tsx"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 17865407756117995423,
+      "skipped_fp": 17865407756117995423,
+      "source": "src/components/terminal-ui/forms/terminal-button.tsx"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 17865407756117995423,
+      "skipped_fp": 17865407756117995423,
+      "source": "src/components/terminal-ui/forms/terminal-input.tsx"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 17865407756117995423,
+      "skipped_fp": 17865407756117995423,
+      "source": "src/components/terminal-ui/layout/navigation-header.tsx"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 17865407756117995423,
+      "skipped_fp": 17865407756117995423,
+      "source": "src/components/terminal-ui/layout/terminal-hero.tsx"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 17865407756117995423,
+      "skipped_fp": 17865407756117995423,
+      "source": "src/components/ui/grid.tsx"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 15345846365039361967,
+      "skipped_fp": 15345846365039361967,
+      "source": "src/components/ui/grid.tsx"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 17865407756117995423,
+      "skipped_fp": 17865407756117995423,
+      "source": "src/components/ui/tabs.tsx"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 17865407756117995423,
+      "skipped_fp": 17865407756117995423,
+      "source": "src/contexts/translation-context.tsx"
+    },
+    {
+      "chapter": 1,
+      "duplicate_of": 4690931136125513156,
+      "skipped_fp": 4690931136125513156,
+      "source": "src/data/cognitive_warfare_messages_multilingual.json"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 17815832997055883244,
+      "skipped_fp": 17815832997055883244,
+      "source": "src/lib/data-parsers.ts"
+    },
+    {
+      "chapter": 7,
+      "duplicate_of": 16476910215765342112,
+      "skipped_fp": 16467900885954705312,
+      "source": "src/lib/tailwindui/design-tokens.ts"
+    },
+    {
+      "chapter": 6,
+      "duplicate_of": 18298081030561282005,
+      "skipped_fp": 18446744073607804919,
+      "source": "src/lib/tailwindui/README.md"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 17140697697584823175,
+      "skipped_fp": 17140697697584823175,
+      "source": "src/lib/tailwindui/README.md"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 17544579345890934699,
+      "skipped_fp": 17544579345890934699,
+      "source": "src/middleware.ts"
+    },
+    {
+      "chapter": 7,
+      "duplicate_of": 12233941869182266827,
+      "skipped_fp": 12233941869182266827,
+      "source": "tailwind.config.ts"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 18154916091065752411,
+      "skipped_fp": 18154916091065752411,
+      "source": "visual_audit.md"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 14753792327456377759,
+      "skipped_fp": 17167717346323385239,
+      "source": "visual_audit.md"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 8773405628274402938,
+      "skipped_fp": 8773405628274402938,
+      "source": "visual_audit.md"
+    },
+    {
+      "chapter": 5,
+      "duplicate_of": 17852176554390454143,
+      "skipped_fp": 17852176554390454143,
+      "source": "visual_audit.md"
+    },
+    {
+      "chapter": 2,
+      "duplicate_of": 17308943867976417127,
+      "skipped_fp": 17308943867976417127,
+      "source": "visual_audit.md"
+    }
+  ]
+}

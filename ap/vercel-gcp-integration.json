@@ -1,0 +1,61 @@
+{
+  "integration": "Vercel + GCP LionSpace Project",
+  "created": "2025-09-03",
+  "vercel": {
+    "project": "v0-lion-space",
+    "team": "lionsteam",
+    "github_repo": "LionSpaceAdmin/modern-nextjs-app",
+    "production_url": "https://v0-lion-space.vercel.app",
+    "environment_variables": {
+      "GOOGLE_CLOUD_PROJECT": "lionspace",
+      "NEXT_PUBLIC_GOOGLE_CLIENT_ID": "707897822334-f9a3fi3kfacnsrjpqt48k38lcqdvan1g.apps.googleusercontent.com",
+      "NEXT_PUBLIC_API_URL": "https://lionspace-backend-707897822334.us-east1.run.app",
+      "GOOGLE_CLIENT_SECRET": "[ENCRYPTED]"
+    }
+  },
+  "gcp": {
+    "project_id": "lionspace",
+    "project_number": "707897822334",
+    "billing_account": "hanudani@gmail.com",
+    "region": "us-east1",
+    "services": {
+      "cloud_run": {
+        "backend": "https://lionspace-backend-707897822334.us-east1.run.app",
+        "frontend": "https://lionspace-frontend-707897822334.us-east1.run.app"
+      },
+      "oauth": {
+        "client_id": "707897822334-f9a3fi3kfacnsrjpqt48k38lcqdvan1g.apps.googleusercontent.com",
+        "redirect_uris": [
+          "https://lionsofzion.online/api/auth/callback/google",
+          "https://v0-lion-space.vercel.app/api/auth/callback/google"
+        ]
+      }
+    }
+  },
+  "deployment_flow": {
+    "frontend": {
+      "platform": "Vercel",
+      "auto_deploy": "on push to main branch",
+      "build_command": "npm run build",
+      "output_directory": ".next"
+    },
+    "backend": {
+      "platform": "GCP Cloud Run",
+      "deploy_command": "gcloud run deploy lionspace-backend --source . --region us-east1",
+      "service_account": "superadmin-sa@lionspace.iam.gserviceaccount.com"
+    }
+  },
+  "commands": {
+    "deploy_frontend": "vercel --prod --scope lionsteam",
+    "deploy_backend": "gcloud run deploy lionspace-backend --source . --region us-east1 --account hanudani@gmail.com",
+    "list_env_vars": "vercel env ls --scope lionsteam",
+    "add_env_var": "vercel env add <NAME> production --scope lionsteam",
+    "check_deployment": "vercel ls --scope lionsteam"
+  },
+  "notes": [
+    "Frontend deployed on Vercel with automatic GitHub integration",
+    "Backend services on GCP Cloud Run",
+    "Billing through personal account (hanudani@gmail.com) for GCP credits",
+    "OAuth configured for both production domains"
+  ]
+}
