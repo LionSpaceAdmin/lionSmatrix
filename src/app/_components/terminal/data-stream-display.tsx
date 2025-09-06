@@ -193,7 +193,7 @@ export function DataStreamDisplay({
                     <div className="mt-1 text-terminal-muted">
                       {Object.entries(entry.data).map(([key, value]) => (
                         <span key={key} className="mr-3">
-                          {key}: <span className="text-terminal-cyan">{value}</span>
+                          {key}: <span className="text-terminal-cyan">{String(value)}</span>
                         </span>
                       ))}
                     </div>

@@ -85,8 +85,8 @@ export const useWargameEngine = (
         vx: 0,
         vy: 0,
         label: actor,
-        risk: (actorData as Record<string, any>)[actor]?.risk_level as 'HIGH' | 'MEDIUM' | 'LOW' || 'LOW',
-        connections: (actorData as Record<string, any>)[actor]?.network_connections || [],
+        risk: (actorData as Record<string, { risk_level: 'HIGH' | 'MEDIUM' | 'LOW', network_connections: string[] }>)[actor]?.risk_level || 'LOW',
+        connections: (actorData as Record<string, { risk_level: 'HIGH' | 'MEDIUM' | 'LOW', network_connections: string[] }>)[actor]?.network_connections || [],
         isHovered: false,
         isSelected: false
       }
@@ -202,7 +202,18 @@ export const useWargameEngine = (
     if (!ctx) return
     
     // Update focus states before rendering
-    updateNodeFocusStates()
+    const nodes = nodesRef.current
+    nodes.forEach((node, index) => {
+      // Add focus state to nodes
+      (node as Node & { isFocused?: boolean }).isFocused = keyboardMode && index === focusedNodeIndex
+      
+      // Update hover state for focused node when in keyboard mode
+      if (keyboardMode && index === focusedNodeIndex) {
+        node.isHovered = true
+      } else if (keyboardMode) {
+        node.isHovered = false
+      }
+    })
     
     // Clear canvas
     ctx.clearRect(0, 0, canvas.width, canvas.height)
@@ -304,7 +315,7 @@ export const useWargameEngine = (
         ctx.fillText('FOCUSED', node.x, node.y + 45)
       }
     })
-  }, [updateNodeFocusStates, keyboardMode])
+  }, [keyboardMode, focusedNodeIndex])
   
   // Throttled mouse move handler for performance
   const handleMouseMove = useCallback((e: MouseEvent) => {

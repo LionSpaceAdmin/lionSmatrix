@@ -1,0 +1,171 @@
+{
+  "project": {
+    "id": "lionspace",
+    "number": "707897822334",
+    "name": "LionSpace",
+    "region": "us-east1",
+    "zone": "us-east1-b",
+    "billing": {
+      "account": "hanudani@gmail.com",
+      "type": "personal_credits",
+      "note": "CRITICAL: Always use personal account for billing to utilize GCP credits"
+    }
+  },
+  "accounts": {
+    "organizational": {
+      "email": "admin@lionsofzion-official.org",
+      "type": "workspace_admin",
+      "description": "Organizational Workspace Admin Account",
+      "status": "active",
+      "credentials_path": "~/.config/gcloud/legacy_credentials/admin@lionsofzion-official.org"
+    },
+    "personal": {
+      "email": "hanudani@gmail.com",
+      "type": "personal",
+      "description": "Personal development account with GCP credits",
+      "status": "active",
+      "billing": "PRIMARY - Uses personal GCP credits"
+    }
+  },
+  "service_accounts": {
+    "lionspace_app": {
+      "email": "lionspace-app@lionspace.iam.gserviceaccount.com",
+      "client_id": "108166235875490877900",
+      "private_key_id": "63bf2132de0bf7095f0ea178adcdbc20a94f1788",
+      "key_file": "lionspace-service-account-key.json",
+      "description": "Main LionSpace Application Service Account",
+      "status": "active",
+      "created": "2025-09-04",
+      "permissions": "Editor role"
+    }
+  },
+  "oauth_client": {
+    "client_id": "707897822334-64mvh2c58cffh1qq60i3005jc9a6cop7.apps.googleusercontent.com",
+    "client_secret": "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",
+    "redirect_uris": [
+      "https://www.lionsofzion.io/api/auth/callback/google",
+      "https://lionsofzion.io/api/auth/callback/google",
+      "https://v0-lion-space.vercel.app/api/auth/callback/google",
+      "http://localhost:3000/api/auth/callback/google"
+    ],
+    "javascript_origins": [
+      "https://www.lionsofzion.io",
+      "https://lionsofzion.io",
+      "https://v0-lion-space.vercel.app",
+      "http://localhost:3000"
+    ],
+    "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+    "token_uri": "https://oauth2.googleapis.com/token",
+    "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+    "note": "✅ Updated 2025-09-04 with NEW OAuth Client ID for complete setup"
+  },
+  "enabled_apis": [
+    "aiplatform.googleapis.com",
+    "appengine.googleapis.com",
+    "artifactregistry.googleapis.com",
+    "bigquery.googleapis.com",
+    "cloudbuild.googleapis.com",
+    "cloudfunctions.googleapis.com",
+    "cloudkms.googleapis.com",
+    "cloudresourcemanager.googleapis.com",
+    "cloudscheduler.googleapis.com",
+    "compute.googleapis.com",
+    "firebaseapp.googleapis.com",
+    "firebasehosting.googleapis.com",
+    "firestore.googleapis.com",
+    "generativelanguage.googleapis.com",
+    "iam.googleapis.com",
+    "identitytoolkit.googleapis.com",
+    "logging.googleapis.com",
+    "monitoring.googleapis.com",
+    "pubsub.googleapis.com",
+    "run.googleapis.com",
+    "secretmanager.googleapis.com",
+    "serviceusage.googleapis.com",
+    "storage.googleapis.com",
+    "vertexai.googleapis.com"
+  ],
+  "github_integration": {
+    "account": "LionSpaceAdmin",
+    "repository": {
+      "name": "modern-nextjs-app",
+      "url": "https://github.com/LionSpaceAdmin/modern-nextjs-app",
+      "description": "Modern Next.js 15 application with TypeScript, Tailwind CSS, and best practices",
+      "status": "active",
+      "created": "2025-09-05"
+    }
+  },
+  "vercel_integration": {
+    "project": "v0-lion-space",
+    "team": "lionsteam",
+    "token": "aKeFqGf35EtA7WZdEW0AkaI0",
+    "deployment_url": "https://v0-lion-space-2u8224ciq-lionsteam.vercel.app",
+    "status": "deployed",
+    "last_update": "2025-09-05T11:47:00Z"
+  },
+  "gemini_api": {
+    "api_key": "AIzaSyAPuNElhrPLMKrZVEKoxNu6_Cwn_FFXoAg",
+    "get_key_url": "https://aistudio.google.com/app/apikey",
+    "env_path": "/apps/api/.env",
+    "required_var": "GEMINI_API_KEY",
+    "note": "✅ API Key created and configured with website restrictions"
+  },
+  "domains": {
+    "production": "https://lionsofzion.io",
+    "www": "https://www.lionsofzion.io",
+    "vercel": "https://v0-lion-space.vercel.app",
+    "note": "Domain purchased through Vercel - lionsofzion.io"
+  },
+  "cli_commands": {
+    "switch_to_org": "gcloud config set account admin@lionsofzion-official.org",
+    "switch_to_personal": "gcloud config set account hanudani@gmail.com",
+    "set_project": "gcloud config set project lionspace",
+    "list_all_accounts": "gcloud auth list",
+    "list_services": "gcloud run services list --region=us-east1",
+    "list_enabled_apis": "gcloud services list --enabled",
+    "enable_api": "gcloud services enable [API_NAME]",
+    "create_service_account": "gcloud iam service-accounts create [NAME] --display-name='[DISPLAY_NAME]'",
+    "create_key": "gcloud iam service-accounts keys create [FILE] --iam-account=[EMAIL]",
+    "view_logs": "gcloud logging read 'resource.type=cloud_run_revision' --limit 50"
+  },
+  "environment_variables": {
+    "GOOGLE_CLOUD_PROJECT": "lionspace",
+    "NEXT_PUBLIC_GOOGLE_CLIENT_ID": "707897822334-64mvh2c58cffh1qq60i3005jc9a6cop7.apps.googleusercontent.com",
+    "GOOGLE_CLIENT_SECRET": "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",
+    "GEMINI_API_KEY": "AIzaSyAPuNElhrPLMKrZVEKoxNu6_Cwn_FFXoAg",
+    "VERCEL_TOKEN": "kHqVTQ8sr6ryaJvskfkRu7wJ",
+    "NODE_ENV": "production",
+    "NEXTAUTH_URL": "https://www.lionsofzion.io"
+  },
+  "deployment_notes": {
+    "vercel": {
+      "framework": "Next.js",
+      "build_command": "npm run build",
+      "output_directory": ".next",
+      "install_command": "npm install",
+      "environment": [
+        "GOOGLE_CLOUD_PROJECT",
+        "NEXT_PUBLIC_GOOGLE_CLIENT_ID",
+        "GEMINI_API_KEY",
+        "DATABASE_URL"
+      ]
+    },
+    "required_secrets": [
+      "GEMINI_API_KEY - Get from Google AI Studio",
+      "DATABASE_URL - If using external database",
+      "JWT_SECRET - For authentication",
+      "NEXTAUTH_SECRET - For NextAuth.js",
+      "NEXTAUTH_URL=https://www.lionsofzion.io"
+    ]
+  },
+  "important_notes": {
+    "billing": "⚠️ CRITICAL: Always use hanudani@gmail.com for billing operations",
+    "deployment": "Deploy through Vercel using personal account for proper billing",
+    "gemini": "⚠️ MUST replace TEST_API_KEY with real Gemini API key for AI functionality",
+    "github": "Primary repo is now modern-nextjs-app under LionSpaceAdmin",
+    "apis": "All required APIs have been enabled for Vercel deployment"
+  },
+  "created": "2025-09-04",
+  "last_updated": "2025-09-04",
+  "updated_by": "Claude Code Assistant"
+}

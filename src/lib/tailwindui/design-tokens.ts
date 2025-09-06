@@ -412,7 +412,7 @@ export function generateUtilityClasses() {
 }
 
 // Export all tokens for easy access
-export default {
+const designTokens = {
   TERMINAL_DESIGN_TOKENS,
   TAILWINDUI_COMPONENT_TOKENS,
   TAILWINDUI_KEYFRAMES,
@@ -421,3 +421,5 @@ export default {
   generateCSSCustomProperties,
   generateUtilityClasses,
 }
+
+export default designTokens

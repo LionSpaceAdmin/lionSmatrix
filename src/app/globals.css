@@ -3,6 +3,35 @@
 /* Import Space Mono font */
 @import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap');
 
+/* Matrix Animation Keyframes */
+@keyframes scanline {
+  0% {
+    transform: translateY(-100vh);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(100vh);
+    opacity: 0;
+  }
+}
+
+@keyframes vertical-scan {
+  0% {
+    transform: translateX(-100vw);
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(100vw);
+    opacity: 0;
+  }
+}
+
 @layer base {
   :root {
     /* LionSpace Terminal Color System */
@@ -495,27 +524,8 @@
   }
 }
 
-/* Remove the large green circle specifically */
-/* Target elements with inline styles that create large circles */
-div[style*="width: 100%"][style*="height: 100%"][style*="border-radius: 50%"],
-div[style*="position: fixed"][style*="border-radius: 50%"],
-div[style*="position: absolute"][style*="border-radius: 50%"],
-div[style*="borderRadius: '50%'"],
-div[style*="backgroundColor: 'rgb(110, 231, 183)"],
-div[style*="background-color: rgb(110, 231, 183)"],
-div[style*="width: 100vw"][style*="height: 100vh"],
-canvas + div[style*="position: fixed"][style*="width: 100%"][style*="height: 100%"],
-.fixed.inset-0[style*="background"] {
-  display: none !important;
-}
-
-/* Also hide any large circular elements */
-div.fixed.inset-0 > div[style*="border-radius"],
-div.fixed.inset-0 > div[style*="borderRadius"],
-div[style*="width: 100%"][style*="height: 100%"][style*="background"],
-div[style*="width: 100vw"][style*="height: 100vh"][style*="background"] {
-  display: none !important;
-}
+/* Green circle issue has been fixed at the source with UnifiedBackground component */
+/* All aggressive CSS workarounds have been removed */
 
 /* Print Styles */
 @media print {

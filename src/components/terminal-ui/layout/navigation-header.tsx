@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { Shield, Home, BarChart3, Users, Brain, Menu, X } from 'lucide-react'
+import { Shield, Home, Menu, X } from 'lucide-react'
 import { StatusIndicator } from '@/app/_components/terminal/status-indicator'
 import { LanguageSwitcher } from '@/app/_components/language-switcher'
 
@@ -15,9 +15,7 @@ interface NavigationLink {
 
 const navigationLinks: NavigationLink[] = [
   { href: '/', label: 'HOME', icon: <Home className="w-4 h-4" /> },
-  { href: '/dashboard', label: 'DASHBOARD', icon: <BarChart3 className="w-4 h-4" /> },
-  { href: '/intelligence', label: 'INTELLIGENCE', icon: <Brain className="w-4 h-4" /> },
-  { href: '/war-room', label: 'WAR ROOM', icon: <Users className="w-4 h-4" /> },
+  { href: '/platform', label: 'COMMAND CENTER', icon: <Shield className="w-4 h-4" /> },
 ]
 
 export function NavigationHeader() {

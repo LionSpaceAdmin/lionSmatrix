@@ -4,17 +4,32 @@ import React, { useEffect, useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { INTELLIGENCE_DATA } from './intelligence-data'
 
+interface ActorData {
+  name: string
+  alias: string
+  followers: string
+  platforms: string[]
+  risk_level: string
+  keywords: string[]
+  narratives: string[]
+  network_connections: string[]
+  activity_summary: string
+  last_activity: string
+  engagement_rate: string
+  content_frequency: string
+}
+
 interface IntelligencePanelProps {
   actor: string | null
   onClose: () => void
 }
 
 const IntelligencePanel: React.FC<IntelligencePanelProps> = ({ actor, onClose }) => {
-  const [actorData, setActorData] = useState<Record<string, any> | null>(null)
+  const [actorData, setActorData] = useState<ActorData | null>(null)
   
   useEffect(() => {
-    if (actor && (INTELLIGENCE_DATA.intelligence_panel_data as Record<string, any>)[actor]) {
-      setActorData((INTELLIGENCE_DATA.intelligence_panel_data as Record<string, any>)[actor])
+    if (actor && (INTELLIGENCE_DATA.intelligence_panel_data as Record<string, ActorData>)[actor]) {
+      setActorData((INTELLIGENCE_DATA.intelligence_panel_data as Record<string, ActorData>)[actor])
     } else {
       setActorData(null)
     }
