@@ -30,7 +30,7 @@ const NeuralNetworkCanvas: React.FC<NeuralNetworkCanvasProps> = ({ onNodeClick }
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const nodesRef = useRef<Node[]>([])
   const edgesRef = useRef<Edge[]>([])
-  const animationFrameRef = useRef<number>()
+  const animationFrameRef = useRef<number | null>(null)
   const [hoveredNode, setHoveredNode] = useState<string | null>(null)
   const [selectedNode, setSelectedNode] = useState<string | null>(null)
   const mouseRef = useRef({ x: 0, y: 0 })
@@ -38,7 +38,10 @@ const NeuralNetworkCanvas: React.FC<NeuralNetworkCanvasProps> = ({ onNodeClick }
   // Initialize nodes and edges
   useEffect(() => {
     const actors = INTELLIGENCE_DATA.data_categories.primary_actors
-    const actorData = INTELLIGENCE_DATA.intelligence_panel_data
+    const actorData = INTELLIGENCE_DATA.intelligence_panel_data as Record<string, {
+      risk_level?: string;
+      network_connections?: string[];
+    }>
     
     // Create nodes
     const nodes: Node[] = actors.map((actor, index) => {
@@ -122,18 +125,17 @@ const NeuralNetworkCanvas: React.FC<NeuralNetworkCanvasProps> = ({ onNodeClick }
     const x = e.clientX - rect.left
     const y = e.clientY - rect.top
     
-    // Check for click on node
-    let clickedNode: Node | null = null
+    // Reset all selections
     nodesRef.current.forEach(node => {
+      node.isSelected = false
+    })
+    
+    // Check for click on node
+    const clickedNode = nodesRef.current.find(node => {
       const distance = Math.sqrt(
         Math.pow(node.x - x, 2) + Math.pow(node.y - y, 2)
       )
-      
-      if (distance < 30) {
-        clickedNode = node
-      }
-      
-      node.isSelected = false
+      return distance < 30
     })
     
     if (clickedNode) {
@@ -324,12 +326,12 @@ const NeuralNetworkCanvas: React.FC<NeuralNetworkCanvasProps> = ({ onNodeClick }
           ctx.fillStyle = '#FF0000'
           ctx.fill()
         }
-      })
+      });
       
-      animationFrameRef.current = requestAnimationFrame(animate)
-    }
+      animationFrameRef.current = requestAnimationFrame(animate);
+    };
     
-    animate()
+    animate();
     
     return () => {
       window.removeEventListener('resize', resizeCanvas)

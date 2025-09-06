@@ -111,26 +111,22 @@ export function AnalyticsDashboard() {
         <KpiCard
           value="4.2h"
           title={t('intelligence.analytics_kpi_time_to_counter')}
-          trend="down"
-          change="Improved from 5.1h"
+          trend={-1}
         />
         <KpiCard
           value="+18%"
           title={t('intelligence.analytics_kpi_reach_delta')}
-          trend="up"
-          change="Vs. last week"
+          trend={1}
         />
         <KpiCard
           value="92%"
           title={t('intelligence.analytics_kpi_precision')}
-          trend="up"
-          change="Above average"
+          trend={1}
         />
         <KpiCard
           value="1,204"
           title={t('intelligence.analytics_kpi_ops_ran')}
-          trend="neutral"
-          change="Today"
+          trend={0}
         />
       </div>
 

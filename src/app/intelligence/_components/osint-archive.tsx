@@ -2,7 +2,23 @@
 
 import { useState, useMemo } from 'react';
 import { useTranslation } from '@/contexts/translation-context';
-import { osintActors, searchActors, sortActors } from '@/lib/data/osint-actors';
+// import { osintActors, searchActors, sortActors } from '@/lib/data/osint-actors';
+
+// Placeholder data for now
+const osintActors = [
+  { id: '1', name: 'Actor 1', platform: 'Twitter', audience: 10000, narrative: 'Sample narrative 1', dossier: 'Sample dossier 1' },
+  { id: '2', name: 'Actor 2', platform: 'Facebook', audience: 5000, narrative: 'Sample narrative 2', dossier: 'Sample dossier 2' },
+];
+
+const searchActors = (query: string) => 
+  osintActors.filter(a => a.name.toLowerCase().includes(query.toLowerCase()));
+
+const sortActors = (actors: typeof osintActors, field: string, asc: boolean) => 
+  [...actors].sort((a, b) => {
+    const val = field === 'audience' ? a.audience - b.audience : 
+                a.name.localeCompare(b.name);
+    return asc ? val : -val;
+  });
 
 export function OsintArchive() {
   const { t } = useTranslation();
@@ -93,7 +109,7 @@ export function OsintArchive() {
           </h3>
           <div 
             className="text-gray-300"
-            dangerouslySetInnerHTML={{ __html: selectedActor.dossier.report }}
+            dangerouslySetInnerHTML={{ __html: selectedActor.dossier }}
           />
           <button
             onClick={() => setSelectedActor(null)}

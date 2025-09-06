@@ -9,12 +9,27 @@ interface IntelligencePanelProps {
   onClose: () => void
 }
 
+interface ActorData {
+  name: string;
+  alias: string;
+  followers: string;
+  platforms: string[];
+  risk_level: string;
+  keywords: string[];
+  narratives: string[];
+  network_connections: string[];
+  activity_summary: string;
+  last_activity: string;
+  engagement_rate: string;
+  content_frequency: string;
+}
+
 const IntelligencePanel: React.FC<IntelligencePanelProps> = ({ actor, onClose }) => {
-  const [actorData, setActorData] = useState<any>(null)
+  const [actorData, setActorData] = useState<ActorData | null>(null)
   
   useEffect(() => {
-    if (actor && INTELLIGENCE_DATA.intelligence_panel_data[actor]) {
-      setActorData(INTELLIGENCE_DATA.intelligence_panel_data[actor])
+    if (actor && INTELLIGENCE_DATA.intelligence_panel_data[actor as keyof typeof INTELLIGENCE_DATA.intelligence_panel_data]) {
+      setActorData(INTELLIGENCE_DATA.intelligence_panel_data[actor as keyof typeof INTELLIGENCE_DATA.intelligence_panel_data])
     } else {
       setActorData(null)
     }
@@ -60,6 +75,7 @@ const IntelligencePanel: React.FC<IntelligencePanelProps> = ({ actor, onClose })
                   <button
                     onClick={onClose}
                     className="text-green-400 hover:text-green-300 transition-colors p-2"
+                    title="Close panel"
                   >
                     <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />

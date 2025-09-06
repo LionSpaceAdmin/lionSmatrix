@@ -1,6 +1,14 @@
 'use client';
 
-import { ReactNode } from 'react';
+import { ReactNode, createContext, useContext } from 'react';
+
+// Tabs Context for managing active state
+interface TabsContextType {
+  value: string;
+  onValueChange: (value: string) => void;
+}
+
+const TabsContext = createContext<TabsContextType | undefined>(undefined);
 
 interface TabsProps {
   value: string;
@@ -11,9 +19,11 @@ interface TabsProps {
 
 export function Tabs({ value, onValueChange, className = '', children }: TabsProps) {
   return (
-    <div className={`${className}`}>
-      {children}
-    </div>
+    <TabsContext.Provider value={{ value, onValueChange }}>
+      <div className={`${className}`}>
+        {children}
+      </div>
+    </TabsContext.Provider>
   );
 }
 
@@ -24,7 +34,7 @@ interface TabsListProps {
 
 export function TabsList({ className = '', children }: TabsListProps) {
   return (
-    <div className={`flex overflow-x-auto border-b border-gray-600 ${className}`}>
+    <div className={`flex flex-wrap gap-1 ${className}`}>
       {children}
     </div>
   );
@@ -37,8 +47,24 @@ interface TabsTriggerProps {
 }
 
 export function TabsTrigger({ value, children, className = '' }: TabsTriggerProps) {
+  const context = useContext(TabsContext);
+  if (!context) throw new Error('TabsTrigger must be used within Tabs');
+  
+  const { value: activeValue, onValueChange } = context;
+  const isActive = activeValue === value;
+  
   return (
-    <button className={`px-4 py-2 text-sm font-medium text-gray-300 hover:text-white border-b-2 border-transparent hover:border-green-400 transition-colors ${className}`}>
+    <button 
+      onClick={() => onValueChange(value)}
+      className={`
+        px-4 py-2 text-sm font-medium font-terminal rounded transition-all duration-200
+        ${isActive 
+          ? 'bg-terminal-cyan text-terminal-bg border border-terminal-cyan' 
+          : 'text-terminal-muted hover:text-terminal-cyan border border-transparent hover:border-terminal-cyan/50'
+        }
+        ${className}
+      `}
+    >
       {children}
     </button>
   );
@@ -50,8 +76,15 @@ interface TabsContentProps {
 }
 
 export function TabsContent({ value, children }: TabsContentProps) {
+  const context = useContext(TabsContext);
+  if (!context) throw new Error('TabsContent must be used within Tabs');
+  
+  const { value: activeValue } = context;
+  
+  if (activeValue !== value) return null;
+  
   return (
-    <div>
+    <div className="animate-in fade-in-0 slide-in-from-bottom-1">
       {children}
     </div>
   );
@@ -64,15 +97,15 @@ interface KpiCardProps {
 }
 
 export function KpiCard({ title, value, trend }: KpiCardProps) {
-  const trendColor = trend > 0 ? 'text-green-400' : trend < 0 ? 'text-red-400' : 'text-gray-400';
-  const trendSymbol = trend > 0 ? '+' : '';
+  const trendColor = trend > 0 ? 'text-terminal-green' : trend < 0 ? 'text-terminal-red' : 'text-terminal-muted';
+  const trendSymbol = trend > 0 ? '↑' : trend < 0 ? '↓' : '→';
 
   return (
-    <div className="bg-black/30 border border-green-400/20 rounded-lg p-4">
-      <h3 className="text-sm text-gray-400 mb-2">{title}</h3>
-      <div className="text-2xl font-bold text-white mb-1">{value}</div>
-      <div className={`text-xs ${trendColor}`}>
-        {trendSymbol}{trend}%
+    <div className="terminal-card p-4 hover:scale-105 transition-transform duration-200">
+      <h3 className="text-xs text-terminal-muted uppercase mb-2">{title}</h3>
+      <div className="text-2xl font-bold text-terminal-cyan mb-1">{value}</div>
+      <div className={`text-sm font-mono ${trendColor}`}>
+        {trendSymbol} {Math.abs(trend)}%
       </div>
     </div>
   );

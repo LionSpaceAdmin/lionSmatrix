@@ -55,7 +55,7 @@ export function CampaignGenerator() {
           <option value="">{t('intelligence.campaign_generator_select_target')}</option>
           {osintActors.map((actor) => (
             <option key={actor.name} value={actor.name}>
-              {actor.name} - {actor.platform} ({actor.audience.toLocaleString()} followers)
+              {actor.name} - {actor.type}
             </option>
           ))}
         </select>

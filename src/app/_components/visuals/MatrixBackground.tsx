@@ -14,7 +14,7 @@ interface MatrixWord {
 
 const MatrixBackground: React.FC = () => {
   const canvasRef = useRef<HTMLDivElement>(null)
-  const animationFrameRef = useRef<number>()
+  const animationFrameRef = useRef<number | null>(null)
   const wordsRef = useRef<MatrixWord[]>([])
   
   // Categorize words for different opacity levels
