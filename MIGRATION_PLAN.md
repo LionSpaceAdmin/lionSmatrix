@@ -1,6 +1,6 @@
 # Migration Plan: LionSpace to ixartz/Next-js-Boilerplate
 
-## Phase 1: Setup Template ✅
+## Phase 1: Setup Template
 - [ ] Clone ixartz/Next-js-Boilerplate
 - [ ] Install dependencies
 - [ ] Verify template works
