@@ -261,7 +261,7 @@ export async function loadMessages(): Promise<{ messages: MultilingualMessage[],
   
   try {
     // Use imported JSON data directly
-    const messagesArray = Array.isArray(messagesJson) ? messagesJson : ((messagesJson as Record<string, unknown>).messages || []);
+    const messagesArray = Array.isArray(messagesJson) ? messagesJson : ((messagesJson as any).messages || []);
     const messages = (messagesArray as unknown as Record<string, unknown>[]).map((m, i) => {
       const copy: Record<string, unknown> = { ...m };
       if (!copy.id) copy.id = i + 1;

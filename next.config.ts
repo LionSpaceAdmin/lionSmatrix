@@ -1,5 +1,4 @@
 import type { NextConfig } from 'next';
-import { withSentryConfig } from '@sentry/nextjs';
 
 const securityHeaders = [
   {
@@ -37,7 +36,7 @@ const securityHeaders = [
       script-src 'self' 'unsafe-eval' 'unsafe-inline';
       style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
       img-src 'self' data: https: blob:;
-      font-src 'self' data: https: fonts.gstatic.com;
+      font-src 'self' data: https://fonts.gstatic.com;
       connect-src 'self' https: wss:;
       media-src 'self';
       frame-ancestors 'none';
@@ -74,16 +73,4 @@ const nextConfig: NextConfig = {
   },
 };
 
-// Sentry configuration
-const sentryConfig = {
-  // For all available options, see:
-  // https://github.com/getsentry/sentry-webpack-plugin#options
-
-  // Suppresses source map uploading logs during build
-  silent: true,
-
-  org: process.env.SENTRY_ORG,
-  project: process.env.SENTRY_PROJECT,
-};
-
-export default withSentryConfig(nextConfig, sentryConfig);
+export default nextConfig;
