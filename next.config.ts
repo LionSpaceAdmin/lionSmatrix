@@ -45,10 +45,10 @@ const securityHeaders = [
 ];
 
 const nextConfig: NextConfig = {
-  transpilePackages: ['@lionspace/ui', '@lionspace/i18n'],
-  turbopack: {
-    root: '/Users/daniel/modern-nextjs-app'
+  eslint: {
+    ignoreDuringBuilds: true,
   },
+  transpilePackages: ['@lionspace/ui', '@lionspace/i18n'],
   poweredByHeader: false,
   compress: true,
   reactStrictMode: true,

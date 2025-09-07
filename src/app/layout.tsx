@@ -78,7 +78,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" dir="ltr" className="dark" suppressHydrationWarning>
-      <body className={`${inter.className} bg-terminal-bg text-terminal-text font-sans dark:bg-terminal-bg dark:text-terminal-text min-h-screen`}>
+      <body className="bg-terminal-bg text-terminal-text font-sans dark:bg-terminal-bg dark:text-terminal-text min-h-screen">
         {children}
       </body>
     </html>

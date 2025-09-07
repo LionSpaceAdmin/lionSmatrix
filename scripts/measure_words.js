@@ -52,7 +52,7 @@ const fs = require('fs');
       const container = document.querySelector('.matrix-background');
       const count = document.querySelectorAll('.matrix-word').length;
       // Read __NEXT_DATA__ if present
-      // eslint-disable-next-line no-undef
+       
       const nextData = typeof window !== 'undefined' && (window).__NEXT_DATA__ ? (window).__NEXT_DATA__ : null;
       return {
         count,
