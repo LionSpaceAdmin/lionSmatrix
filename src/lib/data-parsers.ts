@@ -116,14 +116,14 @@ export function parseActorData(csvData: string): ActorData[] {
 /**
  * Process cognitive warfare messages and categorize them
  */
-export function processCognitiveWarfareMessages(jsonData: Record<string, unknown>): CognitiveWarfareMessage[] {
+export function processCognitiveWarfareMessages(jsonData: any): CognitiveWarfareMessage[] {
   if (!jsonData.messages || !Array.isArray(jsonData.messages)) {
     return []
   }
 
-  return (jsonData.messages as Record<string, unknown>[]).map((msg: Record<string, unknown>) => {
+  return jsonData.messages.map((msg: any) => {
     // Categorize message based on content
-    const englishText = (msg.en as string)?.toLowerCase() || ''
+    const englishText = msg.en?.toLowerCase() || ''
     let category: 'propaganda' | 'disinformation' | 'truth' | 'pattern' = 'pattern'
     let intensity = 1
 
@@ -140,27 +140,14 @@ export function processCognitiveWarfareMessages(jsonData: Record<string, unknown
     }
 
     // Extract key words for scanning effect
-    const wordList = extractKeyWords((msg.en as string) || '')
+    const wordList = extractKeyWords(msg.en || '')
 
     return {
-      id: msg.id || 0,
-      en: msg.en as string || '',
-      he: msg.he as string || '',
-      ar: msg.ar as string || '',
-      fr: msg.fr as string || '',
-      de: msg.de as string || '',
-      ru: msg.ru as string || '',
-      es: msg.es as string || '',
-      pt: msg.pt as string || '',
-      it: msg.it as string || '',
-      zh: msg.zh as string || '',
-      ja: msg.ja as string || '',
-      hi: msg.hi as string || '',
-      fa: msg.fa as string || '',
+      ...msg,
       category,
       intensity,
       wordList
-    } as CognitiveWarfareMessage
+    }
   })
 }
 
