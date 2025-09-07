@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useEffect, useRef, useMemo, useState } from 'react'
+import React, { useEffect, useRef, useMemo, useState, useCallback } from 'react'
 import { INTELLIGENCE_DATA } from './intelligence-data'
 import { createMatrixVocabulary } from '../../../lib/data-loaders'
 
@@ -203,7 +203,7 @@ const MatrixBackground: React.FC<MatrixBackgroundProps> = ({
     wordsRef.current = words
     setMatrixWords(words) // Update state to trigger re-render
     console.log(`🎬 Initialized ${words.length} Matrix words in ${mode} mode`)
-  }, [mode, vocabularyLoaded]) // Removed categorizedWords from dependencies to prevent infinite loop
+  }, [mode, vocabularyLoaded, categorizedWords])
   
   // If for any reason matrixWords are empty (slow CSV load), populate with fallback immediately
   useEffect(() => {
@@ -218,7 +218,7 @@ const MatrixBackground: React.FC<MatrixBackgroundProps> = ({
   }, [])
   
   // Generate fallback words for immediate display
-  const generateFallbackWords = (): MatrixWord[] => {
+  const generateFallbackWords = useCallback((): MatrixWord[] => {
     const fallbackVocab = [
       'INTELLIGENCE', 'MATRIX', 'SCANNING', 'PATTERN', 'ANALYSIS',
       'JACKSON HINKLE', 'SULAIMAN AHMED', 'COGNITIVE WARFARE', 'PROPAGANDA',
@@ -259,7 +259,7 @@ const MatrixBackground: React.FC<MatrixBackgroundProps> = ({
     
     console.log(`🎭 Generated ${words.length} fallback words for ${mode} mode`)
     return words
-  }
+  }, [mode])
   
   // Animation loop - SUPPORTS BOTH HORIZONTAL AND VERTICAL MODES
   useEffect(() => {

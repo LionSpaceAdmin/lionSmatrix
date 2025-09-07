@@ -26,7 +26,8 @@ const translations: Record<string, string> = {
   // Add more translations as needed
 }
 
-const availableLanguages = ['en', 'he', 'ar', 'fr', 'de', 'ru', 'es', 'pt', 'it', 'zh', 'ja', 'hi', 'fa']
+// Available languages list for future use
+// const availableLanguages = ['en', 'he', 'ar', 'fr', 'de', 'ru', 'es', 'pt', 'it', 'zh', 'ja', 'hi', 'fa']
 
 function simpleTranslate(key: string): string {
   return translations[key] || key.split('.').pop() || key
@@ -115,7 +116,7 @@ export function TranslationProvider({ children }: { children: React.ReactNode })
     if (!message) return "Truth is pattern. AI sees it."
 
     const langKey = currentLanguage as keyof MultilingualMessage
-    const result = (message as any)[langKey] || message.en || "Truth is pattern. AI sees it."
+    const result = (message as Record<string, unknown>)[langKey] || message.en || "Truth is pattern. AI sees it."
     return String(result)
   }, [currentMessageIndex, currentLanguage, csvMessages, messagesLoaded])
 
@@ -133,7 +134,7 @@ export function TranslationProvider({ children }: { children: React.ReactNode })
     if (!message) return "Pattern recognition reveals the hidden war."
     
     const langKey = currentLanguage as keyof MultilingualMessage
-    const result = (message as any)[langKey] || message.en || "Pattern recognition reveals the hidden war."
+    const result = (message as Record<string, unknown>)[langKey] || message.en || "Pattern recognition reveals the hidden war."
     return String(result)
   }, [currentMessageIndex, currentLanguage, csvMessages, messagesLoaded])
 
