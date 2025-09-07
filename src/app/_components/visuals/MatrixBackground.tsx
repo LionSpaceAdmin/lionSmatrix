@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useEffect, useRef, useMemo, useState } from 'react'
+import React, { useEffect, useRef, useMemo, useState, useCallback } from 'react'
 import { INTELLIGENCE_DATA } from './intelligence-data'
 import { createMatrixVocabulary } from '../../../lib/data-loaders'
 
@@ -203,8 +203,68 @@ const MatrixBackground: React.FC<MatrixBackgroundProps> = ({
     wordsRef.current = words
     setMatrixWords(words) // Update state to trigger re-render
     console.log(`🎬 Initialized ${words.length} Matrix words in ${mode} mode`)
-  }, [mode, vocabularyLoaded]) // Removed categorizedWords from dependencies to prevent infinite loop
+  }, [mode, vocabularyLoaded, categorizedWords])
   
+  // Generate fallback words for immediate display
+  const generateFallbackWords = useCallback((): MatrixWord[] => {
+    const fallbackVocab = [
+      'INTELLIGENCE', 'MATRIX', 'SCANNING', 'PATTERN', 'ANALYSIS',
+      'JACKSON HINKLE', 'SULAIMAN AHMED', 'COGNITIVE WARFARE', 'PROPAGANDA',
+      'NETWORK', 'CONNECTIONS', 'THREAT', 'MONITORING', 'DATA',
+      'INFLUENCE', 'NARRATIVE', 'OPERATION', 'RESISTANCE', 'TRUTH',
+      'INFORMATION WARFARE', 'MEDIA CONTROL', 'ALGORITHM', 'DETECTION'
+    ]
+    
+    const containerWidth = typeof window !== 'undefined' ? window.innerWidth : 1920
+    const containerHeight = typeof window !== 'undefined' ? window.innerHeight : 1080
+    const words: MatrixWord[] = []
+    
+    if (mode === 'horizontal') {
+      // Create horizontal scanning words
+      const rowHeight = 35
+      const rows = Math.ceil(containerHeight / rowHeight)
+      
+      for (let row = 0; row < rows; row++) {
+        for (let wordIndex = 0; wordIndex < 8; wordIndex++) {
+          const randomWord = fallbackVocab[Math.floor(Math.random() * fallbackVocab.length)]
+          const direction = row % 2 === 0 ? 1 : -1 // Alternate directions
+          const layer = wordIndex % 3
+          
+          words.push({
+            text: randomWord,
+            x: direction > 0 
+              ? -Math.random() * 400 - wordIndex * 200 
+              : containerWidth + Math.random() * 400 + wordIndex * 200,
+            y: row * rowHeight + Math.random() * 10 - 5,
+            fontSize: (layer + 1) * 0.3 + 0.6,
+            opacity: Math.max(0.1, (3 - layer) * 0.2),
+            color: `rgba(110, 231, 183, ${Math.max(0.1, (3 - layer) * 0.3)})`,
+            animationSpeed: (3 - layer) * 0.5 + 0.5,
+            direction,
+            layer
+          })
+        }
+      }
+    } else {
+      // Vertical mode fallback
+      for (let i = 0; i < 168; i++) {
+        const randomWord = fallbackVocab[Math.floor(Math.random() * fallbackVocab.length)]
+        words.push({
+          text: randomWord,
+          x: Math.random() * containerWidth,
+          y: Math.random() * containerHeight,
+          fontSize: Math.random() * 0.5 + 0.8,
+          opacity: Math.random() * 0.7 + 0.3,
+          color: 'rgba(110, 231, 183, 0.8)',
+          animationSpeed: Math.random() * 2 + 1
+        })
+      }
+    }
+    
+    console.log(`Generated ${words.length} fallback words for ${mode} mode`)
+    return words
+  }, [mode])
+
   // If for any reason matrixWords are empty (slow CSV load), populate with fallback immediately
   useEffect(() => {
     if ((matrixWords || []).length === 0) {
@@ -215,10 +275,7 @@ const MatrixBackground: React.FC<MatrixBackgroundProps> = ({
     }
     // mark mounted on client to avoid SSR/client mismatch when rendering randomized positions
     setMounted(true)
-  }, [])
-  
-  // Generate fallback words for immediate display
-  const generateFallbackWords = (): MatrixWord[] => {
+  }, [generateFallbackWords, matrixWords])
     const fallbackVocab = [
       'INTELLIGENCE', 'MATRIX', 'SCANNING', 'PATTERN', 'ANALYSIS',
       'JACKSON HINKLE', 'SULAIMAN AHMED', 'COGNITIVE WARFARE', 'PROPAGANDA',
@@ -259,7 +316,9 @@ const MatrixBackground: React.FC<MatrixBackgroundProps> = ({
     
     console.log(`🎭 Generated ${words.length} fallback words for ${mode} mode`)
     return words
-  }
+  })
+
+  // Initialize matrix words with fallback if needed
   
   // Animation loop - SUPPORTS BOTH HORIZONTAL AND VERTICAL MODES
   useEffect(() => {
@@ -433,18 +492,18 @@ const MatrixBackground: React.FC<MatrixBackgroundProps> = ({
   )
 }
 
-// Add CSS animations for vertical mode
-const additionalStyles = `
-  @keyframes vertical-scan {
-    0% {
-      transform: translateX(-100vw);
-      opacity: 1;
-    }
-    100% {
-      transform: translateX(100vw);
-      opacity: 0;
-    }
-  }
-`
+// CSS animations for vertical mode (kept for potential future use)
+// const additionalStyles = `
+//   @keyframes vertical-scan {
+//     0% {
+//       transform: translateX(-100vw);
+//       opacity: 1;
+//     }
+//     100% {
+//       transform: translateX(100vw);
+//       opacity: 0;
+//     }
+//   }
+// `
 
 export default React.memo(MatrixBackground)

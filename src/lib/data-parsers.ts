@@ -116,12 +116,12 @@ export function parseActorData(csvData: string): ActorData[] {
 /**
  * Process cognitive warfare messages and categorize them
  */
-export function processCognitiveWarfareMessages(jsonData: any): CognitiveWarfareMessage[] {
+export function processCognitiveWarfareMessages(jsonData: Record<string, unknown>): CognitiveWarfareMessage[] {
   if (!jsonData.messages || !Array.isArray(jsonData.messages)) {
     return []
   }
 
-  return jsonData.messages.map((msg: any) => {
+  return (jsonData.messages as Record<string, unknown>[]).map((msg: Record<string, unknown>) => {
     // Categorize message based on content
     const englishText = msg.en?.toLowerCase() || ''
     let category: 'propaganda' | 'disinformation' | 'truth' | 'pattern' = 'pattern'
