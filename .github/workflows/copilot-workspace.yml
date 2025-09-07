@@ -1,0 +1,34 @@
+name: Copilot Workspace
+
+on:
+  issue_comment:
+    types: [created]
+  issues:
+    types: [opened, labeled]
+  
+permissions:
+  contents: write
+  issues: write
+  pull-requests: write
+  actions: write
+
+jobs:
+  copilot-trigger:
+    if: contains(github.event.comment.body, '@copilot') || contains(github.event.issue.body, '@copilot')
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger Copilot
+        run: |
+          echo "Copilot triggered by: ${{ github.actor }}"
+          echo "Issue/PR: #${{ github.event.issue.number || github.event.pull_request.number }}"
+          
+      - name: Add label for Copilot
+        uses: actions/github-script@v7
+        with:
+          script: |
+            await github.rest.issues.addLabels({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              labels: ['copilot-requested']
+            })
