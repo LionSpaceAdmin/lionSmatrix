@@ -26,16 +26,16 @@ const envSchema = z.object({
   
   NEXT_PUBLIC_ENABLE_ANALYTICS: z
     .string()
-    .transform((val) => val === 'true')
-    .default('false'),
+    .default('false')
+    .transform((val) => val === 'true'),
   NEXT_PUBLIC_ENABLE_PWA: z
     .string()
-    .transform((val) => val === 'true')
-    .default('false'),
+    .default('false')
+    .transform((val) => val === 'true'),
   NEXT_PUBLIC_MAINTENANCE_MODE: z
     .string()
-    .transform((val) => val === 'true')
-    .default('false'),
+    .default('false')
+    .transform((val) => val === 'true'),
 });
 
 type Env = z.infer<typeof envSchema>;
@@ -46,7 +46,7 @@ try {
   env = envSchema.parse(process.env);
 } catch (error) {
   if (error instanceof z.ZodError) {
-    const missingVars = error.errors.map((e) => e.path.join('.'));
+    const missingVars = error.issues.map((e) => e.path.join('.'));
     console.error('Invalid environment variables:', missingVars);
     if (process.env.NODE_ENV === 'production') {
       throw new Error('Invalid environment configuration');

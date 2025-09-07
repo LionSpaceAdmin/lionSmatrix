@@ -1,81 +1,150 @@
-name: CI/CD Pipeline
+name: CI
 
 on:
   push:
-    branches: [ main, develop ]
+    branches: [main, develop]
   pull_request:
-    branches: [ main ]
+    branches: [main, develop]
 
 jobs:
-  lint-and-typecheck:
-    runs-on: ubuntu-latest
-    name: Lint and Type Check
-    
-    steps:
-    - name: Checkout code
-      uses: actions/checkout@v4
-      
-    - name: Setup Node.js
-      uses: actions/setup-node@v4
-      with:
-        node-version: '20'
-        cache: 'npm'
-        
-    - name: Install dependencies
-      run: npm ci
-      
-    - name: Run TypeScript check
-      run: npm run typecheck
-      
-    - name: Run linter
-      run: npm run lint
-      continue-on-error: true # Allow linting to fail for now
-
   build:
-    runs-on: ubuntu-latest
-    name: Build Application
-    needs: lint-and-typecheck
-    
-    steps:
-    - name: Checkout code
-      uses: actions/checkout@v4
-      
-    - name: Setup Node.js
-      uses: actions/setup-node@v4
-      with:
-        node-version: '20'
-        cache: 'npm'
-        
-    - name: Install dependencies
-      run: npm ci
-      
-    - name: Build application
-      run: npm run build
-      
-    - name: Upload build artifacts
-      uses: actions/upload-artifact@v4
-      with:
-        name: build-files
-        path: .next/
-        retention-days: 1
+    strategy:
+      matrix:
+        node-version: [20.x]
 
-  test:
+    name: Build with Node.js ${{ matrix.node-version }}
     runs-on: ubuntu-latest
-    name: Run Tests
-    needs: lint-and-typecheck
-    
+    timeout-minutes: 10
+
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v4
-      
-    - name: Setup Node.js
-      uses: actions/setup-node@v4
-      with:
-        node-version: '20'
-        cache: 'npm'
-        
-    - name: Install dependencies
-      run: npm ci
-      
-    - name: Run tests
-      run: npm run test
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Restore or cache Next.js build
+        uses: actions/cache@v4
+        with:
+          path: |
+            .next/cache
+          key: nextjs-${{ matrix.node-version }}-${{ hashFiles('**/package-lock.json') }}-${{ hashFiles('src/**') }}
+
+      - name: Build Next.js
+        run: npm run build
+
+      - name: Cache Next.js build output
+        if: matrix.node-version == '20.x' && success()
+        uses: actions/cache/save@v4
+        with:
+          path: |
+            .next
+          key: nextjs-build-${{ matrix.node-version }}-${{ github.sha }}
+
+  static:
+    name: Run static checks
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Linter
+        run: npm run lint
+
+      - name: Type checking
+        run: npm run typecheck
+
+      - name: Check dependencies
+        run: npm run check:deps
+
+  unit:
+    name: Run unit tests
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    needs: [build]
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run unit tests
+        run: npm run test
+
+  e2e:
+    name: Run E2E tests
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    needs: [build]
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Install Playwright
+        run: npx playwright install --with-deps
+
+      - name: Run E2E tests
+        run: npm run test:e2e
+
+      - name: Upload test results
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: test-results
+          path: |
+            test-results/
+            playwright-report/
+          retention-days: 7
+
+  security:
+    name: Security audit
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Security audit
+        run: npm audit --audit-level=moderate
