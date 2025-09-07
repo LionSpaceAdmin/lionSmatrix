@@ -1,8 +1,8 @@
 import type { Metadata, Viewport } from 'next';
-import { Inter } from 'next/font/google';
 import './globals.css';
 
-const inter = Inter({ subsets: ['latin'] });
+// Using system fonts to avoid network dependency issues
+const fontClass = 'font-sans';
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://www.lionsofzion.io'),
@@ -78,7 +78,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" dir="ltr" className="dark" suppressHydrationWarning>
-      <body className={`${inter.className} bg-terminal-bg text-terminal-text font-sans dark:bg-terminal-bg dark:text-terminal-text min-h-screen`}>
+      <body className={`${fontClass} bg-terminal-bg text-terminal-text font-sans dark:bg-terminal-bg dark:text-terminal-text min-h-screen`}>
         {children}
       </body>
     </html>

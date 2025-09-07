@@ -116,14 +116,14 @@ export function parseActorData(csvData: string): ActorData[] {
 /**
  * Process cognitive warfare messages and categorize them
  */
-export function processCognitiveWarfareMessages(jsonData: any): CognitiveWarfareMessage[] {
+export function processCognitiveWarfareMessages(jsonData: Record<string, unknown>): CognitiveWarfareMessage[] {
   if (!jsonData.messages || !Array.isArray(jsonData.messages)) {
     return []
   }
 
-  return jsonData.messages.map((msg: any) => {
+  return jsonData.messages.map((msg: Record<string, unknown>) => {
     // Categorize message based on content
-    const englishText = msg.en?.toLowerCase() || ''
+    const englishText = (typeof msg.en === 'string' ? msg.en : '').toLowerCase()
     let category: 'propaganda' | 'disinformation' | 'truth' | 'pattern' = 'pattern'
     let intensity = 1
 
@@ -140,14 +140,28 @@ export function processCognitiveWarfareMessages(jsonData: any): CognitiveWarfare
     }
 
     // Extract key words for scanning effect
-    const wordList = extractKeyWords(msg.en || '')
+    const wordList = extractKeyWords(typeof msg.en === 'string' ? msg.en : '')
 
     return {
-      ...msg,
+      ...(msg as Partial<CognitiveWarfareMessage>),
+      id: typeof msg.id === 'number' ? msg.id : 0,
+      en: typeof msg.en === 'string' ? msg.en : '',
+      he: typeof msg.he === 'string' ? msg.he : '',
+      ar: typeof msg.ar === 'string' ? msg.ar : '',
+      fr: typeof msg.fr === 'string' ? msg.fr : '',
+      de: typeof msg.de === 'string' ? msg.de : '',
+      ru: typeof msg.ru === 'string' ? msg.ru : '',
+      es: typeof msg.es === 'string' ? msg.es : '',
+      pt: typeof msg.pt === 'string' ? msg.pt : '',
+      it: typeof msg.it === 'string' ? msg.it : '',
+      zh: typeof msg.zh === 'string' ? msg.zh : '',
+      ja: typeof msg.ja === 'string' ? msg.ja : '',
+      hi: typeof msg.hi === 'string' ? msg.hi : '',
+      fa: typeof msg.fa === 'string' ? msg.fa : '',
       category,
       intensity,
       wordList
-    }
+    } as CognitiveWarfareMessage
   })
 }
 

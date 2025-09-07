@@ -115,7 +115,7 @@ export function TranslationProvider({ children }: { children: React.ReactNode })
     if (!message) return "Truth is pattern. AI sees it."
 
     const langKey = currentLanguage as keyof MultilingualMessage
-    const result = (message as any)[langKey] || message.en || "Truth is pattern. AI sees it."
+    const result = (message as MultilingualMessage)[langKey] || message.en || "Truth is pattern. AI sees it."
     return String(result)
   }, [currentMessageIndex, currentLanguage, csvMessages, messagesLoaded])
 
@@ -133,7 +133,7 @@ export function TranslationProvider({ children }: { children: React.ReactNode })
     if (!message) return "Pattern recognition reveals the hidden war."
     
     const langKey = currentLanguage as keyof MultilingualMessage
-    const result = (message as any)[langKey] || message.en || "Pattern recognition reveals the hidden war."
+    const result = (message as MultilingualMessage)[langKey] || message.en || "Pattern recognition reveals the hidden war."
     return String(result)
   }, [currentMessageIndex, currentLanguage, csvMessages, messagesLoaded])
 
