@@ -1,23 +1,26 @@
 {
+  // רשימת "ליבה" מצומצמת – רק מה שבאמת דרוש לפרויקט Next.js / React זה
   "recommendations": [
+    // TypeScript + IntelliSense
     "ms-vscode.vscode-typescript-next",
-    "bradlc.vscode-tailwindcss",
+    // איכות קוד
     "dbaeumer.vscode-eslint",
     "esbenp.prettier-vscode",
-    "ms-vscode.vscode-json",
-    "formulahendry.auto-rename-tag",
+    // Tailwind
+    "bradlc.vscode-tailwindcss",
+    // השלמות שימושיות
     "christian-kohler.path-intellisense",
-    "ms-vscode.vscode-html-language-service",
-    "ms-vscode.vscode-css-language-service",
-    "ms-vscode.vscode-emmet-helper",
-    "github.copilot",
-    "github.copilot-chat",
-    "gruntfuggly.todo-tree",
-    "streetsidesoftware.code-spell-checker",
+    "formulahendry.auto-rename-tag",
+    // חוויית שגיאות משופרת
     "usernamehw.errorlens",
-    "ms-vscode.references-view",
-    "ms-vscode.hexeditor",
-    "ms-vscode.live-server"
+    // AI עוזר
+    "github.copilot",
+    "github.copilot-chat"
   ],
-  "unwantedRecommendations": ["ms-vscode.vscode-typescript", "hookyqr.beautify"]
+  // הרחבות שאנחנו במפורש לא רוצים (Noise / Legacy)
+  "unwantedRecommendations": [
+    "ms-vscode.vscode-typescript",
+    "hookyqr.beautify",
+    "ms-vscode.live-server" // לא נחוץ עם Next.js
+  ]
 }
