@@ -1,0 +1,368 @@
+{
+  "items": [
+    {
+      "key": "name",
+      "values": {
+        "frontend-designer": [
+          "/Users/daniel/modern-nextjs-app/.claude/agents/frontend-designer.md"
+        ],
+        "nextjs-project-manager": [
+          "/Users/daniel/modern-nextjs-app/.claude/agents/nextjs-project-manager.md"
+        ],
+        "nextjs-project-orchestrator": [
+          "/Users/daniel/modern-nextjs-app/.claude/agents/nextjs-project-orchestrator.md"
+        ],
+        "Deploy": [
+          "/Users/daniel/modern-nextjs-app/ap/critical_issues.md",
+          "/Users/daniel/modern-nextjs-app/ap/preview_SUPER_MASTER/LIONSPACE_SUPER_MASTER_DOCUMENT.html",
+          "/Users/daniel/modern-nextjs-app/ap/preview_SUPER_MASTER/LIONSPACE_SUPER_MASTER_DOCUMENT.md"
+        ],
+        "Deploy to Production": [
+          "/Users/daniel/modern-nextjs-app/ap/LIONSPACE_MEGA_MASTER_PLAN.md",
+          "/Users/daniel/modern-nextjs-app/ap/preview_SUPER_MASTER/LIONSPACE_SUPER_MASTER_DOCUMENT.html",
+          "/Users/daniel/modern-nextjs-app/ap/preview_SUPER_MASTER/LIONSPACE_SUPER_MASTER_DOCUMENT.md"
+        ],
+        "Deploy Production": [
+          "/Users/daniel/modern-nextjs-app/ap/preview_SUPER_MASTER/LIONSPACE_SUPER_MASTER_DOCUMENT.html",
+          "/Users/daniel/modern-nextjs-app/ap/preview_SUPER_MASTER/LIONSPACE_SUPER_MASTER_DOCUMENT.md",
+          "/Users/daniel/modern-nextjs-app/ap/system_design.md"
+        ],
+        "github-org-restructure": [
+          "/Users/daniel/modern-nextjs-app/github/.claude/agents/github-org-restructure.md"
+        ]
+      },
+      "chosen": "Deploy Production"
+    },
+    {
+      "key": "model",
+      "values": {
+        "sonnet": [
+          "/Users/daniel/modern-nextjs-app/.claude/agents/frontend-designer.md",
+          "/Users/daniel/modern-nextjs-app/github/.claude/agents/github-org-restructure.md"
+        ],
+        "opus": [
+          "/Users/daniel/modern-nextjs-app/.claude/agents/nextjs-project-manager.md",
+          "/Users/daniel/modern-nextjs-app/.claude/agents/nextjs-project-orchestrator.md"
+        ]
+      },
+      "chosen": "sonnet"
+    },
+    {
+      "key": "if browser validation reveals issues",
+      "values": {
+        "1. **STOP immediately** - do not report success": [
+          "/Users/daniel/modern-nextjs-app/.claude/agents/nextjs-project-manager.md"
+        ],
+        "1. STOP immediately - do not report success": [
+          "/Users/daniel/modern-nextjs-app/.claude/agents/nextjs-project-orchestrator.md"
+        ]
+      },
+      "chosen": "1. STOP immediately - do not report success"
+    },
+    {
+      "key": "- mandatory",
+      "values": {
+        "Visual validation in browser": [
+          "/Users/daniel/modern-nextjs-app/.claude/agents/nextjs-project-orchestrator.md"
+        ],
+        "Screenshot evidence of functionality": [
+          "/Users/daniel/modern-nextjs-app/.claude/agents/nextjs-project-orchestrator.md"
+        ],
+        "Console error checking": [
+          "/Users/daniel/modern-nextjs-app/.claude/agents/nextjs-project-orchestrator.md"
+        ],
+        "Responsive design validation": [
+          "/Users/daniel/modern-nextjs-app/.claude/agents/nextjs-project-orchestrator.md"
+        ]
+      },
+      "chosen": "Responsive design validation"
+    },
+    {
+      "key": "on",
+      "values": {
+        "push": [
+          "/Users/daniel/modern-nextjs-app/ap/critical_issues.md",
+          "/Users/daniel/modern-nextjs-app/ap/preview_SUPER_MASTER/LIONSPACE_SUPER_MASTER_DOCUMENT.html",
+          "/Users/daniel/modern-nextjs-app/ap/preview_SUPER_MASTER/LIONSPACE_SUPER_MASTER_DOCUMENT.md"
+        ],
+        "push:": [
+          "/Users/daniel/modern-nextjs-app/ap/LIONSPACE_MEGA_MASTER_PLAN.md",
+          "/Users/daniel/modern-nextjs-app/ap/preview_SUPER_MASTER/LIONSPACE_SUPER_MASTER_DOCUMENT.html",
+          "/Users/daniel/modern-nextjs-app/ap/preview_SUPER_MASTER/LIONSPACE_SUPER_MASTER_DOCUMENT.html",
+          "/Users/daniel/modern-nextjs-app/ap/preview_SUPER_MASTER/LIONSPACE_SUPER_MASTER_DOCUMENT.md",
+          "/Users/daniel/modern-nextjs-app/ap/preview_SUPER_MASTER/LIONSPACE_SUPER_MASTER_DOCUMENT.md",
+          "/Users/daniel/modern-nextjs-app/ap/system_design.md"
+        ]
+      },
+      "chosen": "push:"
+    },
+    {
+      "key": "- https",
+      "values": {
+        "//www.lionsofzion.io/api/auth/callback/google": [
+          "/Users/daniel/modern-nextjs-app/ap/DEPLOYMENT_STATUS_FINAL.md",
+          "/Users/daniel/modern-nextjs-app/ap/preview_SUPER_MASTER/LIONSPACE_SUPER_MASTER_DOCUMENT.html",
+          "/Users/daniel/modern-nextjs-app/ap/preview_SUPER_MASTER/LIONSPACE_SUPER_MASTER_DOCUMENT.html",
+          "/Users/daniel/modern-nextjs-app/ap/preview_SUPER_MASTER/LIONSPACE_SUPER_MASTER_DOCUMENT.md",
+          "/Users/daniel/modern-nextjs-app/ap/preview_SUPER_MASTER/LIONSPACE_SUPER_MASTER_DOCUMENT.md",
+          "/Users/daniel/modern-nextjs-app/ap/VERCEL_GCP_UPDATE_INSTRUCTIONS.md",
+          "/Users/daniel/modern-nextjs-app/github/ap/DEPLOYMENT_STATUS_FINAL.md",
+          "/Users/daniel/modern-nextjs-app/github/ap/VERCEL_GCP_UPDATE_INSTRUCTIONS.md"
+        ],
+        "//lionsofzion.io/api/auth/callback/google": [
+          "/Users/daniel/modern-nextjs-app/ap/DEPLOYMENT_STATUS_FINAL.md",
+          "/Users/daniel/modern-nextjs-app/ap/preview_SUPER_MASTER/LIONSPACE_SUPER_MASTER_DOCUMENT.html",
+          "/Users/daniel/modern-nextjs-app/ap/preview_SUPER_MASTER/LIONSPACE_SUPER_MASTER_DOCUMENT.html",
+          "/Users/daniel/modern-nextjs-app/ap/preview_SUPER_MASTER/LIONSPACE_SUPER_MASTER_DOCUMENT.md",
+          "/Users/daniel/modern-nextjs-app/ap/preview_SUPER_MASTER/LIONSPACE_SUPER_MASTER_DOCUMENT.md",
+          "/Users/daniel/modern-nextjs-app/ap/VERCEL_GCP_UPDATE_INSTRUCTIONS.md",
+          "/Users/daniel/modern-nextjs-app/github/ap/DEPLOYMENT_STATUS_FINAL.md",
+          "/Users/daniel/modern-nextjs-app/github/ap/VERCEL_GCP_UPDATE_INSTRUCTIONS.md"
+        ],
+        "//v0-lion-space.__REDACTED_VERCEL_TOKEN__": [
+          "/Users/daniel/modern-nextjs-app/ap/DEPLOYMENT_STATUS_FINAL.md",
+          "/Users/daniel/modern-nextjs-app/ap/VERCEL_GCP_UPDATE_INSTRUCTIONS.md",
+          "/Users/daniel/modern-nextjs-app/github/ap/DEPLOYMENT_STATUS_FINAL.md",
+          "/Users/daniel/modern-nextjs-app/github/ap/VERCEL_GCP_UPDATE_INSTRUCTIONS.md"
+        ],
+        "//v0-lion-space.__REDACTED_VERCEL_טוקנים__": [
+          "/Users/daniel/modern-nextjs-app/ap/preview_SUPER_MASTER/LIONSPACE_SUPER_MASTER_DOCUMENT.html",
+          "/Users/daniel/modern-nextjs-app/ap/preview_SUPER_MASTER/LIONSPACE_SUPER_MASTER_DOCUMENT.html"
+        ],
+        "//lionsofzion.io": [
+          "/Users/daniel/modern-nextjs-app/ap/preview_SUPER_MASTER/LIONSPACE_SUPER_MASTER_DOCUMENT.html",
+          "/Users/daniel/modern-nextjs-app/ap/preview_SUPER_MASTER/LIONSPACE_SUPER_MASTER_DOCUMENT.md",
+          "/Users/daniel/modern-nextjs-app/ap/VERCEL_GCP_UPDATE_INSTRUCTIONS.md",
+          "/Users/daniel/modern-nextjs-app/github/ap/VERCEL_GCP_UPDATE_INSTRUCTIONS.md"
+        ],
+        "//www.lionsofzion.io": [
+          "/Users/daniel/modern-nextjs-app/ap/preview_SUPER_MASTER/LIONSPACE_SUPER_MASTER_DOCUMENT.html",
+          "/Users/daniel/modern-nextjs-app/ap/preview_SUPER_MASTER/LIONSPACE_SUPER_MASTER_DOCUMENT.md",
+          "/Users/daniel/modern-nextjs-app/ap/VERCEL_GCP_UPDATE_INSTRUCTIONS.md",
+          "/Users/daniel/modern-nextjs-app/github/ap/VERCEL_GCP_UPDATE_INSTRUCTIONS.md"
+        ],
+        "//v0-lion-space.vercel.app": [
+          "/Users/daniel/modern-nextjs-app/ap/preview_SUPER_MASTER/LIONSPACE_SUPER_MASTER_DOCUMENT.html",
+          "/Users/daniel/modern-nextjs-app/ap/preview_SUPER_MASTER/LIONSPACE_SUPER_MASTER_DOCUMENT.md",
+          "/Users/daniel/modern-nextjs-app/ap/VERCEL_GCP_UPDATE_INSTRUCTIONS.md",
+          "/Users/daniel/modern-nextjs-app/github/ap/VERCEL_GCP_UPDATE_INSTRUCTIONS.md"
+        ]
+      },
+      "chosen": "//v0-lion-space.vercel.app"
+    },
+    {
+      "key": "- clean repo and no vite",
+      "values": {
+        "The repository starts empty and is built up from scratch. There are no Vite configs or dependencies present (Next.js handles all bundling internally) – fulfilling \"No Vite files/deps exist.\"": [
+          "/Users/daniel/modern-nextjs-app/ap/LIONSPACE_TECHNICAL_GUIDE.md",
+          "/Users/daniel/modern-nextjs-app/ap/preview_SUPER_MASTER/LIONSPACE_SUPER_MASTER_DOCUMENT.md",
+          "/Users/daniel/modern-nextjs-app/github/ap/LIONSPACE_TECHNICAL_GUIDE.md"
+        ],
+        "The repository starts empty and is built up from scratch. There are no Vite configs or dependencies present (Next.js handles all bundling internally) – fulfilling &quot;No Vite files/deps exist.&quot;": [
+          "/Users/daniel/modern-nextjs-app/ap/preview_SUPER_MASTER/LIONSPACE_SUPER_MASTER_DOCUMENT.html"
+        ]
+      },
+      "chosen": "The repository starts empty and is built up from scratch. There are no Vite configs or dependencies present (Next.js handles all bundling internally) – fulfilling &quot;No Vite files/deps exist.&quot;"
+    },
+    {
+      "key": "unifiedbackground - variant",
+      "values": {
+        "&#x27;intelligence&#x27;": [
+          "/Users/daniel/modern-nextjs-app/ap/preview_SUPER_MASTER/LIONSPACE_SUPER_MASTER_DOCUMENT.html"
+        ],
+        "'intelligence'": [
+          "/Users/daniel/modern-nextjs-app/ap/preview_SUPER_MASTER/LIONSPACE_SUPER_MASTER_DOCUMENT.md",
+          "/Users/daniel/modern-nextjs-app/ap/site-mapping-and-fixes.html"
+        ]
+      },
+      "chosen": "'intelligence'"
+    },
+    {
+      "key": "style e fill",
+      "values": {
+        "#1E293B,stroke:#FFD700,stroke-width:2px": [
+          "/Users/daniel/modern-nextjs-app/ap/preview_SUPER_MASTER/LIONSPACE_SUPER_MASTER_DOCUMENT.html",
+          "/Users/daniel/modern-nextjs-app/ap/preview_SUPER_MASTER/LIONSPACE_SUPER_MASTER_DOCUMENT.md",
+          "/Users/daniel/modern-nextjs-app/ap/site-mapping-and-fixes.html"
+        ],
+        "#1E293B,stroke:#6EE7B7,stroke-width:1px": [
+          "/Users/daniel/modern-nextjs-app/ap/preview_SUPER_MASTER/LIONSPACE_SUPER_MASTER_DOCUMENT.html",
+          "/Users/daniel/modern-nextjs-app/ap/preview_SUPER_MASTER/LIONSPACE_SUPER_MASTER_DOCUMENT.md",
+          "/Users/daniel/modern-nextjs-app/ap/site-mapping-and-fixes.html"
+        ]
+      },
+      "chosen": "#1E293B,stroke:#6EE7B7,stroke-width:1px"
+    },
+    {
+      "key": "html_path",
+      "values": {
+        "&quot;$1&quot;": [
+          "/Users/daniel/modern-nextjs-app/ap/preview_SUPER_MASTER/LIONSPACE_SUPER_MASTER_DOCUMENT.html"
+        ],
+        "\"$1\"": [
+          "/Users/daniel/modern-nextjs-app/ap/preview_SUPER_MASTER/LIONSPACE_SUPER_MASTER_DOCUMENT.md",
+          "/Users/daniel/modern-nextjs-app/ap/tools/export_pdf.sh"
+        ]
+      },
+      "chosen": "\"$1\""
+    },
+    {
+      "key": "pdf_path",
+      "values": {
+        "&quot;${HTML_PATH%.html}.pdf&quot;": [
+          "/Users/daniel/modern-nextjs-app/ap/preview_SUPER_MASTER/LIONSPACE_SUPER_MASTER_DOCUMENT.html"
+        ],
+        "\"${HTML_PATH%.html}.pdf\"": [
+          "/Users/daniel/modern-nextjs-app/ap/preview_SUPER_MASTER/LIONSPACE_SUPER_MASTER_DOCUMENT.md",
+          "/Users/daniel/modern-nextjs-app/ap/tools/export_pdf.sh"
+        ]
+      },
+      "chosen": "\"${HTML_PATH%.html}.pdf\""
+    },
+    {
+      "key": "ctx.fillstyle",
+      "values": {
+        "&#x27;rgba(0, 255, 0, 0.7)&#x27;": [
+          "/Users/daniel/modern-nextjs-app/ap/preview_SUPER_MASTER/LIONSPACE_SUPER_MASTER_DOCUMENT.html"
+        ],
+        "'rgba(0, 255, 0, 0.7)'": [
+          "/Users/daniel/modern-nextjs-app/ap/preview_SUPER_MASTER/LIONSPACE_SUPER_MASTER_DOCUMENT.md",
+          "/Users/daniel/modern-nextjs-app/ap/site-mapping-and-fixes.html"
+        ]
+      },
+      "chosen": "'rgba(0, 255, 0, 0.7)'"
+    },
+    {
+      "key": "const errors",
+      "values": {
+        "await page.evaluate(() =&gt; {": [
+          "/Users/daniel/modern-nextjs-app/ap/preview_SUPER_MASTER/LIONSPACE_SUPER_MASTER_DOCUMENT.html"
+        ],
+        "await page.evaluate(() => {": [
+          "/Users/daniel/modern-nextjs-app/ap/preview_SUPER_MASTER/LIONSPACE_SUPER_MASTER_DOCUMENT.md",
+          "/Users/daniel/modern-nextjs-app/ap/site-mapping-and-fixes.html"
+        ]
+      },
+      "chosen": "await page.evaluate(() => {"
+    },
+    {
+      "key": "const handlegetstarted",
+      "values": {
+        "() =&gt; {": [
+          "/Users/daniel/modern-nextjs-app/ap/preview_SUPER_MASTER/LIONSPACE_SUPER_MASTER_DOCUMENT.html"
+        ],
+        "() => {": [
+          "/Users/daniel/modern-nextjs-app/ap/preview_SUPER_MASTER/LIONSPACE_SUPER_MASTER_DOCUMENT.md",
+          "/Users/daniel/modern-nextjs-app/ap/site-mapping-and-fixes.html"
+        ]
+      },
+      "chosen": "() => {"
+    },
+    {
+      "key": "const handleauthsuccess",
+      "values": {
+        "() =&gt; {": [
+          "/Users/daniel/modern-nextjs-app/ap/preview_SUPER_MASTER/LIONSPACE_SUPER_MASTER_DOCUMENT.html"
+        ],
+        "() => {": [
+          "/Users/daniel/modern-nextjs-app/ap/preview_SUPER_MASTER/LIONSPACE_SUPER_MASTER_DOCUMENT.md",
+          "/Users/daniel/modern-nextjs-app/ap/site-mapping-and-fixes.html"
+        ]
+      },
+      "chosen": "() => {"
+    },
+    {
+      "key": "disallow",
+      "values": {
+        "/api/": [
+          "/Users/daniel/modern-nextjs-app/public/robots.txt"
+        ],
+        "/_next/": [
+          "/Users/daniel/modern-nextjs-app/public/robots.txt"
+        ],
+        "/admin/": [
+          "/Users/daniel/modern-nextjs-app/public/robots.txt"
+        ]
+      },
+      "chosen": "/admin/"
+    },
+    {
+      "key": "nc",
+      "values": {
+        "'\\033[0m'": [
+          "/Users/daniel/modern-nextjs-app/scripts/cleanup-and-sync.sh",
+          "/Users/daniel/modern-nextjs-app/scripts/sync-monitor.sh"
+        ],
+        "'\\033[0m' # No Color": [
+          "/Users/daniel/modern-nextjs-app/scripts/launch-lionspace.sh"
+        ]
+      },
+      "chosen": "'\\033[0m' # No Color"
+    },
+    {
+      "key": "if lsof -i",
+      "values": {
+        "3000 >/dev/null 2>&1; then": [
+          "/Users/daniel/modern-nextjs-app/scripts/cleanup-and-sync.sh"
+        ],
+        "3000 > /dev/null 2>&1; then": [
+          "/Users/daniel/modern-nextjs-app/scripts/launch-lionspace.sh"
+        ]
+      },
+      "chosen": "3000 > /dev/null 2>&1; then"
+    },
+    {
+      "key": "pid",
+      "values": {
+        "$(cat \"$PID_FILE\")": [
+          "/Users/daniel/modern-nextjs-app/scripts/launch-lionspace.sh",
+          "/Users/daniel/modern-nextjs-app/scripts/launch-lionspace.sh"
+        ],
+        "$(cat \"$PROJECT_DIR/.dev-server.pid\")": [
+          "/Users/daniel/modern-nextjs-app/scripts/sync-monitor.sh",
+          "/Users/daniel/modern-nextjs-app/scripts/sync-monitor.sh",
+          "/Users/daniel/modern-nextjs-app/scripts/sync-monitor.sh"
+        ]
+      },
+      "chosen": "$(cat \"$PID_FILE\")"
+    },
+    {
+      "key": "status",
+      "values": {
+        "\"warning\"": [
+          "/Users/daniel/modern-nextjs-app/scripts/sync-monitor.sh",
+          "/Users/daniel/modern-nextjs-app/scripts/sync-monitor.sh",
+          "/Users/daniel/modern-nextjs-app/scripts/sync-monitor.sh"
+        ],
+        "\"critical\"": [
+          "/Users/daniel/modern-nextjs-app/scripts/sync-monitor.sh"
+        ],
+        "\"error\"": [
+          "/Users/daniel/modern-nextjs-app/scripts/sync-monitor.sh"
+        ]
+      },
+      "chosen": "\"error\""
+    },
+    {
+      "key": "issues",
+      "values": {
+        "\"Dev server not running. \"": [
+          "/Users/daniel/modern-nextjs-app/scripts/sync-monitor.sh"
+        ],
+        "\"${issues}Port 3000 not responding. \"": [
+          "/Users/daniel/modern-nextjs-app/scripts/sync-monitor.sh"
+        ],
+        "\"${issues}Disk usage critical (${DISK_USAGE}%). \"": [
+          "/Users/daniel/modern-nextjs-app/scripts/sync-monitor.sh"
+        ],
+        "\"${issues}Disk usage high (${DISK_USAGE}%). \"": [
+          "/Users/daniel/modern-nextjs-app/scripts/sync-monitor.sh"
+        ],
+        "\"${issues}node_modules missing. \"": [
+          "/Users/daniel/modern-nextjs-app/scripts/sync-monitor.sh"
+        ]
+      },
+      "chosen": "\"${issues}node_modules missing. \""
+    }
+  ]
+}
