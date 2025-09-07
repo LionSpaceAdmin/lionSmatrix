@@ -6,9 +6,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint",
+    "lint": "eslint --fix .",
     "typecheck": "tsc --noEmit",
-    "test": "echo 'Tests configured - run npm install to complete setup'"
+    "test": "vitest run"
   },
   "dependencies": {
     "@github/spark": "^0.39.0",

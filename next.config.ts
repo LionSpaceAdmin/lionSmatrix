@@ -49,9 +49,6 @@ const nextConfig: NextConfig = {
     ignoreDuringBuilds: true,
   },
   transpilePackages: ['@lionspace/ui', '@lionspace/i18n'],
-  turbopack: {
-    root: '/Users/daniel/modern-nextjs-app'
-  },
   poweredByHeader: false,
   compress: true,
   reactStrictMode: true,
