@@ -3,7 +3,7 @@ import { createMatrixVocabulary } from '../../src/lib/data-loaders';
 
 describe('Data Loaders', () => {
   it('should create matrix vocabulary with fallback data', async () => {
-    const vocabulary = await createMatrixVocabulary([], false);
+    const vocabulary = await createMatrixVocabulary();
     
     expect(vocabulary).toBeDefined();
     expect(vocabulary.primary_actors).toBeInstanceOf(Array);
@@ -19,7 +19,7 @@ describe('Data Loaders', () => {
   });
 
   it('should categorize words correctly', async () => {
-    const vocabulary = await createMatrixVocabulary([], false);
+    const vocabulary = await createMatrixVocabulary();
     
     // Check that primary actors are properly categorized
     expect(vocabulary.primary_actors).toContain('Jackson Hinkle');
