@@ -1,0 +1,22 @@
+defaults:
+  min_similarity: 0.85
+  engine: playwright
+  exclude_dirs:
+    - node_modules
+    - .next
+    - .git
+    - dist
+    - build
+    - coverage
+    - .vercel
+    - .vscode
+    - .idea
+  protected_patterns:
+    - '^\.env'
+    - '^keys/'
+    - '^vercel-.*\.json$'
+    - '^\.github/'
+    - '^\.gitlab-ci\.yml$'
+    - '^package\.json$'
+    - '^package-lock\.json$'
+    - '^pnpm-lock\.yaml$'

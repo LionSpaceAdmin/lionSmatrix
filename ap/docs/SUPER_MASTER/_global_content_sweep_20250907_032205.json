@@ -1,0 +1,662 @@
+{
+  "plan": "/Users/daniel/modern-nextjs-app/ap/docs/SUPER_MASTER/LIONSPACE_UNIFIED_MASTER_PLAN.md",
+  "selected": [
+    {
+      "path": "/Users/daniel/modern-nextjs-app/ap/LIONSPACE_TECHNICAL_GUIDE.md",
+      "similarity": 0.001
+    },
+    {
+      "path": "/Users/daniel/migration/apphub-migration-complete.md",
+      "similarity": 0.0
+    },
+    {
+      "path": "/Users/daniel/Documents/GitHub/CLEANUP_REPORT.md",
+      "similarity": 0.0
+    },
+    {
+      "path": "/Users/daniel/cognitivewarrior/systems/apphub/reports/iPaaS_iam_checklist.md",
+      "similarity": 0.0
+    },
+    {
+      "path": "/Users/daniel/Downloads/lionspace-war-consciousness.html",
+      "similarity": 0.0
+    },
+    {
+      "path": "/Users/daniel/migration/FINAL_COMPLETE_DOCUMENTATION.html",
+      "similarity": 0.0
+    },
+    {
+      "path": "/Users/daniel/Desktop/BACKUP_20250830_1354/agents/guardian-system/task-logs/completed/2025-08-29_23-29-35_file-cleanup-specialist_guardian-system-directory-cleanup-and-deployment-preparation.md",
+      "similarity": 0.0
+    },
+    {
+      "path": "/Users/daniel/mcp-logs/VISUAL_MONITORING_IMPLEMENTATION_REPORT.md",
+      "similarity": 0.0
+    },
+    {
+      "path": "/Users/daniel/Downloads/Proactive debug mission (1).docx",
+      "similarity": 0.0
+    },
+    {
+      "path": "/Users/daniel/cognitivewarrior/systems/apphub/reports/app_hub_summary.md",
+      "similarity": 0.0
+    },
+    {
+      "path": "/Users/daniel/migration/gcp_hierarchy_sync_report.md",
+      "similarity": 0.0
+    },
+    {
+      "path": "/Users/daniel/claude/agents/MyAgents/task-logs/completed/2025-08-29_23-29-35_file-cleanup-specialist_guardian-system-directory-cleanup-and-deployment-preparation.md",
+      "similarity": 0.0
+    },
+    {
+      "path": "/Users/daniel/cognitivewarrior-lio-1/docs/AUTHENTICATION_TEST_GUIDE.md",
+      "similarity": 0.0
+    },
+    {
+      "path": "/Users/daniel/cognitivewarrior-lio-1/ROUTING_FIX_SUMMARY.md",
+      "similarity": 0.0
+    },
+    {
+      "path": "/Users/daniel/Config/CLAUDE.md",
+      "similarity": 0.0
+    },
+    {
+      "path": "/Users/daniel/cognitivewarrior-lio-1/docs/IMPLEMENTATION_SUMMARY.md",
+      "similarity": 0.0
+    },
+    {
+      "path": "/Users/daniel/modern-nextjs-app/github/ap/FINAL_DEPLOYMENT_SUMMARY.md",
+      "similarity": 0.0
+    },
+    {
+      "path": "/Users/daniel/Documents/OSINT Investigation_ Global Anti-Israel Protest Wave (Post–October 7, 2023).docx",
+      "similarity": 0.0
+    },
+    {
+      "path": "/Users/daniel/cognitivewarrior/systems/apphub/README.md",
+      "similarity": 0.0
+    },
+    {
+      "path": "/Users/daniel/cognitivewarrior-lio-1/CONTENT_WORKFLOW.md",
+      "similarity": 0.0
+    },
+    {
+      "path": "/Users/daniel/Desktop/BACKUP_20250830_1354/Guardian-Agents-System/configs/guardian-code-reviewer.md",
+      "similarity": 0.0
+    },
+    {
+      "path": "/Users/daniel/claude/agents/MyAgents/system-configs/MCP_SERVERS_CONFIGURATION.md",
+      "similarity": 0.0
+    },
+    {
+      "path": "/Users/daniel/Library/Mobile Documents/com~apple~CloudDocs/Documents/קלוד/REPORT.md",
+      "similarity": 0.0
+    },
+    {
+      "path": "/Users/daniel/Documents/GitHub/README.md",
+      "similarity": 0.001
+    },
+    {
+      "path": "/Users/daniel/archive/old-projects/guardian-dashboard/lionspace-project-gu/docs-unified/DEPLOYMENT.md",
+      "similarity": 0.0
+    },
+    {
+      "path": "/Users/daniel/Documents/GitHub/public/images/README.md",
+      "similarity": 0.0
+    },
+    {
+      "path": "/Users/daniel/Desktop/BACKUP_20250830_1354/Guardian-Agents-System/configs/guardian-code-simplifier.md",
+      "similarity": 0.0
+    },
+    {
+      "path": "/Users/daniel/cognitivewarrior-lio-1/docs/SETUP_GEMINI_CODE_ASSIST.md",
+      "similarity": 0.0
+    },
+    {
+      "path": "/Users/daniel/cognitivewarrior-lio-1/docs/INTEGRATION_SETUP.md",
+      "similarity": 0.0
+    },
+    {
+      "path": "/Users/daniel/cognitivewarrior-lio-1/ADMIN_NAVIGATION_TEST_GUIDE.md",
+      "similarity": 0.0
+    },
+    {
+      "path": "/Users/daniel/Desktop/BACKUP_20250830_1354/agents/guardian-system/configs/guardian-code-reviewer.md",
+      "similarity": 0.0
+    },
+    {
+      "path": "/Users/daniel/migration/CURRENT_REAL_STATUS.md",
+      "similarity": 0.0
+    },
+    {
+      "path": "/Users/daniel/cognitivewarrior-lio-1/IMPLEMENTATION_SUMMARY.md",
+      "similarity": 0.0
+    },
+    {
+      "path": "/Users/daniel/cognitivewarrior-lio-1/docs/OAUTH_README.md",
+      "similarity": 0.0
+    },
+    {
+      "path": "/Users/daniel/super-audit/dashboard-validation-report.he.md",
+      "similarity": 0.0
+    },
+    {
+      "path": "/Users/daniel/github/keys/gh_pat.txt",
+      "similarity": 0.0
+    },
+    {
+      "path": "/Users/daniel/Library/Mobile Documents/com~apple~CloudDocs/Desktop/venvs_sizes.txt",
+      "similarity": 0.0
+    },
+    {
+      "path": "/Users/daniel/Desktop/BACKUP_20250830_1354/Guardian-Agents-System/task-logs/completed/2025-08-29_23-29-35_file-cleanup-specialist_guardian-system-directory-cleanup-and-deployment-preparation.md",
+      "similarity": 0.0
+    },
+    {
+      "path": "/Users/daniel/claude/agents/MyAgents/task-logs/completed/2025-08-30_18-04-28_engineering-leadership-auditor_complete-engineering-audit-of-cognitivewarrior-lio.md",
+      "similarity": 0.0
+    },
+    {
+      "path": "/Users/daniel/modern-nextjs-app/ap/VERCEL_GCP_UPDATE_INSTRUCTIONS.md",
+      "similarity": 0.0
+    },
+    {
+      "path": "/Users/daniel/Desktop/BACKUP_20250830_1354/agents/guardian-system/dashboard/index.html",
+      "similarity": 0.0
+    },
+    {
+      "path": "/Users/daniel/cognitivewarrior-lio-1/docs/THEME_IMPLEMENTATION_NOTES.md",
+      "similarity": 0.0
+    },
+    {
+      "path": "/Users/daniel/Library/Mobile Documents/com~apple~CloudDocs/Downloads/structure.txt",
+      "similarity": 0.0
+    },
+    {
+      "path": "/Users/daniel/modern-nextjs-app/visual_audit.md",
+      "similarity": 0.0
+    },
+    {
+      "path": "/Users/daniel/claude/agents/MyAgents/dashboard/index.html",
+      "similarity": 0.0
+    },
+    {
+      "path": "/Users/daniel/migration/UNDOCUMENTED_CHANGES.md",
+      "similarity": 0.0
+    },
+    {
+      "path": "/Users/daniel/archive/old-projects/guardian-dashboard/lionspace-project-gu/docs-unified/index.html",
+      "similarity": 0.0
+    },
+    {
+      "path": "/Users/daniel/Library/Mobile Documents/com~apple~CloudDocs/Documents/קלוד/INFRASTRUCTURE_MAPPING.md",
+      "similarity": 0.001
+    },
+    {
+      "path": "/Users/daniel/migration/testing_results/validation_report.md",
+      "similarity": 0.0
+    },
+    {
+      "path": "/Users/daniel/Desktop/BACKUP_20250830_1354/Guardian-Agents-System/configs/AGENT_VERIFICATION_RULES.md",
+      "similarity": 0.0
+    },
+    {
+      "path": "/Users/daniel/Library/Mobile Documents/com~apple~CloudDocs/Documents/ChromeProfile/ZxcvbnData/3/passwords.txt",
+      "similarity": 0.0
+    },
+    {
+      "path": "/Users/daniel/cognitivewarrior-lio-1/THREAT_DETECTION_CONFIG.md",
+      "similarity": 0.0
+    },
+    {
+      "path": "/Users/daniel/Documents/GitHub/ERROR_FIXES_REPORT.md",
+      "similarity": 0.0
+    },
+    {
+      "path": "/Users/daniel/mcp-logs/dom-snapshot.html",
+      "similarity": 0.0
+    },
+    {
+      "path": "/Users/daniel/Library/Mobile Documents/com~apple~CloudDocs/Downloads/LIONSPACE_PROJECT_DASHBOARD.md",
+      "similarity": 0.001
+    },
+    {
+      "path": "/Users/daniel/Desktop/BACKUP_20250830_1354/Guardian-Agents-System/configs/MCP_SERVERS_CONFIGURATION.md",
+      "similarity": 0.0
+    },
+    {
+      "path": "/Users/daniel/migration/MIGRATION_STATUS_NOW.md",
+      "similarity": 0.0
+    },
+    {
+      "path": "/Users/daniel/modern-nextjs-app/ap/site-mapping-and-fixes.html",
+      "similarity": 0.0
+    },
+    {
+      "path": "/Users/daniel/mcp-logs/visual-monitoring/reports/error_report_1756677016862.html",
+      "similarity": 0.0
+    },
+    {
+      "path": "/Users/daniel/mcp-logs/visual-monitoring/reports/error_report_1756673916214.html",
+      "similarity": 0.0
+    },
+    {
+      "path": "/Users/daniel/modern-nextjs-app/github/ap/lions-space-migration-report.html",
+      "similarity": 0.0
+    },
+    {
+      "path": "/Users/daniel/Library/Mobile Documents/com~apple~CloudDocs/Documents/קלוד/README.md",
+      "similarity": 0.0
+    },
+    {
+      "path": "/Users/daniel/migration/final_documentation/complete_migration_guide.md",
+      "similarity": 0.0
+    },
+    {
+      "path": "/Users/daniel/Desktop/BACKUP_20250830_1354/agents/guardian-system/configs/guardian-ux-specialist.md",
+      "similarity": 0.0
+    },
+    {
+      "path": "/Users/daniel/migration/infrastructure_audit/full_audit_results.md",
+      "similarity": 0.0
+    },
+    {
+      "path": "/Users/daniel/migration/terraform-error-log.md",
+      "similarity": 0.0
+    },
+    {
+      "path": "/Users/daniel/Downloads/GRAPHICS_MAPPING__IUI_PSY_COMPLETE_v3.0.md",
+      "similarity": 0.0
+    },
+    {
+      "path": "/Users/daniel/cognitivewarrior-lio-1/reports/gap_summary.md",
+      "similarity": 0.0
+    },
+    {
+      "path": "/Users/daniel/Desktop/BACKUP_20250830_1354/Guardian-Agents-System/configs/guardian-production-fixer.md",
+      "similarity": 0.0
+    },
+    {
+      "path": "/Users/daniel/migration/terraform-rebuild/gcp_comprehensive_report.html",
+      "similarity": 0.0
+    },
+    {
+      "path": "/Users/daniel/Downloads/Guardian - LionSpace Project Dashboard.html",
+      "similarity": 0.0
+    },
+    {
+      "path": "/Users/daniel/claude/agents/MyAgents/system-configs/AGENT_VERIFICATION_RULES.md",
+      "similarity": 0.0
+    },
+    {
+      "path": "/Users/daniel/modern-nextjs-app/github/ap/lionspace-deployment-package/AGENT_INSTRUCTIONS.md",
+      "similarity": 0.0
+    },
+    {
+      "path": "/Users/daniel/system-tree/50_services/launchctl_list.txt",
+      "similarity": 0.0
+    },
+    {
+      "path": "/Users/daniel/cognitivewarrior-lio-1/docs/CONTENT_WORKFLOW.md",
+      "similarity": 0.0
+    },
+    {
+      "path": "/Users/daniel/Downloads/New Folder With Items 2/apps/web/src/components/dashboard/README.md",
+      "similarity": 0.0
+    },
+    {
+      "path": "/Users/daniel/cognitivewarrior-lio-1/docs/ROUTING_FIX_SUMMARY.md",
+      "similarity": 0.0
+    },
+    {
+      "path": "/Users/daniel/migration/terraform-rebuild/apphub-registration-summary.md",
+      "similarity": 0.0
+    },
+    {
+      "path": "/Users/daniel/Desktop/BACKUP_20250830_1354/agents/guardian-system/configs/guardian-code-simplifier.md",
+      "similarity": 0.0
+    },
+    {
+      "path": "/Users/daniel/Downloads/New Folder With Items/README.md",
+      "similarity": 0.001
+    },
+    {
+      "path": "/Users/daniel/modern-nextjs-app/ap/lions-space-migration-report.html",
+      "similarity": 0.0
+    },
+    {
+      "path": "/Users/daniel/Downloads/Proactive debug mission.docx",
+      "similarity": 0.0
+    },
+    {
+      "path": "/Users/daniel/migration/EXECUTE_CONNECTION_GUIDE.md",
+      "similarity": 0.0
+    },
+    {
+      "path": "/Users/daniel/claude/agents/MyAgents/configs/nextjs-project-reset-optimizer.md",
+      "similarity": 0.001
+    },
+    {
+      "path": "/Users/daniel/Downloads/lion_space_אתר_פריסה_ופונקציות_spec_עדכני.md",
+      "similarity": 0.0
+    },
+    {
+      "path": "/Users/daniel/Library/Mobile Documents/com~apple~CloudDocs/Downloads/links.txt",
+      "similarity": 0.0
+    },
+    {
+      "path": "/Users/daniel/modern-nextjs-app/ap/FINAL_DEPLOYMENT_SUMMARY.md",
+      "similarity": 0.0
+    },
+    {
+      "path": "/Users/daniel/Desktop/BACKUP_20250830_1354/agents/guardian-system/configs/engineering-leadership-auditor.md",
+      "similarity": 0.0
+    },
+    {
+      "path": "/Users/daniel/Desktop/cleanup-summary.txt",
+      "similarity": 0.0
+    },
+    {
+      "path": "/Users/daniel/cognitivewarrior-lio-1/INTEGRATION_COMPLETE.md",
+      "similarity": 0.0
+    },
+    {
+      "path": "/Users/daniel/Desktop/BACKUP_20250830_1354/agents/guardian-system/configs/AGENT_VERIFICATION_RULES.md",
+      "similarity": 0.0
+    },
+    {
+      "path": "/Users/daniel/modern-nextjs-app/github/ap/LIONSPACE_TECHNICAL_GUIDE.md",
+      "similarity": 0.001
+    },
+    {
+      "path": "/Users/daniel/mcp-logs/visual-monitoring/README.md",
+      "similarity": 0.0
+    },
+    {
+      "path": "/Users/daniel/Documents/GitHub/verification_report_en_only.md",
+      "similarity": 0.0
+    },
+    {
+      "path": "/Users/daniel/cognitivewarrior-lio-1/SETUP_GEMINI_CODE_ASSIST.md",
+      "similarity": 0.0
+    },
+    {
+      "path": "/Users/daniel/archive/old-projects/guardian-dashboard/lionspace-project-gu/README.md",
+      "similarity": 0.0
+    },
+    {
+      "path": "/Users/daniel/Desktop/BACKUP_20250830_1354/agents/guardian-system/configs/MCP_SERVERS_CONFIGURATION.md",
+      "similarity": 0.0
+    },
+    {
+      "path": "/Users/daniel/cognitivewarrior-lio-1/RUNBOOK.md",
+      "similarity": 0.0
+    },
+    {
+      "path": "/Users/daniel/cognitivewarrior-lio-1/INTEGRATION_SETUP.md",
+      "similarity": 0.0
+    },
+    {
+      "path": "/Users/daniel/migration/REALITY_CHECK.md",
+      "similarity": 0.0
+    },
+    {
+      "path": "/Users/daniel/claude/agents/MyAgents/AGENTS_INDEX.md",
+      "similarity": 0.0
+    },
+    {
+      "path": "/Users/daniel/cognitivewarrior-lio-1/docs/NAVIGATION_TEST_RESULTS.md",
+      "similarity": 0.0
+    },
+    {
+      "path": "/Users/daniel/cognitivewarrior-lio-1/APP_STRUCTURE_IMPLEMENTATION.md",
+      "similarity": 0.0
+    },
+    {
+      "path": "/Users/daniel/modern-nextjs-app/ap/phase2_visual_compliance_report.md",
+      "similarity": 0.0
+    },
+    {
+      "path": "/Users/daniel/Desktop/BACKUP_20250830_1354/Guardian-Agents-System/dashboard/index.html",
+      "similarity": 0.0
+    },
+    {
+      "path": "/Users/daniel/cognitivewarrior-lio-1/src/prd.md",
+      "similarity": 0.0
+    },
+    {
+      "path": "/Users/daniel/Documents/GitHub/AUDIO_DEEPFAKE_INTEGRATION_REPORT.md",
+      "similarity": 0.0
+    },
+    {
+      "path": "/Users/daniel/cognitivewarrior-lio-1/docs/AUTH_FLOW_ANALYSIS.md",
+      "similarity": 0.0
+    },
+    {
+      "path": "/Users/daniel/cognitivewarrior-lio-1/docs/ADMIN_NAVIGATION_TEST_GUIDE.md",
+      "similarity": 0.0
+    },
+    {
+      "path": "/Users/daniel/cognitivewarrior/systems/apphub/reports/iPaaS_post_apply_summary.md",
+      "similarity": 0.001
+    },
+    {
+      "path": "/Users/daniel/Downloads/tree.txt",
+      "similarity": 0.0
+    },
+    {
+      "path": "/Users/daniel/cognitivewarrior-lio-1/PRODUCTION_SETUP.md",
+      "similarity": 0.0
+    },
+    {
+      "path": "/Users/daniel/Library/Mobile Documents/com~apple~CloudDocs/Documents/ChromeProfile/ZxcvbnData/3/english_wikipedia.txt",
+      "similarity": 0.0
+    },
+    {
+      "path": "/Users/daniel/cognitivewarrior-lio-1/DEPLOYMENT.md",
+      "similarity": 0.0
+    },
+    {
+      "path": "/Users/daniel/Library/Mobile Documents/com~apple~CloudDocs/Downloads/index.html",
+      "similarity": 0.0
+    },
+    {
+      "path": "/Users/daniel/mcp-logs/browser-monitoring-report.md",
+      "similarity": 0.001
+    },
+    {
+      "path": "/Users/daniel/modern-nextjs-app/github/ap/VERCEL_GCP_UPDATE_INSTRUCTIONS.md",
+      "similarity": 0.0
+    },
+    {
+      "path": "/Users/daniel/cognitivewarrior-lio-1/OAUTH_README.md",
+      "similarity": 0.0
+    },
+    {
+      "path": "/Users/daniel/cognitivewarrior-lio-1/THEME_IMPLEMENTATION_NOTES.md",
+      "similarity": 0.0
+    },
+    {
+      "path": "/Users/daniel/Downloads/New Folder With Items/AGENT_INSTRUCTIONS.md",
+      "similarity": 0.0
+    },
+    {
+      "path": "/Users/daniel/migration/terraform_fixes/terraform_solutions.md",
+      "similarity": 0.0
+    },
+    {
+      "path": "/Users/daniel/mcp-logs/visual-monitoring/reports/error_report_1756676706233.html",
+      "similarity": 0.0
+    },
+    {
+      "path": "/Users/daniel/cognitivewarrior-lio-1/docs/RUNBOOK.md",
+      "similarity": 0.0
+    },
+    {
+      "path": "/Users/daniel/Downloads/New Folder With Items 2/apps/web/src/prd.md",
+      "similarity": 0.001
+    },
+    {
+      "path": "/Users/daniel/Library/Mobile Documents/com~apple~CloudDocs/Downloads/dashboard-link.txt",
+      "similarity": 0.0
+    },
+    {
+      "path": "/Users/daniel/cognitivewarrior-lio-1/docs/APP_STRUCTURE_IMPLEMENTATION.md",
+      "similarity": 0.0
+    },
+    {
+      "path": "/Users/daniel/mcp-logs/visual-monitoring/reports/error_report_1756673616210.html",
+      "similarity": 0.0
+    },
+    {
+      "path": "/Users/daniel/modern-nextjs-app/ap/lionspace-deployment-package/AGENT_INSTRUCTIONS.md",
+      "similarity": 0.0
+    },
+    {
+      "path": "/Users/daniel/Desktop/BACKUP_20250830_1354/agents/guardian-system/configs/guardian-production-fixer.md",
+      "similarity": 0.0
+    },
+    {
+      "path": "/Users/daniel/archive/old-projects/guardian-dashboard/lionspace-project-gu/docs-unified/README.md",
+      "similarity": 0.0
+    },
+    {
+      "path": "/Users/daniel/migration/gcp_configuration/setup_complete.md",
+      "similarity": 0.0
+    },
+    {
+      "path": "/Users/daniel/mcp-logs/visual-monitoring/reports/error_report_1756674546284.html",
+      "similarity": 0.0
+    },
+    {
+      "path": "/Users/daniel/migration/google-cloud-support-ticket.md",
+      "similarity": 0.0
+    },
+    {
+      "path": "/Users/daniel/cognitivewarrior-lio-1/docs/INTEGRATION_COMPLETE.md",
+      "similarity": 0.0
+    },
+    {
+      "path": "/Users/daniel/Library/Mobile Documents/com~apple~CloudDocs/Downloads/PROJECT_CONSOLIDATED_STATUS.md",
+      "similarity": 0.001
+    },
+    {
+      "path": "/Users/daniel/cognitivewarrior-lio-1/docs/PRD.md",
+      "similarity": 0.0
+    },
+    {
+      "path": "/Users/daniel/archive/old-projects/guardian-dashboard/lionspace-project-gu/docs-unified/PLATFORM_TEST_REPORT.md",
+      "similarity": 0.0
+    },
+    {
+      "path": "/Users/daniel/migration/FINAL_MIGRATION_REPORT.html",
+      "similarity": 0.0
+    },
+    {
+      "path": "/Users/daniel/Desktop/BACKUP_20250830_1354/agents/guardian-system/configs/project-executor-supreme.md",
+      "similarity": 0.0
+    },
+    {
+      "path": "/Users/daniel/migration/terraform-rebuild/cleanup-report.md",
+      "similarity": 0.001
+    },
+    {
+      "path": "/Users/daniel/archive/old-projects/guardian-dashboard/lionspace-project-gu/CRITICAL_FIXES.md",
+      "similarity": 0.0
+    },
+    {
+      "path": "/Users/daniel/archive/old-projects/guardian-dashboard/lionspace-project-gu/PRD.md",
+      "similarity": 0.0
+    },
+    {
+      "path": "/Users/daniel/Desktop/BACKUP_20250830_1354/Guardian-Agents-System/configs/project-executor-supreme.md",
+      "similarity": 0.0
+    },
+    {
+      "path": "/Users/daniel/cognitivewarrior-lio-1/AUTH_FLOW_ANALYSIS.md",
+      "similarity": 0.0
+    },
+    {
+      "path": "/Users/daniel/Downloads/GRAPHICS_MAPPING__AI_PSY_ULTRA_UPGRADE_v2.3.md",
+      "similarity": 0.0
+    },
+    {
+      "path": "/Users/daniel/cognitivewarrior-lio-1/NAVIGATION_TEST_RESULTS.md",
+      "similarity": 0.0
+    },
+    {
+      "path": "/Users/daniel/modern-nextjs-app/src/lib/tailwindui/README.md",
+      "similarity": 0.0
+    },
+    {
+      "path": "/Users/daniel/cognitivewarrior-lio-1/docs/DESIGN_SYSTEM.md",
+      "similarity": 0.0
+    },
+    {
+      "path": "/Users/daniel/cognitivewarrior-lio-1/PRD.md",
+      "similarity": 0.0
+    },
+    {
+      "path": "/Users/daniel/migration/inventory-report.md",
+      "similarity": 0.0
+    },
+    {
+      "path": "/Users/daniel/cognitivewarrior-lio-1/DESIGN_SYSTEM.md",
+      "similarity": 0.0
+    },
+    {
+      "path": "/Users/daniel/Desktop/BACKUP_20250830_1354/Guardian-Agents-System/configs/engineering-leadership-auditor.md",
+      "similarity": 0.0
+    },
+    {
+      "path": "/Users/daniel/Library/Mobile Documents/com~apple~CloudDocs/Documents/ChromeProfile/ZxcvbnData/3/us_tv_and_film.txt",
+      "similarity": 0.0
+    },
+    {
+      "path": "/Users/daniel/Documents/GitHub/DEEPFAKE_DETECTION_FEATURES.md",
+      "similarity": 0.0
+    },
+    {
+      "path": "/Users/daniel/cognitivewarrior-lio-1/AUTHENTICATION_TEST_GUIDE.md",
+      "similarity": 0.0
+    },
+    {
+      "path": "/Users/daniel/Documents/GitHub/FINAL_INTEGRATION_REPORT.md",
+      "similarity": 0.0
+    },
+    {
+      "path": "/Users/daniel/migration/status_summary.md",
+      "similarity": 0.0
+    },
+    {
+      "path": "/Users/daniel/Config/DEV_ENVIRONMENT.md",
+      "similarity": 0.0
+    },
+    {
+      "path": "/Users/daniel/modern-nextjs-app/ap/cognitivewarrior-analysis.html",
+      "similarity": 0.0
+    },
+    {
+      "path": "/Users/daniel/mcp-logs/multi-agent-status-report.md",
+      "similarity": 0.0
+    },
+    {
+      "path": "/Users/daniel/Desktop/BACKUP_20250830_1354/Guardian-Agents-System/configs/guardian-ux-specialist.md",
+      "similarity": 0.0
+    },
+    {
+      "path": "/Users/daniel/Downloads/lion_space_backend_deployment_map_flowise_vm_cloud_run_web.md",
+      "similarity": 0.0
+    },
+    {
+      "path": "/Users/daniel/Library/Mobile Documents/com~apple~CloudDocs/Documents/קלוד/DEPLOYMENT.md",
+      "similarity": 0.0
+    },
+    {
+      "path": "/Users/daniel/modern-nextjs-app/github/ap/codespaces-diagnosis-report.md",
+      "similarity": 0.0
+    }
+  ],
+  "count": 164
+}

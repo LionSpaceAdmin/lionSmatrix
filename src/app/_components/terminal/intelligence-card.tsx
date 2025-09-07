@@ -16,7 +16,7 @@ import {
 type TrendDirection = 'up' | 'down' | 'neutral';
 type CardPriority = 'critical' | 'high' | 'medium' | 'low' | 'info';
 
-interface IntelligenceCardProps {
+export interface IntelligenceCardProps {
   title: string;
   value: string | number;
   subtitle?: string;

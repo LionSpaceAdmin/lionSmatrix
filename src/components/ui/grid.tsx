@@ -18,11 +18,12 @@ export function GridShell({ className = '', children }: GridShellProps) {
 interface GridItemProps {
   className?: string;
   children: ReactNode;
+  onClick?: () => void;
 }
 
-export function GridItem({ className = '', children }: GridItemProps) {
+export function GridItem({ className = '', children, onClick }: GridItemProps) {
   return (
-    <div className={className}>
+    <div className={className} onClick={onClick}>
       {children}
     </div>
   );
@@ -31,11 +32,19 @@ export function GridItem({ className = '', children }: GridItemProps) {
 interface CardProps {
   className?: string;
   children: ReactNode;
+  variant?: 'default' | 'glow' | 'solid';
 }
 
-export function Card({ className = '', children }: CardProps) {
+export function Card({ className = '', children, variant = 'default' }: CardProps) {
+  const baseClasses = 'rounded-lg transition-all duration-200';
+  const variantClasses = {
+    default: 'bg-terminal-bg/95 border border-terminal-border shadow-terminal',
+    glow: 'bg-terminal-secondary/50 border border-terminal-cyan/30 shadow-glow-cyan',
+    solid: 'bg-terminal-secondary border border-terminal-border'
+  };
+  
   return (
-    <div className={`bg-black/50 border border-green-400/20 rounded-lg ${className}`}>
+    <div className={`${baseClasses} ${variantClasses[variant]} ${className}`}>
       {children}
     </div>
   );
@@ -48,7 +57,7 @@ interface CardHeaderProps {
 
 export function CardHeader({ className = '', children }: CardHeaderProps) {
   return (
-    <div className={`p-4 pb-2 ${className}`}>
+    <div className={`p-6 pb-4 border-b border-terminal-border/50 ${className}`}>
       {children}
     </div>
   );
@@ -61,7 +70,7 @@ interface CardTitleProps {
 
 export function CardTitle({ className = '', children }: CardTitleProps) {
   return (
-    <h3 className={`text-lg font-semibold text-green-400 ${className}`}>
+    <h3 className={`text-lg font-bold text-terminal-cyan uppercase tracking-wider font-terminal ${className}`}>
       {children}
     </h3>
   );
@@ -74,7 +83,7 @@ interface CardContentProps {
 
 export function CardContent({ className = '', children }: CardContentProps) {
   return (
-    <div className={`p-4 pt-2 ${className}`}>
+    <div className={`p-6 pt-4 ${className}`}>
       {children}
     </div>
   );
@@ -87,7 +96,7 @@ interface CardDescriptionProps {
 
 export function CardDescription({ className = '', children }: CardDescriptionProps) {
   return (
-    <p className={`text-sm text-green-400/60 ${className}`}>
+    <p className={`text-sm text-terminal-muted font-terminal ${className}`}>
       {children}
     </p>
   );

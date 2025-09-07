@@ -1,0 +1,5 @@
+/Users/daniel/Documents/docs/OSINT_PLAN.md
+/Users/daniel/Documents/docs/SITE_MASTER_PLAN.md
+/Users/daniel/Downloads/lionspace-master-plan.md
+/Users/daniel/Downloads/PROJECT_STATUS_AND_ARCHITECTURE.md
+/Users/daniel/Documents/lions_master_dev (2).md

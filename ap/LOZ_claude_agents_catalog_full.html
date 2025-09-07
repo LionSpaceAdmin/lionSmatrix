@@ -1,0 +1,2852 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>קטלוג סוכני Claude — גרסת מחקר מלאה</title>
+<style>
+*{box-sizing:border-box}body{font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Helvetica Neue,Arial,sans-serif;background:#f5f7fb;margin:0}
+.container{max-width:1400px;margin:20px auto;background:#fff;border-radius:16px;box-shadow:0 20px 60px rgba(0,0,0,.15);overflow:hidden}
+header{background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);color:#fff;padding:32px 40px}
+h1{margin:0 0 6px 0;font-size:28px} .subtitle{opacity:.95}
+.stats{display:flex;gap:16px;flex-wrap:wrap;margin-top:12px}
+.stat{background:rgba(255,255,255,.18);padding:8px 14px;border-radius:999px;backdrop-filter:blur(6px)}
+
+.controls{display:flex;gap:10px;flex-wrap:wrap;padding:16px 20px;background:#f8f9fb;border-bottom:1px solid #e8eaf0}
+.search{flex:1;min-width:280px} .search input{width:100%;padding:12px 16px;border:2px solid #e1e5ee;border-radius:12px;font-size:15px;outline:none}
+.search input:focus{border-color:#667eea}
+.select{display:flex;gap:10px;flex-wrap:wrap}
+.select select{padding:10px 12px;border:2px solid #e1e5ee;border-radius:10px;background:#fff;font-size:14px}
+
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:16px;padding:20px}
+.card{border:1px solid #e9edf5;border-radius:14px;padding:16px;background:#fff;transition:.2s;position:relative;overflow:hidden}
+.card:hover{transform:translateY(-3px);box-shadow:0 10px 24px rgba(102,126,234,.18)}
+.name{font-weight:700;font-size:18px;color:#243b53;margin-bottom:4px}
+.badges{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:8px}
+.badge{padding:4px 10px;border-radius:999px;background:#eef2ff;color:#3730a3;font-size:12px}
+.repo{padding:2px 8px;border-radius:999px;background:#f1f5f9;color:#0f172a;font-size:12px;border:1px solid #e2e8f0}
+.desc{color:#475569;line-height:1.5;font-size:14px;margin:8px 0 12px}
+.actions{display:flex;gap:8px;flex-wrap:wrap}
+.btn{background:#667eea;color:#fff;border:none;padding:8px 12px;border-radius:10px;cursor:pointer;font-size:13px}
+.btn.secondary{background:#f1f5f9;color:#111827;border:1px solid #e5e7eb}
+.btn:active{transform:translateY(1px)}
+.details{margin-top:12px;border-top:1px solid #eef2f7;padding-top:12px;display:none}
+.card.open .details{display:block}
+.prompt{white-space:pre-wrap;background:#0b1020;color:#c7d2fe;border-radius:10px;padding:12px;max-height:260px;overflow:auto;font-family:ui-monospace,Consolas,Menlo,monospace;font-size:12px}
+.small{font-size:12px;color:#64748b}
+.copy{position:absolute;top:10px;right:10px;background:#0ea5e9}
+footer{padding:16px 20px;color:#475569;font-size:12px;border-top:1px solid #eef2f7;background:#fafbff}
+.kv{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
+.kv .k{background:#f8fafc;border:1px solid #e5e7eb;border-radius:8px;padding:6px 8px;font-size:12px}
+</style>
+</head>
+<body>
+<div class="container">
+  <header>
+    <h1>🤖 קטלוג סוכני Claude — גרסת מחקר מלאה</h1>
+    <div class="subtitle">איחוד אוטומטי מתוך מסמך המחקר + יכולת טעינת פרומפטים מהרשת לפי ריפו</div>
+    <div class="stats" id="stats"></div>
+  </header>
+
+  <div class="controls">
+    <div class="search">
+      <input id="searchInput" placeholder="חפש/י לפי שם סוכן, תיאור, קטגוריה או ריפו…"/>
+    </div>
+    <div class="select">
+      <select id="categorySelect"><option value="all">כל הקטגוריות</option></select>
+      <select id="subCategorySelect"><option value="all">כל התתי־קטגוריות</option></select>
+      <select id="repoSelect"><option value="all">כל הריפוזיטוריז</option></select>
+      <button class="btn secondary" id="resetBtn">איפוס סינון</button>
+    </div>
+  </div>
+
+  <div class="grid" id="grid"></div>
+
+  <footer>
+    ⚠️ הערה: לחלק מהסוכנים אין פרומפט משובץ. לחיצה על "טען פרומפט מהרשת" תנסה להביא את הקובץ ישירות מהריפו (GitHub Raw). אם לא נמצא, ניתן לפתוח חיפוש קוד/גוגל.
+    <div class="kv">
+      <div class="k">סה״כ סוכנים: <span id="totalCount"></span></div>
+      <div class="k">קטגוריות: <span id="catCount"></span></div>
+      <div class="k">ריפוזיטוריז: <span id="repoCount"></span></div>
+    </div>
+  </footer>
+</div>
+
+<script>
+
+const AGENTS = [
+  {
+    "name": "python-expert",
+    "repos": [
+      "0xfurai"
+    ],
+    "description": "Advanced Python features, optimization, and code quality",
+    "category": "Programming Language Specialists (40+ agents)",
+    "subcategory": "Python Ecosystem"
+  },
+  {
+    "name": "python-pro",
+    "repos": [
+      "wshobson",
+      "lst97",
+      "davepoon"
+    ],
+    "description": "Idiomatic Python with advanced patterns",
+    "category": "Programming Language Specialists (40+ agents)",
+    "subcategory": "Python Ecosystem"
+  },
+  {
+    "name": "django-expert",
+    "repos": [
+      "0xfurai"
+    ],
+    "description": "Django web framework, ORM, admin interface",
+    "category": "Programming Language Specialists (40+ agents)",
+    "subcategory": "Python Ecosystem"
+  },
+  {
+    "name": "flask-expert",
+    "repos": [
+      "0xfurai"
+    ],
+    "description": "Flask blueprints, extensions, web patterns",
+    "category": "Programming Language Specialists (40+ agents)",
+    "subcategory": "Python Ecosystem"
+  },
+  {
+    "name": "fastapi-expert",
+    "repos": [
+      "0xfurai"
+    ],
+    "description": "FastAPI async/await, Pydantic, OpenAPI",
+    "category": "Programming Language Specialists (40+ agents)",
+    "subcategory": "Python Ecosystem"
+  },
+  {
+    "name": "pandas-expert",
+    "repos": [
+      "0xfurai"
+    ],
+    "description": "Data manipulation and analysis",
+    "category": "Programming Language Specialists (40+ agents)",
+    "subcategory": "Python Ecosystem"
+  },
+  {
+    "name": "numpy-expert",
+    "repos": [
+      "0xfurai"
+    ],
+    "description": "Numerical computing and array operations",
+    "category": "Programming Language Specialists (40+ agents)",
+    "subcategory": "Python Ecosystem"
+  },
+  {
+    "name": "celery-expert",
+    "repos": [
+      "0xfurai"
+    ],
+    "description": "Distributed task queues",
+    "category": "Programming Language Specialists (40+ agents)",
+    "subcategory": "Python Ecosystem"
+  },
+  {
+    "name": "javascript-expert",
+    "repos": [
+      "0xfurai"
+    ],
+    "description": "Modern ES6+, async patterns, Node.js APIs",
+    "category": "Programming Language Specialists (40+ agents)",
+    "subcategory": "JavaScript/TypeScript"
+  },
+  {
+    "name": "typescript-expert",
+    "repos": [
+      "0xfurai",
+      "davepoon"
+    ],
+    "description": "Type safety, interfaces, advanced features",
+    "category": "Programming Language Specialists (40+ agents)",
+    "subcategory": "JavaScript/TypeScript"
+  },
+  {
+    "name": "typescript-pro",
+    "repos": [
+      "wshobson",
+      "lst97",
+      "VoltAgent"
+    ],
+    "description": "Complex types and architectural patterns",
+    "category": "Programming Language Specialists (40+ agents)",
+    "subcategory": "JavaScript/TypeScript"
+  },
+  {
+    "name": "nodejs-expert",
+    "repos": [
+      "0xfurai"
+    ],
+    "description": "Runtime, packages, and ecosystem",
+    "category": "Programming Language Specialists (40+ agents)",
+    "subcategory": "JavaScript/TypeScript"
+  },
+  {
+    "name": "bun-expert",
+    "repos": [
+      "0xfurai"
+    ],
+    "description": "Fast JavaScript runtime and package manager",
+    "category": "Programming Language Specialists (40+ agents)",
+    "subcategory": "JavaScript/TypeScript"
+  },
+  {
+    "name": "deno-expert",
+    "repos": [
+      "0xfurai"
+    ],
+    "description": "Secure JavaScript runtime with TypeScript",
+    "category": "Programming Language Specialists (40+ agents)",
+    "subcategory": "JavaScript/TypeScript"
+  },
+  {
+    "name": "java-expert",
+    "repos": [
+      "0xfurai"
+    ],
+    "description": "Spring Boot, enterprise patterns, JVM optimization",
+    "category": "Programming Language Specialists (40+ agents)",
+    "subcategory": "Java/JVM Languages"
+  },
+  {
+    "name": "java-architect",
+    "repos": [
+      "VoltAgent"
+    ],
+    "description": "Enterprise Java architecture",
+    "category": "Programming Language Specialists (40+ agents)",
+    "subcategory": "Java/JVM Languages"
+  },
+  {
+    "name": "kotlin-expert",
+    "repos": [
+      "0xfurai"
+    ],
+    "description": "Android, Spring Boot, coroutines",
+    "category": "Programming Language Specialists (40+ agents)",
+    "subcategory": "Java/JVM Languages"
+  },
+  {
+    "name": "kotlin-specialist",
+    "repos": [
+      "VoltAgent"
+    ],
+    "description": "Modern JVM language patterns",
+    "category": "Programming Language Specialists (40+ agents)",
+    "subcategory": "Java/JVM Languages"
+  },
+  {
+    "name": "scala-expert",
+    "repos": [
+      "0xfurai"
+    ],
+    "description": "Functional programming, Akka, JVM integration",
+    "category": "Programming Language Specialists (40+ agents)",
+    "subcategory": "Java/JVM Languages"
+  },
+  {
+    "name": "clojure-expert",
+    "repos": [
+      "0xfurai"
+    ],
+    "description": "Functional programming with Lisp syntax",
+    "category": "Programming Language Specialists (40+ agents)",
+    "subcategory": "Java/JVM Languages"
+  },
+  {
+    "name": "spring-boot-expert",
+    "repos": [
+      "0xfurai"
+    ],
+    "description": "Microservices and enterprise patterns",
+    "category": "Programming Language Specialists (40+ agents)",
+    "subcategory": "Java/JVM Languages"
+  },
+  {
+    "name": "spring-boot-engineer",
+    "repos": [
+      "VoltAgent"
+    ],
+    "description": "Spring Boot 3+ microservices",
+    "category": "Programming Language Specialists (40+ agents)",
+    "subcategory": "Java/JVM Languages"
+  },
+  {
+    "name": "rust-expert",
+    "repos": [
+      "0xfurai"
+    ],
+    "description": "Memory safety, ownership patterns, systems programming",
+    "category": "Programming Language Specialists (40+ agents)",
+    "subcategory": "Systems Programming"
+  },
+  {
+    "name": "rust-pro",
+    "repos": [
+      "wshobson",
+      "davepoon"
+    ],
+    "description": "Idiomatic Rust with lifetimes and type safety",
+    "category": "Programming Language Specialists (40+ agents)",
+    "subcategory": "Systems Programming"
+  },
+  {
+    "name": "rust-engineer",
+    "repos": [
+      "VoltAgent"
+    ],
+    "description": "Systems programming expertise",
+    "category": "Programming Language Specialists (40+ agents)",
+    "subcategory": "Systems Programming"
+  },
+  {
+    "name": "c-expert",
+    "repos": [
+      "0xfurai"
+    ],
+    "description": "Memory management, system calls, performance",
+    "category": "Programming Language Specialists (40+ agents)",
+    "subcategory": "Systems Programming"
+  },
+  {
+    "name": "c-pro",
+    "repos": [
+      "wshobson"
+    ],
+    "description": "System-level C programming, C99/C11 standards",
+    "category": "Programming Language Specialists (40+ agents)",
+    "subcategory": "Systems Programming"
+  },
+  {
+    "name": "cpp-expert",
+    "repos": [
+      "0xfurai"
+    ],
+    "description": "Modern C++ with STL, templates, RAII",
+    "category": "Programming Language Specialists (40+ agents)",
+    "subcategory": "Systems Programming"
+  },
+  {
+    "name": "cpp-pro",
+    "repos": [
+      "VoltAgent"
+    ],
+    "description": "C++ performance optimization",
+    "category": "Programming Language Specialists (40+ agents)",
+    "subcategory": "Systems Programming"
+  },
+  {
+    "name": "go-expert",
+    "repos": [
+      "0xfurai"
+    ],
+    "description": "Concurrency, channels, idiomatic patterns",
+    "category": "Programming Language Specialists (40+ agents)",
+    "subcategory": "Go Language"
+  },
+  {
+    "name": "golang-pro",
+    "repos": [
+      "wshobson",
+      "lst97",
+      "davepoon"
+    ],
+    "description": "Goroutines, channels, interfaces",
+    "category": "Programming Language Specialists (40+ agents)",
+    "subcategory": "Go Language"
+  },
+  {
+    "name": "gin-expert",
+    "repos": [
+      "0xfurai"
+    ],
+    "description": "Gin framework for Go web APIs",
+    "category": "Programming Language Specialists (40+ agents)",
+    "subcategory": "Go Language"
+  },
+  {
+    "name": "fiber-expert",
+    "repos": [
+      "0xfurai"
+    ],
+    "description": "Fiber framework for Go web development",
+    "category": "Programming Language Specialists (40+ agents)",
+    "subcategory": "Go Language"
+  },
+  {
+    "name": "php-expert",
+    "repos": [
+      "0xfurai"
+    ],
+    "description": "Modern PHP, Laravel, performance",
+    "category": "Programming Language Specialists (40+ agents)",
+    "subcategory": "Other Languages"
+  },
+  {
+    "name": "php-pro",
+    "repos": [
+      "VoltAgent"
+    ],
+    "description": "PHP web development expertise",
+    "category": "Programming Language Specialists (40+ agents)",
+    "subcategory": "Other Languages"
+  },
+  {
+    "name": "ruby-expert",
+    "repos": [
+      "0xfurai"
+    ],
+    "description": "Rails, metaprogramming, elegant syntax",
+    "category": "Programming Language Specialists (40+ agents)",
+    "subcategory": "Other Languages"
+  },
+  {
+    "name": "ruby-pro",
+    "repos": [
+      "wshobson"
+    ],
+    "description": "Idiomatic Ruby with Rails patterns",
+    "category": "Programming Language Specialists (40+ agents)",
+    "subcategory": "Other Languages"
+  },
+  {
+    "name": "swift-expert",
+    "repos": [
+      "0xfurai",
+      "VoltAgent"
+    ],
+    "description": "iOS, macOS, Apple ecosystem",
+    "category": "Programming Language Specialists (40+ agents)",
+    "subcategory": "Other Languages"
+  },
+  {
+    "name": "dart-expert",
+    "repos": [
+      "0xfurai"
+    ],
+    "description": "Flutter, mobile apps, cross-platform",
+    "category": "Programming Language Specialists (40+ agents)",
+    "subcategory": "Other Languages"
+  },
+  {
+    "name": "csharp-expert",
+    "repos": [
+      "0xfurai"
+    ],
+    "description": ".NET ecosystem, LINQ, enterprise patterns",
+    "category": "Programming Language Specialists (40+ agents)",
+    "subcategory": "Other Languages"
+  },
+  {
+    "name": "csharp-developer",
+    "repos": [
+      "VoltAgent"
+    ],
+    "description": ".NET ecosystem specialist",
+    "category": "Programming Language Specialists (40+ agents)",
+    "subcategory": "Other Languages"
+  },
+  {
+    "name": "lua-expert",
+    "repos": [
+      "0xfurai"
+    ],
+    "description": "Game scripting, embedded systems",
+    "category": "Programming Language Specialists (40+ agents)",
+    "subcategory": "Other Languages"
+  },
+  {
+    "name": "haskell-expert",
+    "repos": [
+      "0xfurai"
+    ],
+    "description": "Functional programming, monads, type theory",
+    "category": "Programming Language Specialists (40+ agents)",
+    "subcategory": "Other Languages"
+  },
+  {
+    "name": "ocaml-expert",
+    "repos": [
+      "0xfurai"
+    ],
+    "description": "Functional and systems programming",
+    "category": "Programming Language Specialists (40+ agents)",
+    "subcategory": "Other Languages"
+  },
+  {
+    "name": "perl-expert",
+    "repos": [
+      "0xfurai"
+    ],
+    "description": "Text processing, system administration",
+    "category": "Programming Language Specialists (40+ agents)",
+    "subcategory": "Other Languages"
+  },
+  {
+    "name": "elixir-expert",
+    "repos": [
+      "0xfurai"
+    ],
+    "description": "Functional programming, Erlang VM",
+    "category": "Programming Language Specialists (40+ agents)",
+    "subcategory": "Other Languages"
+  },
+  {
+    "name": "erlang-expert",
+    "repos": [
+      "0xfurai"
+    ],
+    "description": "Concurrent programming, fault tolerance",
+    "category": "Programming Language Specialists (40+ agents)",
+    "subcategory": "Other Languages"
+  },
+  {
+    "name": "react-expert",
+    "repos": [
+      "0xfurai"
+    ],
+    "description": "Hooks, state management, component architecture",
+    "category": "Frontend Development (30+ agents)",
+    "subcategory": "React Ecosystem"
+  },
+  {
+    "name": "react-pro",
+    "repos": [
+      "lst97"
+    ],
+    "description": "Expert React with performance optimization",
+    "category": "Frontend Development (30+ agents)",
+    "subcategory": "React Ecosystem"
+  },
+  {
+    "name": "react-specialist",
+    "repos": [
+      "VoltAgent"
+    ],
+    "description": "React 18+ modern patterns",
+    "category": "Frontend Development (30+ agents)",
+    "subcategory": "React Ecosystem"
+  },
+  {
+    "name": "react-native-expert",
+    "repos": [
+      "0xfurai"
+    ],
+    "description": "Cross-platform mobile development",
+    "category": "Frontend Development (30+ agents)",
+    "subcategory": "React Ecosystem"
+  },
+  {
+    "name": "nextjs-expert",
+    "repos": [
+      "0xfurai"
+    ],
+    "description": "SSR, SSG, React optimization",
+    "category": "Frontend Development (30+ agents)",
+    "subcategory": "React Ecosystem"
+  },
+  {
+    "name": "nextjs-pro",
+    "repos": [
+      "lst97"
+    ],
+    "description": "Next.js specialist for full-stack applications",
+    "category": "Frontend Development (30+ agents)",
+    "subcategory": "React Ecosystem"
+  },
+  {
+    "name": "nextjs-developer",
+    "repos": [
+      "VoltAgent"
+    ],
+    "description": "Next.js 14+ full-stack specialist",
+    "category": "Frontend Development (30+ agents)",
+    "subcategory": "React Ecosystem"
+  },
+  {
+    "name": "remix-expert",
+    "repos": [
+      "0xfurai"
+    ],
+    "description": "Nested routing, data loading, web standards",
+    "category": "Frontend Development (30+ agents)",
+    "subcategory": "React Ecosystem"
+  },
+  {
+    "name": "vue-expert",
+    "repos": [
+      "0xfurai",
+      "VoltAgent"
+    ],
+    "description": "Vue.js composition API, state management",
+    "category": "Frontend Development (30+ agents)",
+    "subcategory": "Other Frontend Frameworks"
+  },
+  {
+    "name": "angular-expert",
+    "repos": [
+      "0xfurai"
+    ],
+    "description": "TypeScript, RxJS, enterprise patterns",
+    "category": "Frontend Development (30+ agents)",
+    "subcategory": "Other Frontend Frameworks"
+  },
+  {
+    "name": "angular-architect",
+    "repos": [
+      "VoltAgent"
+    ],
+    "description": "Angular 15+ enterprise patterns",
+    "category": "Frontend Development (30+ agents)",
+    "subcategory": "Other Frontend Frameworks"
+  },
+  {
+    "name": "svelte-expert",
+    "repos": [
+      "0xfurai"
+    ],
+    "description": "Reactive components, minimal boilerplate",
+    "category": "Frontend Development (30+ agents)",
+    "subcategory": "Other Frontend Frameworks"
+  },
+  {
+    "name": "solidjs-expert",
+    "repos": [
+      "0xfurai"
+    ],
+    "description": "Fine-grained reactivity and performance",
+    "category": "Frontend Development (30+ agents)",
+    "subcategory": "Other Frontend Frameworks"
+  },
+  {
+    "name": "astro-expert",
+    "repos": [
+      "0xfurai"
+    ],
+    "description": "Static site generation, component islands",
+    "category": "Frontend Development (30+ agents)",
+    "subcategory": "Other Frontend Frameworks"
+  },
+  {
+    "name": "angularjs-expert",
+    "repos": [
+      "0xfurai"
+    ],
+    "description": "Legacy support, migration strategies",
+    "category": "Frontend Development (30+ agents)",
+    "subcategory": "Other Frontend Frameworks"
+  },
+  {
+    "name": "css-expert",
+    "repos": [
+      "0xfurai"
+    ],
+    "description": "Modern layouts, animations, responsive design",
+    "category": "Frontend Development (30+ agents)",
+    "subcategory": "CSS & Styling"
+  },
+  {
+    "name": "tailwind-expert",
+    "repos": [
+      "0xfurai"
+    ],
+    "description": "Utility-first design and customization",
+    "category": "Frontend Development (30+ agents)",
+    "subcategory": "CSS & Styling"
+  },
+  {
+    "name": "tailwind-css-expert",
+    "repos": [
+      "vijaythecoder"
+    ],
+    "description": "Pixel-perfect responsive designs",
+    "category": "Frontend Development (30+ agents)",
+    "subcategory": "CSS & Styling"
+  },
+  {
+    "name": "ui-ux-designer",
+    "repos": [
+      "wshobson",
+      "davepoon"
+    ],
+    "description": "Interface designs, wireframes, design systems",
+    "category": "Frontend Development (30+ agents)",
+    "subcategory": "UI/UX Design"
+  },
+  {
+    "name": "ui-ux-expert",
+    "repos": [
+      "vijaythecoder"
+    ],
+    "description": "User interface and experience design",
+    "category": "Frontend Development (30+ agents)",
+    "subcategory": "UI/UX Design"
+  },
+  {
+    "name": "frontend-designer",
+    "repos": [
+      "iannuttall"
+    ],
+    "description": "Frontend design assistance",
+    "category": "Frontend Development (30+ agents)",
+    "subcategory": "UI/UX Design"
+  },
+  {
+    "name": "frontend-developer",
+    "repos": [
+      "multiple repos"
+    ],
+    "description": "UI implementation specialists",
+    "category": "Frontend Development (30+ agents)",
+    "subcategory": "UI/UX Design"
+  },
+  {
+    "name": "express-expert",
+    "repos": [
+      "0xfurai"
+    ],
+    "description": "Middleware, routing, Node.js APIs",
+    "category": "Backend Development (25+ agents)",
+    "subcategory": "Node.js Frameworks"
+  },
+  {
+    "name": "nestjs-expert",
+    "repos": [
+      "0xfurai"
+    ],
+    "description": "Decorators, modules, enterprise patterns",
+    "category": "Backend Development (25+ agents)",
+    "subcategory": "Node.js Frameworks"
+  },
+  {
+    "name": "fastify-expert",
+    "repos": [
+      "0xfurai"
+    ],
+    "description": "High-performance Node.js framework",
+    "category": "Backend Development (25+ agents)",
+    "subcategory": "Node.js Frameworks"
+  },
+  {
+    "name": "django-expert",
+    "repos": [
+      "0xfurai"
+    ],
+    "description": "Python web framework, ORM, admin",
+    "category": "Backend Development (25+ agents)",
+    "subcategory": "Python Frameworks"
+  },
+  {
+    "name": "django-developer",
+    "repos": [
+      "VoltAgent"
+    ],
+    "description": "Django 4+ web development",
+    "category": "Backend Development (25+ agents)",
+    "subcategory": "Python Frameworks"
+  },
+  {
+    "name": "flask-expert",
+    "repos": [
+      "0xfurai"
+    ],
+    "description": "Blueprints, extensions, Python web",
+    "category": "Backend Development (25+ agents)",
+    "subcategory": "Python Frameworks"
+  },
+  {
+    "name": "fastapi-expert",
+    "repos": [
+      "0xfurai"
+    ],
+    "description": "Async/await, Pydantic, OpenAPI",
+    "category": "Backend Development (25+ agents)",
+    "subcategory": "Python Frameworks"
+  },
+  {
+    "name": "rails-expert",
+    "repos": [
+      "0xfurai",
+      "VoltAgent"
+    ],
+    "description": "Ruby on Rails MVC, ActiveRecord",
+    "category": "Backend Development (25+ agents)",
+    "subcategory": "Other Backend Frameworks"
+  },
+  {
+    "name": "laravel-expert",
+    "repos": [
+      "0xfurai"
+    ],
+    "description": "Eloquent, Blade, PHP patterns",
+    "category": "Backend Development (25+ agents)",
+    "subcategory": "Other Backend Frameworks"
+  },
+  {
+    "name": "laravel-specialist",
+    "repos": [
+      "VoltAgent"
+    ],
+    "description": "Laravel 10+ PHP framework",
+    "category": "Backend Development (25+ agents)",
+    "subcategory": "Other Backend Frameworks"
+  },
+  {
+    "name": "laravel-backend-expert",
+    "repos": [
+      "vijaythecoder"
+    ],
+    "description": "Laravel patterns, Eloquent ORM",
+    "category": "Backend Development (25+ agents)",
+    "subcategory": "Other Backend Frameworks"
+  },
+  {
+    "name": "laravel-api-architect",
+    "repos": [
+      "vijaythecoder"
+    ],
+    "description": "RESTful APIs, Sanctum auth",
+    "category": "Backend Development (25+ agents)",
+    "subcategory": "Other Backend Frameworks"
+  },
+  {
+    "name": "laravel-eloquent-expert",
+    "repos": [
+      "vijaythecoder"
+    ],
+    "description": "Database optimization",
+    "category": "Backend Development (25+ agents)",
+    "subcategory": "Other Backend Frameworks"
+  },
+  {
+    "name": "phoenix-expert",
+    "repos": [
+      "0xfurai"
+    ],
+    "description": "Phoenix framework with Elixir",
+    "category": "Backend Development (25+ agents)",
+    "subcategory": "Other Backend Frameworks"
+  },
+  {
+    "name": "aspnet-core-expert",
+    "repos": [
+      "0xfurai"
+    ],
+    "description": "ASP.NET Core with C# web APIs",
+    "category": "Backend Development (25+ agents)",
+    "subcategory": "Other Backend Frameworks"
+  },
+  {
+    "name": "actix-expert",
+    "repos": [
+      "0xfurai"
+    ],
+    "description": "Actix-web with Rust async patterns",
+    "category": "Backend Development (25+ agents)",
+    "subcategory": "Other Backend Frameworks"
+  },
+  {
+    "name": "backend-architect",
+    "repos": [
+      "multiple repos"
+    ],
+    "description": "RESTful APIs, microservices, database schemas",
+    "category": "Backend Development (25+ agents)",
+    "subcategory": "Architecture Specialists"
+  },
+  {
+    "name": "backend-developer",
+    "repos": [
+      "multiple repos"
+    ],
+    "description": "Server-side development experts",
+    "category": "Backend Development (25+ agents)",
+    "subcategory": "Architecture Specialists"
+  },
+  {
+    "name": "full-stack-developer",
+    "repos": [
+      "lst97"
+    ],
+    "description": "End-to-end web application development",
+    "category": "Backend Development (25+ agents)",
+    "subcategory": "Architecture Specialists"
+  },
+  {
+    "name": "fullstack-developer",
+    "repos": [
+      "VoltAgent"
+    ],
+    "description": "End-to-end feature development",
+    "category": "Backend Development (25+ agents)",
+    "subcategory": "Architecture Specialists"
+  },
+  {
+    "name": "microservices-architect",
+    "repos": [
+      "VoltAgent"
+    ],
+    "description": "Distributed systems designer",
+    "category": "Backend Development (25+ agents)",
+    "subcategory": "Architecture Specialists"
+  },
+  {
+    "name": "sql-expert",
+    "repos": [
+      "0xfurai"
+    ],
+    "description": "Complex queries, optimization, database design",
+    "category": "Database Specialists (25+ agents)",
+    "subcategory": "SQL Databases"
+  },
+  {
+    "name": "sql-pro",
+    "repos": [
+      "VoltAgent"
+    ],
+    "description": "Database query expert",
+    "category": "Database Specialists (25+ agents)",
+    "subcategory": "SQL Databases"
+  },
+  {
+    "name": "postgres-expert",
+    "repos": [
+      "0xfurai"
+    ],
+    "description": "PostgreSQL advanced features, extensions",
+    "category": "Database Specialists (25+ agents)",
+    "subcategory": "SQL Databases"
+  },
+  {
+    "name": "postgres-pro",
+    "repos": [
+      "lst97",
+      "VoltAgent"
+    ],
+    "description": "PostgreSQL database expertise",
+    "category": "Database Specialists (25+ agents)",
+    "subcategory": "SQL Databases"
+  },
+  {
+    "name": "mysql-expert",
+    "repos": [
+      "0xfurai"
+    ],
+    "description": "InnoDB, replication, performance tuning",
+    "category": "Database Specialists (25+ agents)",
+    "subcategory": "SQL Databases"
+  },
+  {
+    "name": "sqlite-expert",
+    "repos": [
+      "0xfurai"
+    ],
+    "description": "Embedded databases and mobile apps",
+    "category": "Database Specialists (25+ agents)",
+    "subcategory": "SQL Databases"
+  },
+  {
+    "name": "mariadb-expert",
+    "repos": [
+      "0xfurai"
+    ],
+    "description": "MySQL compatibility, enterprise features",
+    "category": "Database Specialists (25+ agents)",
+    "subcategory": "SQL Databases"
+  },
+  {
+    "name": "mssql-expert",
+    "repos": [
+      "0xfurai"
+    ],
+    "description": "Microsoft SQL Server, T-SQL",
+    "category": "Database Specialists (25+ agents)",
+    "subcategory": "SQL Databases"
+  },
+  {
+    "name": "cockroachdb-expert",
+    "repos": [
+      "0xfurai"
+    ],
+    "description": "Distributed SQL and consistency",
+    "category": "Database Specialists (25+ agents)",
+    "subcategory": "SQL Databases"
+  },
+  {
+    "name": "mongodb-expert",
+    "repos": [
+      "0xfurai"
+    ],
+    "description": "NoSQL patterns, aggregation, sharding",
+    "category": "Database Specialists (25+ agents)",
+    "subcategory": "NoSQL Databases"
+  },
+  {
+    "name": "redis-expert",
+    "repos": [
+      "0xfurai"
+    ],
+    "description": "Caching, pub/sub, data structures",
+    "category": "Database Specialists (25+ agents)",
+    "subcategory": "NoSQL Databases"
+  },
+  {
+    "name": "neo4j-expert",
+    "repos": [
+      "0xfurai"
+    ],
+    "description": "Graph databases and Cypher queries",
+    "category": "Database Specialists (25+ agents)",
+    "subcategory": "NoSQL Databases"
+  },
+  {
+    "name": "cassandra-expert",
+    "repos": [
+      "0xfurai"
+    ],
+    "description": "Distributed databases and CQL",
+    "category": "Database Specialists (25+ agents)",
+    "subcategory": "NoSQL Databases"
+  },
+  {
+    "name": "dynamodb-expert",
+    "repos": [
+      "0xfurai"
+    ],
+    "description": "NoSQL patterns, AWS integration",
+    "category": "Database Specialists (25+ agents)",
+    "subcategory": "NoSQL Databases"
+  },
+  {
+    "name": "elasticsearch-expert",
+    "repos": [
+      "0xfurai"
+    ],
+    "description": "Search, analytics, ELK stack",
+    "category": "Database Specialists (25+ agents)",
+    "subcategory": "NoSQL Databases"
+  },
+  {
+    "name": "opensearch-expert",
+    "repos": [
+      "0xfurai"
+    ],
+    "description": "Search and analytics",
+    "category": "Database Specialists (25+ agents)",
+    "subcategory": "NoSQL Databases"
+  },
+  {
+    "name": "vector-db-expert",
+    "repos": [
+      "0xfurai"
+    ],
+    "description": "Embeddings and similarity search",
+    "category": "Database Specialists (25+ agents)",
+    "subcategory": "NoSQL Databases"
+  },
+  {
+    "name": "prisma-expert",
+    "repos": [
+      "0xfurai"
+    ],
+    "description": "Type-safe database access, migrations",
+    "category": "Database Specialists (25+ agents)",
+    "subcategory": "Database Tools & ORMs"
+  },
+  {
+    "name": "sequelize-expert",
+    "repos": [
+      "0xfurai"
+    ],
+    "description": "Node.js ORM and database management",
+    "category": "Database Specialists (25+ agents)",
+    "subcategory": "Database Tools & ORMs"
+  },
+  {
+    "name": "typeorm-expert",
+    "repos": [
+      "0xfurai"
+    ],
+    "description": "TypeScript ORM with decorators",
+    "category": "Database Specialists (25+ agents)",
+    "subcategory": "Database Tools & ORMs"
+  },
+  {
+    "name": "knex-expert",
+    "repos": [
+      "0xfurai"
+    ],
+    "description": "Query builder and migrations",
+    "category": "Database Specialists (25+ agents)",
+    "subcategory": "Database Tools & ORMs"
+  },
+  {
+    "name": "mongoose-expert",
+    "repos": [
+      "0xfurai"
+    ],
+    "description": "MongoDB ODM and schemas",
+    "category": "Database Specialists (25+ agents)",
+    "subcategory": "Database Tools & ORMs"
+  },
+  {
+    "name": "flyway-expert",
+    "repos": [
+      "0xfurai"
+    ],
+    "description": "Database migrations and version control",
+    "category": "Database Specialists (25+ agents)",
+    "subcategory": "Database Tools & ORMs"
+  },
+  {
+    "name": "liquibase-expert",
+    "repos": [
+      "0xfurai"
+    ],
+    "description": "Database change management",
+    "category": "Database Specialists (25+ agents)",
+    "subcategory": "Database Tools & ORMs"
+  },
+  {
+    "name": "database-optimizer",
+    "repos": [
+      "multiple repos"
+    ],
+    "description": "Query optimization, indexing",
+    "category": "Database Specialists (25+ agents)",
+    "subcategory": "Database Tools & ORMs"
+  },
+  {
+    "name": "database-admin",
+    "repos": [
+      "wshobson"
+    ],
+    "description": "Database management, backup, recovery",
+    "category": "Database Specialists (25+ agents)",
+    "subcategory": "Database Tools & ORMs"
+  },
+  {
+    "name": "database-administrator",
+    "repos": [
+      "VoltAgent"
+    ],
+    "description": "Database management expert",
+    "category": "Database Specialists (25+ agents)",
+    "subcategory": "Database Tools & ORMs"
+  },
+  {
+    "name": "docker-expert",
+    "repos": [
+      "0xfurai"
+    ],
+    "description": "Containerization, images, orchestration",
+    "category": "DevOps & Infrastructure (35+ agents)",
+    "subcategory": "Container & Orchestration"
+  },
+  {
+    "name": "kubernetes-expert",
+    "repos": [
+      "0xfurai"
+    ],
+    "description": "Container orchestration and scaling",
+    "category": "DevOps & Infrastructure (35+ agents)",
+    "subcategory": "Container & Orchestration"
+  },
+  {
+    "name": "kubernetes-specialist",
+    "repos": [
+      "VoltAgent"
+    ],
+    "description": "Container orchestration master",
+    "category": "DevOps & Infrastructure (35+ agents)",
+    "subcategory": "Container & Orchestration"
+  },
+  {
+    "name": "terraform-expert",
+    "repos": [
+      "0xfurai"
+    ],
+    "description": "Infrastructure as code, cloud provisioning",
+    "category": "DevOps & Infrastructure (35+ agents)",
+    "subcategory": "Infrastructure as Code"
+  },
+  {
+    "name": "terraform-engineer",
+    "repos": [
+      "VoltAgent"
+    ],
+    "description": "Infrastructure as Code expert",
+    "category": "DevOps & Infrastructure (35+ agents)",
+    "subcategory": "Infrastructure as Code"
+  },
+  {
+    "name": "pulumi-expert",
+    "repos": [
+      "0xfurai"
+    ],
+    "description": "Multi-language infrastructure as code",
+    "category": "DevOps & Infrastructure (35+ agents)",
+    "subcategory": "Infrastructure as Code"
+  },
+  {
+    "name": "ansible-expert",
+    "repos": [
+      "0xfurai"
+    ],
+    "description": "Configuration management and automation",
+    "category": "DevOps & Infrastructure (35+ agents)",
+    "subcategory": "Infrastructure as Code"
+  },
+  {
+    "name": "jenkins-expert",
+    "repos": [
+      "0xfurai"
+    ],
+    "description": "CI/CD pipelines and automation",
+    "category": "DevOps & Infrastructure (35+ agents)",
+    "subcategory": "CI/CD & Automation"
+  },
+  {
+    "name": "github-actions-expert",
+    "repos": [
+      "0xfurai"
+    ],
+    "description": "Workflows and automation",
+    "category": "DevOps & Infrastructure (35+ agents)",
+    "subcategory": "CI/CD & Automation"
+  },
+  {
+    "name": "gitlab-ci-expert",
+    "repos": [
+      "0xfurai"
+    ],
+    "description": "Pipelines and DevOps automation",
+    "category": "DevOps & Infrastructure (35+ agents)",
+    "subcategory": "CI/CD & Automation"
+  },
+  {
+    "name": "circleci-expert",
+    "repos": [
+      "0xfurai"
+    ],
+    "description": "Continuous integration and deployment",
+    "category": "DevOps & Infrastructure (35+ agents)",
+    "subcategory": "CI/CD & Automation"
+  },
+  {
+    "name": "deployment-engineer",
+    "repos": [
+      "multiple repos"
+    ],
+    "description": "CI/CD pipelines, Docker, cloud",
+    "category": "DevOps & Infrastructure (35+ agents)",
+    "subcategory": "CI/CD & Automation"
+  },
+  {
+    "name": "cloud-architect",
+    "repos": [
+      "multiple repos"
+    ],
+    "description": "AWS/Azure/GCP infrastructure design",
+    "category": "DevOps & Infrastructure (35+ agents)",
+    "subcategory": "Cloud Platforms"
+  },
+  {
+    "name": "platform-engineer",
+    "repos": [
+      "VoltAgent"
+    ],
+    "description": "Platform architecture expert",
+    "category": "DevOps & Infrastructure (35+ agents)",
+    "subcategory": "Cloud Platforms"
+  },
+  {
+    "name": "sre-engineer",
+    "repos": [
+      "VoltAgent"
+    ],
+    "description": "Site reliability engineering",
+    "category": "DevOps & Infrastructure (35+ agents)",
+    "subcategory": "Cloud Platforms"
+  },
+  {
+    "name": "devops-troubleshooter",
+    "repos": [
+      "multiple repos"
+    ],
+    "description": "Production issues, logs, failures",
+    "category": "DevOps & Infrastructure (35+ agents)",
+    "subcategory": "DevOps Specialists"
+  },
+  {
+    "name": "devops-engineer",
+    "repos": [
+      "VoltAgent"
+    ],
+    "description": "CI/CD and automation expert",
+    "category": "DevOps & Infrastructure (35+ agents)",
+    "subcategory": "DevOps Specialists"
+  },
+  {
+    "name": "devops-incident-responder",
+    "repos": [
+      "lst97",
+      "VoltAgent"
+    ],
+    "description": "Incident management",
+    "category": "DevOps & Infrastructure (35+ agents)",
+    "subcategory": "DevOps Specialists"
+  },
+  {
+    "name": "incident-responder",
+    "repos": [
+      "lst97",
+      "VoltAgent"
+    ],
+    "description": "System incident response",
+    "category": "DevOps & Infrastructure (35+ agents)",
+    "subcategory": "DevOps Specialists"
+  },
+  {
+    "name": "network-engineer",
+    "repos": [
+      "wshobson",
+      "VoltAgent"
+    ],
+    "description": "Network infrastructure",
+    "category": "DevOps & Infrastructure (35+ agents)",
+    "subcategory": "DevOps Specialists"
+  },
+  {
+    "name": "security-engineer",
+    "repos": [
+      "VoltAgent"
+    ],
+    "description": "Infrastructure security",
+    "category": "DevOps & Infrastructure (35+ agents)",
+    "subcategory": "DevOps Specialists"
+  },
+  {
+    "name": "jest-expert",
+    "repos": [
+      "0xfurai"
+    ],
+    "description": "JavaScript testing and mocking",
+    "category": "Testing & Quality Assurance (25+ agents)",
+    "subcategory": "JavaScript Testing"
+  },
+  {
+    "name": "vitest-expert",
+    "repos": [
+      "0xfurai"
+    ],
+    "description": "Vite-based testing, modern tooling",
+    "category": "Testing & Quality Assurance (25+ agents)",
+    "subcategory": "JavaScript Testing"
+  },
+  {
+    "name": "mocha-expert",
+    "repos": [
+      "0xfurai"
+    ],
+    "description": "JavaScript testing, flexible frameworks",
+    "category": "Testing & Quality Assurance (25+ agents)",
+    "subcategory": "JavaScript Testing"
+  },
+  {
+    "name": "jasmine-expert",
+    "repos": [
+      "0xfurai"
+    ],
+    "description": "BDD testing, behavior-driven development",
+    "category": "Testing & Quality Assurance (25+ agents)",
+    "subcategory": "JavaScript Testing"
+  },
+  {
+    "name": "ava-expert",
+    "repos": [
+      "0xfurai"
+    ],
+    "description": "Concurrent testing, modern JavaScript",
+    "category": "Testing & Quality Assurance (25+ agents)",
+    "subcategory": "JavaScript Testing"
+  },
+  {
+    "name": "cypress-expert",
+    "repos": [
+      "0xfurai"
+    ],
+    "description": "End-to-end testing, web automation",
+    "category": "Testing & Quality Assurance (25+ agents)",
+    "subcategory": "E2E Testing"
+  },
+  {
+    "name": "playwright-expert",
+    "repos": [
+      "0xfurai"
+    ],
+    "description": "Cross-browser testing and automation",
+    "category": "Testing & Quality Assurance (25+ agents)",
+    "subcategory": "E2E Testing"
+  },
+  {
+    "name": "selenium-expert",
+    "repos": [
+      "0xfurai"
+    ],
+    "description": "Web automation and browser testing",
+    "category": "Testing & Quality Assurance (25+ agents)",
+    "subcategory": "E2E Testing"
+  },
+  {
+    "name": "testcafe-expert",
+    "repos": [
+      "0xfurai"
+    ],
+    "description": "End-to-end testing, modern web apps",
+    "category": "Testing & Quality Assurance (25+ agents)",
+    "subcategory": "E2E Testing"
+  },
+  {
+    "name": "puppeteer-expert",
+    "repos": [
+      "0xfurai"
+    ],
+    "description": "Chrome automation, headless browsing",
+    "category": "Testing & Quality Assurance (25+ agents)",
+    "subcategory": "E2E Testing"
+  },
+  {
+    "name": "test-automator",
+    "repos": [
+      "multiple repos"
+    ],
+    "description": "Comprehensive test suites",
+    "category": "Testing & Quality Assurance (25+ agents)",
+    "subcategory": "Quality Assurance"
+  },
+  {
+    "name": "test-engineer",
+    "repos": [
+      "charles-adedotun"
+    ],
+    "description": "Testing and quality assurance",
+    "category": "Testing & Quality Assurance (25+ agents)",
+    "subcategory": "Quality Assurance"
+  },
+  {
+    "name": "qa-expert",
+    "repos": [
+      "lst97",
+      "VoltAgent"
+    ],
+    "description": "Test automation specialist",
+    "category": "Testing & Quality Assurance (25+ agents)",
+    "subcategory": "Quality Assurance"
+  },
+  {
+    "name": "code-reviewer",
+    "repos": [
+      "multiple repos"
+    ],
+    "description": "Code quality, security, maintainability",
+    "category": "Testing & Quality Assurance (25+ agents)",
+    "subcategory": "Quality Assurance"
+  },
+  {
+    "name": "architect-reviewer",
+    "repos": [
+      "multiple repos"
+    ],
+    "description": "Architectural consistency",
+    "category": "Testing & Quality Assurance (25+ agents)",
+    "subcategory": "Quality Assurance"
+  },
+  {
+    "name": "security-auditor",
+    "repos": [
+      "multiple repos"
+    ],
+    "description": "Vulnerability assessment",
+    "category": "Testing & Quality Assurance (25+ agents)",
+    "subcategory": "Quality Assurance"
+  },
+  {
+    "name": "accessibility-tester",
+    "repos": [
+      "VoltAgent"
+    ],
+    "description": "A11y compliance expert",
+    "category": "Testing & Quality Assurance (25+ agents)",
+    "subcategory": "Quality Assurance"
+  },
+  {
+    "name": "accessibility-specialist",
+    "repos": [
+      "davepoon"
+    ],
+    "description": "WCAG 2.1 AA/AAA standards",
+    "category": "Testing & Quality Assurance (25+ agents)",
+    "subcategory": "Quality Assurance"
+  },
+  {
+    "name": "penetration-tester",
+    "repos": [
+      "VoltAgent"
+    ],
+    "description": "Ethical hacking specialist",
+    "category": "Testing & Quality Assurance (25+ agents)",
+    "subcategory": "Quality Assurance"
+  },
+  {
+    "name": "chaos-engineer",
+    "repos": [
+      "VoltAgent"
+    ],
+    "description": "System resilience testing",
+    "category": "Testing & Quality Assurance (25+ agents)",
+    "subcategory": "Quality Assurance"
+  },
+  {
+    "name": "tensorflow-expert",
+    "repos": [
+      "0xfurai"
+    ],
+    "description": "Deep learning, neural networks",
+    "category": "Data Science & AI/ML (20+ agents)",
+    "subcategory": "Machine Learning"
+  },
+  {
+    "name": "pytorch-expert",
+    "repos": [
+      "0xfurai"
+    ],
+    "description": "Deep learning, dynamic computation graphs",
+    "category": "Data Science & AI/ML (20+ agents)",
+    "subcategory": "Machine Learning"
+  },
+  {
+    "name": "scikit-learn-expert",
+    "repos": [
+      "0xfurai"
+    ],
+    "description": "Machine learning and data science",
+    "category": "Data Science & AI/ML (20+ agents)",
+    "subcategory": "Machine Learning"
+  },
+  {
+    "name": "ml-engineer",
+    "repos": [
+      "multiple repos"
+    ],
+    "description": "Machine learning systems",
+    "category": "Data Science & AI/ML (20+ agents)",
+    "subcategory": "Machine Learning"
+  },
+  {
+    "name": "machine-learning-engineer",
+    "repos": [
+      "VoltAgent"
+    ],
+    "description": "ML systems expert",
+    "category": "Data Science & AI/ML (20+ agents)",
+    "subcategory": "Machine Learning"
+  },
+  {
+    "name": "mlops-engineer",
+    "repos": [
+      "wshobson",
+      "VoltAgent"
+    ],
+    "description": "MLOps infrastructure, deployment",
+    "category": "Data Science & AI/ML (20+ agents)",
+    "subcategory": "Machine Learning"
+  },
+  {
+    "name": "langchain-expert",
+    "repos": [
+      "0xfurai"
+    ],
+    "description": "LLM applications and RAG systems",
+    "category": "Data Science & AI/ML (20+ agents)",
+    "subcategory": "AI & LLM Development"
+  },
+  {
+    "name": "ai-engineer",
+    "repos": [
+      "multiple repos"
+    ],
+    "description": "LLM applications, RAG systems",
+    "category": "Data Science & AI/ML (20+ agents)",
+    "subcategory": "AI & LLM Development"
+  },
+  {
+    "name": "llm-architect",
+    "repos": [
+      "VoltAgent"
+    ],
+    "description": "Large language model architect",
+    "category": "Data Science & AI/ML (20+ agents)",
+    "subcategory": "AI & LLM Development"
+  },
+  {
+    "name": "nlp-engineer",
+    "repos": [
+      "VoltAgent"
+    ],
+    "description": "Natural language processing",
+    "category": "Data Science & AI/ML (20+ agents)",
+    "subcategory": "AI & LLM Development"
+  },
+  {
+    "name": "prompt-engineer",
+    "repos": [
+      "lst97",
+      "VoltAgent"
+    ],
+    "description": "Prompt optimization",
+    "category": "Data Science & AI/ML (20+ agents)",
+    "subcategory": "AI & LLM Development"
+  },
+  {
+    "name": "openai-api-expert",
+    "repos": [
+      "0xfurai"
+    ],
+    "description": "GPT models and AI integration",
+    "category": "Data Science & AI/ML (20+ agents)",
+    "subcategory": "AI & LLM Development"
+  },
+  {
+    "name": "data-scientist",
+    "repos": [
+      "multiple repos"
+    ],
+    "description": "Data analysis, SQL, BigQuery",
+    "category": "Data Science & AI/ML (20+ agents)",
+    "subcategory": "Data Engineering"
+  },
+  {
+    "name": "data-engineer",
+    "repos": [
+      "multiple repos"
+    ],
+    "description": "ETL pipelines, data warehouses",
+    "category": "Data Science & AI/ML (20+ agents)",
+    "subcategory": "Data Engineering"
+  },
+  {
+    "name": "data-analyst",
+    "repos": [
+      "VoltAgent"
+    ],
+    "description": "Data insights and visualization",
+    "category": "Data Science & AI/ML (20+ agents)",
+    "subcategory": "Data Engineering"
+  },
+  {
+    "name": "data-researcher",
+    "repos": [
+      "VoltAgent"
+    ],
+    "description": "Data discovery and analysis",
+    "category": "Data Science & AI/ML (20+ agents)",
+    "subcategory": "Data Engineering"
+  },
+  {
+    "name": "react-native-expert",
+    "repos": [
+      "0xfurai"
+    ],
+    "description": "Cross-platform mobile apps",
+    "category": "Mobile Development (15+ agents)",
+    "subcategory": ""
+  },
+  {
+    "name": "flutter-expert",
+    "repos": [
+      "0xfurai",
+      "VoltAgent"
+    ],
+    "description": "Dart and cross-platform apps",
+    "category": "Mobile Development (15+ agents)",
+    "subcategory": ""
+  },
+  {
+    "name": "ios-expert",
+    "repos": [
+      "0xfurai"
+    ],
+    "description": "Swift, UIKit, Apple ecosystem",
+    "category": "Mobile Development (15+ agents)",
+    "subcategory": ""
+  },
+  {
+    "name": "swiftui-expert",
+    "repos": [
+      "0xfurai"
+    ],
+    "description": "Declarative UI, modern iOS patterns",
+    "category": "Mobile Development (15+ agents)",
+    "subcategory": ""
+  },
+  {
+    "name": "android-expert",
+    "repos": [
+      "0xfurai"
+    ],
+    "description": "Kotlin, Jetpack Compose, Material Design",
+    "category": "Mobile Development (15+ agents)",
+    "subcategory": ""
+  },
+  {
+    "name": "electron-expert",
+    "repos": [
+      "0xfurai"
+    ],
+    "description": "Cross-platform desktop apps",
+    "category": "Mobile Development (15+ agents)",
+    "subcategory": ""
+  },
+  {
+    "name": "electron-pro",
+    "repos": [
+      "lst97",
+      "VoltAgent"
+    ],
+    "description": "Desktop application development",
+    "category": "Mobile Development (15+ agents)",
+    "subcategory": ""
+  },
+  {
+    "name": "tauri-expert",
+    "repos": [
+      "0xfurai"
+    ],
+    "description": "Rust backend with web frontend",
+    "category": "Mobile Development (15+ agents)",
+    "subcategory": ""
+  },
+  {
+    "name": "expo-expert",
+    "repos": [
+      "0xfurai"
+    ],
+    "description": "React Native managed workflow",
+    "category": "Mobile Development (15+ agents)",
+    "subcategory": ""
+  },
+  {
+    "name": "mobile-developer",
+    "repos": [
+      "multiple repos"
+    ],
+    "description": "React Native or Flutter development",
+    "category": "Mobile Development (15+ agents)",
+    "subcategory": ""
+  },
+  {
+    "name": "mobile-expert",
+    "repos": [
+      "vijaythecoder"
+    ],
+    "description": "Mobile app development",
+    "category": "Mobile Development (15+ agents)",
+    "subcategory": ""
+  },
+  {
+    "name": "mobile-app-developer",
+    "repos": [
+      "VoltAgent"
+    ],
+    "description": "Mobile application specialist",
+    "category": "Mobile Development (15+ agents)",
+    "subcategory": ""
+  },
+  {
+    "name": "dart-expert",
+    "repos": [
+      "0xfurai"
+    ],
+    "description": "Flutter development",
+    "category": "Mobile Development (15+ agents)",
+    "subcategory": ""
+  },
+  {
+    "name": "rabbitmq-expert",
+    "repos": [
+      "0xfurai"
+    ],
+    "description": "Message queuing and AMQP",
+    "category": "Messaging & Communication (15+ agents)",
+    "subcategory": ""
+  },
+  {
+    "name": "kafka-expert",
+    "repos": [
+      "0xfurai"
+    ],
+    "description": "Event streaming, distributed systems",
+    "category": "Messaging & Communication (15+ agents)",
+    "subcategory": ""
+  },
+  {
+    "name": "nats-expert",
+    "repos": [
+      "0xfurai"
+    ],
+    "description": "Lightweight messaging and pub/sub",
+    "category": "Messaging & Communication (15+ agents)",
+    "subcategory": ""
+  },
+  {
+    "name": "mqtt-expert",
+    "repos": [
+      "0xfurai"
+    ],
+    "description": "IoT messaging, lightweight protocols",
+    "category": "Messaging & Communication (15+ agents)",
+    "subcategory": ""
+  },
+  {
+    "name": "websocket-expert",
+    "repos": [
+      "0xfurai"
+    ],
+    "description": "Real-time communication",
+    "category": "Messaging & Communication (15+ agents)",
+    "subcategory": ""
+  },
+  {
+    "name": "websocket-engineer",
+    "repos": [
+      "VoltAgent"
+    ],
+    "description": "Real-time communication specialist",
+    "category": "Messaging & Communication (15+ agents)",
+    "subcategory": ""
+  },
+  {
+    "name": "grpc-expert",
+    "repos": [
+      "0xfurai"
+    ],
+    "description": "High-performance RPC, protocol buffers",
+    "category": "Messaging & Communication (15+ agents)",
+    "subcategory": ""
+  },
+  {
+    "name": "graphql-expert",
+    "repos": [
+      "0xfurai"
+    ],
+    "description": "Schemas, resolvers, federation",
+    "category": "Messaging & Communication (15+ agents)",
+    "subcategory": ""
+  },
+  {
+    "name": "graphql-architect",
+    "repos": [
+      "multiple repos"
+    ],
+    "description": "GraphQL schema design",
+    "category": "Messaging & Communication (15+ agents)",
+    "subcategory": ""
+  },
+  {
+    "name": "rest-expert",
+    "repos": [
+      "0xfurai"
+    ],
+    "description": "REST API development, HTTP standards",
+    "category": "Messaging & Communication (15+ agents)",
+    "subcategory": ""
+  },
+  {
+    "name": "openapi-expert",
+    "repos": [
+      "0xfurai"
+    ],
+    "description": "API documentation and specifications",
+    "category": "Messaging & Communication (15+ agents)",
+    "subcategory": ""
+  },
+  {
+    "name": "trpc-expert",
+    "repos": [
+      "0xfurai"
+    ],
+    "description": "End-to-end type safety, TypeScript APIs",
+    "category": "Messaging & Communication (15+ agents)",
+    "subcategory": ""
+  },
+  {
+    "name": "sns-expert",
+    "repos": [
+      "0xfurai"
+    ],
+    "description": "AWS SNS messaging and notifications",
+    "category": "Messaging & Communication (15+ agents)",
+    "subcategory": ""
+  },
+  {
+    "name": "sqs-expert",
+    "repos": [
+      "0xfurai"
+    ],
+    "description": "AWS SQS message queuing",
+    "category": "Messaging & Communication (15+ agents)",
+    "subcategory": ""
+  },
+  {
+    "name": "bullmq-expert",
+    "repos": [
+      "0xfurai"
+    ],
+    "description": "Redis-based job queues, Node.js",
+    "category": "Messaging & Communication (15+ agents)",
+    "subcategory": ""
+  },
+  {
+    "name": "owasp-top10-expert",
+    "repos": [
+      "0xfurai"
+    ],
+    "description": "Web application security",
+    "category": "Security & Compliance (15+ agents)",
+    "subcategory": ""
+  },
+  {
+    "name": "jwt-expert",
+    "repos": [
+      "0xfurai"
+    ],
+    "description": "Token-based authentication",
+    "category": "Security & Compliance (15+ agents)",
+    "subcategory": ""
+  },
+  {
+    "name": "oauth-oidc-expert",
+    "repos": [
+      "0xfurai"
+    ],
+    "description": "OAuth 2.0 and OpenID Connect",
+    "category": "Security & Compliance (15+ agents)",
+    "subcategory": ""
+  },
+  {
+    "name": "auth0-expert",
+    "repos": [
+      "0xfurai"
+    ],
+    "description": "Authentication and authorization",
+    "category": "Security & Compliance (15+ agents)",
+    "subcategory": ""
+  },
+  {
+    "name": "keycloak-expert",
+    "repos": [
+      "0xfurai"
+    ],
+    "description": "Identity and access management",
+    "category": "Security & Compliance (15+ agents)",
+    "subcategory": ""
+  },
+  {
+    "name": "security-auditor",
+    "repos": [
+      "multiple repos"
+    ],
+    "description": "Vulnerability assessment",
+    "category": "Security & Compliance (15+ agents)",
+    "subcategory": ""
+  },
+  {
+    "name": "security-expert",
+    "repos": [
+      "vijaythecoder"
+    ],
+    "description": "Security auditing",
+    "category": "Security & Compliance (15+ agents)",
+    "subcategory": ""
+  },
+  {
+    "name": "security-engineer",
+    "repos": [
+      "VoltAgent"
+    ],
+    "description": "Infrastructure security",
+    "category": "Security & Compliance (15+ agents)",
+    "subcategory": ""
+  },
+  {
+    "name": "penetration-tester",
+    "repos": [
+      "VoltAgent"
+    ],
+    "description": "Ethical hacking",
+    "category": "Security & Compliance (15+ agents)",
+    "subcategory": ""
+  },
+  {
+    "name": "compliance-auditor",
+    "repos": [
+      "VoltAgent"
+    ],
+    "description": "Regulatory compliance",
+    "category": "Security & Compliance (15+ agents)",
+    "subcategory": ""
+  },
+  {
+    "name": "compliance-expert",
+    "repos": [
+      "vijaythecoder"
+    ],
+    "description": "Regulatory standards",
+    "category": "Security & Compliance (15+ agents)",
+    "subcategory": ""
+  },
+  {
+    "name": "legal-advisor",
+    "repos": [
+      "VoltAgent"
+    ],
+    "description": "Legal and compliance specialist",
+    "category": "Security & Compliance (15+ agents)",
+    "subcategory": ""
+  },
+  {
+    "name": "product-manager",
+    "repos": [
+      "lst97",
+      "VoltAgent"
+    ],
+    "description": "Product strategy and roadmaps",
+    "category": "Business & Product Management (20+ agents)",
+    "subcategory": ""
+  },
+  {
+    "name": "project-manager",
+    "repos": [
+      "VoltAgent"
+    ],
+    "description": "Project management specialist",
+    "category": "Business & Product Management (20+ agents)",
+    "subcategory": ""
+  },
+  {
+    "name": "business-analyst",
+    "repos": [
+      "wshobson",
+      "VoltAgent"
+    ],
+    "description": "Requirements specialist",
+    "category": "Business & Product Management (20+ agents)",
+    "subcategory": ""
+  },
+  {
+    "name": "scrum-master",
+    "repos": [
+      "VoltAgent"
+    ],
+    "description": "Agile methodology expert",
+    "category": "Business & Product Management (20+ agents)",
+    "subcategory": ""
+  },
+  {
+    "name": "content-marketer",
+    "repos": [
+      "wshobson",
+      "VoltAgent"
+    ],
+    "description": "Content marketing",
+    "category": "Business & Product Management (20+ agents)",
+    "subcategory": ""
+  },
+  {
+    "name": "sales-automator",
+    "repos": [
+      "wshobson"
+    ],
+    "description": "Cold emails, proposals",
+    "category": "Business & Product Management (20+ agents)",
+    "subcategory": ""
+  },
+  {
+    "name": "sales-engineer",
+    "repos": [
+      "VoltAgent"
+    ],
+    "description": "Technical sales expert",
+    "category": "Business & Product Management (20+ agents)",
+    "subcategory": ""
+  },
+  {
+    "name": "customer-support",
+    "repos": [
+      "wshobson"
+    ],
+    "description": "Support tickets, FAQs",
+    "category": "Business & Product Management (20+ agents)",
+    "subcategory": ""
+  },
+  {
+    "name": "customer-success-manager",
+    "repos": [
+      "VoltAgent"
+    ],
+    "description": "Customer success",
+    "category": "Business & Product Management (20+ agents)",
+    "subcategory": ""
+  },
+  {
+    "name": "technical-writer",
+    "repos": [
+      "VoltAgent"
+    ],
+    "description": "Technical documentation",
+    "category": "Business & Product Management (20+ agents)",
+    "subcategory": ""
+  },
+  {
+    "name": "ux-researcher",
+    "repos": [
+      "VoltAgent"
+    ],
+    "description": "User research expert",
+    "category": "Business & Product Management (20+ agents)",
+    "subcategory": ""
+  },
+  {
+    "name": "prd-writer",
+    "repos": [
+      "iannuttall"
+    ],
+    "description": "Product requirement documents",
+    "category": "Business & Product Management (20+ agents)",
+    "subcategory": ""
+  },
+  {
+    "name": "content-writer",
+    "repos": [
+      "iannuttall"
+    ],
+    "description": "Content writing assistance",
+    "category": "Business & Product Management (20+ agents)",
+    "subcategory": ""
+  },
+  {
+    "name": "project-task-planner",
+    "repos": [
+      "iannuttall"
+    ],
+    "description": "Project planning",
+    "category": "Business & Product Management (20+ agents)",
+    "subcategory": ""
+  },
+  {
+    "name": "quant-analyst",
+    "repos": [
+      "multiple repos"
+    ],
+    "description": "Financial models, trading strategies",
+    "category": "Specialized Domains (30+ agents)",
+    "subcategory": "Financial & Trading"
+  },
+  {
+    "name": "risk-manager",
+    "repos": [
+      "wshobson",
+      "VoltAgent"
+    ],
+    "description": "Portfolio risk management",
+    "category": "Specialized Domains (30+ agents)",
+    "subcategory": "Financial & Trading"
+  },
+  {
+    "name": "crypto-trader",
+    "repos": [
+      "davepoon"
+    ],
+    "description": "Cryptocurrency trading systems",
+    "category": "Specialized Domains (30+ agents)",
+    "subcategory": "Financial & Trading"
+  },
+  {
+    "name": "defi-strategist",
+    "repos": [
+      "davepoon"
+    ],
+    "description": "DeFi yield strategies",
+    "category": "Specialized Domains (30+ agents)",
+    "subcategory": "Financial & Trading"
+  },
+  {
+    "name": "crypto-analyst",
+    "repos": [
+      "davepoon"
+    ],
+    "description": "Market and on-chain analytics",
+    "category": "Specialized Domains (30+ agents)",
+    "subcategory": "Financial & Trading"
+  },
+  {
+    "name": "arbitrage-bot",
+    "repos": [
+      "davepoon"
+    ],
+    "description": "Crypto arbitrage opportunities",
+    "category": "Specialized Domains (30+ agents)",
+    "subcategory": "Financial & Trading"
+  },
+  {
+    "name": "crypto-risk-manager",
+    "repos": [
+      "davepoon"
+    ],
+    "description": "Crypto portfolio risk",
+    "category": "Specialized Domains (30+ agents)",
+    "subcategory": "Financial & Trading"
+  },
+  {
+    "name": "fintech-engineer",
+    "repos": [
+      "VoltAgent"
+    ],
+    "description": "Financial technology",
+    "category": "Specialized Domains (30+ agents)",
+    "subcategory": "Financial & Trading"
+  },
+  {
+    "name": "stripe-expert",
+    "repos": [
+      "0xfurai"
+    ],
+    "description": "Stripe payment processing",
+    "category": "Specialized Domains (30+ agents)",
+    "subcategory": "Payments & Commerce"
+  },
+  {
+    "name": "braintree-expert",
+    "repos": [
+      "0xfurai"
+    ],
+    "description": "Braintree and PayPal integration",
+    "category": "Specialized Domains (30+ agents)",
+    "subcategory": "Payments & Commerce"
+  },
+  {
+    "name": "payment-integration",
+    "repos": [
+      "multiple repos"
+    ],
+    "description": "Payment processor integration",
+    "category": "Specialized Domains (30+ agents)",
+    "subcategory": "Payments & Commerce"
+  },
+  {
+    "name": "blockchain-developer",
+    "repos": [
+      "davepoon",
+      "VoltAgent"
+    ],
+    "description": "Smart contracts, DeFi, Web3",
+    "category": "Specialized Domains (30+ agents)",
+    "subcategory": "Blockchain & Web3"
+  },
+  {
+    "name": "embedded-systems",
+    "repos": [
+      "VoltAgent"
+    ],
+    "description": "Embedded and real-time systems",
+    "category": "Specialized Domains (30+ agents)",
+    "subcategory": "Blockchain & Web3"
+  },
+  {
+    "name": "iot-engineer",
+    "repos": [
+      "VoltAgent"
+    ],
+    "description": "IoT systems developer",
+    "category": "Specialized Domains (30+ agents)",
+    "subcategory": "Blockchain & Web3"
+  },
+  {
+    "name": "game-developer",
+    "repos": [
+      "davepoon",
+      "VoltAgent"
+    ],
+    "description": "Game development",
+    "category": "Specialized Domains (30+ agents)",
+    "subcategory": "Gaming"
+  },
+  {
+    "name": "lua-expert",
+    "repos": [
+      "0xfurai"
+    ],
+    "description": "Game scripting",
+    "category": "Specialized Domains (30+ agents)",
+    "subcategory": "Gaming"
+  },
+  {
+    "name": "prometheus-expert",
+    "repos": [
+      "0xfurai"
+    ],
+    "description": "Metrics collection and monitoring",
+    "category": "Specialized Domains (30+ agents)",
+    "subcategory": "Monitoring & Observability"
+  },
+  {
+    "name": "grafana-expert",
+    "repos": [
+      "0xfurai"
+    ],
+    "description": "Visualization and dashboards",
+    "category": "Specialized Domains (30+ agents)",
+    "subcategory": "Monitoring & Observability"
+  },
+  {
+    "name": "loki-expert",
+    "repos": [
+      "0xfurai"
+    ],
+    "description": "Log aggregation and querying",
+    "category": "Specialized Domains (30+ agents)",
+    "subcategory": "Monitoring & Observability"
+  },
+  {
+    "name": "elk-expert",
+    "repos": [
+      "0xfurai"
+    ],
+    "description": "Elasticsearch, Logstash, Kibana",
+    "category": "Specialized Domains (30+ agents)",
+    "subcategory": "Monitoring & Observability"
+  },
+  {
+    "name": "opentelemetry-expert",
+    "repos": [
+      "0xfurai"
+    ],
+    "description": "Observability and tracing",
+    "category": "Specialized Domains (30+ agents)",
+    "subcategory": "Monitoring & Observability"
+  },
+  {
+    "name": "monitoring-expert",
+    "repos": [
+      "vijaythecoder"
+    ],
+    "description": "Application monitoring",
+    "category": "Specialized Domains (30+ agents)",
+    "subcategory": "Monitoring & Observability"
+  },
+  {
+    "name": "performance-monitor",
+    "repos": [
+      "VoltAgent"
+    ],
+    "description": "Agent performance optimization",
+    "category": "Specialized Domains (30+ agents)",
+    "subcategory": "Monitoring & Observability"
+  },
+  {
+    "name": "tech-lead-orchestrator",
+    "repos": [
+      "vijaythecoder"
+    ],
+    "description": "Coordinates multi-step development",
+    "category": "Meta-Orchestration & Coordination (15+ agents)",
+    "subcategory": ""
+  },
+  {
+    "name": "project-analyst",
+    "repos": [
+      "vijaythecoder"
+    ],
+    "description": "Technology stack detection",
+    "category": "Meta-Orchestration & Coordination (15+ agents)",
+    "subcategory": ""
+  },
+  {
+    "name": "agent-team-configurator",
+    "repos": [
+      "vijaythecoder"
+    ],
+    "description": "AI team setup expert",
+    "category": "Meta-Orchestration & Coordination (15+ agents)",
+    "subcategory": ""
+  },
+  {
+    "name": "agent-organizer",
+    "repos": [
+      "lst97",
+      "VoltAgent"
+    ],
+    "description": "Multi-agent coordinator",
+    "category": "Meta-Orchestration & Coordination (15+ agents)",
+    "subcategory": ""
+  },
+  {
+    "name": "context-manager",
+    "repos": [
+      "multiple repos"
+    ],
+    "description": "Context optimization",
+    "category": "Meta-Orchestration & Coordination (15+ agents)",
+    "subcategory": ""
+  },
+  {
+    "name": "agent-architect",
+    "repos": [
+      "charles-adedotun"
+    ],
+    "description": "Creates project-specific agents",
+    "category": "Meta-Orchestration & Coordination (15+ agents)",
+    "subcategory": ""
+  },
+  {
+    "name": "error-coordinator",
+    "repos": [
+      "VoltAgent"
+    ],
+    "description": "Error handling and recovery",
+    "category": "Meta-Orchestration & Coordination (15+ agents)",
+    "subcategory": ""
+  },
+  {
+    "name": "knowledge-synthesizer",
+    "repos": [
+      "VoltAgent"
+    ],
+    "description": "Knowledge aggregation",
+    "category": "Meta-Orchestration & Coordination (15+ agents)",
+    "subcategory": ""
+  },
+  {
+    "name": "multi-agent-coordinator",
+    "repos": [
+      "VoltAgent"
+    ],
+    "description": "Advanced orchestration",
+    "category": "Meta-Orchestration & Coordination (15+ agents)",
+    "subcategory": ""
+  },
+  {
+    "name": "task-distributor",
+    "repos": [
+      "VoltAgent"
+    ],
+    "description": "Task allocation specialist",
+    "category": "Meta-Orchestration & Coordination (15+ agents)",
+    "subcategory": ""
+  },
+  {
+    "name": "workflow-orchestrator",
+    "repos": [
+      "VoltAgent"
+    ],
+    "description": "Complex workflow automation",
+    "category": "Meta-Orchestration & Coordination (15+ agents)",
+    "subcategory": ""
+  },
+  {
+    "name": "mermaid-expert",
+    "repos": [
+      "wshobson"
+    ],
+    "description": "Create Mermaid diagrams",
+    "category": "Developer Experience & Tools (20+ agents)",
+    "subcategory": ""
+  },
+  {
+    "name": "api-documenter",
+    "repos": [
+      "multiple repos"
+    ],
+    "description": "OpenAPI/Swagger documentation",
+    "category": "Developer Experience & Tools (20+ agents)",
+    "subcategory": ""
+  },
+  {
+    "name": "docs-architect",
+    "repos": [
+      "wshobson"
+    ],
+    "description": "Technical documentation from codebases",
+    "category": "Developer Experience & Tools (20+ agents)",
+    "subcategory": ""
+  },
+  {
+    "name": "reference-builder",
+    "repos": [
+      "wshobson"
+    ],
+    "description": "Technical references and API docs",
+    "category": "Developer Experience & Tools (20+ agents)",
+    "subcategory": ""
+  },
+  {
+    "name": "tutorial-engineer",
+    "repos": [
+      "wshobson"
+    ],
+    "description": "Step-by-step tutorials",
+    "category": "Developer Experience & Tools (20+ agents)",
+    "subcategory": ""
+  },
+  {
+    "name": "documentation-expert",
+    "repos": [
+      "lst97",
+      "vijaythecoder"
+    ],
+    "description": "Technical writing",
+    "category": "Developer Experience & Tools (20+ agents)",
+    "subcategory": ""
+  },
+  {
+    "name": "documentation-engineer",
+    "repos": [
+      "VoltAgent"
+    ],
+    "description": "Technical documentation",
+    "category": "Developer Experience & Tools (20+ agents)",
+    "subcategory": ""
+  },
+  {
+    "name": "legacy-modernizer",
+    "repos": [
+      "multiple repos"
+    ],
+    "description": "Refactor legacy codebases",
+    "category": "Developer Experience & Tools (20+ agents)",
+    "subcategory": ""
+  },
+  {
+    "name": "refactoring-specialist",
+    "repos": [
+      "VoltAgent"
+    ],
+    "description": "Code refactoring expert",
+    "category": "Developer Experience & Tools (20+ agents)",
+    "subcategory": ""
+  },
+  {
+    "name": "code-refactorer",
+    "repos": [
+      "iannuttall"
+    ],
+    "description": "Code structure improvement",
+    "category": "Developer Experience & Tools (20+ agents)",
+    "subcategory": ""
+  },
+  {
+    "name": "code-archaeologist",
+    "repos": [
+      "vijaythecoder"
+    ],
+    "description": "Legacy codebase exploration",
+    "category": "Developer Experience & Tools (20+ agents)",
+    "subcategory": ""
+  },
+  {
+    "name": "dx-optimizer",
+    "repos": [
+      "lst97",
+      "VoltAgent"
+    ],
+    "description": "Developer experience optimization",
+    "category": "Developer Experience & Tools (20+ agents)",
+    "subcategory": ""
+  },
+  {
+    "name": "build-engineer",
+    "repos": [
+      "VoltAgent"
+    ],
+    "description": "Build system specialist",
+    "category": "Developer Experience & Tools (20+ agents)",
+    "subcategory": ""
+  },
+  {
+    "name": "cli-developer",
+    "repos": [
+      "VoltAgent"
+    ],
+    "description": "Command-line tool creator",
+    "category": "Developer Experience & Tools (20+ agents)",
+    "subcategory": ""
+  },
+  {
+    "name": "dependency-manager",
+    "repos": [
+      "VoltAgent"
+    ],
+    "description": "Package management",
+    "category": "Developer Experience & Tools (20+ agents)",
+    "subcategory": ""
+  },
+  {
+    "name": "git-workflow-manager",
+    "repos": [
+      "VoltAgent"
+    ],
+    "description": "Git workflow expert",
+    "category": "Developer Experience & Tools (20+ agents)",
+    "subcategory": ""
+  },
+  {
+    "name": "tooling-engineer",
+    "repos": [
+      "VoltAgent"
+    ],
+    "description": "Developer tooling",
+    "category": "Developer Experience & Tools (20+ agents)",
+    "subcategory": ""
+  },
+  {
+    "name": "webpack-expert",
+    "repos": [
+      "0xfurai"
+    ],
+    "description": "Module bundling and optimization",
+    "category": "Developer Experience & Tools (20+ agents)",
+    "subcategory": ""
+  },
+  {
+    "name": "rollup-expert",
+    "repos": [
+      "0xfurai"
+    ],
+    "description": "ES module bundling",
+    "category": "Developer Experience & Tools (20+ agents)",
+    "subcategory": ""
+  },
+  {
+    "name": "research-analyst",
+    "repos": [
+      "VoltAgent"
+    ],
+    "description": "Comprehensive research",
+    "category": "Research & Analysis (10+ agents)",
+    "subcategory": ""
+  },
+  {
+    "name": "search-specialist",
+    "repos": [
+      "VoltAgent"
+    ],
+    "description": "Information retrieval",
+    "category": "Research & Analysis (10+ agents)",
+    "subcategory": ""
+  },
+  {
+    "name": "trend-analyst",
+    "repos": [
+      "VoltAgent"
+    ],
+    "description": "Emerging trends and forecasting",
+    "category": "Research & Analysis (10+ agents)",
+    "subcategory": ""
+  },
+  {
+    "name": "competitive-analyst",
+    "repos": [
+      "VoltAgent"
+    ],
+    "description": "Competitive intelligence",
+    "category": "Research & Analysis (10+ agents)",
+    "subcategory": ""
+  },
+  {
+    "name": "market-researcher",
+    "repos": [
+      "VoltAgent"
+    ],
+    "description": "Market analysis",
+    "category": "Research & Analysis (10+ agents)",
+    "subcategory": ""
+  },
+  {
+    "name": "vibe-coding-coach",
+    "repos": [
+      "iannuttall"
+    ],
+    "description": "Coding guidance and coaching",
+    "category": "Research & Analysis (10+ agents)",
+    "subcategory": ""
+  }
+];
+
+/** Stats */
+const cats = [...new Set(AGENTS.map(a => a.category).filter(Boolean))].sort();
+const repos = [...new Set(AGENTS.flatMap(a => a.repos))].sort();
+
+const catSel = document.getElementById('categorySelect');
+const subSel = document.getElementById('subCategorySelect');
+const repoSel = document.getElementById('repoSelect');
+const searchInput = document.getElementById('searchInput');
+const grid = document.getElementById('grid');
+const stats = document.getElementById('stats');
+
+document.getElementById('totalCount').textContent = AGENTS.length;
+document.getElementById('catCount').textContent = cats.length;
+document.getElementById('repoCount').textContent = repos.length;
+
+cats.forEach(c => catSel.insertAdjacentHTML('beforeend', `<option value="${c}">${c}</option>`));
+repos.forEach(r => repoSel.insertAdjacentHTML('beforeend', `<option value="${r}">${r}</option>`));
+
+function rebuildSubCats() {
+  const cat = catSel.value;
+  const subcats = [...new Set(AGENTS.filter(a => cat==='all' || a.category===cat).map(a => a.subcategory).filter(Boolean))].sort();
+  subSel.innerHTML = '<option value="all">כל התתי־קטגוריות</option>';
+  subcats.forEach(s => subSel.insertAdjacentHTML('beforeend', `<option value="${s}">${s}</option>`));
+}
+rebuildSubCats();
+
+function updateStats() {
+  stats.innerHTML = `
+    <div class="stat">📦 ${repos.length} ריפו</div>
+    <div class="stat">🚀 ${AGENTS.length}+ סוכנים</div>
+    <div class="stat">🧭 ${cats.length} קטגוריות</div>
+  `;
+}
+updateStats();
+
+function repoUrl(r) {
+  if (r.includes('/')) return 'https://github.com/' + r;
+  return 'https://github.com/' + r;
+}
+function codeSearchUrl(r, name) {
+  const q = encodeURIComponent(`repo:${r} ${name}`);
+  return `https://github.com/search?q=${q}&type=code`;
+}
+function googleSearchUrl(name) {
+  return `https://www.google.com/search?q=` + encodeURIComponent(name + " prompt Claude subagent");
+}
+function possibleRawPaths(repo, agentName) {
+  const baseMain = `https://raw.githubusercontent.com/${repo}/main/`;
+  const baseMaster = `https://raw.githubusercontent.com/${repo}/master/`;
+  const files = [
+    `${agentName}.md`,
+    `agents/${agentName}.md`,
+    `subagents/${agentName}.md`,
+    `sub-agents/${agentName}.md`,
+    `prompts/${agentName}.md`,
+    `${agentName}/README.md`,
+    `agents/${agentName}/README.md`,
+    `subagents/${agentName}/README.md`,
+    `subagents/${agentName}/prompt.md`,
+    `prompts/${agentName}/prompt.md`,
+    `agent_prompts/${agentName}.md`,
+    `${agentName}.txt`,
+    `${agentName}.prompt.md`,
+  ];
+  const out = [];
+  for (const f of files) { out.push(baseMain + f); out.push(baseMaster + f); }
+  return out;
+}
+
+async function tryLoadPrompt(cardEl, agent) {
+  const outEl = cardEl.querySelector('.prompt');
+  outEl.textContent = 'טוען פרומפט מהרשת…';
+  for (const repo of agent.repos) {
+    const urls = possibleRawPaths(repo, agent.name);
+    for (const url of urls) {
+      try {
+        const resp = await fetch(url, { mode: 'cors' });
+        if (resp.ok) {
+          const txt = await resp.text();
+          if (txt && txt.trim().length > 40) {
+            outEl.textContent = txt;
+            return;
+          }
+        }
+      } catch(e) {}
+    }
+  }
+  outEl.textContent = 'לא נמצא פרומפט ישיר. השתמש/י בחיפוש קוד או Google למטה.';
+}
+
+function render() {
+  const term = searchInput.value.trim().toLowerCase();
+  const cat = catSel.value;
+  const sub = subSel.value;
+  const repo = repoSel.value;
+
+  const items = AGENTS.filter(a => {
+    if (cat !== 'all' && a.category !== cat) return false;
+    if (sub !== 'all' && a.subcategory !== sub) return false;
+    if (repo !== 'all' && !a.repos.includes(repo)) return false;
+    if (term) {
+      const hay = (a.name + ' ' + a.description + ' ' + a.category + ' ' + a.subcategory + ' ' + a.repos.join(' ')).toLowerCase();
+      if (!hay.includes(term)) return false;
+    }
+    return true;
+  }).sort((a,b) => a.name.localeCompare(b.name));
+
+  grid.innerHTML = items.map(a => `
+    <div class="card" data-name="${a.name}">
+      <button class="btn copy" title="העתק שם סוכן" onclick="navigator.clipboard.writeText('${a.name.replace("'", "\'")}')">העתק</button>
+      <div class="name">🤖 ${a.name}</div>
+      <div class="badges">
+        ${a.category ? `<span class="badge">${a.category}</span>` : ''}
+        ${a.subcategory ? `<span class="badge">${a.subcategory}</span>` : ''}
+      </div>
+      <div class="desc">${a.description || ''}</div>
+      <div class="badges">
+        ${a.repos.map(r => `<a class="repo" href="${repoUrl(r)}" target="_blank" rel="noopener">📦 ${r}</a>`).join('')}
+      </div>
+      <div class="actions">
+        <button class="btn" onclick="this.closest('.card').classList.toggle('open')">פתח/י פרטים</button>
+        <button class="btn secondary" onclick='tryLoadPrompt(this.closest(".card"), ${JSON.stringify({"_":""})})' data-agent='${JSON.stringify({"_":""})}'>טען פרומפט מהרשת</button>
+      </div>
+      <div class="details">
+        <div class="small">ניסיון אוטומטי לשליפת פרומפט מה־GitHub Raw. אם לא נמצא, השתמש/י בקישורים:</div>
+        <div class="actions" style="margin-top:8px">
+          ${a.repos.map(r => `<a class="btn secondary" target="_blank" rel="noopener" href="${codeSearchUrl(r, a.name)}">GitHub Code Search</a>`).join('')}
+          <a class="btn secondary" target="_blank" rel="noopener" href="${googleSearchUrl(a.name)}">Google</a>
+        </div>
+        <div class="prompt" style="margin-top:10px">—</div>
+      </div>
+    </div>
+  `).join('');
+  // Fix the tryLoadPrompt button to pass the agent object (since template strings with JSON can be messy)
+  document.querySelectorAll('.card').forEach((card, i) => {
+    const agent = items[i];
+    const btn = card.querySelector('.btn.secondary');
+    if (btn) {
+      btn.onclick = () => tryLoadPrompt(card, agent);
+    }
+  });
+}
+
+render();
+searchInput.addEventListener('input', render);
+catSel.addEventListener('change', () => { rebuildSubCats(); render(); });
+subSel.addEventListener('change', render);
+repoSel.addEventListener('change', render);
+document.getElementById('resetBtn').addEventListener('click', () => {
+  searchInput.value = '';
+  catSel.value = 'all';
+  rebuildSubCats();
+  subSel.value = 'all';
+  repoSel.value = 'all';
+  render();
+});
+
+</script>
+</body>
+</html>

@@ -3,6 +3,35 @@
 /* Import Space Mono font */
 @import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap');
 
+/* Matrix Animation Keyframes */
+@keyframes scanline {
+  0% {
+    transform: translateY(-100vh);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(100vh);
+    opacity: 0;
+  }
+}
+
+@keyframes vertical-scan {
+  0% {
+    transform: translateX(-100vw);
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(100vw);
+    opacity: 0;
+  }
+}
+
 @layer base {
   :root {
     /* LionSpace Terminal Color System */
@@ -74,6 +103,26 @@
     pointer-events: none;
     z-index: 1;
     animation: grid-fade 4s ease-in-out infinite;
+  }
+
+  /* Terminal Text Gradient - Enhanced */
+  .terminal-text-gradient {
+    background: linear-gradient(
+      135deg,
+      rgb(var(--terminal-cyan)) 0%,
+      rgb(var(--terminal-gold)) 50%,
+      rgb(var(--terminal-cyan)) 100%
+    );
+    background-size: 200% 200%;
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: gradient-shift 3s ease infinite;
+  }
+
+  @keyframes gradient-shift {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
   }
 
   /* Data Flow Lines */
@@ -320,6 +369,7 @@
     border: 1px solid rgba(var(--terminal-border), 0.3);
   }
 
+  /* Enhanced Glow Effects */
   .glow-cyan {
     filter: drop-shadow(0 0 10px rgba(var(--terminal-cyan), 0.5));
   }
@@ -331,6 +381,129 @@
   .glow-red {
     filter: drop-shadow(0 0 10px rgba(var(--terminal-red), 0.5));
   }
+  
+  .glow-green {
+    filter: drop-shadow(0 0 10px rgba(110, 231, 183, 0.5));
+  }
+
+  /* Shadow Glow Effects for TailwindUI Components */
+  .shadow-glow-cyan {
+    box-shadow: 
+      0 0 20px rgba(var(--terminal-cyan), 0.3),
+      0 0 40px rgba(var(--terminal-cyan), 0.2),
+      inset 0 0 10px rgba(var(--terminal-cyan), 0.1);
+  }
+
+  .shadow-glow-gold {
+    box-shadow: 
+      0 0 20px rgba(var(--terminal-gold), 0.3),
+      0 0 40px rgba(var(--terminal-gold), 0.2),
+      inset 0 0 10px rgba(var(--terminal-gold), 0.1);
+  }
+
+  .shadow-glow-red {
+    box-shadow: 
+      0 0 20px rgba(var(--terminal-red), 0.3),
+      0 0 40px rgba(var(--terminal-red), 0.2),
+      inset 0 0 10px rgba(var(--terminal-red), 0.1);
+  }
+  
+  .shadow-glow-green {
+    box-shadow: 
+      0 0 20px rgba(110, 231, 183, 0.3),
+      0 0 40px rgba(110, 231, 183, 0.2),
+      inset 0 0 10px rgba(110, 231, 183, 0.1);
+  }
+
+  .shadow-glow-pulse {
+    animation: glow-pulse 2s ease-in-out infinite;
+  }
+  
+  .shadow-glow-strong {
+    box-shadow: 
+      0 0 30px rgba(var(--terminal-cyan), 0.5),
+      0 0 60px rgba(var(--terminal-cyan), 0.3),
+      inset 0 0 20px rgba(var(--terminal-cyan), 0.1);
+  }
+
+  /* Animation Classes */
+  .animate-pulse-glow {
+    animation: pulse-glow 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+
+  .animate-scan {
+    animation: scan-effect 8s linear infinite;
+  }
+  
+  .animate-grid-fade {
+    animation: grid-fade 4s ease-in-out infinite;
+  }
+
+  @keyframes pulse-glow {
+    0%, 100% {
+      opacity: 1;
+      transform: scale(1);
+    }
+    50% {
+      opacity: 0.8;
+      transform: scale(1.02);
+    }
+  }
+
+  @keyframes scan-effect {
+    0% {
+      transform: translateY(-100%);
+    }
+    100% {
+      transform: translateY(100vh);
+    }
+  }
+  
+  @keyframes grid-fade {
+    0%, 100% {
+      opacity: 0.03;
+    }
+    50% {
+      opacity: 0.06;
+    }
+  }
+
+  /* Scanline Background Pattern */
+  .bg-scanline {
+    background: linear-gradient(
+      180deg,
+      transparent 0%,
+      rgba(var(--terminal-cyan), 0.1) 50%,
+      transparent 100%
+    );
+  }
+
+  /* Terminal Font Classes */
+  .font-terminal {
+    font-family: 'Space Mono', monospace;
+  }
+
+  /* Terminal Color Classes */
+  .bg-terminal-bg { background-color: rgb(var(--terminal-bg)); }
+  .bg-terminal-secondary { background-color: rgb(var(--terminal-secondary)); }
+  .bg-terminal-cyan { background-color: rgb(var(--terminal-cyan)); }
+  .bg-terminal-gold { background-color: rgb(var(--terminal-gold)); }
+  .bg-terminal-red { background-color: rgb(var(--terminal-red)); }
+  .bg-terminal-green { background-color: rgb(110, 231, 183); }
+  
+  .text-terminal-text { color: rgb(var(--terminal-text)); }
+  .text-terminal-cyan { color: rgb(var(--terminal-cyan)); }
+  .text-terminal-gold { color: rgb(var(--terminal-gold)); }
+  .text-terminal-red { color: rgb(var(--terminal-red)); }
+  .text-terminal-green { color: rgb(110, 231, 183); }
+  .text-terminal-muted { color: rgb(var(--terminal-muted)); }
+  
+  .border-terminal-line { border-color: rgba(var(--terminal-border), 0.5); }
+  .border-terminal-cyan { border-color: rgba(var(--terminal-cyan), 0.5); }
+  .border-terminal-gold { border-color: rgba(var(--terminal-gold), 0.5); }
+  .border-terminal-red { border-color: rgba(var(--terminal-red), 0.5); }
+  .border-terminal-green { border-color: rgba(110, 231, 183, 0.5); }
+  .border-terminal-border { border-color: rgb(var(--terminal-border)); }
 }
 
 /* Reduced Motion Support */
@@ -350,6 +523,9 @@
     transition: none;
   }
 }
+
+/* Green circle issue has been fixed at the source with UnifiedBackground component */
+/* All aggressive CSS workarounds have been removed */
 
 /* Print Styles */
 @media print {

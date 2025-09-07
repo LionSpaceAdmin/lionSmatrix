@@ -1,0 +1,8 @@
+ - '^\.env'
+ - '^keys/'
+ - '^vercel-.*\.json$'
+ - '^\.github/'
+ - '^\.gitlab-ci\.yml$'
+ - '^package\.json$'
+ - '^package-lock\.json$'
+ - '^pnpm-lock\.yaml$'

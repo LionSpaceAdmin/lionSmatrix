@@ -1,0 +1,202 @@
+[
+  {
+    "path": "audit_report.md",
+    "size": 8393,
+    "sha256": "d9c36f6dafcb3415d7e0ea71632e3e4a4c0e2266835f3a2229199bcb3e66ae24"
+  },
+  {
+    "path": "cognitivewarrior-analysis.html",
+    "size": 51339,
+    "sha256": "e3daafdd6ae22ea71cfbec542fd0a533e9d576af49c0d8430dc9bcfece507806"
+  },
+  {
+    "path": "critical_issues.md",
+    "size": 7758,
+    "sha256": "f6980aca5e242f6b125403184ce7daa35635aa2b832891c661a1a40efe3bdfd3"
+  },
+  {
+    "path": "DEPLOYMENT_STATUS_FINAL.md",
+    "size": 3859,
+    "sha256": "78450348df1c333950e94987b88ec2d39a4146d7b3b1600631c75498a987f27c"
+  },
+  {
+    "path": "feature_status.md",
+    "size": 7618,
+    "sha256": "386c37bf5425bf6c1458ee745312108f472f99ece6fdc163622d4df076e6ee72"
+  },
+  {
+    "path": "FINAL_DEPLOYMENT_SUMMARY.md",
+    "size": 2675,
+    "sha256": "3ddb2721e72a4b604cb5ed3186475f233334c962232d9f0d62a6211cc7a4d186"
+  },
+  {
+    "path": "gcp-complete-config.json",
+    "size": 4268,
+    "sha256": "08e33a9194de3f61d11d25f593d45bf34427f879617c229cef9f78e06db8ed82"
+  },
+  {
+    "path": "google-oauth-credentials-latest.json",
+    "size": 722,
+    "sha256": "e7a79927b8fcea32274e66ca5ad65c7d2ff08818dab510ad16184c0a52e6fe4e"
+  },
+  {
+    "path": "google-oauth-credentials.json",
+    "size": 529,
+    "sha256": "9d63c10354a24afadead5619b79ee4686fe69d1397038b30ee80780a11ee5120"
+  },
+  {
+    "path": "keys/gh_pat.txt",
+    "size": 41,
+    "sha256": "2b60fb22b71c52ce42ba2777b163c406549b7c057476d671c6a35bfddb636d0d"
+  },
+  {
+    "path": "lions-space-migration-report.html",
+    "size": 22713,
+    "sha256": "9e4aa4733e1ff6025f82dc97ff1be1bf2ed419adab03105af197c5f37d5179c1"
+  },
+  {
+    "path": "lionspace-complete-config-updated.json",
+    "size": 6563,
+    "sha256": "0e78eb3649991a38d375bd52c31e1ffe91739cb9c635047272f64281a852abbf"
+  },
+  {
+    "path": "lionspace-deployment-package/AGENT_INSTRUCTIONS.md",
+    "size": 2265,
+    "sha256": "6f25c18e5289285dfe9edbabfa573cef3768c4c0ce1c530584f586108da4d0bf"
+  },
+  {
+    "path": "lionspace-deployment-package/google-oauth-credentials-latest.json",
+    "size": 722,
+    "sha256": "e7a79927b8fcea32274e66ca5ad65c7d2ff08818dab510ad16184c0a52e6fe4e"
+  },
+  {
+    "path": "lionspace-deployment-package/lionspace-complete-config-updated.json",
+    "size": 6687,
+    "sha256": "93319e059fbe387d5646278e8681e860f0a0d14c9126e8086b4b1955f0eb7501"
+  },
+  {
+    "path": "lionspace-deployment-package/lionspace-service-account-key.json",
+    "size": 2347,
+    "sha256": "0e391ae474032820f3fe3595c64ab174703f959bf36ae01831f70a536ab3a7a8"
+  },
+  {
+    "path": "lionspace-deployment-package/setup-vercel-env.sh",
+    "size": 2430,
+    "sha256": "b96b592bd3dea8020d4c1fe200e490501ebcf6ab57e5057fceea1e1067ecc291"
+  },
+  {
+    "path": "lionspace-service-account-key.json",
+    "size": 2347,
+    "sha256": "0e391ae474032820f3fe3595c64ab174703f959bf36ae01831f70a536ab3a7a8"
+  },
+  {
+    "path": "LIONSPACE_COMPLETE_DOCUMENTATION.md",
+    "size": 8997,
+    "sha256": "65f61d969ed7aaa208c72bb6587305ebb07d58484d37e2d58fcf77e5198f4e49"
+  },
+  {
+    "path": "LIONSPACE_MEGA_MASTER_PLAN.md",
+    "size": 34068,
+    "sha256": "19c0e50ca635550d121541cbb0ffba9c30619e816a5f1d3eba712a6362d4fdab"
+  },
+  {
+    "path": "LIONSPACE_SUPER_MASTER1_DOCUMENT.md",
+    "size": 4770,
+    "sha256": "a485f5c895fe4879fc331167e91c76989905898f3c84fca421dd0ba28879bd91"
+  },
+  {
+    "path": "LIONSPACE_SUPER_MASTER_DOCUMENT.html",
+    "size": 11786,
+    "sha256": "0463270a50b6b898e0695350974b0189eb70aad79258623897c339b146d4212f"
+  },
+  {
+    "path": "LIONSPACE_SUPER_MASTER_DOCUMENT.md",
+    "size": 7390,
+    "sha256": "861e060e7ca39838639ff553217fee4ffc88524046b8b8e12e080f30c9dbfa74"
+  },
+  {
+    "path": "LIONSPACE_TECHNICAL_GUIDE.md",
+    "size": 33887,
+    "sha256": "d81c096fb4884c22967a4b161e9e886d83120a44fd72aa766d2d766fa4eb0c54"
+  },
+  {
+    "path": "LIONSPACE_UNIFIED_MASTER_PLAN.md",
+    "size": 12388,
+    "sha256": "f9a1beabe97ea3c018d86d800bfbdf6982e11deed2a08a134e5d03a3172e7df0"
+  },
+  {
+    "path": "LOZ_agents_full_static_v1.html",
+    "size": 24334,
+    "sha256": "4f44f072d6f53a7ad073923fd240e3fa1228b2589deec4994b21a0ead688aaef"
+  },
+  {
+    "path": "LOZ_claude_agents_catalog_full.html",
+    "size": 75870,
+    "sha256": "adf249df66ecd92a2a1df71c1139e853bdacc4e36873ab02b0ca321589a79c84"
+  },
+  {
+    "path": "phase1_refactoring_report.md",
+    "size": 7348,
+    "sha256": "1597e327163e7a6b46efb8c8e97c9d21b6fa98d041e02eb85d7d9861dff38a71"
+  },
+  {
+    "path": "phase2_visual_compliance_report.md",
+    "size": 9830,
+    "sha256": "d18b23eee7dbd343cf081c7d145e7bd11a17fa7faf699e3c9585d84012391e8f"
+  },
+  {
+    "path": "phase3_final_readiness_report.md",
+    "size": 11035,
+    "sha256": "0f4d625152b05130a6648a5e1e8cf79ba782180c622b1961c64e0d3557121aa3"
+  },
+  {
+    "path": "preview_SUPER_MASTER/LIONSPACE_SUPER_MASTER_DOCUMENT.html",
+    "size": 10621,
+    "sha256": "9e11bca2e716efa6aa3c4b3f36aba4ece79ed27bc597f4ee5149f78c33f659bf"
+  },
+  {
+    "path": "README_SUPER_MASTER.md",
+    "size": 2012,
+    "sha256": "fc5427b630d3d9f7e0fbbfcdf85c07453bb0a4d027b743e36a2f90fe9ab9e823"
+  },
+  {
+    "path": "site-mapping-and-fixes.html",
+    "size": 47798,
+    "sha256": "60d549f2c3634c5c914fe5d2ea746026df280cc25f6916950470ed264b336f8a"
+  },
+  {
+    "path": "system_design.md",
+    "size": 12283,
+    "sha256": "266012714a2c66d67c522e02ebd27bfa10082bfda5b22139723c211aaface81a"
+  },
+  {
+    "path": "technical_debt.md",
+    "size": 8207,
+    "sha256": "a293bfb39d25414df0f3ea035349af379cc04c165be17495b3288093d8c5f8dc"
+  },
+  {
+    "path": "tools/export_pdf.sh",
+    "size": 963,
+    "sha256": "b177c6ee8202d14e931317f49fcbbdc6a6e0e65442023b143148ab72e0525da3"
+  },
+  {
+    "path": "vercel-config.json",
+    "size": 491,
+    "sha256": "efc112af312b37307f273028740b1f11da51f1a824e725822915b5a894883df7"
+  },
+  {
+    "path": "vercel-deployment-config.json",
+    "size": 969,
+    "sha256": "5dc5c938e75ab0a51e5e45d8d7c0d7e3015778a0b2c8fb36bb91a7ee489a242d"
+  },
+  {
+    "path": "vercel-gcp-integration.json",
+    "size": 2320,
+    "sha256": "50610d088eed68042f0b2a8f2ca394f58a964d5ae70ff807a05a6f3a3058423e"
+  },
+  {
+    "path": "VERCEL_GCP_UPDATE_INSTRUCTIONS.md",
+    "size": 2804,
+    "sha256": "8990783d22355a1928dbb32b9ccb3463a40f57b063be1e63bd909011f9ac6072"
+  }
+]

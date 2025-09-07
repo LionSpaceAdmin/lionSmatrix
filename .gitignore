@@ -51,3 +51,5 @@ PROJECT_README.md
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+google-oauth-credentials-latest.json
+lionspace-service-account-key.json

@@ -8,18 +8,18 @@ export default function JoinPage() {
   const [password, setPassword] = useState('');
 
   return (
-    <div className="min-h-screen bg-black text-green-400 flex items-center justify-center p-8">
-      <div className="max-w-md w-full space-y-8">
-        <div>
-          <h1 className="text-4xl font-bold text-center mb-2">Join the Resistance</h1>
-          <p className="text-center text-green-400/60">Free membership - Start fighting misinformation today</p>
+    <div className="min-h-screen bg-terminal-bg text-terminal-text flex items-center justify-center p-8 font-terminal">
+      <div className="terminal-card max-w-md w-full space-y-8 p-8 rounded-lg">
+        <div className="text-center">
+          <h1 className="text-4xl font-bold mb-2 text-terminal-cyan terminal-glow">JOIN THE RESISTANCE</h1>
+          <p className="text-terminal-text/70">FREE MEMBERSHIP - START FIGHTING MISINFORMATION TODAY</p>
         </div>
         
         <form className="mt-8 space-y-6">
           <div className="space-y-4">
             <div>
-              <label htmlFor="email" className="block text-sm font-medium">
-                Email Address
+              <label htmlFor="email" className="block text-sm font-medium text-terminal-cyan font-terminal">
+                EMAIL ADDRESS
               </label>
               <input
                 id="email"
@@ -29,14 +29,14 @@ export default function JoinPage() {
                 required
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="mt-1 block w-full px-3 py-2 bg-black border border-green-400/30 rounded-md text-green-400 placeholder-green-400/30 focus:outline-none focus:ring-green-400 focus:border-green-400"
+                className="terminal-input mt-1 block w-full px-3 py-2 rounded-md focus-terminal"
                 placeholder="warrior@lionspace.ai"
               />
             </div>
             
             <div>
-              <label htmlFor="password" className="block text-sm font-medium">
-                Password
+              <label htmlFor="password" className="block text-sm font-medium text-terminal-cyan font-terminal">
+                PASSWORD
               </label>
               <input
                 id="password"
@@ -46,7 +46,7 @@ export default function JoinPage() {
                 required
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="mt-1 block w-full px-3 py-2 bg-black border border-green-400/30 rounded-md text-green-400 placeholder-green-400/30 focus:outline-none focus:ring-green-400 focus:border-green-400"
+                className="terminal-input mt-1 block w-full px-3 py-2 rounded-md focus-terminal"
                 placeholder="••••••••"
               />
             </div>
@@ -55,16 +55,16 @@ export default function JoinPage() {
           <div>
             <button
               type="submit"
-              className="w-full flex justify-center py-3 px-4 border border-green-400 rounded-md text-green-400 bg-black hover:bg-green-400/10 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-400 transition-colors"
+              className="terminal-button w-full flex justify-center py-3 px-4 rounded-md font-terminal font-bold uppercase tracking-wider focus-terminal"
             >
-              Join Now - It's Free
+              Join Now - It&apos;s Free
             </button>
           </div>
 
-          <div className="text-center text-sm">
-            <span className="text-green-400/60">Already a member? </span>
-            <Link href="/login" className="text-green-400 hover:text-green-300">
-              Sign in
+          <div className="text-center text-sm font-terminal">
+            <span className="text-terminal-text/60">ALREADY A MEMBER? </span>
+            <Link href="/login" className="text-terminal-cyan hover:text-terminal-cyan/80 transition-colors">
+              SIGN IN
             </Link>
           </div>
         </form>
