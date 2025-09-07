@@ -1,20 +1,49 @@
 {
-    "version": "0.2.0",
-    "configurations": [
-      {
-        "name": "Run application",
-        "type": "node",
-        "request": "launch",
-        "cwd": "${workspaceFolder}",
-        "console": "integratedTerminal",
-        "runtimeExecutable": "npm",
-        "runtimeArgs": [
-          "run",
-          "dev"
-        ],
-        "skipFiles": [
-          "<node_internals>/**"
-        ]
-      }
-    ]
-  }
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Next.js: debug server-side",
+      "type": "node",
+      "request": "attach",
+      "port": 9229,
+      "restart": true,
+      "skipFiles": ["<node_internals>/**"],
+      "localRoot": "${workspaceFolder}",
+      "remoteRoot": "${workspaceFolder}",
+      "outputCapture": "std"
+    },
+    {
+      "name": "Next.js: debug client-side",
+      "type": "chrome",
+      "request": "launch",
+      "url": "http://localhost:3000",
+      "webRoot": "${workspaceFolder}",
+      "skipFiles": ["<node_internals>/**", "node_modules/**"],
+      "userDataDir": false,
+      "runtimeArgs": ["--no-sandbox", "--disable-web-security"]
+    },
+    {
+      "name": "Next.js: debug full stack",
+      "type": "node",
+      "request": "launch",
+      "program": "${workspaceFolder}/node_modules/.bin/next",
+      "args": ["dev", "--turbopack", "--hostname", "0.0.0.0"],
+      "console": "integratedTerminal",
+      "skipFiles": ["<node_internals>/**"],
+      "env": {
+        "NODE_OPTIONS": "--inspect=0.0.0.0:9229"
+      },
+      "runtimeArgs": ["--preserve-symlinks"]
+    },
+    {
+      "name": "Run application",
+      "type": "node",
+      "request": "launch",
+      "cwd": "${workspaceFolder}",
+      "console": "integratedTerminal",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run", "dev"],
+      "skipFiles": ["<node_internals>/**"]
+    }
+  ]
+}

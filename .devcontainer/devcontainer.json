@@ -1,26 +1,232 @@
 {
-  "image": "mcr.microsoft.com/devcontainers/universal:2",
+  "name": "Next.js Development Environment",
+  "image": "mcr.microsoft.com/devcontainers/typescript-node:1-20-bullseye",
+
+  // Host requirements for optimal performance
   "hostRequirements": {
-    "cpus": 4
+    "cpus": 4,
+    "memory": "8gb",
+    "storage": "32gb"
   },
-  "waitFor": "onCreateCommand",
-  "updateContentCommand": "npm install && npm run build",
+
+  // Container configuration
+  "containerEnv": {
+    "NODE_ENV": "development",
+    "NEXT_TELEMETRY_DISABLED": "1",
+    "CHOKIDAR_USEPOLLING": "true",
+    "WATCHPACK_POLLING": "true",
+    "VERCEL_ENV": "development",
+    "GCP_PROJECT_ID": "lionspace",
+    "GCP_REGION": "us-central1"
+  },
+
+  // Development server setup
+  "onCreateCommand": [
+    "chmod +x scripts/setup-development-environment.sh",
+    "chmod +x scripts/check_integrations.py",
+    "bash scripts/setup-development-environment.sh"
+  ],
+  "updateContentCommand": "npm install",
   "postCreateCommand": "",
+  "postStartCommand": "",
   "postAttachCommand": {
-    "server": "npm run dev"
+    "server": "npm run dev -- --hostname 0.0.0.0"
   },
+
+  // VS Code customizations
   "customizations": {
+    "vscode": {
+      "extensions": [
+        // Core Next.js and TypeScript
+        "ms-vscode.vscode-typescript-next",
+        "aabassiouni.next-js-app-router-helper",
+        "imgildev.vscode-next-pack",
+
+        // React and JavaScript
+        "dsznajder.es7-react-js-snippets",
+        "burkeholland.simple-react-snippets",
+        "xabikos.javascriptsnippets",
+
+        // Styling and UI
+        "bradlc.vscode-tailwindcss",
+        "styled-components.vscode-styled-components",
+        "blanu.vscode-styled-jsx",
+
+        // Code quality and formatting
+        "dbaeumer.vscode-eslint",
+        "esbenp.prettier-vscode",
+        "usernamehw.errorlens",
+        "yoavbls.pretty-ts-errors",
+
+        // Git and version control
+        "eamodio.gitlens",
+        "github.copilot",
+        "github.copilot-chat",
+        "github.vscode-pull-request-github",
+
+        // Development tools
+        "formulahendry.auto-rename-tag",
+        "formulahendry.auto-close-tag",
+        "christian-kohler.path-intellisense",
+        "christian-kohler.npm-intellisense",
+        "wix.vscode-import-cost",
+        "imgildev.vscode-auto-barrel",
+
+        // Utilities
+        "gruntfuggly.todo-tree",
+        "streetsidesoftware.code-spell-checker",
+        "ms-vscode.live-server",
+        "editorconfig.editorconfig",
+
+        // Cloud and deployment
+        "googlecloudtools.cloudcode",
+        "ms-vscode.vscode-json",
+        "redhat.vscode-yaml"
+      ],
+      "settings": {
+        // TypeScript and JavaScript
+        "typescript.preferences.useLabelDetailsInCompletionEntries": true,
+        "typescript.suggest.autoImports": true,
+        "typescript.updateImportsOnFileMove.enabled": "always",
+        "typescript.preferences.includePackageJsonAutoImports": "on",
+        "javascript.suggest.autoImports": true,
+        "javascript.updateImportsOnFileMove.enabled": "always",
+
+        // Code formatting
+        "editor.formatOnSave": true,
+        "editor.defaultFormatter": "esbenp.prettier-vscode",
+        "editor.codeActionsOnSave": {
+          "source.fixAll.eslint": "explicit",
+          "source.organizeImports": "explicit"
+        },
+        "editor.tabSize": 2,
+        "editor.insertSpaces": true,
+
+        // React and JSX
+        "emmet.includeLanguages": {
+          "typescript": "html",
+          "typescriptreact": "html",
+          "javascript": "html",
+          "javascriptreact": "html"
+        },
+        "emmet.triggerExpansionOnTab": true,
+
+        // Next.js specific
+        "files.associations": {
+          "*.css": "tailwindcss",
+          "*.scss": "tailwindcss"
+        },
+        "tailwindCSS.includeLanguages": {
+          "typescript": "html",
+          "typescriptreact": "html",
+          "javascript": "html",
+          "javascriptreact": "html"
+        },
+        "tailwindCSS.experimental.classRegex": [
+          ["cva\\(([^)]*)\\)", "[\"'`]([^\"'`]*).*?[\"'`]"],
+          ["cx\\(([^)]*)\\)", "(?:'|\"|`)([^']*)(?:'|\"|`)"]
+        ],
+
+        // File explorer and workspace
+        "files.exclude": {
+          "**/.next": true,
+          "**/node_modules": true,
+          "**/.git": true,
+          "**/.DS_Store": true,
+          "**/Thumbs.db": true
+        },
+        "search.exclude": {
+          "**/.next": true,
+          "**/node_modules": true,
+          "**/dist": true,
+          "**/.git": true
+        },
+        "terminal.integrated.defaultProfile.linux": "bash",
+        "terminal.integrated.fontSize": 14,
+        "workbench.colorTheme": "Default Dark+",
+        "explorer.confirmDelete": false,
+        "git.enableSmartCommit": true,
+        "git.confirmSync": false,
+        "extensions.ignoreRecommendations": false,
+
+        // Cloud integrations
+        "cloudcode.gcp.project": "lionspace",
+        "cloudcode.gcp.region": "us-central1",
+        "vercel.defaultOrg": "",
+        "vercel.defaultProject": "",
+
+        // Environment configuration
+        "terminal.integrated.env.linux": {
+          "VERCEL_ENV": "development",
+          "GCP_PROJECT_ID": "lionspace",
+          "GCP_REGION": "us-central1",
+          "NEXT_PUBLIC_VERCEL_ENV": "development"
+        }
+      },
+      "openFiles": ["src/app/page.tsx", "README.md", "package.json"]
+    },
     "codespaces": {
-      "openFiles": [
-        "pages/index.js"
-      ]
+      "openFiles": ["src/app/page.tsx", "README.md"]
     }
   },
+
+  // Port forwarding with enhanced configuration
   "portsAttributes": {
     "3000": {
-      "label": "Application",
-      "onAutoForward": "openPreview"
+      "label": "Next.js Application",
+      "onAutoForward": "notify",
+      "visibility": "public",
+      "protocol": "http"
+    },
+    "3001": {
+      "label": "Next.js Dev Tools",
+      "onAutoForward": "ignore",
+      "visibility": "private"
+    },
+    "9229": {
+      "label": "Node.js Debug",
+      "onAutoForward": "ignore",
+      "visibility": "private"
+    },
+    "9230": {
+      "label": "Node.js Inspector",
+      "onAutoForward": "ignore",
+      "visibility": "private"
     }
   },
-  "forwardPorts": [3000]
+  "forwardPorts": [3000, 3001, 9229, 9230],
+
+  // Features for enhanced development experience
+  "features": {
+    "ghcr.io/devcontainers/features/git:1": {},
+    "ghcr.io/devcontainers/features/github-cli:1": {},
+    "ghcr.io/devcontainers/features/google-cloud-cli:1": {},
+    "ghcr.io/devcontainers/features/docker-in-docker:2": {},
+    "ghcr.io/devcontainers/features/common-utils:2": {
+      "installZsh": true,
+      "configureZshAsDefaultShell": true,
+      "installOhMyZsh": true,
+      "upgradePackages": true
+    },
+    "ghcr.io/devcontainers/features/node:1": {
+      "version": "20"
+    }
+  },
+
+  // Additional mounts for better performance
+  "mounts": [
+    "source=${localWorkspaceFolderBasename}-node_modules,target=${containerWorkspaceFolder}/node_modules,type=volume"
+  ],
+
+  // Runtime arguments for better development experience
+  "runArgs": ["--init"],
+
+  // Wait for onCreateCommand to complete before opening in VS Code
+  "waitFor": "onCreateCommand",
+
+  // Override the default command to keep container running
+  "overrideCommand": false,
+
+  // Shutdown action
+  "shutdownAction": "stopContainer"
 }
