@@ -7,7 +7,7 @@
 
 ## Phase 2: Migrate Components
 - [ ] Copy `/src/app/components/visuals/intelligence-data.ts`
-- [ ] Copy `/src/app/components/LandingSection.tsx`  
+- [ ] Copy `/src/app/components/LandingSection.tsx`
 - [ ] Migrate Three.js visualizations
 - [ ] Transfer public assets
 
