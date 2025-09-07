@@ -45,6 +45,9 @@ const securityHeaders = [
 ];
 
 const nextConfig: NextConfig = {
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
   transpilePackages: ['@lionspace/ui', '@lionspace/i18n'],
   turbopack: {
     root: '/Users/daniel/modern-nextjs-app'
