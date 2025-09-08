@@ -5,7 +5,7 @@ import './globals.css';
 // const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://v0-lion-space.vercel.app'),
+  metadataBase: new URL('https://www.lionsofzion.io'),
   title: {
     default: 'LionSpace Intelligence - Advanced Threat Analysis Platform',
     template: '%s | LionSpace Intelligence'

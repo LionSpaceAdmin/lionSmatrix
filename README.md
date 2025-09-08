@@ -4,16 +4,11 @@
   <h1>🦁 LionSpace Intelligence</h1>
   <p><strong>Advanced Threat Analysis Platform with Matrix-Style Visualizations</strong></p>
   
-  [![Live Demo](https://img.shields.io/badge/Demo-Live-success.svg)](https://v0-lion-space.vercel.app)
   [![QA Status](https://img.shields.io/badge/QA-Active-green.svg)](./scripts/qa-check.sh)
   [![Build Status](https://img.shields.io/badge/Build-Passing-green.svg)](#)
   [![TypeScript](https://img.shields.io/badge/TypeScript-Enabled-blue.svg)](#)
   [![Next.js](https://img.shields.io/badge/Next.js-15.5.2-black.svg)](https://nextjs.org/)
 </div>
-
-## 🌐 Live Deployment
-
-🚀 **Production URL:** https://v0-lion-space.vercel.app
 
 ## 🚀 Quick Start
 

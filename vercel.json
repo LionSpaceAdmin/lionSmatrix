@@ -19,7 +19,7 @@
     "GCP_REGION": "us-east1",
     "NEXT_PUBLIC_GOOGLE_CLIENT_ID": "707897822334-f9a3fi3kfacnsrjpqt48k38lcqdvan1g.apps.googleusercontent.com",
     "NEXT_PUBLIC_API_URL": "https://lionspace-backend-707897822334.us-east1.run.app",
-    "NEXT_PUBLIC_FRONTEND_URL": "https://v0-lion-space.vercel.app"
+    "NEXT_PUBLIC_FRONTEND_URL": "https://v0-lion-sai-lionsteam.vercel.app"
   },
   "functions": {
     "src/app/api/**/*.ts": {
