@@ -1,0 +1,184 @@
+
+> modern-nextjs-app@1.0.0 build
+> next build
+
+   ▲ Next.js 15.5.2
+   - Experiments (use with caution):
+     · serverActions
+     · clientTraceMetadata
+     · optimizePackageImports
+
+   Creating an optimized production build ...
+[@sentry/nextjs] Could not find `onRequestError` hook in instrumentation file. This indicates outdated configuration of the Sentry SDK. Use `Sentry.captureRequestError` to instrument the `onRequestError` hook: https://docs.sentry.io/platforms/javascript/guides/nextjs/manual-setup/#errors-from-nested-react-server-components
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (191kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (139kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+ ✓ Compiled successfully in 5.8s
+   Skipping linting
+   Checking validity of types ...
+   Collecting page data ...
+   Generating static pages (0/12) ...
+   Generating static pages (3/12) 
+   Generating static pages (6/12) 
+🔄 Categorizing words, dynamicVocabulary: false
+📋 Using fallback vocabulary from INTELLIGENCE_DATA
+📈 Total categorized words: 526 {
+  primary_actors: [
+    'Jackson Hinkle',
+    'Samidoun',
+    'Max Blumenthal',
+    'Students for Justice in Palestine',
+    'Quds News Network',
+    'Sulaiman Ahmed',
+    'Abby Martin',
+    'Rania Khalek',
+    'Ali Abunimah',
+    'Dom Lucre',
+    'Sprinter',
+    'Khalissee',
+    'Motaz Azaiza',
+    'Mohamad Safa',
+    'Jackson Hinkle',
+    'Sulaiman Ahmed',
+    'Khalissee',
+    'Motaz Azaiza',
+    'Mohamad Safa',
+    'Anastasia Maria Loupis',
+    'Ali‑Akbar Raefipour',
+    'Mohammed Hijab',
+    'Max Blumenthal',
+    'Abby Martin',
+    'Rania Khalek',
+    'Aaron Maté',
+    'Carlos Latuff',
+    'Ali Abunimah',
+    'Quds News Network',
+    'Ben Norton',
+    'Richard Medhurst',
+    'Vanessa Beeley',
+    'Sarah Abdallah',
+    'Intel_Sky'
+  ],
+  operation_keywords: [
+    'coordinate',  'mobilize',
+    'activate',    'deploy',
+    'execute',     'implement',
+    'disseminate', 'proliferate',
+    'infiltrate',  'subvert',
+    'disrupt',     'destabilize',
+    'polarize',    'radicalize',
+    'recruit',     'indoctrinate'
+  ],
+  analysis_terms: [
+    'correlation',
+    'regression',
+    'classification',
+    'clustering',
+    'anomaly detection',
+    'sentiment analysis',
+    'network analysis',
+    'pattern recognition',
+    'threat assessment',
+    'risk scoring',
+    'attribution',
+    'confidence levels',
+    'behavioral analysis',
+    'temporal patterns'
+  ],
+  technical_terms: [
+    'API',
+    'GraphQL',
+    'WebSocket',
+    'encryption',
+    'blockchain',
+    'machine learning',
+    'neural networks',
+    'OSINT',
+    'SIGINT',
+    'cryptography',
+    'distributed systems',
+    'data mining'
+  ],
+  network_terms: [
+    'centrality',
+    'betweenness',
+    'eigenvector',
+    'PageRank',
+    'clustering coefficient',
+    'modularity',
+    'community detection',
+    'small world',
+    'scale-free',
+    'power law',
+    'preferential attachment',
+    'homophily'
+  ],
+  statistical_terms: [
+    'correlation',
+    'causation',
+    'regression',
+    'classification',
+    'time series',
+    'confidence interval',
+    'p-value',
+    'hypothesis testing',
+    'standard deviation',
+    'variance'
+  ],
+  general: [
+    'orchestrated',  'campaign',     'disinformation', 'networks',
+    'amplification', 'targeting',    'Israeli',        'Jewish',
+    'institutions',  'social',       'media',          'platforms',
+    'coordinated',   'inauthentic',  'behavior',       'foreign',
+    'interference',  'propaganda',   'manipulation',   'psychological',
+    'operations',    'hybrid',       'warfare',        'influence',
+    'operations',    'active',       'measures',       'dezinformatsiya',
+    'reflexive',     'control',      'perception',     'management',
+    'botnet',        'sockpuppet',   'astroturfing',   'brigading',
+    'dogpiling',     'sealioning',   'concern',        'trolling',
+    'false',         'flag',         'operations',     'hashtag',
+    'hijacking',     'trend',        'manipulation',   'algorithmic',
+    'amplification', 'viral',        'seeding',        'memetic',
+    'warfare',       'narrative',    'laundering',     'citation',
+    'circles',       'echo',         'chambers',       'filter',
+    'bubbles',       'confirmation', 'bias',           'exploitation',
+    'cognitive',     'security',     'coefficient',    'community',
+    'detection',     'small',        'world',          'power',
+    'law',           'distribution', 'preferential',   'attachment',
+    'triadic',       'closure',      'structural',     'holes',
+    'weak',          'ties',         'strong',         'ties',
+    'bridge',        'nodes',        'hub',            'nodes',
+    'anomaly',       'detection',    'time',           'series',
+    'analysis',      'sentiment',    'analysis',       'natural',
+    'language',      'processing',   'machine',        'learning',
+    ... 328 more items
+  ]
+}
+   Generating static pages (9/12) 
+ ✓ Generating static pages (12/12)
+   Finalizing page optimization ...
+   Collecting build traces ...
+
+Route (app)                                 Size  First Load JS  Revalidate  Expire
+┌ ○ /                                    27.3 kB         130 kB
+├ ○ /_not-found                            313 B         103 kB
+├ ƒ /api/health                            313 B         103 kB
+├ ● /intelligence/[id]                     313 B         103 kB          1m      1y
+├   ├ /intelligence/global                                               1m      1y
+├   ├ /intelligence/regional                                             1m      1y
+├   └ /intelligence/local                                                1m      1y
+├ ○ /join                                1.13 kB         108 kB
+├ ○ /matrix                                493 B         103 kB
+├ ○ /platform                            8.11 kB         111 kB
+└ ○ /sitemap.xml                           313 B         103 kB
++ First Load JS shared by all             103 kB
+  ├ chunks/255-8ddd79897a88c04c.js       46.2 kB
+  ├ chunks/4bd1b696-92deec1f34b71ef9.js  54.4 kB
+  └ other shared chunks (total)          2.34 kB
+
+
+ƒ Middleware                             87.3 kB
+
+○  (Static)   prerendered as static content
+●  (SSG)      prerendered as static HTML (uses generateStaticParams)
+ƒ  (Dynamic)  server-rendered on demand
+
