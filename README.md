@@ -40,11 +40,19 @@ npm run build       # Production build
 ## 🏗️ Architecture
 
 **Frontend Stack:**
-- **Next.js 15.5.2** - React framework with App Router
+- **Next.js 15.5.2** - React framework with App Router & Server Actions
 - **React 19** - UI library with latest features
 - **TypeScript 5.7.2** - Type safety and developer experience
 - **Tailwind CSS 4.0** - Utility-first styling
 - **Framer Motion** - Smooth animations and transitions
+
+**Next.js 15 Features:**
+- 🚀 **Server Actions** - Server-side form handling and data mutations
+- 🔄 **ISR (Incremental Static Regeneration)** - Dynamic content with static performance
+- 🖼️ **Image Optimization** - Automatic image optimization with next/image
+- ⚡ **Turbopack** - Next-generation bundler for faster development
+- 🔧 **Enhanced Middleware** - Advanced routing and authentication
+- 📦 **Bundle Optimization** - Tree shaking and code splitting
 
 **Key Features:**
 - 🎨 **Matrix-style background** with real intelligence data
@@ -70,6 +78,71 @@ npm install
 
 # Start development server  
 npm run dev
+
+# Start with Turbopack (experimental - faster builds)
+npm run dev:turbo
+```
+
+### Development with Codespaces/DevContainer
+
+This project is optimized for **GitHub Codespaces** and **DevContainers**:
+
+1. **Open in Codespaces**: Click the "Code" button → "Codespaces" → "Create codespace"
+2. **DevContainer**: Use VS Code with Remote-Containers extension
+3. **Automatic Setup**: Dependencies are automatically installed via `onCreateCommand`
+4. **Pre-configured**: Includes all extensions, settings, and environment variables
+
+**DevContainer Features:**
+- ✅ **Node.js 20** with npm caching
+- ✅ **Next.js optimized** VS Code extensions
+- ✅ **Port forwarding** for development server (3000)
+- ✅ **Git** and **GitHub CLI** pre-installed
+- ✅ **TypeScript**, **ESLint**, **Tailwind** support
+- ✅ **Cloud integrations** for Vercel, GCP
+
+### Environment Variables and Secrets
+
+1. **Copy environment template**:
+```bash
+cp .env.example .env.local
+```
+
+2. **Configure required variables**:
+```bash
+# Essential for development
+NEXT_PUBLIC_APP_URL=http://localhost:3000
+NODE_ENV=development
+
+# Optional: Add your API keys
+GEMINI_API_KEY=your-gemini-api-key
+OPENAI_API_KEY=your-openai-api-key
+```
+
+3. **Environment validation**: The app validates environment variables at startup using Zod schemas
+
+### Preview Deploys with Vercel
+
+This project includes **automatic Vercel preview deployments** for pull requests:
+
+1. **Setup Vercel Integration**:
+   - Connect your GitHub repository to Vercel
+   - Add repository secrets: `VERCEL_TOKEN`, `VERCEL_ORG_ID`, `VERCEL_PROJECT_ID`
+
+2. **Automatic Previews**:
+   - Every pull request gets a preview deployment
+   - Comments are automatically added to PRs with deployment URLs
+   - Updated automatically on new commits
+
+3. **Manual Deployment**:
+```bash
+# Install Vercel CLI
+npm install -g vercel
+
+# Deploy preview
+vercel
+
+# Deploy to production
+vercel --prod
 ```
 
 ### Quality Assurance
