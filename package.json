@@ -105,7 +105,7 @@
     "autoprefixer": "^10.4.21",
     "commitlint": "^19.8.1",
     "conventional-changelog-conventionalcommits": "^9.1.0",
-    "drizzle-kit": "^0.18.1",
+    "drizzle-kit": "^0.31.4",
     "eslint": "^9.34.0",
     "eslint-config-next": "^15.5.2",
     "jsdom": "^26.1.0",
