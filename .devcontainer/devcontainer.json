@@ -1,5 +1,5 @@
 {
-  "name": "Next.js Development Environment",
+  "name": "Lionspace Next.js DevContainer",
   "image": "mcr.microsoft.com/devcontainers/typescript-node:1-20-bullseye",
 
   // Host requirements for optimal performance
@@ -9,7 +9,7 @@
     "storage": "32gb"
   },
 
-  // Container configuration
+  // Container env
   "containerEnv": {
     "NODE_ENV": "development",
     "NEXT_TELEMETRY_DISABLED": "1",
@@ -20,7 +20,7 @@
     "GCP_REGION": "us-central1"
   },
 
-  // Development server setup
+  // Lifecycle
   "onCreateCommand": [
     "chmod +x scripts/setup-development-environment.sh",
     "chmod +x scripts/check_integrations.py",
@@ -33,7 +33,7 @@
     "server": "npm run dev -- --hostname 0.0.0.0"
   },
 
-  // VS Code customizations
+  // VS Code & Codespaces
   "customizations": {
     "vscode": {
       "extensions": [
@@ -64,7 +64,7 @@
         "github.copilot-chat",
         "github.vscode-pull-request-github",
 
-        // Development tools
+        // Dev utilities
         "formulahendry.auto-rename-tag",
         "formulahendry.auto-close-tag",
         "christian-kohler.path-intellisense",
@@ -75,16 +75,15 @@
         // Utilities
         "gruntfuggly.todo-tree",
         "streetsidesoftware.code-spell-checker",
-        "ms-vscode.live-server",
         "editorconfig.editorconfig",
 
-        // Cloud and deployment
+        // Cloud and configuration
         "googlecloudtools.cloudcode",
         "ms-vscode.vscode-json",
         "redhat.vscode-yaml"
       ],
       "settings": {
-        // TypeScript and JavaScript
+        // TypeScript & JavaScript
         "typescript.preferences.useLabelDetailsInCompletionEntries": true,
         "typescript.suggest.autoImports": true,
         "typescript.updateImportsOnFileMove.enabled": "always",
@@ -92,7 +91,7 @@
         "javascript.suggest.autoImports": true,
         "javascript.updateImportsOnFileMove.enabled": "always",
 
-        // Code formatting
+        // Formatting
         "editor.formatOnSave": true,
         "editor.defaultFormatter": "esbenp.prettier-vscode",
         "editor.codeActionsOnSave": {
@@ -102,7 +101,7 @@
         "editor.tabSize": 2,
         "editor.insertSpaces": true,
 
-        // React and JSX
+        // React / JSX
         "emmet.includeLanguages": {
           "typescript": "html",
           "typescriptreact": "html",
@@ -111,7 +110,7 @@
         },
         "emmet.triggerExpansionOnTab": true,
 
-        // Next.js specific
+        // Next.js + Tailwind
         "files.associations": {
           "*.css": "tailwindcss",
           "*.scss": "tailwindcss"
@@ -124,10 +123,10 @@
         },
         "tailwindCSS.experimental.classRegex": [
           ["cva\\(([^)]*)\\)", "[\"'`]([^\"'`]*).*?[\"'`]"],
-          ["cx\\(([^)]*)\\)", "(?:'|\"|`)([^']*)(?:'|\"|`)"]
+          ["cx\$begin:math:text$([^)]*)\\$end:math:text$", "(?:'|\"|`)([^']*)(?:'|\"|`)"]
         ],
 
-        // File explorer and workspace
+        // Explorer / workspace
         "files.exclude": {
           "**/.next": true,
           "**/node_modules": true,
@@ -155,7 +154,7 @@
         "vercel.defaultOrg": "",
         "vercel.defaultProject": "",
 
-        // Environment configuration
+        // Terminal env
         "terminal.integrated.env.linux": {
           "VERCEL_ENV": "development",
           "GCP_PROJECT_ID": "lionspace",
@@ -170,7 +169,7 @@
     }
   },
 
-  // Port forwarding with enhanced configuration
+  // Ports
   "portsAttributes": {
     "3000": {
       "label": "Next.js Application",
@@ -196,7 +195,7 @@
   },
   "forwardPorts": [3000, 3001, 9229, 9230],
 
-  // Features for enhanced development experience
+  // Features
   "features": {
     "ghcr.io/devcontainers/features/git:1": {},
     "ghcr.io/devcontainers/features/github-cli:1": {},
@@ -209,23 +208,21 @@
     },
     "ghcr.io/devcontainers/features/node:1": {
       "version": "20"
-    }
+    },
+
+    // From your trailing lines (optional; remove if not needed)
+    "ghcr.io/lee-orr/rusty-dev-containers/cargo-nextest:0": {},
+    "ghcr.io/robsyme/features/nextflow:1": {}
   },
 
-  // Additional mounts for better performance
+  // Mounts & runtime
   "mounts": [
     "source=${localWorkspaceFolderBasename}-node_modules,target=${containerWorkspaceFolder}/node_modules,type=volume"
   ],
-
-  // Runtime arguments for better development experience
   "runArgs": ["--init"],
 
-  // Wait for onCreateCommand to complete before opening in VS Code
+  // Behavior
   "waitFor": "onCreateCommand",
-
-  // Override the default command to keep container running
   "overrideCommand": false,
-
-  // Shutdown action
   "shutdownAction": "stopContainer"
 }
