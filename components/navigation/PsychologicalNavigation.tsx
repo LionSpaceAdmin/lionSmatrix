@@ -235,7 +235,7 @@ export function PsychologicalNavigation() {
                       key={i}
                       className="load-dot"
                       style={{
-                        backgroundColor: i < item.cognitiveLoad 
+                        backgroundColor: i < (item.cognitiveLoad || 0)
                           ? colorSystem.cognitive.moderate 
                           : colorSystem.cognitive.minimal,
                       }}

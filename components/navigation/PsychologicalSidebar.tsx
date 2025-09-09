@@ -267,6 +267,7 @@ export function PsychologicalSidebar({ isOpen, onClose, userProfile }: SidebarPr
       let currentPhaseIndex = 0;
       const cycleBreathing = () => {
         const currentPhase = phases[currentPhaseIndex];
+        if (!currentPhase) return;
         setBreathPhase(currentPhase.phase as any);
         
         setTimeout(() => {
