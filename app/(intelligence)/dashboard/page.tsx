@@ -1,6 +1,6 @@
 'use client';
 
-import { useTranslation } from '@/app/_contexts/translation-context';
+import { useTranslation } from '@/contexts/translation-context';
 
 export default function DashboardPage() {
   const { getCurrentMessage } = useTranslation();

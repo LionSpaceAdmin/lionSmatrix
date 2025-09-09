@@ -1,11 +1,11 @@
 'use client';
 
-import { useState, useEffect } from 'react';
 import { 
-  Activity, TrendingUp, TrendingDown, AlertTriangle, 
-  Shield, Users, Globe, Zap, Database, Network
+  Activity, AlertTriangle, Database, Globe, 
+  Network, Shield, TrendingDown, TrendingUp, Users, Zap
 } from 'lucide-react';
-import { Card, CardContent, CardHeader, CardTitle } from '@/app/_components/ui/grid';
+import { useEffect, useState } from 'react';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/atoms';
 
 export default function AnalyticsPage() {
   const [timeRange, setTimeRange] = useState<'24h' | '7d' | '30d'>('24h');
@@ -102,9 +102,9 @@ export default function AnalyticsPage() {
       {/* Key Metrics Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-4">
         {Object.entries(metrics).map(([key, data]) => (
-          <Card key={key} className="terminal-card cursor-pointer hover:border-terminal-cyan/50 transition-all"
-                onClick={() => setSelectedMetric(key)}>
-            <CardContent className="p-4">
+          <div key={key} onClick={() => setSelectedMetric(key)} className="cursor-pointer">
+            <Card className="terminal-card hover:border-terminal-cyan/50 transition-all">
+              <CardContent className="p-4">
               <div className="flex justify-between items-start mb-2">
                 <span className="text-xs text-terminal-muted font-mono uppercase">
                   {key.replace(/([A-Z])/g, ' $1').trim()}
@@ -129,6 +129,7 @@ export default function AnalyticsPage() {
               </div>
             </CardContent>
           </Card>
+          </div>
         ))}
       </div>
 

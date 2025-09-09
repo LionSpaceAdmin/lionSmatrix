@@ -1,0 +1,179 @@
+'use client';
+
+import React, { useEffect, useMemo, useState } from 'react';
+import { type ActorData, loadActors } from '@/lib/data-loaders';
+
+interface DossierModalProps {
+  actor: ActorData | null;
+  onClose: () => void;
+  onAISummary: (actor: ActorData) => void;
+  onLaunchResearch: (actor: ActorData) => void;
+}
+
+function DossierModal({ actor, onClose, onAISummary, onLaunchResearch }: DossierModalProps) {
+  if (!actor) return null;
+
+  // Deep dive data is currently unavailable; placeholder reserved for future integration
+  const deepDiveData = undefined as unknown as { report?: string } | undefined;
+
+  return (
+    <div 
+      id="dossier-modal" 
+      className="fixed inset-0 flex items-center justify-center z-50"
+      style={{ display: 'flex' }}
+    >
+      <div className="bg-gray-900 p-8 rounded-lg max-w-4xl w-full mx-4 max-h-[80vh] overflow-y-auto">
+        <div className="flex justify-between items-center mb-6">
+          <h2 className="font-headline text-2xl text-[#B8FFF2]">
+            Dossier: {actor.name}
+          </h2>
+          <button
+            onClick={onClose}
+            className="text-gray-400 hover:text-white text-2xl"
+          >
+            ×
+          </button>
+        </div>
+        
+        <div id="dossier-content" className="space-y-4">
+          <p><strong>Platform:</strong> {actor.platform}</p>
+          <p><strong>Audience Size:</strong> {actor.audience}</p>
+          <p><strong>Primary Narrative:</strong> {actor.narrative}</p>
+          <p><strong>Known Affiliation:</strong> {actor.affiliation || '—'}</p>
+          
+          {deepDiveData?.report ? (
+            <>
+              <hr className="my-4 border-gray-600" />
+              <div dangerouslySetInnerHTML={{ __html: deepDiveData.report }} />
+            </>
+          ) : (
+            <p className="mt-4 text-gray-500">No deep dive report available. Generate one below.</p>
+          )}
+        </div>
+        
+        <div className="flex gap-4 mt-6">
+          <button
+            onClick={() => onAISummary(actor)}
+            className="gemini-button text-sm py-2 px-4 rounded-md"
+          >
+            🤖 AI Summary
+          </button>
+          <button
+            onClick={() => onLaunchResearch(actor)}
+            className="gemini-button text-sm py-2 px-4 rounded-md"
+          >
+            🔍 Launch Research
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// Simple helpers replacing the former data/osint-data module
+function formatAudience(audience: string | number | undefined) {
+  if (!audience) return '—';
+  if (typeof audience === 'number') return audience.toLocaleString();
+  return audience;
+}
+
+function searchActors(term: string, actors: ActorData[]): ActorData[] {
+  const t = term.trim().toLowerCase();
+  if (!t) return actors;
+  return actors.filter(a =>
+    a.name?.toLowerCase().includes(t) ||
+    a.platform?.toLowerCase().includes(t) ||
+    a.narrative?.toLowerCase().includes(t) ||
+    a.affiliation?.toLowerCase().includes(t)
+  );
+}
+
+export function OSINTArchive() {
+  const [searchTerm, setSearchTerm] = useState('');
+  const [selectedActor, setSelectedActor] = useState<ActorData | null>(null);
+  const [actors, setActors] = useState<ActorData[]>([]);
+
+  useEffect(() => {
+    let active = true;
+    loadActors().then(res => { if (active) setActors(res); });
+    return () => { active = false; };
+  }, []);
+
+  const filteredData = useMemo(() => searchActors(searchTerm, actors), [searchTerm, actors]);
+
+  const handleOpenDossier = (actor: ActorData) => {
+    setSelectedActor(actor);
+  };
+
+  const handleCloseDossier = () => {
+    setSelectedActor(null);
+  };
+
+  const handleAISummary = async (actor: ActorData) => {
+    // TODO: Implement AI summary functionality
+    console.log('AI Summary for:', actor.name);
+    // This would integrate with the Gemini API
+  };
+
+  const handleLaunchResearch = (actor: ActorData) => {
+    // TODO: Implement research launch functionality
+    console.log('Launch Research for:', actor.name);
+    // This would switch to investigation tab and populate the input
+  };
+
+  return (
+    <div className="max-w-6xl mx-auto">
+      <h2 className="font-headline text-3xl text-center mb-2 text-[#B8FFF2]">
+        #FakeResistance OSINT Archive
+      </h2>
+      <p className="text-center text-gray-400 mb-6">
+        A comprehensive database of identified actors in the fake resistance information ecosystem.
+      </p>
+
+      {/* Search Input */}
+      <div className="mb-6">
+        <input
+          type="text"
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+          placeholder="Search actors, platforms, or narratives..."
+          className="w-full p-3 bg-[#0E0E10] border border-gray-700 rounded-md text-white font-body focus:ring-2 focus:ring-[#B8FFF2] focus:outline-none"
+        />
+      </div>
+
+      {/* OSINT Table */}
+      <div className="overflow-x-auto">
+        <table id="osint-table" className="w-full border border-gray-700 rounded-lg overflow-hidden">
+          <thead className="bg-gray-800">
+            <tr>
+              <th className="p-3 text-left text-[#B8FFF2] cursor-pointer">Actor Name</th>
+              <th className="p-3 text-left text-[#B8FFF2] cursor-pointer">Platform</th>
+              <th className="p-3 text-left text-[#B8FFF2] cursor-pointer">Audience</th>
+            </tr>
+          </thead>
+          <tbody>
+      {filteredData.map((actor, index) => (
+              <tr
+                key={index}
+                className="border-b border-gray-800 hover:bg-gray-800 cursor-pointer"
+                onClick={() => handleOpenDossier(actor)}
+              >
+        <td className="p-2 text-[#B8FFF2]">{actor.name}</td>
+        <td className="p-2">{actor.platform}</td>
+        <td className="p-2">{formatAudience(actor.audience)}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+
+      {/* Dossier Modal */}
+      <DossierModal
+        actor={selectedActor}
+        onClose={handleCloseDossier}
+        onAISummary={handleAISummary}
+        onLaunchResearch={handleLaunchResearch}
+      />
+    </div>
+  );
+}

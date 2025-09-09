@@ -1,8 +1,10 @@
-@import "tailwindcss";
-
 /* Import fonts */
 @import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400;600&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 /* Matrix Animation Keyframes */
 @keyframes scanline {
@@ -53,6 +55,50 @@
     /* Grid dimensions */
     --grid-size: 40px;
     --grid-opacity: 0.03;
+    
+    /* shadcn/ui variables */
+    --background: 220 14.3% 3.9%;
+    --foreground: 0 0% 89.8%;
+    --card: 220 14.3% 7.1%;
+    --card-foreground: 0 0% 89.8%;
+    --popover: 220 14.3% 7.1%;
+    --popover-foreground: 0 0% 89.8%;
+    --primary: 152 57% 68%;
+    --primary-foreground: 220 14.3% 3.9%;
+    --secondary: 220 14.3% 14.3%;
+    --secondary-foreground: 0 0% 89.8%;
+    --muted: 220 14.3% 14.3%;
+    --muted-foreground: 220 8.9% 46.1%;
+    --accent: 152 57% 68%;
+    --accent-foreground: 220 14.3% 3.9%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 89.8%;
+    --border: 220 14.3% 14.3%;
+    --input: 220 14.3% 14.3%;
+    --ring: 152 57% 68%;
+    --radius: 0.5rem;
+  }
+  
+  .dark {
+    --background: 220 14.3% 3.9%;
+    --foreground: 0 0% 89.8%;
+    --card: 220 14.3% 7.1%;
+    --card-foreground: 0 0% 89.8%;
+    --popover: 220 14.3% 7.1%;
+    --popover-foreground: 0 0% 89.8%;
+    --primary: 152 57% 68%;
+    --primary-foreground: 220 14.3% 3.9%;
+    --secondary: 220 14.3% 14.3%;
+    --secondary-foreground: 0 0% 89.8%;
+    --muted: 220 14.3% 14.3%;
+    --muted-foreground: 220 8.9% 46.1%;
+    --accent: 152 57% 68%;
+    --accent-foreground: 220 14.3% 3.9%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 89.8%;
+    --border: 220 14.3% 14.3%;
+    --input: 220 14.3% 14.3%;
+    --ring: 152 57% 68%;
   }
 
   * {

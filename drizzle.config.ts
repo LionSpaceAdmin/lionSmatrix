@@ -9,7 +9,7 @@ try {
 
 export default defineConfig({
   // Schema files
-  schema: './lib/db/schema/*',
+  schema: './lib/db/schema.ts',
   
   // Output directory למיגרציות
   out: './lib/db/migrations',

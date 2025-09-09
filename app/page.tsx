@@ -1,8 +1,12 @@
 'use client'
 
-import UnifiedBackground from '@/app/_components/backgrounds/UnifiedBackground'
+import { UnifiedBackground } from '@/components/organisms'
+import { CognitiveWarfareMessagesSSR } from '@/components/organisms/CognitiveWarfareMessages'
+import { useLocale } from '@/lib/hooks/useLocale'
 
 export default function HomePage() {
+  const { locale, isRTL } = useLocale('en')
+  
   return (
     <div className="min-h-screen bg-terminal-bg text-terminal-text overflow-hidden">
       {/* Animated Background */}
@@ -25,10 +29,19 @@ export default function HomePage() {
             <span className="typewriter-cursor">INTELLIGENCE PLATFORM</span>
           </div>
           
-          {/* Description */}
-          <p className="text-terminal-muted text-lg md:text-xl mb-12 max-w-2xl mx-auto font-body leading-relaxed">
-            Navigate narratives with precision. Advanced threat analysis and strategic intelligence platform.
-          </p>
+          {/* Cognitive Warfare Messages */}
+          <div className="mb-12 max-w-4xl mx-auto">
+            <CognitiveWarfareMessagesSSR 
+              locale={locale}
+              className="px-4"
+              typeSpeed={24}
+              backspaceSpeed={36}
+              holdDuration={3500}
+              crossfadeDuration={250}
+              autoStart={true}
+              showControls={false}
+            />
+          </div>
           
           {/* Action Buttons */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">

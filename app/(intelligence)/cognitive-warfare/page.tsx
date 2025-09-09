@@ -1,11 +1,11 @@
 'use client';
 
-import { useState, useEffect } from 'react';
 import { 
-  Brain, Shield, AlertTriangle, Target, Users, 
-  Zap, TrendingUp, Radio, Globe, Activity
+  Activity, AlertTriangle, Brain, Globe, Radio, 
+  Shield, Target, TrendingUp, Users, Zap
 } from 'lucide-react';
-import { Card, CardContent, CardHeader, CardTitle } from '@/app/_components/ui/grid';
+import { useEffect, useState } from 'react';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/atoms';
 
 export default function CognitiveWarfarePage() {
   const [selectedOperation, setSelectedOperation] = useState<string | null>(null);

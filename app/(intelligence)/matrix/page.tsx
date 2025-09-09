@@ -1,7 +1,7 @@
  'use client'
 
- import { useEffect } from 'react'
  import { useRouter } from 'next/navigation'
+ import { useEffect } from 'react'
 
  // Simple client redirect: `/matrix` → `/` to keep the landing page authoritative.
  export default function MatrixRedirect() {

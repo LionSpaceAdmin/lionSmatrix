@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { useTranslation } from '@/app/_contexts/translation-context';
+import { useTranslation } from '@/contexts/translation-context';
 
 export default function SettingsPage() {
   const { currentLanguage, setLanguage, availableLanguages } = useTranslation();
