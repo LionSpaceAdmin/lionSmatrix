@@ -34,3 +34,21 @@ storybook-static/
 /playwright/.cache/
 
 /.npm-only-allow
+
+# package manager cache
+.pnpm-store/
+
+# devcontainer
+.devcontainer/
+
+# ai tool backups
+.claude*
+
+# nested project caches (kakc)
+kakc/node_modules/
+kakc/.next/
+kakc/out/
+kakc/build/
+kakc/coverage/
+# Generated Claude Code configurations
+.claude/

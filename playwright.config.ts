@@ -24,10 +24,26 @@ export default defineConfig({
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
     /* Base URL to use in actions like `await page.goto('/')`. */
-    baseURL: "http://127.0.0.1:3000",
+    baseURL: process.env.DEV_CONTAINER === 'true' 
+      ? "http://localhost:3000"
+      : "http://localhost:3000",
 
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: "on-first-retry",
+    
+    /* Dev container specific settings */
+    ...(process.env.DEV_CONTAINER === 'true' && {
+      ignoreHTTPSErrors: true,
+      launchOptions: {
+        slowMo: 100,
+        args: [
+          '--no-sandbox',
+          '--disable-setuid-sandbox',
+          '--disable-dev-shm-usage',
+          '--disable-gpu'
+        ]
+      }
+    })
   },
 
   /* Configure projects for major browsers */
@@ -71,7 +87,8 @@ export default defineConfig({
   /* Run your local dev server before starting the tests */
   webServer: {
     command: "pnpm dev",
-    url: "http://127.0.0.1:3000",
+    url: "http://localhost:3000",
     reuseExistingServer: !process.env.CI,
+    timeout: process.env.DEV_CONTAINER === 'true' ? 180_000 : 120_000
   },
 })

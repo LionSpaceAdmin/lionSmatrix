@@ -1,32 +1,138 @@
 
-# [Next.js Enterprise Boilerplate](https://blazity.com/open-source/nextjs-enterprise-boilerplate) 
+# 🦁 LionSpace Enterprise Platform
 
-A production-ready template for building enterprise applications with Next.js. This boilerplate provides a solid foundation with carefully selected technologies and ready-to-go infrastructure to help you develop high-quality applications efficiently.
+> **סביבת פיתוח מתקדמת ומלאה עבור Next.js Enterprise עם Dev Container**
 
-## Motivation
+מבוסס על [Next.js Enterprise Boilerplate](https://blazity.com/open-source/nextjs-enterprise-boilerplate) עם שיפורים מתקדמים לפיתוח enterprise.
 
-While most Next.js boilerplates focus on individual developer needs with excessive complexity, **next-enterprise** prioritizes strategic simplicity for enterprise teams. It offers a streamlined foundation with high-impact features that maximize developer productivity and accelerate time-to-market for business-critical applications.
+## 🚀 התחלה מהירה עם Dev Container
 
-<a href="https://blazity.com/">
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="/assets/blazity-logo-dark.svg">
-  <source media="(prefers-color-scheme: light)" srcset="/assets/blazity-logo-light.svg">
-  <img alt="Logo" align="right" height="80" src="/assets/blazity-logo-light.svg">
-</picture>
-</a>
+### אפשרות 1: VS Code Dev Container (מקומי)
+```bash
+# 1. פתח את הפרויקט ב-VS Code
+code .
 
-> [!NOTE]
-> **Blazity** is a group of Next.js architects. We help organizations architect, optimize, and deploy high-performance Next.js applications at scale. Contact us at [contact@blazity.com](https://blazity.com) if you’d like to talk about your project.
+# 2. פתח Command Palette
+Ctrl+Shift+P (או Cmd+Shift+P במק)
 
+# 3. בחר "Dev Containers: Reopen in Container"
 
+# 4. ⏳ חכה לbuilding (3-5 דקות בפעם הראשונה)
 
-## Documentation
+# 5. 🎉 מוכן! הקלד במסוף:
+pnpm run dev
+```
 
-There is a separate documentation that explains its functionality, highlights core business values and technical decisions, provides guidelines for future development, and includes architectural diagrams.
+### אפשרות 2: GitHub Codespaces (ענן)
+```bash
+# 1. בגיטהב, לחץ על "Code" → "Codespaces" → "Create codespace"
+# 2. ⏳ חכה שהcodespace יבנה
+# 3. 🎉 מוכן! הכל מותקן אוטומטית
+```
 
-We encourage you to [visit our docs (docs.blazity.com)](https://docs.blazity.com) to learn more
+## 🛠️ מה כלול בסביבת הפיתוח?
 
-## Integrated features
+### 💻 כלי פיתוח
+- **Node.js 20** עם **pnpm 10.0.0**
+- **Next.js 15.3.3** עם TypeScript מתקדם
+- **Tailwind CSS v4** עם IntelliSense מלא
+- **ESLint + Prettier** עם הגדרות enterprise
+- **Storybook 8.6.12** לפיתוח components
+
+### 🧪 כלי בדיקה
+- **Vitest** - Unit & Integration Testing
+- **Playwright** - E2E Testing עם browsers מותקנים
+- **React Testing Library** - Component Testing
+- **Jest DOM** - Testing utilities
+
+### 🗄️ מסדי נתונים ו-cache
+- **PostgreSQL 15** - מסד נתונים ראשי
+- **Redis 7** - Cache ו-sessions
+- **Drizzle ORM** - Type-safe database queries
+- **pgAdmin** - ניהול מסד נתונים בממשק גרפי
+
+### 🤖 AI וכלי פרודקטיביות
+- **GitHub Copilot Pro** - סיוע AI לקוד
+- **GitHub CLI** - פעולות Git מהטרמינל
+- **Vercel CLI** - deploy וניהול
+- **Docker in Docker** - ניהול containers
+
+### 📦 25+ Extensions אוטומטיות
+- GitHub Copilot + Chat
+- TypeScript & Next.js Support  
+- Tailwind CSS IntelliSense
+- Playwright Test Runner
+- PostgreSQL Support
+- GitLens, Error Lens, Todo Tree
+- ועוד...
+
+## 🌐 שירותים זמינים
+
+| Port | שירות | URL | תיאור |
+|------|--------|-----|--------|
+| 3000 | Next.js | http://localhost:3000 | האפליקציה הראשית |
+| 6006 | Storybook | http://localhost:6006 | Component Library |
+| 5432 | PostgreSQL | postgresql://postgres:postgres@localhost:5432/lionspace_dev | מסד נתונים |
+| 6379 | Redis | redis://localhost:6379 | Cache |
+| 5050 | pgAdmin | http://localhost:5050 | ניהול DB |
+| 8025 | Mailhog | http://localhost:8025 | בדיקת emails |
+
+## 🎮 פקודות מהירות
+
+```bash
+# פיתוח
+dev          # pnpm run dev - הפעלת Next.js
+build        # pnpm run build - בנייה לפרודקשן
+test         # pnpm run test - הרצת בדיקות
+lint         # pnpm run lint - בדיקת קוד
+format       # pnpm run format - עיצוב קוד
+sb           # pnpm run storybook - Storybook
+
+# מסד נתונים
+db-up        # הפעלת PostgreSQL + Redis
+db-down      # כיבוי מסדי נתונים
+tools-up     # הפעלת כלי ניהול (pgAdmin, Mailhog)
+
+# Git
+gc "message" # git commit -m "message"
+gp           # git push
+gl           # git pull
+gs           # git status
+ga           # git add .
+```
+
+## 📋 Troubleshooting
+
+### Container לא בונה?
+```bash
+# נקה Docker cache
+docker system prune -a --volumes
+
+# בנה מחדש
+Ctrl+Shift+P → "Dev Containers: Rebuild Container"
+```
+
+### Dependencies לא מתעדכנים?
+```bash
+# בתוך הקונטיינר
+pnpm install --frozen-lockfile
+```
+
+### Database לא מתחבר?
+```bash
+# בדוק שהservices רצים
+docker-compose ps
+
+# הפעל מחדש
+db-down && db-up
+```
+
+## 📖 תיעוד מפורט
+
+- 📋 [מדריך Dev Container מלא](.devcontainer/README.md)
+- 🏗️ [מדריך פיתוח מקורי](https://docs.blazity.com)
+
+## Integrated features מהתמפלייט המקורי
 
 ### Boilerplate
 With this template you will get all the boilerplate features included:

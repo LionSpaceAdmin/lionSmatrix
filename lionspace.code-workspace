@@ -1,0 +1,42 @@
+{
+  "folders": [
+    {
+      "path": "."
+    }
+  ],
+  "settings": {
+    // Quick Actions for Simple Browser
+    "commands": [
+      {
+        "command": "simpleBrowser.show",
+        "when": "true"
+      }
+    ]
+  },
+  "extensions": {
+    "recommendations": [
+      "github.copilot",
+      "github.copilot-chat",
+      "ms-vscode.vscode-simple-browser",
+      "ms-vscode.live-server"
+    ]
+  },
+  "tasks": {
+    "version": "2.0.0",
+    "tasks": [
+      {
+        "label": "Open in Simple Browser",
+        "type": "shell",
+        "command": "echo",
+        "args": ["Opening localhost:3000 in Simple Browser..."],
+        "group": "build",
+        "presentation": {
+          "reveal": "silent"
+        },
+        "dependsOrder": "sequence",
+        "dependsOn": [],
+        "problemMatcher": []
+      }
+    ]
+  }
+}

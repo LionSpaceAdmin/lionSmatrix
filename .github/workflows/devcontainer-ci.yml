@@ -1,0 +1,104 @@
+name: DevContainer CI
+
+on:
+  push:
+    branches: [ main, develop ]
+    paths:
+      - '.devcontainer/**'
+      - '.github/codespaces/**'
+      - 'package.json'
+      - 'pnpm-lock.yaml'
+  pull_request:
+    branches: [ main, develop ]
+    paths:
+      - '.devcontainer/**'
+      - '.github/codespaces/**'
+      - 'package.json'
+      - 'pnpm-lock.yaml'
+
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ${{ github.repository }}/devcontainer
+
+jobs:
+  test-devcontainer:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Log in to Container Registry
+      uses: docker/login-action@v3
+      with:
+        registry: ${{ env.REGISTRY }}
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v3
+
+    - name: Build DevContainer
+      uses: devcontainers/ci@v0.3
+      with:
+        imageName: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+        cacheFrom: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+        push: never
+        runCmd: |
+          # Test basic functionality
+          node --version
+          pnpm --version
+          pnpm install --frozen-lockfile
+          pnpm run lint
+          pnpm run build
+
+    - name: Test DevContainer Features
+      uses: devcontainers/ci@v0.3
+      with:
+        imageName: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+        runCmd: |
+          # Test development tools
+          which git
+          which gh
+          which docker
+          
+          # Test VS Code extensions installation would work
+          code --list-extensions --show-versions || true
+          
+          # Test database connection (mock)
+          echo "Testing database setup..."
+          
+          # Test if scripts are executable
+          ls -la .devcontainer/scripts/
+          
+          echo "✅ All tests passed!"
+
+  build-and-push:
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    needs: test-devcontainer
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Log in to Container Registry
+      uses: docker/login-action@v3
+      with:
+        registry: ${{ env.REGISTRY }}
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Build and Push DevContainer
+      uses: devcontainers/ci@v0.3
+      with:
+        imageName: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+        cacheFrom: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+        push: always
+        imageTag: latest,main

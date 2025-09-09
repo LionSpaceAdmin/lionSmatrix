@@ -1,0 +1,75 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Start Development Server",
+      "type": "shell",
+      "command": "pnpm",
+      "args": ["run", "dev"],
+      "group": { "kind": "build", "isDefault": true },
+      "isBackground": true,
+      "presentation": { "reveal": "always", "panel": "shared" },
+      "problemMatcher": {
+        "owner": "nextjs",
+        "fileLocation": "absolute",
+        "pattern": { "regexp": ".+" },
+        "background": {
+          "activeOnStart": true,
+          "beginsPattern": "^\\u25B2 Next\\.js ",
+          "endsPattern": "^\\u2713 Ready in .*?(ms|s)$"
+        }
+      }
+    },
+    {
+      "label": "Build Production",
+      "type": "shell",
+      "command": "pnpm",
+      "args": ["run", "build"],
+      "group": "build",
+      "presentation": { "reveal": "always", "panel": "shared" },
+      "problemMatcher": ["$tsc"]
+    },
+    {
+      "label": "Run Tests",
+      "type": "shell",
+      "command": "pnpm",
+      "args": ["run", "test"],
+      "group": "test",
+      "presentation": { "reveal": "always", "panel": "shared" }
+    },
+    {
+      "label": "Type Check",
+      "type": "shell",
+      "command": "pnpm",
+      "args": ["run", "type-check"],
+      "group": "build",
+      "presentation": { "reveal": "always", "panel": "shared" },
+      "problemMatcher": ["$tsc"]
+    },
+    {
+      "label": "Lint & Fix",
+      "type": "shell",
+      "command": "pnpm",
+      "args": ["run", "lint:fix"],
+      "group": "build",
+      "presentation": { "reveal": "always", "panel": "shared" }
+    },
+    {
+      "label": "Database Setup",
+      "type": "shell",
+      "command": "pnpm",
+      "args": ["run", "db:generate"],
+      "group": "build",
+      "presentation": { "reveal": "always", "panel": "shared" }
+    },
+    {
+      "label": "Start Storybook",
+      "type": "shell",
+      "command": "pnpm",
+      "args": ["run", "storybook"],
+      "group": "build",
+      "isBackground": true,
+      "presentation": { "reveal": "always", "panel": "shared" }
+    }
+  ]
+}

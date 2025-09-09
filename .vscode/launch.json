@@ -1,0 +1,41 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Next.js: Debug Server",
+      "type": "node-terminal",
+      "request": "launch",
+      "command": "pnpm run dev",
+      "serverReadyAction": {
+        "pattern": "http://localhost:3000",
+        "uriFormat": "http://localhost:3000",
+        "action": "openExternally"
+      }
+    },
+    {
+      "name": "Chrome: Debug Client",
+      "type": "chrome",
+      "request": "launch",
+      "url": "http://localhost:3000",
+      "webRoot": "${workspaceFolder}",
+      "sourceMapPathOverrides": {
+        "webpack://_N_E/*": "${workspaceFolder}/*",
+        "webpack:///./*": "${workspaceFolder}/*"
+      }
+    },
+    {
+      "name": "Playwright Tests",
+      "type": "node-terminal",
+      "request": "launch",
+      "command": "pnpm run test:playwright",
+      "internalConsoleOptions": "neverOpen"
+    },
+    {
+      "name": "Vitest Tests",
+      "type": "node-terminal",
+      "request": "launch",
+      "command": "pnpm run test:vitest",
+      "internalConsoleOptions": "neverOpen"
+    }
+  ]
+}
