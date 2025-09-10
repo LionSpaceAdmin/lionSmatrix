@@ -1,0 +1,68 @@
+{
+  "messages": {
+    "en": {
+      "threats": [
+        "DISINFORMATION CAMPAIGN DETECTED",
+        "BOT NETWORK ACTIVITY SURGE",
+        "NARRATIVE MANIPULATION IN PROGRESS",
+        "COORDINATED INAUTHENTIC BEHAVIOR",
+        "DEEPFAKE CONTENT IDENTIFIED",
+        "FOREIGN INFLUENCE OPERATION",
+        "SOCIAL ENGINEERING ATTEMPT",
+        "PSYCHOLOGICAL WARFARE DETECTED"
+      ],
+      "defenses": [
+        "ACTIVATING COUNTERMEASURES",
+        "DEPLOYING TRUTH AMPLIFICATION",
+        "ENGAGING FACT-CHECK PROTOCOLS",
+        "INITIATING PREBUNKING SEQUENCE",
+        "MOBILIZING COMMUNITY RESPONSE",
+        "ESTABLISHING NARRATIVE FIREWALL",
+        "LAUNCHING COUNTER-NARRATIVE",
+        "SECURING INFORMATION PERIMETER"
+      ],
+      "status": [
+        "SYSTEM OPERATIONAL",
+        "ANALYZING THREAT VECTORS",
+        "MONITORING NARRATIVE FLOWS",
+        "TRACKING INFLUENCE NETWORKS",
+        "SCANNING FOR ANOMALIES",
+        "PROCESSING INTELLIGENCE DATA",
+        "CALIBRATING AI MODELS",
+        "MAINTAINING VIGILANCE"
+      ]
+    },
+    "he": {
+      "threats": [
+        "זוהתה קמפיין דיסאינפורמציה",
+        "עלייה בפעילות רשת בוטים",
+        "מניפולציה נרטיבית בתהליך",
+        "התנהגות לא אותנטית מתואמת",
+        "זוהה תוכן דיפ-פייק",
+        "פעולת השפעה זרה",
+        "ניסיון הנדסה חברתית",
+        "זוהתה לוחמה פסיכולוגית"
+      ],
+      "defenses": [
+        "מפעילים אמצעי נגד",
+        "פורסים הגברת אמת",
+        "מפעילים פרוטוקולי בדיקת עובדות",
+        "מתחילים רצף פרי-באנקינג",
+        "מגייסים תגובה קהילתית",
+        "מקימים חומת נרטיב",
+        "משיקים נרטיב נגדי",
+        "מאבטחים היקף מידע"
+      ],
+      "status": [
+        "המערכת פעילה",
+        "מנתחים וקטורי איום",
+        "עוקבים אחר זרימות נרטיב",
+        "מעקב אחר רשתות השפעה",
+        "סורקים אנומליות",
+        "מעבדים נתוני מודיעין",
+        "מכיילים מודלי AI",
+        "שומרים על ערנות"
+      ]
+    }
+  }
+}

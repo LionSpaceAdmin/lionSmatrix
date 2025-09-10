@@ -32,13 +32,12 @@
 				// Essential TypeScript & Next.js
 				"ms-vscode.vscode-typescript-next",
 				"bradlc.vscode-tailwindcss",
-				"ms-vscode.vscode-json",
 				
 				// GitHub & AI
-				"GitHub.copilot",
-				"GitHub.copilot-chat", 
-				"GitHub.vscode-pull-request-github",
-				"GitHub.remotehub",
+				"github.copilot",
+				"github.copilot-chat", 
+				"github.vscode-pull-request-github",
+				"github.remotehub",
 				"eamodio.gitlens",
 				
 				// Code Quality
@@ -47,23 +46,28 @@
 				"streetsidesoftware.code-spell-checker",
 				"usernamehw.errorlens",
 				
-				// Testing
+				// Next.js Development
+				"aabassiouni.next-js-app-router-helper",
+				"foxundermoon.next-js",
+				"imgildev.vscode-next-pack",
+				"willluke.nextjs",
+				"dsznajder.es7-react-js-snippets",
+				
+				// Browser & Live Development
+				"ms-vscode.live-server",
+				"ms-vscode.vscode-simple-browser",
+				"fermelone.simple-browser-multi",
+				
+				// Testing (E2E only)
 				"ms-playwright.playwright",
-				"ms-vscode.vscode-jest",
 				
 				// Development Tools
-				"ms-vscode.vscode-npm-script",
 				"christian-kohler.npm-intellisense",
 				"christian-kohler.path-intellisense",
 				"formulahendry.auto-rename-tag",
 				
-				// Container Support
-				"ms-azuretools.vscode-docker",
-				
-				// Productivity
-				"Gruntfuggly.todo-tree",
-				"alefragnani.Bookmarks",
-				"ms-vsliveshare.vsliveshare"
+				// Productivity (minimal)
+				"pkief.material-icon-theme"
 			],
 			
 			"settings": {

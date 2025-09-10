@@ -1,75 +1,78 @@
-// Base Gemini API Service
+// Gemini API Service with retry logic
 export class GeminiService {
   private apiKey: string;
-  private baseUrl: string = 'https://generativelanguage.googleapis.com/v1beta/models';
-  private imagenUrl: string = 'https://us-central1-aiplatform.googleapis.com/v1/projects/YOUR_PROJECT_ID/locations/us-central1/publishers/google/models/imagen-3:predict';
 
-  constructor(apiKey: string) {
+  constructor(apiKey: string = '') {
     this.apiKey = apiKey || process.env.NEXT_PUBLIC_GEMINI_API_KEY || '';
   }
 
-  async callGemini(payload: any): Promise<any> {
-    const model = payload.model || 'gemini-2.0-flash-exp';
-    const url = `${this.baseUrl}/${model}:generateContent?key=${this.apiKey}`;
-
+  async callGemini(payload: any, attempt: number = 1, maxAttempts: number = 5): Promise<any> {
+    const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${this.apiKey}`;
+    
     try {
-      const response = await fetch(url, {
+      const response = await fetch(apiUrl, {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(payload),
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
       });
 
       if (!response.ok) {
-        const error = await response.text();
-        throw new Error(`Gemini API error: ${response.status} - ${error}`);
+        if (response.status === 429 && attempt < maxAttempts) {
+          const delay = Math.pow(2, attempt) * 1000 + Math.random() * 1000;
+          await new Promise(res => setTimeout(res, delay));
+          return this.callGemini(payload, attempt + 1, maxAttempts);
+        }
+        throw new Error(`Network error: ${response.status}`);
       }
-
+      
       return await response.json();
     } catch (error) {
-      console.error('Gemini API call failed:', error);
+      if (attempt < maxAttempts) {
+        const delay = Math.pow(2, attempt) * 1000 + Math.random() * 1000;
+        await new Promise(res => setTimeout(res, delay));
+        return this.callGemini(payload, attempt + 1, maxAttempts);
+      }
       throw error;
     }
   }
 
-  async callImagen(prompt: string): Promise<any> {
+  async callImagen(prompt: string, attempt: number = 1, maxAttempts: number = 5): Promise<any> {
+    const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/imagen-3.0-generate-002:predict?key=${this.apiKey}`;
     const payload = {
       instances: [{ prompt }],
-      parameters: {
-        sampleCount: 1,
-        aspectRatio: "1:1",
-        safetyFilterLevel: "block_some",
-        personGeneration: "allow_adult"
-      }
+      parameters: { sampleCount: 1 }
     };
 
     try {
-      const response = await fetch(this.imagenUrl, {
+      const response = await fetch(apiUrl, {
         method: 'POST',
-        headers: {
-          'Authorization': `Bearer ${this.apiKey}`,
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(payload),
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
       });
 
       if (!response.ok) {
-        const error = await response.text();
-        throw new Error(`Imagen API error: ${response.status} - ${error}`);
+        if (response.status === 429 && attempt < maxAttempts) {
+          const delay = Math.pow(2, attempt) * 1000 + Math.random() * 1000;
+          await new Promise(res => setTimeout(res, delay));
+          return this.callImagen(prompt, attempt + 1, maxAttempts);
+        }
+        throw new Error(`Network error: ${response.status}`);
       }
-
+      
       return await response.json();
     } catch (error) {
-      console.error('Imagen API call failed:', error);
+      if (attempt < maxAttempts) {
+        const delay = Math.pow(2, attempt) * 1000 + Math.random() * 1000;
+        await new Promise(res => setTimeout(res, delay));
+        return this.callImagen(prompt, attempt + 1, maxAttempts);
+      }
       throw error;
     }
   }
 
   async generateHash(data: any): Promise<string> {
-    const encoder = new TextEncoder();
-    const dataBuffer = encoder.encode(JSON.stringify(data));
-    const hashBuffer = await crypto.subtle.digest('SHA-256', dataBuffer);
+    const msgUint8 = new TextEncoder().encode(JSON.stringify(data));
+    const hashBuffer = await crypto.subtle.digest('SHA-256', msgUint8);
     const hashArray = Array.from(new Uint8Array(hashBuffer));
     const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
     return hashHex;

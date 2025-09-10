@@ -1,0 +1,828 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="he">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>מדריך מקיף לVercel AI SDK עם Next.js</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.95);
+            margin-top: 20px;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+        
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            font-size: 2.5em;
+            margin-bottom: 30px;
+            padding: 20px 0;
+            border-bottom: 3px solid #3498db;
+            background: linear-gradient(45deg, #3498db, #2c3e50);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        h2 {
+            color: #2980b9;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            font-size: 1.8em;
+            padding: 10px 15px;
+            background: linear-gradient(90deg, #ecf0f1, #bdc3c7);
+            border-right: 4px solid #3498db;
+            border-radius: 5px;
+        }
+        
+        h3 {
+            color: #27ae60;
+            margin-top: 20px;
+            margin-bottom: 10px;
+            font-size: 1.4em;
+            border-bottom: 2px solid #2ecc71;
+            padding-bottom: 5px;
+        }
+        
+        h4 {
+            color: #8e44ad;
+            margin-top: 15px;
+            margin-bottom: 8px;
+            font-size: 1.2em;
+        }
+        
+        p, li {
+            margin-bottom: 10px;
+            line-height: 1.7;
+        }
+        
+        ul, ol {
+            margin-right: 25px;
+            margin-bottom: 15px;
+        }
+        
+        li {
+            margin-bottom: 8px;
+        }
+        
+        .highlight {
+            background: linear-gradient(120deg, #f39c12, #e74c3c);
+            color: white;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+        
+        .code-block {
+            background: #2c3e50;
+            color: #ecf0f1;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 15px 0;
+            overflow-x: auto;
+            border-right: 4px solid #3498db;
+            font-family: 'Consolas', monospace;
+            direction: ltr;
+            text-align: left;
+        }
+        
+        .inline-code {
+            background: #34495e;
+            color: #ecf0f1;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: 'Consolas', monospace;
+            font-size: 0.9em;
+        }
+        
+        .warning {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 15px 0;
+            border-right: 4px solid #fdcb6e;
+        }
+        
+        .tip {
+            background: #d1ecf1;
+            border: 1px solid #bee5eb;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 15px 0;
+            border-right: 4px solid #17a2b8;
+        }
+        
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+        
+        .feature-card {
+            background: linear-gradient(145deg, #f8f9fa, #e9ecef);
+            padding: 20px;
+            border-radius: 10px;
+            border-right: 4px solid #6c757d;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+        }
+        
+        .provider-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 15px 0;
+        }
+        
+        .provider-tag {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            font-weight: bold;
+        }
+        
+        .toc {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            border-right: 4px solid #007bff;
+        }
+        
+        .toc ul {
+            list-style-type: none;
+        }
+        
+        .toc li {
+            padding: 5px 0;
+        }
+        
+        .toc a {
+            color: #007bff;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .toc a:hover {
+            color: #0056b3;
+            text-decoration: underline;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                margin: 10px;
+                padding: 15px;
+            }
+            
+            h1 {
+                font-size: 2em;
+            }
+            
+            h2 {
+                font-size: 1.5em;
+            }
+            
+            .feature-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🚀 מדריך מקיף לVercel AI SDK עם Next.js</h1>
+        
+        <div class="toc">
+            <h3>🗂️ תוכן העניינים</h3>
+            <ul>
+                <li><a href="#overview">סקירה כללית</a></li>
+                <li><a href="#structure">מבנה הפרויקט</a></li>
+                <li><a href="#packages">חבילות ייעודיות</a></li>
+                <li><a href="#examples">דוגמאות Next.js</a></li>
+                <li><a href="#setup">הקמת פרויקט</a></li>
+                <li><a href="#basic-implementation">יישום בסיסי</a></li>
+                <li><a href="#advanced-features">פיצרים מתקדמים</a></li>
+                <li><a href="#providers">ספקי AI</a></li>
+                <li><a href="#ui-features">פיצרי UI</a></li>
+                <li><a href="#production">אדריכלות Production</a></li>
+                <li><a href="#development-opportunities">הזדמנויות פיתוח</a></li>
+            </ul>
+        </div>
+
+        <div id="overview">
+            <h2>🌟 סקירה כללית</h2>
+            <p><span class="highlight">Vercel AI SDK</span> הוא טולקיט TypeScript מתקדם המיועד לבניית אפליקציות מופעלות בינה מלאכותית. הפרויקט מתמחה בשילוב חלק עם <span class="highlight">Next.js</span> ומספק כלים מקצועיים לפיתוח אפליקציות AI ברמת production.</p>
+            
+            <div class="tip">
+                <strong>💡 למה לבחור ב-Vercel AI SDK?</strong><br>
+                הפרויקט מציע שילוב מושלם בין קלות שימוש לבין יכולות מתקדמות, עם תמיכה נרחבת ב-Next.js ובמגוון רחב של מודלים וספקי AI.
+            </div>
+        </div>
+
+        <div id="structure">
+            <h2>🏗️ מבנה הפרויקט</h2>
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h4>📦 packages/</h4>
+                    <p>החבילות הראשיות של ה-SDK כולל הספריות הייעודיות ל-React, RSC ו-AI core</p>
+                </div>
+                <div class="feature-card">
+                    <h4>🔧 examples/</h4>
+                    <p>מעל 11 דוגמאות מתקדמות של Next.js עם שילובים שונים של AI</p>
+                </div>
+                <div class="feature-card">
+                    <h4>📚 content/</h4>
+                    <p>תיעוד מקיף כולל docs, cookbook, ומדריכי providers</p>
+                </div>
+            </div>
+        </div>
+
+        <div id="packages">
+            <h2>📦 חבילות ייעודיות ל-Next.js</h2>
+            
+            <h3>החבילות הראשיות:</h3>
+            <ul>
+                <li><strong class="inline-code">@ai-sdk/react</strong> - Hooks מתקדמים המיועדים במיוחד ל-React ו-Next.js</li>
+                <li><strong class="inline-code">@ai-sdk/rsc</strong> - תמיכה מלאה ב-React Server Components</li>
+                <li><strong class="inline-code">ai</strong> - החבילה הראשית עם תמיכה נרחבת ל-Next.js</li>
+            </ul>
+
+            <div class="warning">
+                <strong>⚠️ הערה חשובה:</strong><br>
+                כדי לנצל את מלא היכולות, מומלץ להשתמש ב-Next.js 13+ עם App Router לקבלת התמיכה הטובה ביותר ב-Server Components.
+            </div>
+        </div>
+
+        <div id="examples">
+            <h2>🎯 דוגמאות Next.js (11 דוגמאות מתקדמות)</h2>
+            
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h4>next-openai</h4>
+                    <p>צ'אט בוט בסיסי עם OpenAI - נקודת התחלה מושלמת</p>
+                </div>
+                <div class="feature-card">
+                    <h4>next-agent</h4>
+                    <p>אדריכלות Agent מודולרית מתקדמת</p>
+                </div>
+                <div class="feature-card">
+                    <h4>next-langchain</h4>
+                    <p>שילוב מתקדם עם LangChain framework</p>
+                </div>
+                <div class="feature-card">
+                    <h4>next-fastapi</h4>
+                    <p>חיבור לbackend FastAPI Python</p>
+                </div>
+                <div class="feature-card">
+                    <h4>next-google-vertex</h4>
+                    <p>שילוב עם Google Vertex AI</p>
+                </div>
+                <div class="feature-card">
+                    <h4>next-openai-pages</h4>
+                    <p>שימוש ב-Pages Router הקלאסי</p>
+                </div>
+                <div class="feature-card">
+                    <h4>next-openai-telemetry</h4>
+                    <p>מעקב וניתוח טלמטריה</p>
+                </div>
+                <div class="feature-card">
+                    <h4>next-openai-telemetry-sentry</h4>
+                    <p>שילוב מתקדם עם Sentry לניטור</p>
+                </div>
+                <div class="feature-card">
+                    <h4>next-openai-upstash-rate-limits</h4>
+                    <p>מגבלות קצב עם Upstash Redis</p>
+                </div>
+                <div class="feature-card">
+                    <h4>next-openai-kasada-bot-protection</h4>
+                    <p>הגנה מתקדמת מפני בוטים</p>
+                </div>
+                <div class="feature-card">
+                    <h4>next</h4>
+                    <p>דוגמה גנרית עם כל הפיצרים</p>
+                </div>
+            </div>
+        </div>
+
+        <div id="setup">
+            <h2>🚀 הקמת פרויקט Next.js חדש</h2>
+            
+            <h3>יצירת פרויקט:</h3>
+            <div class="code-block">
+# יצירת פרויקט Next.js חדש
+pnpm create next-app@latest my-ai-app
+
+# התקנת החבילות הנדרשות
+pnpm add ai @ai-sdk/react @ai-sdk/openai zod
+
+# חבילות נוספות לפיצרים מתקדמים
+pnpm add @ai-sdk/anthropic @ai-sdk/google @ai-sdk/mistral
+            </div>
+
+            <div class="tip">
+                <strong>💡 טיפ:</strong><br>
+                השתמש ב-TypeScript לחוויה טובה יותר. ה-SDK מגיע עם type definitions מלאים.
+            </div>
+        </div>
+
+        <div id="basic-implementation">
+            <h2>💻 יישום בסיסי - מערכת צ'אט</h2>
+
+            <h3>1. יצירת API Route (App Router):</h3>
+            <div class="code-block">
+// app/api/chat/route.ts
+import { openai } from '@ai-sdk/openai';
+import { streamText, UIMessage, convertToModelMessages } from 'ai';
+
+export async function POST(req: Request) {
+  const { messages }: { messages: UIMessage[] } = await req.json();
+  
+  const result = streamText({
+    model: openai('gpt-4o'),
+    messages: convertToModelMessages(messages),
+    temperature: 0.7,
+    maxTokens: 1000,
+  });
+  
+  return result.toUIMessageStreamResponse();
+}
+            </div>
+
+            <h3>2. קומפוננטת Client:</h3>
+            <div class="code-block">
+// components/Chat.tsx
+'use client';
+import { useChat } from '@ai-sdk/react';
+
+export default function Chat() {
+  const { 
+    messages, 
+    input, 
+    handleInputChange, 
+    handleSubmit,
+    isLoading 
+  } = useChat();
+  
+  return (
+    &lt;div className="max-w-md mx-auto p-4"&gt;
+      &lt;div className="space-y-4 mb-4"&gt;
+        {messages.map(message =&gt; (
+          &lt;div 
+            key={message.id}
+            className={`p-3 rounded ${
+              message.role === 'user' 
+                ? 'bg-blue-100 ml-auto' 
+                : 'bg-gray-100'
+            }`}
+          &gt;
+            &lt;strong&gt;{message.role}:&lt;/strong&gt; {message.content}
+          &lt;/div&gt;
+        ))}
+        {isLoading && &lt;div&gt;AI חושב...&lt;/div&gt;}
+      &lt;/div&gt;
+      
+      &lt;form onSubmit={handleSubmit}&gt;
+        &lt;input
+          value={input}
+          onChange={handleInputChange}
+          placeholder="הקלד הודעה..."
+          className="w-full p-2 border rounded"
+          disabled={isLoading}
+        /&gt;
+        &lt;button 
+          type="submit" 
+          disabled={isLoading}
+          className="w-full mt-2 p-2 bg-blue-500 text-white rounded"
+        &gt;
+          שלח
+        &lt;/button&gt;
+      &lt;/form&gt;
+    &lt;/div&gt;
+  );
+}
+            </div>
+
+            <h3>3. דף ראשי:</h3>
+            <div class="code-block">
+// app/page.tsx
+import Chat from './components/Chat';
+
+export default function Home() {
+  return (
+    &lt;main&gt;
+      &lt;h1 className="text-2xl font-bold text-center mb-8"&gt;
+        AI Chat עם Next.js
+      &lt;/h1&gt;
+      &lt;Chat /&gt;
+    &lt;/main&gt;
+  );
+}
+            </div>
+        </div>
+
+        <div id="advanced-features">
+            <h2>🔥 פיצרים מתקדמים</h2>
+
+            <h3>1. Tools ו-Tool Calling:</h3>
+            <div class="code-block">
+// tools/weather.ts
+import { tool } from 'ai';
+import { z } from 'zod';
+
+export const weatherTool = tool({
+  description: 'Get weather information for a specific location',
+  inputSchema: z.object({
+    location: z.string().describe('The city or location'),
+    unit: z.enum(['celsius', 'fahrenheit']).default('celsius'),
+  }),
+  execute: async ({ location, unit }) => {
+    // קריאה לAPI מזג אוויר אמיתי
+    const temperature = 22 + Math.floor(Math.random() * 21) - 10;
+    return {
+      location,
+      temperature: unit === 'fahrenheit' ? (temperature * 9/5) + 32 : temperature,
+      unit,
+      description: 'בהיר עם עננים קלים'
+    };
+  }
+});
+
+// שימוש ב-Route:
+import { generateText } from 'ai';
+
+const result = await generateText({
+  model: openai('gpt-4'),
+  tools: { weather: weatherTool },
+  prompt: 'מה מזג האוויר בתל אביב?'
+});
+            </div>
+
+            <h3>2. Structured Data Generation:</h3>
+            <div class="code-block">
+// utils/structured-generation.ts
+import { generateObject } from 'ai';
+import { z } from 'zod';
+
+const recipeSchema = z.object({
+  recipe: z.object({
+    name: z.string(),
+    ingredients: z.array(z.string()),
+    instructions: z.array(z.string()),
+    prepTime: z.number(),
+    servings: z.number()
+  })
+});
+
+export async function generateRecipe(dishType: string) {
+  const { object } = await generateObject({
+    model: openai('gpt-4'),
+    schema: recipeSchema,
+    prompt: `צור מתכון מפורט ל${dishType}`
+  });
+  
+  return object.recipe;
+}
+            </div>
+
+            <h3>3. Streaming Capabilities:</h3>
+            <div class="code-block">
+// utils/streaming.ts
+import { streamText } from 'ai';
+
+export async function* streamStory(prompt: string) {
+  const { textStream } = streamText({
+    model: openai('gpt-4'),
+    prompt,
+    temperature: 0.8,
+  });
+
+  for await (const textPart of textStream) {
+    yield textPart;
+  }
+}
+
+// שימוש ברכיב:
+'use client';
+import { useState } from 'react';
+
+export function StoryGenerator() {
+  const [story, setStory] = useState('');
+  
+  const generateStory = async () => {
+    setStory('');
+    for await (const part of streamStory('כתוב סיפור על אבירים')) {
+      setStory(prev => prev + part);
+    }
+  };
+
+  return (
+    &lt;div&gt;
+      &lt;button onClick={generateStory}&gt;צור סיפור&lt;/button&gt;
+      &lt;div style={{whiteSpace: 'pre-wrap'}}&gt;{story}&lt;/div&gt;
+    &lt;/div&gt;
+  );
+}
+            </div>
+
+            <h3>4. Multi-modal (טקסט + תמונות):</h3>
+            <div class="code-block">
+// utils/vision.ts
+import { generateText } from 'ai';
+
+export async function analyzeImage(imageUrl: string, question: string) {
+  const result = await generateText({
+    model: openai('gpt-4-vision-preview'),
+    messages: [
+      {
+        role: 'user',
+        content: [
+          { type: 'text', text: question },
+          { type: 'image', image: imageUrl }
+        ]
+      }
+    ]
+  });
+  
+  return result.text;
+}
+            </div>
+        </div>
+
+        <div id="providers">
+            <h2>🌐 ספקי AI נתמכים (20+)</h2>
+            
+            <p>ה-SDK תומך במגוון רחב של ספקי AI:</p>
+            
+            <div class="provider-list">
+                <span class="provider-tag">OpenAI GPT</span>
+                <span class="provider-tag">Anthropic Claude</span>
+                <span class="provider-tag">Google Gemini</span>
+                <span class="provider-tag">xAI Grok</span>
+                <span class="provider-tag">Azure OpenAI</span>
+                <span class="provider-tag">Amazon Bedrock</span>
+                <span class="provider-tag">Mistral AI</span>
+                <span class="provider-tag">Groq (מהיר)</span>
+                <span class="provider-tag">Ollama (מקומי)</span>
+                <span class="provider-tag">Cohere</span>
+                <span class="provider-tag">DeepSeek</span>
+                <span class="provider-tag">Perplexity</span>
+                <span class="provider-tag">Vertex AI</span>
+                <span class="provider-tag">Hugging Face</span>
+                <span class="provider-tag">Together AI</span>
+                <span class="provider-tag">Replicate</span>
+            </div>
+
+            <h3>דוגמה לשימוש בספקים שונים:</h3>
+            <div class="code-block">
+// config/models.ts
+import { openai } from '@ai-sdk/openai';
+import { anthropic } from '@ai-sdk/anthropic';
+import { google } from '@ai-sdk/google';
+
+export const models = {
+  fast: openai('gpt-3.5-turbo'),      // מהיר וזול
+  smart: openai('gpt-4'),             // חכם יותר
+  claude: anthropic('claude-3-sonnet'), // אנתרופיק
+  gemini: google('gemini-pro')        // גוגל
+};
+
+// שימוש דינמי:
+const model = models[userPreference] || models.smart;
+const response = await generateText({
+  model,
+  prompt: userInput
+});
+            </div>
+        </div>
+
+        <div id="ui-features">
+            <h2>🎨 פיצרי UI מתקדמים</h2>
+
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h4>useChat Hook</h4>
+                    <p>ניהול state מלא של צ'אט עם היסטוריה, loading states ו-error handling</p>
+                </div>
+                <div class="feature-card">
+                    <h4>useCompletion</h4>
+                    <p>השלמת טקסט בזמן אמת עם streaming</p>
+                </div>
+                <div class="feature-card">
+                    <h4>useAssistant</h4>
+                    <p>עבודה עם OpenAI Assistants API</p>
+                </div>
+                <div class="feature-card">
+                    <h4>Streaming UI</h4>
+                    <p>ממשקים המתעדכנים בזמן אמת</p>
+                </div>
+                <div class="feature-card">
+                    <h4>Multi-modal Support</h4>
+                    <p>תמיכה בתמונות, שמע ווידאו</p>
+                </div>
+                <div class="feature-card">
+                    <h4>Tool Integration</h4>
+                    <p>קריאות לפונקציות חיצוניות</p>
+                </div>
+            </div>
+
+            <h3>דוגמה ל-useCompletion:</h3>
+            <div class="code-block">
+'use client';
+import { useCompletion } from '@ai-sdk/react';
+
+export function TextCompletion() {
+  const {
+    completion,
+    input,
+    handleInputChange,
+    handleSubmit,
+    isLoading
+  } = useCompletion({
+    api: '/api/completion',
+  });
+
+  return (
+    &lt;div&gt;
+      &lt;form onSubmit={handleSubmit}&gt;
+        &lt;textarea
+          value={input}
+          onChange={handleInputChange}
+          placeholder="התחל לכתוב..."
+        /&gt;
+        &lt;button type="submit" disabled={isLoading}&gt;
+          השלם טקסט
+        &lt;/button&gt;
+      &lt;/form&gt;
+      
+      &lt;div&gt;
+        {input}
+        &lt;span className="text-gray-500"&gt;{completion}&lt;/span&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  );
+}
+            </div>
+        </div>
+
+        <div id="production">
+            <h2>🏭 אדריכלות Production</h2>
+
+            <h3>Rate Limiting עם Upstash:</h3>
+            <div class="code-block">
+// lib/rate-limit.ts
+import { Ratelimit } from '@upstash/ratelimit';
+import { Redis } from '@upstash/redis';
+
+const ratelimit = new Ratelimit({
+  redis: Redis.fromEnv(),
+  limiter: Ratelimit.slidingWindow(10, "10 s"),
+});
+
+// שימוש ב-API Route:
+export async function POST(request: Request) {
+  const ip = request.headers.get('x-forwarded-for') || 'anonymous';
+  const { success } = await ratelimit.limit(ip);
+  
+  if (!success) {
+    return new Response('Rate limit exceeded', { status: 429 });
+  }
+  
+  // המשך הלוגיקה...
+}
+            </div>
+
+            <h3>Telemetry ומעקב:</h3>
+            <div class="code-block">
+// lib/telemetry.ts
+import { telemetry } from 'ai';
+
+telemetry.setProviders({
+  'openai': {
+    apiKey: process.env.OPENAI_API_KEY!,
+    onStart: (params) => {
+      console.log('Starting AI request:', params);
+    },
+    onFinish: (result) => {
+      console.log('AI request finished:', result);
+    },
+    onError: (error) => {
+      console.error('AI request failed:', error);
+    }
+  }
+});
+            </div>
+
+            <h3>Error Handling מתקדם:</h3>
+            <div class="code-block">
+// hooks/useErrorHandling.ts
+import { useState } from 'react';
+
+export function useErrorHandling() {
+  const [error, setError] = useState&lt;string | null&gt;(null);
+  
+  const handleError = (error: any) => {
+    if (error.code === 'RATE_LIMIT_EXCEEDED') {
+      setError('יותר מדי בקשות. נסה שוב בעוד מספר דקות.');
+    } else if (error.code === 'INSUFFICIENT_CREDITS') {
+      setError('אזל הקרדיט. אנא עדכן את התוכנית שלך.');
+    } else {
+      setError('שגיאה לא צפויה. נסה שוב מאוחר יותר.');
+    }
+  };
+  
+  return { error, handleError, clearError: () => setError(null) };
+}
+            </div>
+        </div>
+
+        <div id="development-opportunities">
+            <h2>🚀 הזדמנויות פיתוח</h2>
+
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h4>🤖 Chatbots מתקדמים</h4>
+                    <p>בוטים עם כלים, חיפוש במסדי נתונים, וזיכרון ארוך טווח</p>
+                </div>
+                <div class="feature-card">
+                    <h4>📝 Content Generation</h4>
+                    <p>יצירת תוכן מובנה כמו מאמרים, דו"חות ומצגות</p>
+                </div>
+                <div class="feature-card">
+                    <h4>🎯 AI Agents</h4>
+                    <p>סוכנים אוטונומיים המבצעים משימות מורכבות</p>
+                </div>
+                <div class="feature-card">
+                    <h4>🔍 RAG Applications</h4>
+                    <p>חיפוש ומענה על סמך מסדי נתונים פנימיים</p>
+                </div>
+                <div class="feature-card">
+                    <h4>🖼️ Multi-modal Apps</h4>
+                    <p>עיבוד תמונות, שמע ווידאו יחד עם טקסט</p>
+                </div>
+                <div class="feature-card">
+                    <h4>⚡ Real-time Streaming</h4>
+                    <p>חוויות אינטראקטיביות עם עדכונים בזמן אמת</p>
+                </div>
+                <div class="feature-card">
+                    <h4>📊 Data Analysis</h4>
+                    <p>ניתוח נתונים וויזואליזציה באמצעות AI</p>
+                </div>
+                <div class="feature-card">
+                    <h4>🎓 Educational Apps</h4>
+                    <p>פלטפורמות למידה מותאמות אישית</p>
+                </div>
+                <div class="feature-card">
+                    <h4>💼 Business Automation</h4>
+                    <p>אוטומציה של תהליכים עסקיים</p>
+                </div>
+            </div>
+
+            <div class="tip">
+                <strong>💡 טיפים להצלחה:</strong><br>
+                • התחל עם דוגמה פשוטה ובנה עליה<br>
+                • השתמש ב-TypeScript לבטיחות טיפוסים<br>
+                • תכנן את מבנה ה-API routes מראש<br>
+                • הוסף rate limiting ו-error handling<br>
+                • בדוק ביצועים עם כלים כמו Next.js Analytics
+            </div>
+        </div>
+
+        <div style="margin-top: 40px; padding: 20px; background: linear-gradient(45deg, #667eea, #764ba2); color: white; border-radius: 10px; text-align: center;">
+            <h3>🎯 סיכום</h3>
+            <p><strong>Vercel AI SDK</strong> מציע אקוסיסטם מלא ומתקדם לפיתוח אפליקציות AI עם <strong>Next.js</strong>. עם תמיכה רחבה בספקים שונים, פיצרים מתקדמים כמו streaming ו-tool calling, ודוגמאות מקיפות - זהו הבסיס המושלם לכל פרויקט AI מודרני.</p>
+            
+            <p><strong>המלצה:</strong> התחל עם אחת הדוגמאות, הכר את ה-APIs הבסיסיים, ואז בנה את הפיצרים הייחודיים שלך על הבסיס החזק הזה.</p>
+        </div>
+
+        <footer style="margin-top: 30px; text-align: center; color: #666; border-top: 2px solid #eee; padding-top: 20px;">
+            <p>📅 נוצר ב-2024 | 🚀 Powered by Vercel AI SDK & Next.js</p>
+        </footer>
+    </div>
+</body>
+</html>

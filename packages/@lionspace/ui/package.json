@@ -1,0 +1,45 @@
+{
+  "name": "@lionspace/ui",
+  "version": "0.0.1",
+  "description": "LionSpace UI Component Library - Atoms, Molecules, Organisms & Templates",
+  "main": "index.ts",
+  "module": "index.ts",
+  "types": "index.d.ts",
+  "private": true,
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "type-check": "tsc --noEmit"
+  },
+  "peerDependencies": {
+    "react": "^18.0.0",
+    "react-dom": "^18.0.0"
+  },
+  "devDependencies": {
+    "@types/react": "^18.0.0",
+    "@types/react-dom": "^18.0.0",
+    "typescript": "^5.0.0"
+  },
+  "exports": {
+    ".": {
+      "import": "./index.ts",
+      "require": "./index.ts"
+    },
+    "./atoms": {
+      "import": "./atoms/index.ts",
+      "require": "./atoms/index.ts"
+    },
+    "./molecules": {
+      "import": "./molecules/index.ts",
+      "require": "./molecules/index.ts"
+    },
+    "./organisms": {
+      "import": "./organisms/index.ts",
+      "require": "./organisms/index.ts"
+    },
+    "./templates": {
+      "import": "./templates/index.ts",
+      "require": "./templates/index.ts"
+    }
+  }
+}

@@ -1,0 +1,28 @@
+/* Emergency fix for green circle */
+div[style*="background-color: rgb(110, 231, 183)"],
+div[style*="backgroundColor: rgb(110, 231, 183)"],
+div[style*="background: rgb(110, 231, 183)"],
+div[style*="#6EE7B7"],
+div[style*="#6ee7b7"],
+*[style*="borderRadius: '50%'"][style*="width: 100"],
+*[style*="border-radius: 50%"][style*="width: 100"],
+.fixed.inset-0[style*="background"],
+div.fixed[style*="inset: 0px"],
+div[style*="position: fixed"][style*="inset: 0px"][style*="background"] {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+  z-index: -9999 !important;
+}
+
+/* Hide any large circular elements */
+*[style*="width: 100vw"][style*="height: 100vh"][style*="border-radius"],
+*[style*="width: 100%"][style*="height: 100%"][style*="border-radius: 50%"] {
+  display: none !important;
+}
+
+/* Force background to be dark */
+body {
+  background-color: rgb(var(--terminal-bg)) !important;
+}

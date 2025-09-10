@@ -1,0 +1,2905 @@
+<!DOCTYPE html>
+
+<html lang="en" dir="ltr">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>LionSpace: Consciousness Warfare Command</title>
+
+    <!-- LionSpace v3.2 // Gemini API Integration -->
+
+    <!-- NEW: LionSpaceServices are now LIVE. Replaced placeholder logic with actual calls to the Gemini API. -->
+
+    <!-- DETAIL: Threat Analysis, Conversational Investigation, ImageGen Studio, and Daily Briefing are now powered by Gemini models. -->
+
+    <!-- DETAIL: Implemented robust API call handling with exponential backoff for retries. -->
+
+    <!-- PROTOCOL: Additive-Only code commit. -->
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+    <style>
+
+        /* layout adjustments */
+
+        html {
+
+            height: 100%;
+
+            scroll-behavior: smooth;
+
+        }
+
+        body {
+
+            min-height: 100vh;
+
+            overflow-x: hidden;
+
+            background-color: #0B1220;
+
+            font-family: 'Source Sans Pro', sans-serif;
+
+        }
+
+        .font-headline {
+
+            font-family: 'Space Mono', monospace;
+
+        }
+
+        .font-body {
+
+            font-family: 'Source Sans Pro', sans-serif;
+
+        }
+
+        #code-veil {
+
+            position: fixed;
+
+            top: 0;
+
+            left: 0;
+
+            width: 100%;
+
+            height: 100%;
+
+            z-index: 0;
+
+        }
+
+        .content-wrapper {
+
+            position: relative;
+
+            z-index: 1;
+
+        }
+
+        .typewriter-cursor::after {
+
+            content: '█';
+
+            animation: blink 1.2s step-end infinite;
+
+            text-shadow: 0 0 5px #B8FFF2;
+
+            color: #B8FFF2;
+
+        }
+
+        @keyframes blink {
+
+            50% {
+
+                opacity: 0;
+
+            }
+
+        }
+
+        .cta-button, .gemini-button {
+
+            transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+
+            font-family: 'Space Mono', monospace;
+
+        }
+
+        .cta-button:hover, .gemini-button:hover {
+
+            background-color: #B8FFF2;
+
+            color: #0B1220;
+
+            transform: translateY(-3px);
+
+            box-shadow: 0 10px 20px rgba(184, 255, 242, 0.2);
+
+        }
+
+        .cta-button:focus, .gemini-button:focus {
+
+            outline: 2px solid #B8FFF2;
+
+            outline-offset: 3px;
+
+        }
+
+        .gemini-button {
+
+            background-color: rgba(184, 255, 242, 0.1);
+
+            border: 1px solid rgba(184, 255, 242, 0.5);
+
+        }
+
+         .gemini-button:disabled {
+
+            opacity: 0.5;
+
+            cursor: not-allowed;
+
+            transform: translateY(0);
+
+            box-shadow: none;
+
+        }
+
+        .ai-terminal {
+
+            border: 1px solid rgba(184, 255, 242, 0.2);
+
+            background: rgba(11, 18, 32, 0.7);
+
+            backdrop-filter: blur(10px);
+
+        }
+
+        .ai-result h2, #chat-history h2, #dossier-content h2, .network-insights h2 {
+
+            font-size: 1.25rem;
+
+            font-weight: 700;
+
+            color: #B8FFF2;
+
+            margin-top: 1rem;
+
+            margin-bottom: 0.5rem;
+
+            font-family: 'Space Mono', monospace;
+
+        }
+
+        .ai-result .reliability-score {
+
+            font-size: 3rem;
+
+            font-weight: 700;
+
+            font-family: 'Space Mono', monospace;
+
+            text-align: center;
+
+            margin: 1rem 0;
+
+        }
+
+        .ai-result .reliability-label {
+
+            text-align: center;
+
+            font-size: 1rem;
+
+            color: #cbd5e1;
+
+            margin-bottom: 2rem;
+
+        }
+
+        #dossier-content h3, .campaign-plan h3, .network-insights h3 {
+
+             font-size: 1.1rem;
+
+            font-weight: 700;
+
+            color: #a7e6ff;
+
+            margin-top: 1.5rem;
+
+            margin-bottom: 0.5rem;
+
+            font-family: 'Space Mono', monospace;
+
+        }
+
+         .ai-result p, .ai-result li, #chat-history p, #dossier-content p, .campaign-plan p, .campaign-plan li, .network-insights p, .network-insights li {
+
+            margin-bottom: 1rem;
+
+            line-height: 1.6;
+
+        }
+
+        .ai-result ul, #dossier-content ul, .campaign-plan ul, .network-insights ul {
+
+            list-style: none;
+
+            padding-left: 0;
+
+        }
+
+        .ai-result li::before, #dossier-content li::before, .campaign-plan li::before, .network-insights li::before {
+
+            content: '›';
+
+            color: #B8FFF2;
+
+            margin-right: 0.5rem;
+
+            font-weight: bold;
+
+        }
+
+        .campaign-plan blockquote {
+
+            border-right: 3px solid #B8FFF2;
+
+            padding-right: 1rem;
+
+            margin-right: 0;
+
+            font-style: italic;
+
+            color: #e2e8f0;
+
+        }
+
+        .tab {
+
+            transition: all 0.2s ease-in-out;
+
+            font-family: 'Space Mono', monospace;
+
+        }
+
+        .tab.active {
+
+            background-color: rgba(184, 255, 242, 0.2);
+
+            border-bottom-color: #B8FFF2;
+
+            color: #B8FFF2;
+
+        }
+
+        .tab-content {
+
+            display: none;
+
+        }
+
+        .tab-content.active {
+
+            display: block;
+
+        }
+
+        .chat-bubble {
+
+            padding: 0.75rem 1rem;
+
+            border-radius: 0.75rem;
+
+            max-width: 80%;
+
+            margin-bottom: 0.5rem;
+
+        }
+
+        .chat-bubble.user {
+
+            background-color: rgba(184, 255, 242, 0.2);
+
+            align-self: flex-end;
+
+            text-align: right;
+
+        }
+
+        .chat-bubble.model {
+
+            background-color: #1E293B;
+
+            align-self: flex-start;
+
+        }
+
+        #osint-table th {
+
+            cursor: pointer;
+
+            font-family: 'Space Mono', monospace;
+
+        }
+
+        #dossier-modal {
+
+            background: rgba(11, 18, 32, 0.9);
+
+            backdrop-filter: blur(15px);
+
+        }
+
+        .chart-container {
+
+            position: relative;
+
+            width: 100%;
+
+            height: 350px; /* Adjusted height for better mobile view */
+
+        }
+
+        #audio-upload-label {
+
+             background-color: rgba(184, 255, 242, 0.1);
+
+            border: 1px solid rgba(184, 255, 242, 0.5);
+
+        }
+
+        #audio-upload-label:hover {
+
+            background-color: #B8FFF2;
+
+            color: #0B1220;
+
+        }
+
+        .kpi-card {
+
+            background-color: rgba(184, 255, 242, 0.05);
+
+            border: 1px solid rgba(184, 255, 242, 0.2);
+
+            border-radius: 0.5rem;
+
+            padding: 1.5rem;
+
+            text-align: center;
+
+        }
+
+        .kpi-value {
+
+            font-size: 2.5rem;
+
+            font-weight: 700;
+
+            color: #B8FFF2;
+
+            font-family: 'Space Mono', monospace;
+
+        }
+
+        .kpi-label {
+
+            font-size: 1rem;
+
+            color: #cbd5e1;
+
+            font-family: 'Source Sans Pro', sans-serif;
+
+        }
+
+        .log-entry {
+
+            border-left: 3px solid #B8FFF2;
+
+            padding-left: 1rem;
+
+            margin-bottom: 1.5rem;
+
+        }
+
+        .log-meta {
+
+            font-family: 'Space Mono', monospace;
+
+            font-size: 0.8rem;
+
+            color: #94a3b8;
+
+        }
+
+        .log-hash {
+
+            font-family: 'Space Mono', monospace;
+
+            font-size: 0.75rem;
+
+            color: #64748b;
+
+            word-break: break-all;
+
+        }
+
+        .automation-item {
+
+            transition: all 0.3s ease-in-out;
+
+        }
+
+        .status-dot {
+
+            width: 10px;
+
+            height: 10px;
+
+            border-radius: 50%;
+
+            display: inline-block;
+
+            margin-right: 0.5rem;
+
+        }
+
+        .status-dot.active {
+
+            background-color: #4ade80; /* green-400 */
+
+            box-shadow: 0 0 5px #4ade80;
+
+        }
+
+        .status-dot.paused {
+
+            background-color: #facc15; /* yellow-400 */
+
+        }
+
+        @keyframes pulse-animation {
+
+            0% { box-shadow: 0 0 0 0 rgba(74, 222, 128, 0.7); }
+
+            70% { box-shadow: 0 0 0 10px rgba(74, 222, 128, 0); }
+
+            100% { box-shadow: 0 0 0 0 rgba(74, 222, 128, 0); }
+
+        }
+
+        .status-dot.running {
+
+            animation: pulse-animation 1.5s infinite;
+
+        }
+
+        /* Language Switcher Styles */
+
+        #language-switcher {
+
+            position: relative;
+
+        }
+
+        #language-dropdown {
+
+            display: none;
+
+            position: absolute;
+
+            top: 100%;
+
+            right: 0;
+
+            background-color: rgba(11, 18, 32, 0.9);
+
+            border: 1px solid rgba(184, 255, 242, 0.2);
+
+            border-radius: 0.5rem;
+
+            padding: 0.5rem;
+
+            z-index: 50;
+
+            backdrop-filter: blur(10px);
+
+            width: 160px;
+
+        }
+
+        #language-dropdown button {
+
+            display: flex;
+
+            align-items: center;
+
+            width: 100%;
+
+            padding: 0.5rem 0.75rem;
+
+            text-align: left;
+
+            font-family: 'Source Sans Pro', sans-serif;
+
+            color: #cbd5e1;
+
+            border-radius: 0.25rem;
+
+            transition: background-color 0.2s;
+
+        }
+
+        #language-dropdown button:hover {
+
+            background-color: rgba(184, 255, 242, 0.1);
+
+            color: #B8FFF2;
+
+        }
+
+        .flag-icon {
+
+            width: 20px;
+
+            height: 15px;
+
+            margin-right: 0.75rem;
+
+            border: 1px solid rgba(255,255,255,0.2);
+
+        }
+
+        #code-veil{pointer-events:none;position:fixed;inset:0;width:100vw;height:100vh;z-index:0;}
+
+    </style>
+
+</head>
+
+<body class="font-body text-white">
+
+
+
+    <canvas id="code-veil"></canvas>
+
+
+
+    <div class="content-wrapper flex flex-col items-center justify-center min-h-screen p-4 sm:p-6 md:p-8">
+
+        <main class="flex flex-col items-center justify-center text-center w-full max-w-4xl flex-grow">
+
+            <!-- Language Switcher UI -->
+
+            <div class="absolute top-4 right-4 z-20" id="language-switcher">
+
+                 <button id="language-toggle" class="p-2 text-gray-400 hover:text-white">
+
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5h12M9 3v2m4 13l4-4M19 17v-2a4 4 0 00-4-4H9M5 13l4-4M5 17v-2a4 4 0 014-4h2"></path></svg>
+
+                 </button>
+
+                 <div id="language-dropdown">
+
+                    <!-- Languages will be dynamically inserted here -->
+
+                 </div>
+
+            </div>
+
+
+
+            <h1 data-i18n-key="hero_title" class="font-headline font-normal text-white text-3xl sm:text-4xl md:text-5xl lg:text-6xl tracking-tighter mb-8" style="letter-spacing: -0.01em;">Truth is pattern. AI sees it.</h1>
+
+            
+
+            <div id="narrative-container" class="font-body font-light text-lg md:text-xl text-gray-300 min-h-[140px] sm:min-h-[100px] md:min-h-[70px] mb-10 w-full">
+
+                <p id="narrative-line" class="typewriter-cursor"></p>
+
+            </div>
+
+
+
+            <p data-i18n-key="hero_subtitle" class="font-body font-light text-base md:text-lg text-gray-400 mb-10">Join the battle for truth. Become a warrior of consciousness.</p>
+
+
+
+            <div class="flex flex-col sm:flex-row gap-4">
+
+                <a href="/auth" id="cta-link" data-i18n-key="hero_cta_join" class="cta-button text-lg bg-transparent border-2 border-[#B8FFF2] text-[#B8FFF2] py-3 px-10 rounded-md">
+
+                    Analyze & Engage
+
+                </a>
+
+                <a href="#ai-section" class="gemini-button text-lg text-[#B8FFF2] py-3 px-10 rounded-md" data-i18n-key="hero_cta_activate">
+
+                    Activate AI Terminal
+
+                </a>
+
+            </div>
+
+        </main>
+
+
+
+        <footer class="w-full py-4 absolute bottom-0">
+
+            <div id="console-footer" class="font-headline text-sm text-gray-500 text-center min-h-[20px]">
+
+                <span id="console-text" class="typewriter-cursor"></span>
+
+            </div>
+
+        </footer>
+
+    </div>
+
+
+
+    <!-- Gemini API Section -->
+
+	<div id="ai-section" class="w-full relative py-20">
+
+        <div class="ai-terminal max-w-6xl mx-auto p-6 sm:p-8 rounded-lg shadow-2xl">
+
+            <div class="flex border-b border-b-2 border-transparent mb-6 overflow-x-auto">
+
+                <button data-tab="analytics" class="tab active text-lg py-2 px-6 border-b-2 border-transparent flex-shrink-0" data-i18n-key="tab_analytics">Analytics</button>
+
+                <button data-tab="evidence-log" class="tab text-lg py-2 px-6 border-b-2 border-transparent flex-shrink-0" data-i18n-key="tab_evidence_log">Evidence Log</button>
+
+                <button data-tab="daily-brief" class="tab text-lg py-2 px-6 border-b-2 border-transparent flex-shrink-0" data-i18n-key="tab_daily_brief">Daily Brief</button>
+
+                <button data-tab="strategic-assessment" class="tab text-lg py-2 px-6 border-b-2 border-transparent flex-shrink-0" data-i18n-key="tab_strategic_assessment">Strategic Assessment</button>
+
+                <button data-tab="influence-mapper" class="tab text-lg py-2 px-6 border-b-2 border-transparent flex-shrink-0" data-i18n-key="tab_influence_mapper">Influence Mapper</button>
+
+                <button data-tab="text-analysis" class="tab text-lg py-2 px-6 border-b-2 border-transparent flex-shrink-0" data-i18n-key="tab_threat_analysis">Threat Analysis</button>
+
+                <button data-tab="news-pulse" class="tab text-lg py-2 px-6 border-b-2 border-transparent flex-shrink-0" data-i18n-key="tab_news_pulse">Real-time NewsPulse</button>
+
+                <button data-tab="automations" class="tab text-lg py-2 px-6 border-b-2 border-transparent flex-shrink-0" data-i18n-key="tab_automations">Automations</button>
+
+                <button data-tab="osint-archive" class="tab text-lg py-2 px-6 border-b-2 border-transparent flex-shrink-0" data-i18n-key="tab_osint_archive">OSINT Archive</button>
+
+                <button data-tab="campaign-generator" class="tab text-lg py-2 px-6 border-b-2 border-transparent flex-shrink-0" data-i18n-key="tab_campaign_generator">Campaign Generator</button>
+
+                <button data-tab="image-studio" class="tab text-lg py-2 px-6 border-b-2 border-transparent flex-shrink-0" data-i18n-key="tab_image_studio">ImageGen Studio</button>
+
+                <button data-tab="video-analysis" class="tab text-lg py-2 px-6 border-b-2 border-transparent flex-shrink-0" data-i18n-key="tab_video_analysis">Video Analysis</button>
+
+                <button data-tab="audio-analysis" class="tab text-lg py-2 px-6 border-b-2 border-transparent flex-shrink-0" data-i18n-key="tab_audio_analysis">Audio Analysis</button>
+
+                <button data-tab="trust-verification" class="tab text-lg py-2 px-6 border-b-2 border-transparent flex-shrink-0" data-i18n-key="tab_trust_verification">Trust & Verification</button>
+
+                <button data-tab="investigation" class="tab text-lg py-2 px-6 border-b-2 border-transparent flex-shrink-0" data-i18n-key="tab_investigation">Conversational Investigation</button>
+
+            </div>
+
+
+
+            <!-- Analytics Dashboard Tab -->
+
+            <div id="analytics-content" class="tab-content active">
+
+                <h2 data-i18n-key="analytics_title" class="font-headline text-3xl text-center mb-6 text-[#B8FFF2]">Analytics Dashboard</h2>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+
+                    <div class="kpi-card">
+
+                        <div id="kpi-time-to-counter" class="kpi-value">4.2h</div>
+
+                        <div class="kpi-label" data-i18n-key="analytics_kpi_time_to_counter">Avg. Time to Counter</div>
+
+                    </div>
+
+                    <div class="kpi-card">
+
+                        <div id="kpi-reach-delta" class="kpi-value">+18%</div>
+
+                        <div class="kpi-label" data-i18n-key="analytics_kpi_reach_delta">Reach Delta (7d)</div>
+
+                    </div>
+
+                    <div class="kpi-card">
+
+                        <div id="kpi-precision" class="kpi-value">92%</div>
+
+                        <div class="kpi-label" data-i18n-key="analytics_kpi_precision">Analysis Precision</div>
+
+                    </div>
+
+                    <div class="kpi-card">
+
+                        <div id="kpi-ops-ran" class="kpi-value">1,204</div>
+
+                        <div class="kpi-label" data-i18n-key="analytics_kpi_ops_ran">Campaigns Ran</div>
+
+                    </div>
+
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+
+                    <div class="bg-black bg-opacity-20 p-4 rounded-lg">
+
+                        <h3 class="font-headline text-xl mb-4 text-center text-gray-300" data-i18n-key="analytics_chart_sov">Narrative Share of Voice (SOV)</h3>
+
+                        <div class="chart-container">
+
+                            <canvas id="sov-chart"></canvas>
+
+                        </div>
+
+                    </div>
+
+                    <div class="bg-black bg-opacity-20 p-4 rounded-lg">
+
+                        <h3 class="font-headline text-xl mb-4 text-center text-gray-300" data-i18n-key="analytics_chart_sentiment">Sentiment Analysis Over Time</h3>
+
+                        <div class="chart-container">
+
+                             <canvas id="sentiment-chart"></canvas>
+
+                        </div>
+
+                    </div>
+
+                     <div class="bg-black bg-opacity-20 p-4 rounded-lg">
+
+                        <h3 class="font-headline text-xl mb-4 text-center text-gray-300" data-i18n-key="analytics_chart_platform">Disinformation Signals by Platform</h3>
+
+                        <div class="chart-container">
+
+                             <canvas id="platform-chart"></canvas>
+
+                        </div>
+
+                    </div>
+
+                     <div class="bg-black bg-opacity-20 p-4 rounded-lg">
+
+                        <h3 class="font-headline text-xl mb-4 text-center text-gray-300" data-i18n-key="analytics_chart_keywords">Trending Disinfo Keywords</h3>
+
+                        <div class="chart-container">
+
+                             <canvas id="keywords-chart"></canvas>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+             <!-- Evidence Log Tab -->
+
+            <div id="evidence-log-content" class="tab-content">
+
+                <h2 data-i18n-key="evidence_log_title" class="font-headline text-3xl text-center mb-2 text-[#B8FFF2]">Immutable Evidence Log</h2>
+
+                <p data-i18n-key="evidence_log_subtitle" class="text-center text-gray-400 mb-6">A chronological, cryptographically-secured audit trail of all intelligence findings logged in the system.</p>
+
+                <div id="evidence-log-list" class="max-h-[600px] overflow-y-auto pr-4">
+
+                    <p class="text-center text-gray-500" data-i18n-key="evidence_log_empty">No evidence has been logged yet.</p>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- Daily Brief Tab -->
+
+            <div id="daily-brief-content" class="tab-content">
+
+                 <h2 data-i18n-key="daily_brief_title" class="font-headline text-3xl text-center mb-2 text-[#B8FFF2]">Daily Intelligence Brief</h2>
+
+                <p data-i18n-key="daily_brief_subtitle" class="text-center text-gray-400 mb-6">Generate a "ready-to-share" intelligence brief on the top global disinformation threats from the last 24 hours.</p>
+
+                <div class="flex justify-center mt-4">
+
+                    <button id="generate-brief-button" class="gemini-button text-lg text-[#B8FFF2] py-3 px-10 rounded-md" data-i18n-key="daily_brief_button">
+
+                        ✨ Generate Today's Brief
+
+                    </button>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- Strategic Threat Assessment Tab -->
+
+            <div id="strategic-assessment-content" class="tab-content">
+
+                <h2 data-i18n-key="strategic_assessment_title" class="font-headline text-3xl text-center mb-2 text-[#B8FFF2]">Strategic Threat Assessment</h2>
+
+                <p data-i18n-key="strategic_assessment_subtitle" class="text-center text-gray-400 mb-6">Enter a high-level topic or operational area to generate a comprehensive intelligence report.</p>
+
+                <input type="text" id="strategic-topic-input" class="w-full p-3 bg-[#0E0E10] border border-gray-700 rounded-md text-white font-body focus:ring-2 focus:ring-[#B8FFF2] focus:outline-none" data-i18n-key="strategic_assessment_placeholder" placeholder="e.g., Russian influence operations in Africa, Iranian propaganda in South America...">
+
+                <div class="flex justify-center mt-4">
+
+                    <button id="assess-threat-button" class="gemini-button text-lg text-[#B8FFF2] py-3 px-10 rounded-md" data-i18n-key="strategic_assessment_button">
+
+                        ✨ Generate Threat Report
+
+                    </button>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- ... (Other tabs remain the same) ... -->
+
+             <!-- Influence Mapper Tab -->
+
+            <div id="influence-mapper-content" class="tab-content">
+
+                <h2 data-i18n-key="influence_mapper_title" class="font-headline text-3xl text-center mb-2 text-[#B8FFF2]">Dynamic Influence Mapper</h2>
+
+                <p data-i18n-key="influence_mapper_subtitle" class="text-center text-gray-400 mb-6">Enter a target and a topic to map their influence network in real-time.</p>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+
+                    <input type="text" id="mapper-target-input" class="w-full p-3 bg-[#0E0E10] border border-gray-700 rounded-md text-white font-body focus:ring-2 focus:ring-[#B8FFF2] focus:outline-none" data-i18n-key="influence_mapper_placeholder_target" placeholder="Target Entity (e.g., The Grayzone)">
+
+                    <input type="text" id="mapper-topic-input" class="w-full p-3 bg-[#0E0E10] border border-gray-700 rounded-md text-white font-body focus:ring-2 focus:ring-[#B8FFF2] focus:outline-none" data-i18n-key="influence_mapper_placeholder_topic" placeholder="Topic/Narrative (e.g., Syria conflict)">
+
+                </div>
+
+                <div class="flex justify-center mt-4">
+
+                    <button id="trace-influence-button" class="gemini-button text-lg text-[#B8FFF2] py-3 px-10 rounded-md" data-i18n-key="influence_mapper_button">
+
+                        ✨ Trace Influence Network
+
+                    </button>
+
+                </div>
+
+                <div class="chart-container mt-6">
+
+                    <canvas id="dynamic-network-chart"></canvas>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- Threat Analysis Tab -->
+
+            <div id="text-analysis-content" class="tab-content">
+
+                <h2 data-i18n-key="threat_analysis_title" class="font-headline text-3xl text-center mb-2 text-[#B8FFF2]">Threat Analysis & Narrative Tracking</h2>
+
+                <p data-i18n-key="threat_analysis_subtitle" class="text-center text-gray-400 mb-6">Paste a topic or suspicious text. Get a quick analysis or a full real-time narrative report.</p>
+
+                <textarea id="text-input" class="w-full h-32 p-3 bg-[#0E0E10] border border-gray-700 rounded-md text-white font-body focus:ring-2 focus:ring-[#B8FFF2] focus:outline-none" data-i18n-key="threat_analysis_placeholder" placeholder="Paste text or topic here..."></textarea>
+
+                <div class="flex flex-col sm:flex-row gap-4 mt-4 justify-center">
+
+                    <button id="analyze-button" class="gemini-button text-lg text-[#B8FFF2] py-3 px-10 rounded-md" data-i18n-key="threat_analysis_button_quick">
+
+                        ✨ Quick Analysis
+
+                    </button>
+
+                    <button id="narrative-button" class="gemini-button text-lg text-[#B8FFF2] py-3 px-10 rounded-md" data-i18n-key="threat_analysis_button_track">
+
+                        ✨ Track Competing Narratives
+
+                    </button>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- NewsPulse Tab -->
+
+            <div id="news-pulse-content" class="tab-content">
+
+                <h2 data-i18n-key="news_pulse_title" class="font-headline text-3xl text-center mb-2 text-[#B8FFF2]">Real-time NewsPulse</h2>
+
+                <p data-i18n-key="news_pulse_subtitle" class="text-center text-gray-400 mb-6">Enter a topic to scan the latest news (last 24 hours) for developing narratives and disinformation signals.</p>
+
+                <input type="text" id="news-topic-input" class="w-full p-3 bg-[#0E0E10] border border-gray-700 rounded-md text-white font-body focus:ring-2 focus:ring-[#B8FFF2] focus:outline-none" data-i18n-key="news_pulse_placeholder" placeholder="e.g., UNRWA funding, Gaza conflict...">
+
+                <div class="flex justify-center mt-4">
+
+                    <button id="scan-news-button" class="gemini-button text-lg text-[#B8FFF2] py-3 px-10 rounded-md" data-i18n-key="news_pulse_button">
+
+                        ✨ Scan Real-time News
+
+                    </button>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- Automations Tab -->
+
+            <div id="automations-content" class="tab-content">
+
+                <h2 data-i18n-key="automations_title" class="font-headline text-3xl text-center mb-2 text-[#B8FFF2]">Automations & Tasks</h2>
+
+                <p data-i18n-key="automations_subtitle" class="text-center text-gray-400 mb-6">Define triggers to automate intelligence gathering and content creation. Set it and forget it.</p>
+
+                <div class="bg-black bg-opacity-20 p-4 rounded-lg mb-6">
+
+                    <h3 class="font-headline text-xl mb-4 text-gray-300" data-i18n-key="automations_create_title">Create New Automation</h3>
+
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+
+                        <input type="text" id="automation-trigger-input" class="w-full p-3 bg-[#0E0E10] border border-gray-700 rounded-md text-white font-body focus:ring-2 focus:ring-[#B8FFF2] focus:outline-none" data-i18n-key="automations_placeholder_trigger" placeholder="Trigger Keyword/Topic...">
+
+                        <select id="automation-action-select" class="w-full p-3 bg-[#0E0E10] border border-gray-700 rounded-md text-white font-body focus:ring-2 focus:ring-[#B8FFF2] focus:outline-none">
+
+                            <option value="daily_brief" data-i18n-key="automations_action_brief">Generate Daily Intelligence Brief</option>
+
+                            <option value="sentiment_monitor" data-i18n-key="automations_action_sentiment">Monitor Keyword for Sentiment Shift</option>
+
+                            <option value="weekly_summary" data-i18n-key="automations_action_summary">Generate Weekly Summary</option>
+
+                        </select>
+
+                        <button id="create-automation-button" class="gemini-button text-lg text-[#B8FFF2] py-3 px-6 rounded-md" data-i18n-key="automations_button_create">
+
+                           Create Automation
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+                 <div class="bg-black bg-opacity-20 p-4 rounded-lg">
+
+                    <h3 class="font-headline text-xl mb-4 text-gray-300" data-i18n-key="automations_active_title">Active Automations</h3>
+
+                    <div id="active-automations-list" class="space-y-4">
+
+                        <p class="text-center text-gray-500" data-i18n-key="automations_empty">No automations created yet.</p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            
+
+            <!-- OSINT Archive Tab -->
+
+            <div id="osint-archive-content" class="tab-content">
+
+                <h2 data-i18n-key="osint_archive_title" class="font-headline text-3xl text-center mb-2 text-[#B8FFF2]">#FakeResistance OSINT Archive</h2>
+
+                <p data-i18n-key="osint_archive_subtitle" class="text-center text-gray-400 mb-6">Explore the database of actors involved in the disinformation network. Click a name for a full dossier.</p>
+
+                <input type="text" id="osint-search" class="w-full p-3 mb-4 bg-[#0E0E10] border border-gray-700 rounded-md text-white font-body focus:ring-2 focus:ring-[#B8FFF2] focus:outline-none" data-i18n-key="osint_archive_placeholder_search" placeholder="Search actors...">
+
+                <div class="overflow-x-auto">
+
+                    <table id="osint-table" class="w-full text-left font-body">
+
+                        <thead>
+
+                            <tr class="border-b border-gray-700">
+
+                                <th class="p-2" data-sort="Name" data-i18n-key="osint_archive_table_name">Name 🔽</th>
+
+                                <th class="p-2" data-sort="Platform" data-i18n-key="osint_archive_table_platform">Platform</th>
+
+                                <th class="p-2" data-sort="Audience" data-i18n-key="osint_archive_table_audience">Audience</th>
+
+                            </tr>
+
+                        </thead>
+
+                        <tbody id="osint-table-body">
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+            
+
+            <!-- Network Analysis Tab (Static) -->
+
+            <div id="network-analysis-content" class="tab-content">
+
+                 <h2 data-i18n-key="network_analysis_title" class="font-headline text-3xl text-center mb-2 text-[#B8FFF2]">Disinformation Network Analysis</h2>
+
+                <p data-i18n-key="network_analysis_subtitle" class="text-center text-gray-400 mb-6">Visualize the connections between actors in the #FakeResistance network and generate AI-powered strategic insights.</p>
+
+                <div class="chart-container mb-4">
+
+                    <canvas id="network-chart"></canvas>
+
+                </div>
+
+                <button id="network-insight-button" class="gemini-button w-full text-lg text-[#B8FFF2] py-3 px-10 rounded-md" data-i18n-key="network_analysis_button">
+
+                    ✨ Generate Network Insights
+
+                </button>
+
+            </div>
+
+
+
+            <!-- Campaign Generator Tab -->
+
+            <div id="campaign-generator-content" class="tab-content">
+
+                <h2 data-i18n-key="campaign_generator_title" class="font-headline text-3xl text-center mb-2 text-[#B8FFF2]">Strategic Campaign Generator</h2>
+
+                <p data-i18n-key="campaign_generator_subtitle" class="text-center text-gray-400 mb-6">Turn intelligence into action. Select a target from the OSINT archive to generate a counter-campaign plan.</p>
+
+                <select id="campaign-target-select" class="w-full p-3 mb-4 bg-[#0E0E10] border border-gray-700 rounded-md text-white font-body focus:ring-2 focus:ring-[#B8FFF2] focus:outline-none">
+
+                    <option value="" data-i18n-key="campaign_generator_select_target">Select a Target...</option>
+
+                </select>
+
+                <button id="generate-campaign-button" class="gemini-button w-full text-lg text-[#B8FFF2] py-3 px-10 rounded-md" data-i18n-key="campaign_generator_button">
+
+                    ✨ Generate Campaign Plan
+
+                </button>
+
+            </div>
+
+
+
+            <!-- ImageGen Studio Tab -->
+
+            <div id="image-studio-content" class="tab-content">
+
+                <h2 data-i18n-key="image_studio_title" class="font-headline text-3xl text-center mb-2 text-[#B8FFF2]">ImageGen Studio</h2>
+
+                <p data-i18n-key="image_studio_subtitle" class="text-center text-gray-400 mb-6">Create compelling visuals for your counter-narrative campaigns. Use prompts from the Campaign Generator or write your own.</p>
+
+                <textarea id="image-prompt-input" class="w-full h-24 p-3 bg-[#0E0E10] border border-gray-700 rounded-md text-white font-body focus:ring-2 focus:ring-[#B8FFF2] focus:outline-none" data-i18n-key="image_studio_placeholder" placeholder="Enter a detailed visual prompt... e.g., 'A stark black and white photo of a single lit candle in the darkness, representing hope against disinformation.'"></textarea>
+
+                <div class="flex justify-center mt-4">
+
+                    <button id="generate-image-button" class="gemini-button text-lg text-[#B8FFF2] py-3 px-10 rounded-md" data-i18n-key="image_studio_button">
+
+                        ✨ Generate Image
+
+                    </button>
+
+                </div>
+
+                <div id="image-result-container" class="mt-6 min-h-[300px] text-left p-4 bg-black bg-opacity-20 rounded-md border border-gray-800 flex items-center justify-center">
+
+                    <p data-i18n-key="image_studio_results_placeholder" class="text-gray-500">Generated image will appear here...</p>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- Video Analysis Tab -->
+
+            <div id="video-analysis-content" class="tab-content">
+
+                <h2 data-i18n-key="video_analysis_title" class="font-headline text-3xl text-center mb-2 text-[#B8FFF2]">Video Propaganda Analysis</h2>
+
+                <p data-i18n-key="video_analysis_subtitle" class="text-center text-gray-400 mb-6">Paste a video URL (e.g., from YouTube, X, etc.) to analyze its narrative and authenticity.</p>
+
+                <input type="text" id="video-url-input" class="w-full p-3 bg-[#0E0E10] border border-gray-700 rounded-md text-white font-body focus:ring-2 focus:ring-[#B8FFF2] focus:outline-none" data-i18n-key="video_analysis_placeholder" placeholder="https://www.youtube.com/watch?v=...">
+
+                <div class="flex justify-center mt-4">
+
+                    <button id="analyze-video-button" class="gemini-button text-lg text-[#B8FFF2] py-3 px-10 rounded-md" data-i18n-key="video_analysis_button">
+
+                        ✨ Analyze Video
+
+                    </button>
+
+                </div>
+
+            </div>
+
+            
+
+            <!-- Audio Analysis Tab -->
+
+            <div id="audio-analysis-content" class="tab-content">
+
+                 <h2 data-i18n-key="audio_analysis_title" class="font-headline text-3xl text-center mb-2 text-[#B8FFF2]">Audio Propaganda Analysis</h2>
+
+                <p data-i18n-key="audio_analysis_subtitle" class="text-center text-gray-400 mb-6">Upload an audio file (e.g., podcast clip, voice message) to transcribe and analyze its narrative.</p>
+
+                <input type="file" id="audio-upload-input" class="hidden" accept="audio/*">
+
+                <label for="audio-upload-input" id="audio-upload-label" class="gemini-button w-full text-center block text-lg text-[#B8FFF2] py-3 px-10 rounded-md cursor-pointer mb-4" data-i18n-key="audio_analysis_label">
+
+                    Select Audio File
+
+                </label>
+
+                <p id="audio-file-name" class="text-center text-gray-500 mb-4" data-i18n-key="audio_analysis_no_file">No file selected.</p>
+
+                 <button id="analyze-audio-button" class="gemini-button w-full text-lg text-[#B8FFF2] py-3 px-10 rounded-md" data-i18n-key="audio_analysis_button">
+
+                    ✨ Transcribe & Analyze Audio
+
+                </button>
+
+            </div>
+
+
+
+            <!-- Trust & Verification Tab -->
+
+            <div id="trust-verification-content" class="tab-content">
+
+                <h2 data-i18n-key="trust_verification_title" class="font-headline text-3xl text-center mb-2 text-[#B8FFF2]">Trust & Verification</h2>
+
+                <p data-i18n-key="trust_verification_subtitle" class="text-center text-gray-400 mb-6">Submit a previous analysis or contentious text for an automated audit. The AI will act as a "red team" to challenge its own conclusions.</p>
+
+                <textarea id="verification-input" class="w-full h-32 p-3 bg-[#0E0E10] border border-gray-700 rounded-md text-white font-body focus:ring-2 focus:ring-[#B8FFF2] focus:outline-none" data-i18n-key="trust_verification_placeholder" placeholder="Paste original text or previous analysis output here..."></textarea>
+
+                <div class="flex justify-center mt-4">
+
+                    <button id="verify-analysis-button" class="gemini-button text-lg text-[#B8FFF2] py-3 px-10 rounded-md" data-i18n-key="trust_verification_button">
+
+                        ✨ Request Verification
+
+                    </button>
+
+                </div>
+
+            </div>
+
+
+
+             <!-- Conversational Investigation Tab -->
+
+            <div id="investigation-content" class="tab-content">
+
+                <h2 data-i18n-key="investigation_title" class="font-headline text-3xl text-center mb-2 text-[#B8FFF2]">Conversational Investigation</h2>
+
+                <p data-i18n-key="investigation_subtitle" class="text-center text-gray-400 mb-6">Start an investigation. Ask your AI analyst questions and get answers based on real-time information.</p>
+
+                <div id="chat-history" class="w-full h-80 overflow-y-auto p-4 bg-black bg-opacity-20 rounded-md border border-gray-800 flex flex-col mb-4">
+
+                    <div class="chat-bubble model"><p data-i18n-key="investigation_greeting">I am your OSINT assistant. What would you like to investigate today?</p></div>
+
+                </div>
+
+                <div class="flex gap-4">
+
+                    <input type="text" id="chat-input" class="flex-grow p-3 bg-[#0E0E10] border border-gray-700 rounded-md text-white font-body focus:ring-2 focus:ring-[#B8FFF2] focus:outline-none" data-i18n-key="investigation_placeholder" placeholder="Ask a follow-up question...">
+
+                    <button id="chat-send-button" class="gemini-button text-lg text-[#B8FFF2] py-3 px-6 rounded-md" data-i18n-key="investigation_button_send">
+
+                        Send
+
+                    </button>
+
+                </div>
+
+            </div>
+
+
+
+            <div id="ai-result-container" class="ai-result mt-6 min-h-[150px] text-left p-4 bg-black bg-opacity-20 rounded-md border border-gray-800">
+
+                <p data-i18n-key="results_placeholder" class="text-gray-500">Results will appear here...</p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    
+
+    <!-- Dossier Modal -->
+
+    <div id="dossier-modal" class="fixed inset-0 z-50 items-center justify-center p-4 hidden">
+
+        <div class="w-full max-w-4xl h-full max-h-[90vh] bg-black bg-opacity-80 border border-[#B8FFF2] rounded-lg shadow-2xl flex flex-col">
+
+            <div class="flex items-center justify-between p-4 border-b border-gray-700">
+
+                <h2 id="dossier-title" class="font-headline text-2xl text-[#B8FFF2]" data-i18n-key="dossier_title">Dossier</h2>
+
+                <button id="dossier-close" class="text-2xl text-gray-400 hover:text-white">&times;</button>
+
+            </div>
+
+            <div id="dossier-content" class="p-6 overflow-y-auto text-gray-300">
+
+            </div>
+
+            <div class="p-4 mt-auto border-t border-gray-700 flex flex-col sm:flex-row gap-4">
+
+                <button id="dossier-ai-summary" class="gemini-button w-full text-lg text-[#B8FFF2] py-3 px-10 rounded-md" data-i18n-key="dossier_button_summary">
+
+                   ✨ Generate AI Dossier
+
+                </button>
+
+                <button id="dossier-launch-research" class="gemini-button w-full text-lg text-[#B8FFF2] py-3 px-10 rounded-md" data-i18n-key="dossier_button_research">
+
+                   ✨ Launch Deep Research
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <script>
+
+        document.addEventListener('DOMContentLoaded', () => {
+  // Keep hero full-screen and Matrix visible initially
+  try {
+    document.documentElement.style.height = '100%';
+    document.body.style.overflow = 'hidden';
+  } catch {}
+  const activateAiLink = document.querySelector('a[href="#ai-section"]');
+  if (activateAiLink) {
+    activateAiLink.addEventListener('click', (e) => {
+      e.preventDefault();
+      document.body.style.overflowY = 'auto';
+      const aiSection = document.getElementById('ai-section');
+      if (aiSection) aiSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  }
+});
+
+        document.addEventListener('DOMContentLoaded', () => {
+
+            
+
+            // --- 0. State and Element Initialization (FIXED) ---
+
+            let lastAnalysisResult = { input: null, output: null, type: null };
+
+            let evidenceLog = [];
+
+            let activeAutomations = [];
+
+            let uploadedAudioBase64 = null;
+
+            let uploadedAudioMimeType = null;
+
+            let currentDossierTarget = null;
+
+            let charts = {}; // To hold chart instances
+
+
+
+            // DOM Elements
+
+            const resultContainer = document.getElementById('ai-result-container');
+
+            const dossierModal = document.getElementById('dossier-modal');
+
+            const dossierContent = document.getElementById('dossier-content');
+
+            const dossierTitle = document.getElementById('dossier-title');
+
+            const dossierClose = document.getElementById('dossier-close');
+
+            const dossierLaunchResearch = document.getElementById('dossier-launch-research');
+
+            const dossierAiSummary = document.getElementById('dossier-ai-summary');
+
+            const analyzeButton = document.getElementById('analyze-button');
+
+            const narrativeButton = document.getElementById('narrative-button');
+
+            const generateCampaignButton = document.getElementById('generate-campaign-button');
+
+            const campaignTargetSelect = document.getElementById('campaign-target-select');
+
+            const networkInsightButton = document.getElementById('network-insight-button');
+
+            const analyzeAudioButton = document.getElementById('analyze-audio-button');
+
+            const audioUploadInput = document.getElementById('audio-upload-input');
+
+            const audioFileName = document.getElementById('audio-file-name');
+
+            const textInput = document.getElementById('text-input');
+
+            const chatInput = document.getElementById('chat-input');
+
+            const chatSendButton = document.getElementById('chat-send-button');
+
+            const chatHistoryDiv = document.getElementById('chat-history');
+
+            const generateImageButton = document.getElementById('generate-image-button');
+
+            const imagePromptInput = document.getElementById('image-prompt-input');
+
+            const imageResultContainer = document.getElementById('image-result-container');
+
+            const analyzeVideoButton = document.getElementById('analyze-video-button');
+
+			// --- אפקט מטריקס לרוחב ---
+			const canvas = document.getElementById('code-veil');
+			const ctx = canvas.getContext('2d');
+			// Ensure canvas sits behind and doesn’t capture interactions
+			canvas.style.pointerEvents = 'none';
+			canvas.style.position = 'fixed';
+			canvas.style.top = '0';
+			canvas.style.left = '0';
+			canvas.style.zIndex = '0';
+			let animationFrameId;
+			const matrixChars = 'アァカサタナハマヤャラワガザダバパイィキシチニヒミリヰギジヂビピウゥクスツヌフムユュルグズヅブプエェケセテネヘメレヱゲゼデベペオォコソトノホモヨョロヲゴゾドボポヴッンABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'.split('');
+			let fontSize = 18;
+			let rows;
+			let drops;
+
+			function setupMatrix() {
+				// Retina-friendly sizing
+				const dpr = window.devicePixelRatio || 1;
+				const cssWidth = window.innerWidth;
+				const cssHeight = window.innerHeight;
+				canvas.width = Math.floor(cssWidth * dpr);
+				canvas.height = Math.floor(cssHeight * dpr);
+				canvas.style.width = cssWidth + 'px';
+				canvas.style.height = cssHeight + 'px';
+				// scale drawing to CSS pixels
+				ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+				rows = Math.floor(cssHeight / fontSize); // one drop per row
+				drops = [];
+				for (let i = 0; i < rows; i++) {
+					drops[i] = Math.random() * cssWidth; // start at random x for each row
+				}
+			}
+
+			function drawMatrix() {
+				ctx.fillStyle = 'rgba(11, 18, 32, 0.15)';
+				ctx.fillRect(0, 0, canvas.width, canvas.height);
+				ctx.font = fontSize + "px 'Space Mono', monospace";
+				for (let i = 0; i < rows; i++) {
+					const text = matrixChars[Math.floor(Math.random() * matrixChars.length)];
+					ctx.fillStyle = '#B8FFF2';
+					ctx.shadowColor = '#B8FFF2';
+					ctx.shadowBlur = 8;
+					ctx.fillText(text, drops[i], i * fontSize + fontSize);
+					ctx.shadowBlur = 0;
+					const isRTL = document.documentElement.dir === 'rtl';
+					const step = fontSize * (0.7 + Math.random() * 0.7);
+					drops[i] += isRTL ? -step : step;
+					if (!isRTL && drops[i] > parseFloat(canvas.style.width)) {
+						drops[i] = -Math.random() * 100;
+					}
+					if (isRTL && drops[i] < 0) {
+						drops[i] = parseFloat(canvas.style.width) + Math.random() * 100;
+					}
+				}
+				animationFrameId = requestAnimationFrame(drawMatrix);
+			}
+
+			const matrixMediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+			function startMatrix() {
+				if (animationFrameId) cancelAnimationFrame(animationFrameId);
+				setupMatrix();
+				if (!matrixMediaQuery.matches) {
+					drawMatrix();
+				} else {
+					ctx.fillStyle = 'rgba(11, 18, 32, 1)';
+					ctx.fillRect(0, 0, canvas.width, canvas.height);
+				}
+			}
+			startMatrix();
+			window.addEventListener('resize', startMatrix);
+
+            
+
+            // --- 2. Typewriter v2.1 ---
+
+            const narrativeLines = {
+
+                en: [
+
+                    "His following soared from ~417,000 to over 2.3 million...",
+
+                    "He acts as a 'multiplier' for Russian and Iranian propaganda.",
+
+                    "He embraced Iran’s 'Axis of Resistance.'",
+
+                    "He interviewed Hamas politburo member Dr. Basem Naim.",
+
+                    "On stage in Yemen, he shouted 'Death to America.'"
+
+                ],
+
+                he: [
+
+                    "קהל העוקבים שלו זינק מכ-417,000 ליותר מ-2.3 מיליון...",
+
+                    "הוא משמש כ'מכפיל כוח' לתעמולה רוסית ואיראנית.",
+
+                    "הוא אימץ את 'ציר ההתנגדות' של איראן.",
+
+                    "הוא ראיין את חבר הלשכה המדינית של חמאס, ד\"ר באסם נעים.",
+
+                    "על במה בתימן, הוא צעק 'מוות לאמריקה'."
+
+                ]
+
+            };
+
+
+
+            const consoleLines = {
+
+                en: ["Analyzing source…", "Flag detected…", "Botnet trace initiated…", "Signal anomaly detected…", "Coordinated amplification detected…", "Evidence links compiled…"],
+
+                he: ["מנתח מקור…", "זוהה דגל אדום…", "מתחיל מעקב אחר רשת בוטים…", "זוהתה אנומליה באות…", "זוהתה הגברה מתואמת…", "נאספו קישורי ראיות…"]
+
+            };
+
+            
+
+            let currentLang = 'en'; // To keep track of the current language for the typewriter
+
+
+
+            async function typewriter(element, getLines) {
+
+                let lineIndex = 0;
+
+                while (true) {
+
+                    const lines = getLines();
+
+                    const line = lines[lineIndex];
+
+                    let speed = 50 + Math.random() * 30;
+
+                    for (let i = 0; i < line.length; i++) {
+
+                        element.textContent = line.substring(0, i + 1);
+
+                        if (['.', ','].includes(line[i])) {
+
+                             await new Promise(res => setTimeout(res, 400));
+
+                        }
+
+                        await new Promise(res => setTimeout(res, speed));
+
+                    }
+
+                    await new Promise(res => setTimeout(res, 1500));
+
+
+
+                    for (let i = line.length; i > 0; i--) {
+
+                        element.textContent = line.substring(0, i - 1);
+
+                        await new Promise(res => setTimeout(res, 20));
+
+                    }
+
+                    await new Promise(res => setTimeout(res, 300));
+
+                    lineIndex = (lineIndex + 1) % lines.length;
+
+                }
+
+            }
+
+
+
+            const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+            if(!mediaQuery.matches) {
+
+                typewriter(document.getElementById('narrative-line'), () => narrativeLines[currentLang]);
+
+                setTimeout(() => typewriter(document.getElementById('console-text'), () => consoleLines[currentLang]), 2500);
+
+            } else { 
+
+                document.getElementById('narrative-line').textContent = narrativeLines.en[1];
+
+                document.getElementById('console-text').textContent = consoleLines.en[2];
+
+                document.querySelectorAll('.typewriter-cursor').forEach(el => el.classList.remove('typewriter-cursor'));
+
+            }
+
+
+
+            document.getElementById('cta-link').addEventListener('click', () => console.log({ event: 'cta_join_battle', timestamp: new Date().toISOString(), source: 'hero_section' }));
+
+
+
+            // --- 3. UI Elements & Event Listeners ---
+
+            const tabs = document.querySelectorAll('.tab');
+
+            const tabContents = document.querySelectorAll('.tab-content');
+
+
+
+            tabs.forEach(tab => {
+
+                tab.addEventListener('click', (e) => {
+
+                    tabs.forEach(t => t.classList.remove('active'));
+
+                    e.currentTarget.classList.add('active');
+
+                    const target = e.currentTarget.getAttribute('data-tab');
+
+                    
+
+                    document.getElementById('investigation-content').style.display = 'none';
+
+                    resultContainer.style.display = 'block';
+
+
+
+                    tabContents.forEach(c => { 
+
+                        c.classList.remove('active'); 
+
+                        if (c.id === `${target}-content`) c.classList.add('active'); 
+
+                    });
+
+                    
+
+                    if (target === 'investigation') {
+
+                         resultContainer.style.display = 'none';
+
+                         document.getElementById('investigation-content').style.display = 'block';
+
+                    } else if (target === 'analytics') {
+
+                        resultContainer.style.display = 'none';
+
+                        renderAnalyticsCharts();
+
+                    } else if (target === 'network-analysis') {
+
+                        resultContainer.innerHTML = '';
+
+                        // renderNetworkChart(); // This function does not exist yet
+
+                    } else if (target === 'image-studio') {
+
+                        resultContainer.style.display = 'none';
+
+                    } else {
+
+                         resultContainer.innerHTML = `<p class="text-gray-500" data-i18n-key="results_placeholder">Results will appear here...</p>`;
+
+                         setLanguage(currentLang); // Re-apply language to the placeholder
+
+                    }
+
+                });
+
+            });
+
+            
+
+            // --- 4. Simulated Backend: LionSpaceServices Object (NOW WITH LIVE GEMINI API) ---
+
+            const LionSpaceServices = {
+
+                apiKey: "", // Left blank as per instructions for runtime injection
+
+
+
+                // --- Helper Functions with Retry Logic ---
+
+                async _callGemini(payload, attempt = 1, maxAttempts = 5) {
+
+                    const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${this.apiKey}`;
+
+                    try {
+
+                        const response = await fetch(apiUrl, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
+
+                        if (!response.ok) {
+
+                            if (response.status === 429 && attempt < maxAttempts) {
+
+                                const delay = Math.pow(2, attempt) * 1000 + Math.random() * 1000;
+
+                                await new Promise(res => setTimeout(res, delay));
+
+                                return this._callGemini(payload, attempt + 1, maxAttempts);
+
+                            }
+
+                            throw new Error(`Network error: ${response.status}`);
+
+                        }
+
+                        return await response.json();
+
+                    } catch (error) {
+
+                        if (attempt < maxAttempts) {
+
+                            const delay = Math.pow(2, attempt) * 1000 + Math.random() * 1000;
+
+                            await new Promise(res => setTimeout(res, delay));
+
+                            return this._callGemini(payload, attempt + 1, maxAttempts);
+
+                        }
+
+                        throw error;
+
+                    }
+
+                },
+
+
+
+                async _callImagen(prompt, attempt = 1, maxAttempts = 5) {
+
+                    const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/imagen-3.0-generate-002:predict?key=${this.apiKey}`;
+
+                    const payload = { instances: [{ prompt }], parameters: { "sampleCount": 1 } };
+
+                     try {
+
+                        const response = await fetch(apiUrl, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
+
+                        if (!response.ok) {
+
+                             if (response.status === 429 && attempt < maxAttempts) {
+
+                                const delay = Math.pow(2, attempt) * 1000 + Math.random() * 1000;
+
+                                await new Promise(res => setTimeout(res, delay));
+
+                                return this._callImagen(prompt, attempt + 1, maxAttempts);
+
+                            }
+
+                            throw new Error(`Network error: ${response.status}`);
+
+                        }
+
+                        return await response.json();
+
+                    } catch (error) {
+
+                         if (attempt < maxAttempts) {
+
+                            const delay = Math.pow(2, attempt) * 1000 + Math.random() * 1000;
+
+                            await new Promise(res => setTimeout(res, delay));
+
+                            return this._callImagen(prompt, attempt + 1, maxAttempts);
+
+                        }
+
+                        throw error;
+
+                    }
+
+                },
+
+                
+
+                // --- Hashing Utility ---
+
+                async _generateHash(data) {
+
+                    const msgUint8 = new TextEncoder().encode(JSON.stringify(data));
+
+                    const hashBuffer = await crypto.subtle.digest('SHA-256', msgUint8);
+
+                    const hashArray = Array.from(new Uint8Array(hashBuffer));
+
+                    const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+
+                    return hashHex;
+
+                },
+
+
+
+                // --- Core Intelligence Services (UPGRADED) ---
+
+                async generateDailyBrief() {
+
+                    const userPrompt = "Generate a daily intelligence brief on the top 3-5 global disinformation narratives of the last 24 hours.";
+
+                    const systemPrompt = "You are a senior intelligence analyst. Use Google Search to identify the top 3-5 global disinformation narratives from the past 24 hours. For each narrative, provide a concise summary, identify the key actors spreading it, and suggest 2-3 brief counter-messaging points. Structure the entire response in markdown, starting with a main title '## Daily Intelligence Brief' followed by '###' for each narrative.";
+
+                    const payload = {
+
+                        contents: [{ parts: [{ text: userPrompt }] }],
+
+                        tools: [{ "google_search": {} }],
+
+                        systemInstruction: { parts: [{ text: systemPrompt }] },
+
+                    };
+
+                    const result = await this._callGemini(payload);
+
+                    const text = result.candidates?.[0]?.content?.parts?.[0]?.text;
+
+                    if (!text) throw new Error("Invalid response from Daily Brief service.");
+
+                    
+
+                    lastAnalysisResult = { input: userPrompt, output: text, type: 'Daily Brief' };
+
+                    return markdownToHtml(text);
+
+                },
+
+                
+
+                async quickTextAnalysis(text) {
+
+                     const systemPrompt = "You are a disinformation analysis AI. Analyze the provided text. Return your analysis as a JSON object with the following schema: {\"reliability_score\": number, \"red_flags\": string[], \"counter_narrative\": string}. The reliability_score is a number between 0 (highly unreliable) and 100 (highly reliable). red_flags is an array of strings, each describing a detected manipulation tactic or logical fallacy. counter_narrative is a concise, factual statement to counter the main point of the text.";
+
+                    const payload = { 
+
+                        contents: [{ parts: [{ text: `Analyze this text: "${text}"` }] }], 
+
+                        generationConfig: { responseMimeType: "application/json", responseSchema: { type: "OBJECT", properties: { "reliability_score": { "type": "NUMBER" }, "red_flags": { "type": "ARRAY", "items": { "type": "STRING" } }, "counter_narrative": { "type": "STRING" } } } },
+
+                        systemInstruction: { parts: [{ text: systemPrompt }] } 
+
+                    };
+
+                    const result = await this._callGemini(payload);
+
+                    const responseText = result.candidates?.[0]?.content?.parts?.[0]?.text;
+
+                    if (!responseText) throw new Error("Invalid response from Text Analysis service.");
+
+                    
+
+                    lastAnalysisResult = { input: text, output: responseText, type: 'Text Analysis' };
+
+                    
+
+                    try {
+
+                        const parsedJson = JSON.parse(responseText);
+
+                        return renderAnalysisResult(parsedJson);
+
+                    } catch(e) {
+
+                        console.error("Failed to parse analysis JSON:", e);
+
+                        return `<p class="text-red-400">Error rendering analysis. Raw output:</p><pre>${responseText}</pre>`;
+
+                    }
+
+                },
+
+
+
+                 async trackNarratives(topic) {
+
+                     const systemPrompt = "Act as a senior OSINT analyst. Use Google Search to find the competing narratives about the provided topic. Structure your report with the following markdown headers: '## The Factual Narrative', '## The Primary Disinformation Narrative', and '## Emerging Conspiracy Theories'. Provide a concise summary for each.";
+
+                    const payload = { contents: [{ parts: [{ text: `Find competing narratives for the topic: "${topic}"` }] }], tools: [{ "google_search": {} }], systemInstruction: { parts: [{ text: systemPrompt }] } };
+
+                    const result = await this._callGemini(payload);
+
+                    const responseText = result.candidates?.[0]?.content?.parts?.[0]?.text;
+
+                    if (!responseText) throw new Error("Invalid response from Narrative Tracking service.");
+
+                    lastAnalysisResult = { input: topic, output: responseText, type: 'Narrative Tracking' };
+
+			function markdownToHtml(md) {
+				// Basic markdown to HTML conversion
+				md = md.replace(/</g, '&lt;').replace(/>/g, '&gt;');
+				md = md.replace(/### (.*$)/gim, '<h3>$1</h3>');
+				md = md.replace(/## (.*$)/gim, '<h2>$1</h2>');
+				md = md.replace(/\*\*([^\*]+)\*\*/g, '<strong>$1</strong>');
+				// turn markdown bullets to list items (temporary)
+				md = md.replace(/^\* (.*$)/gim, '<li>$1</li>');
+				md = md.replace(/(<li>.*<\/li>)/gs, '<ul>$1</ul>');
+				// Safer manual list handling
+				const lines = md.split('\n');
+				let inList = false;
+				const newLines = lines.map(line => {
+					if (line.startsWith('* ')) {
+						if (!inList) {
+							inList = true;
+							return '<ul><li>' + line.substring(2) + '</li>';
+						}
+						return '<li>' + line.substring(2) + '</li>';
+					} else {
+						if (inList) {
+							inList = false;
+							return '</ul>' + line;
+						}
+						return line;
+					}
+				});
+				if (inList) newLines.push('</ul>');
+				md = newLines.join('');
+				md = md.replace(/\n/g, '<br>'); // Finally, replace remaining newlines
+				return md;
+			}
+                            parts: [
+
+                                { text: "Transcribe and analyze this audio file for propaganda." },
+
+                                { inlineData: { mimeType: mimeType, data: audioBase64 } }
+
+                            ]
+
+                        }],
+
+                        systemInstruction: { parts: [{ text: systemPrompt }] },
+
+                    };
+
+                    const result = await this._callGemini(payload);
+
+                    const text = result.candidates?.[0]?.content?.parts?.[0]?.text;
+
+                    if (!text) throw new Error("Invalid response from Audio Analysis service.");
+
+                    lastAnalysisResult = { input: `Audio file (${mimeType})`, output: text, type: 'Audio Analysis' };
+
+                    return markdownToHtml(text);
+
+                },
+
+
+
+                async generateImage(prompt) {
+
+                    const result = await this._callImagen(prompt);
+
+                    if (result.predictions && result.predictions.length > 0 && result.predictions[0].bytesBase64Encoded) {
+
+                        return `data:image/png;base64,${result.predictions[0].bytesBase64Encoded}`;
+
+                    } else {
+
+                        console.error("Imagen API Response Error:", result);
+
+                        throw new Error("Invalid response from image generation server.");
+
+                    }
+
+                },
+
+                
+
+                async conversationalQuery(history) {
+
+                    const systemPrompt = "You are an expert OSINT assistant. Use Google Search to answer the user's questions based on real-time information. Keep your answers concise and factual. If you use external information, cite your sources.";
+
+                     const payload = {
+
+                        contents: history,
+
+                        tools: [{ "google_search": {} }],
+
+                        systemInstruction: { parts: [{ text: systemPrompt }] },
+
+                    };
+
+                    const result = await this._callGemini(payload);
+
+                    const text = result.candidates?.[0]?.content?.parts?.[0]?.text;
+
+                    if (!text) throw new Error("Invalid response from Conversational Investigation service.");
+
+                    return markdownToHtml(text);
+
+                },
+
+
+
+                async logEvidence(analysisType, input, output) {
+
+                    const userPrompt = `Summarize the following intelligence finding for a blockchain audit log. Be extremely concise. Input: "${JSON.stringify(input)}". Finding: "${output}"`;
+
+                    const systemPrompt = `You are a log summarization bot. Create a brief, one-sentence summary of the provided intelligence finding.`;
+
+                     const payload = {
+
+                        contents: [{ parts: [{ text: userPrompt }] }],
+
+                        systemInstruction: { parts: [{ text: systemPrompt }] }
+
+                    };
+
+                    const result = await this._callGemini(payload);
+
+                    const summary = result.candidates?.[0]?.content?.parts?.[0]?.text || "Summary generation failed.";
+
+
+
+                    const logData = {
+
+                        timestamp: new Date().toISOString(),
+
+                        type: analysisType,
+
+                        summary: summary.trim(),
+
+                        input,
+
+                        output
+
+                    };
+
+
+
+                    const hash = await this._generateHash(logData);
+
+                    
+
+                    const newEntry = { ...logData, hash };
+
+                    evidenceLog.unshift(newEntry);
+
+                    return newEntry;
+
+                },
+
+
+
+                svc_news_pulse: async (topic) => {
+
+                    const userPrompt = `Scan recent news about "${topic}" and provide a summary of the top 3-5 articles from the last 24 hours.`;
+
+                    const systemPrompt = "You are a news aggregation AI. Use Google Search to find and summarize the most relevant news articles on the given topic from the past day. For each article, provide the title, source, and a brief summary. Format the response in markdown.";
+
+                     const payload = {
+
+                        contents: [{ parts: [{ text: userPrompt }] }],
+
+                        tools: [{ "google_search": {} }],
+
+                        systemInstruction: { parts: [{ text: systemPrompt }] },
+
+                    };
+
+                    const result = await this._callGemini(payload);
+
+                    const text = result.candidates?.[0]?.content?.parts?.[0]?.text;
+
+                    if (!text) throw new Error("Invalid response from News Pulse service.");
+
+                    lastAnalysisResult = { input: topic, output: text, type: 'News Pulse' };
+
+                    return markdownToHtml(text);
+
+                }
+
+            };
+
+            
+
+            function displayLogEvidenceButton() {
+
+                const existingButton = resultContainer.querySelector('.log-evidence-button');
+
+                if (existingButton) existingButton.remove();
+
+
+
+                if (lastAnalysisResult.output) {
+
+                     const button = document.createElement('button');
+
+                     button.textContent = 'Log Evidence to Chain';
+
+                     button.className = 'gemini-button log-evidence-button text-sm py-2 px-4 rounded-md mt-4';
+
+                     button.onclick = async () => {
+
+                        button.textContent = 'Logging...';
+
+                        button.disabled = true;
+
+                        try {
+
+                            await LionSpaceServices.logEvidence(lastAnalysisResult.type, lastAnalysisResult.input, lastAnalysisResult.output);
+
+                            displayEvidenceLog();
+
+                            button.textContent = 'Logged Successfully';
+
+                            setTimeout(() => button.remove(), 2000);
+
+                        } catch (e) {
+
+                            button.textContent = 'Logging Failed';
+
+                            console.error("Failed to log evidence:", e);
+
+                        }
+
+                     };
+
+                     resultContainer.appendChild(button);
+
+                }
+
+            }
+
+
+
+            function displayEvidenceLog() {
+
+                const logList = document.getElementById('evidence-log-list');
+
+                if (evidenceLog.length === 0) {
+
+                    logList.innerHTML = `<p class="text-center text-gray-500" data-i18n-key="evidence_log_empty">No evidence has been logged yet.</p>`;
+
+                    return;
+
+                }
+
+
+
+                logList.innerHTML = evidenceLog.map(entry => `
+
+                    <div class="log-entry">
+
+                        <p class="log-meta">${new Date(entry.timestamp).toLocaleString()} - [${entry.type}]</p>
+
+                        <p class="text-gray-200 my-2">${entry.summary}</p>
+
+                        <p class="log-hash">SHA-256: ${entry.hash}</p>
+
+                    </div>
+
+                `).join('');
+
+            }
+
+
+
+
+
+            // --- Event Listener Bindings ---
+
+            generateBriefButton.addEventListener('click', async () => {
+
+                setLoading(true, resultContainer);
+
+                try {
+
+                    resultContainer.innerHTML = await LionSpaceServices.generateDailyBrief();
+
+                    displayLogEvidenceButton();
+
+                } catch(error) {
+
+                     console.error("Error in generateDailyBrief:", error);
+
+                     resultContainer.innerHTML = `<p class="text-red-400">An error occurred while generating the daily brief.</p>`;
+
+                } finally {
+
+                    setLoading(false);
+
+                }
+
+            });
+
+
+
+            assessThreatButton.addEventListener('click', async () => {
+
+                const topic = strategicTopicInput.value.trim();
+
+                if (!topic) { resultContainer.innerHTML = `<p class="text-red-400">Please enter a strategic topic.</p>`; return; }
+
+                setLoading(true, resultContainer);
+
+                try {
+
+                    resultContainer.innerHTML = await LionSpaceServices.assessStrategicThreat(topic);
+
+                    displayLogEvidenceButton();
+
+                } catch (error) {
+
+                    console.error("Error in assessStrategicThreat:", error);
+
+                    resultContainer.innerHTML = `<p class="text-red-400">Error generating strategic report.</p>`;
+
+                } finally { setLoading(false); }
+
+            });
+
+
+
+            analyzeButton.addEventListener('click', async () => {
+
+                const text = textInput.value.trim();
+
+                if (!text) { resultContainer.innerHTML = `<p class="text-red-400">Please enter text for analysis.</p>`; return; }
+
+                setLoading(true, resultContainer);
+
+                try {
+
+                    resultContainer.innerHTML = await LionSpaceServices.quickTextAnalysis(text);
+
+                    displayLogEvidenceButton();
+
+                } catch (error) {
+
+                    console.error("Error in quickTextAnalysis:", error);
+
+                    resultContainer.innerHTML = `<p class="text-red-400">Error during analysis.</p>`;
+
+                } finally { setLoading(false); }
+
+            });
+
+
+
+            narrativeButton.addEventListener('click', async () => {
+
+                const topic = textInput.value.trim();
+
+                if (!topic) { resultContainer.innerHTML = `<p class="text-red-400">Please enter a topic to track.</p>`; return; }
+
+                setLoading(true, resultContainer);
+
+                try {
+
+                     resultContainer.innerHTML = await LionSpaceServices.trackNarratives(topic);
+
+                     displayLogEvidenceButton();
+
+                } catch (error) {
+
+                     console.error("Error in trackNarratives:", error);
+
+                     resultContainer.innerHTML = `<p class="text-red-400">Error tracking narratives.</p>`;
+
+                } finally { setLoading(false); }
+
+            });
+
+
+
+            analyzeVideoButton.addEventListener('click', async () => {
+
+                const url = videoUrlInput.value.trim();
+
+                if (!url) { resultContainer.innerHTML = `<p class="text-red-400">Please enter a video URL.</p>`; return; }
+
+                setLoading(true, resultContainer);
+
+                try {
+
+                    resultContainer.innerHTML = await LionSpaceServices.analyzeVideo(url);
+
+                    displayLogEvidenceButton();
+
+                } catch (error) {
+
+                    console.error("Error in analyzeVideo:", error);
+
+                    resultContainer.innerHTML = `<p class="text-red-400">Error analyzing video.</p>`;
+
+                } finally { setLoading(false); }
+
+            });
+
+            
+
+            audioUploadInput.addEventListener('change', (event) => {
+
+                const file = event.target.files[0];
+
+                if (file) {
+
+                    const reader = new FileReader();
+
+                    reader.onload = (e) => {
+
+                        uploadedAudioBase64 = e.target.result.split(',')[1];
+
+                        uploadedAudioMimeType = file.type;
+
+                        audioFileName.textContent = file.name;
+
+                    };
+
+                    reader.readAsDataURL(file);
+
+                } else {
+
+                     uploadedAudioBase64 = null;
+
+                     uploadedAudioMimeType = null;
+
+                     audioFileName.textContent = translations[currentLang].audio_analysis_no_file;
+
+                }
+
+            });
+
+
+
+            analyzeAudioButton.addEventListener('click', async () => {
+
+                if (!uploadedAudioBase64) {
+
+                    resultContainer.innerHTML = `<p class="text-red-400">Please select an audio file.</p>`;
+
+                    return;
+
+                }
+
+                setLoading(true, resultContainer);
+
+                try {
+
+                    resultContainer.innerHTML = await LionSpaceServices.analyzeAudio(uploadedAudioBase64, uploadedAudioMimeType);
+
+                    displayLogEvidenceButton();
+
+                } catch (error) {
+
+                    console.error("Error in analyzeAudio:", error);
+
+                    resultContainer.innerHTML = `<p class="text-red-400">Error analyzing audio.</p>`;
+
+                } finally { setLoading(false); }
+
+            });
+
+            
+
+            scanNewsButton.addEventListener('click', async () => {
+
+                const topic = newsTopicInput.value.trim();
+
+                if (!topic) { resultContainer.innerHTML = `<p class="text-red-400">Please enter a topic to scan.</p>`; return; }
+
+                setLoading(true, resultContainer);
+
+                try {
+
+                    resultContainer.innerHTML = await LionSpaceServices.svc_news_pulse(topic);
+
+                    displayLogEvidenceButton();
+
+                } catch (error) {
+
+                    console.error("Error in svc_news_pulse:", error);
+
+                    resultContainer.innerHTML = `<p class="text-red-400">Error scanning news.</p>`;
+
+                } finally { setLoading(false); }
+
+            });
+
+
+
+            generateImageButton.addEventListener('click', async () => {
+
+                 const prompt = imagePromptInput.value.trim();
+
+                if (!prompt) {
+
+                    imageResultContainer.innerHTML = `<p class="text-red-400">Please enter a prompt.</p>`;
+
+                    return;
+
+                }
+
+                setImageLoading(true, imageResultContainer);
+
+                try {
+
+                    const imageUrl = await LionSpaceServices.generateImage(prompt);
+
+                    imageResultContainer.innerHTML = `<img src="${imageUrl}" alt="Generated image" class="max-w-full max-h-[400px] object-contain rounded-md">`;
+
+                } catch (error) {
+
+                    console.error("Error in generateImage:", error);
+
+                    imageResultContainer.innerHTML = `<p class="text-red-400">Error generating image. Check console for details.</p>`;
+
+                } finally {
+
+                    setImageLoading(false);
+
+                }
+
+            });
+
+            
+
+            const chatHistory = [{role: "model", parts: [{text: "I am your OSINT assistant. What would you like to investigate today?"}]}];
+
+
+
+            const handleChatSend = async () => {
+
+                const query = chatInput.value.trim();
+
+                if (!query) return;
+
+
+
+                chatHistory.push({role: "user", parts: [{text: query}]});
+
+                renderChatHistory();
+
+                chatInput.value = '';
+
+                chatSendButton.disabled = true;
+
+
+
+                try {
+
+                    const responseHtml = await LionSpaceServices.conversationalQuery(chatHistory);
+
+                    chatHistory.push({role: "model", parts: [{text: responseHtml}]});
+
+                } catch(error) {
+
+                    console.error("Error in conversationalQuery:", error);
+
+                    chatHistory.push({role: "model", parts: [{text: `<p class="text-red-400">Error fetching response.</p>`}]});
+
+                } finally {
+
+                    renderChatHistory();
+
+                    chatSendButton.disabled = false;
+
+                }
+
+            };
+
+
+
+            chatSendButton.addEventListener('click', handleChatSend);
+
+            chatInput.addEventListener('keydown', (e) => {
+
+                if (e.key === 'Enter') {
+
+                    handleChatSend();
+
+                }
+
+            });
+
+
+
+            function renderChatHistory() {
+
+                chatHistoryDiv.innerHTML = chatHistory.map(msg => {
+
+                    const bubbleClass = msg.role === 'user' ? 'chat-bubble user' : 'chat-bubble model';
+
+                    // The API returns HTML, so we can render it directly.
+
+                    // Be cautious with real applications; sanitize if necessary.
+
+                    const content = msg.parts[0].text;
+
+                    return `<div class="${bubbleClass}">${content}</div>`;
+
+                }).join('');
+
+                chatHistoryDiv.scrollTop = chatHistoryDiv.scrollHeight;
+
+            }
+
+
+
+
+
+            // --- Automations Management ---
+
+            function renderAutomations() {
+
+                if (activeAutomations.length === 0) {
+
+                    activeAutomationsList.innerHTML = `<p class="text-center text-gray-500" data-i18n-key="automations_empty">No automations created yet.</p>`;
+
+                    return;
+
+                }
+
+
+
+                activeAutomationsList.innerHTML = activeAutomations.map(task => `
+
+                    <div id="task-${task.id}" class="automation-item bg-gray-900 p-3 rounded-lg flex items-center justify-between">
+
+                        <div class="flex items-center">
+
+                            <span class="status-dot ${task.status}"></span>
+
+                            <div>
+
+                                <p class="font-body text-white">${task.actionText} for "${task.trigger}"</p>
+
+                                <p class="text-xs text-gray-500 font-mono">Last run: ${task.lastRun}</p>
+
+                            </div>
+
+                        </div>
+
+                        <div class="flex gap-2">
+
+                            <button class="toggle-pause-btn text-sm p-2 rounded hover:bg-gray-700" data-id="${task.id}">
+
+                                ${task.status === 'active' ? 'Pause' : 'Resume'}
+
+                            </button>
+
+                            <button class="delete-btn text-sm p-2 rounded text-red-400 hover:bg-red-900" data-id="${task.id}">
+
+                                Delete
+
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                `).join('');
+
+
+
+                // Re-add event listeners
+
+                document.querySelectorAll('.toggle-pause-btn').forEach(btn => btn.addEventListener('click', toggleAutomationPause));
+
+                document.querySelectorAll('.delete-btn').forEach(btn => btn.addEventListener('click', deleteAutomation));
+
+            }
+
+
+
+            function createAutomation() {
+
+                const trigger = automationTriggerInput.value.trim();
+
+                const action = automationActionSelect.value;
+
+                const actionText = automationActionSelect.options[automationActionSelect.selectedIndex].text;
+
+
+
+                if (!trigger) {
+
+                    alert('Please provide a trigger keyword.');
+
+                    return;
+
+                }
+
+
+
+                const newTask = {
+
+                    id: Date.now(),
+
+                    trigger,
+
+                    action,
+
+                    actionText,
+
+                    status: 'active', // 'active' or 'paused'
+
+                    lastRun: 'Never'
+
+                };
+
+                activeAutomations.push(newTask);
+
+                renderAutomations();
+
+                automationTriggerInput.value = '';
+
+            }
+
+            
+
+            createAutomationButton.addEventListener('click', createAutomation);
+
+
+
+            function toggleAutomationPause(event) {
+
+                const taskId = Number(event.target.dataset.id);
+
+                const task = activeAutomations.find(t => t.id === taskId);
+
+                if (task) {
+
+                    task.status = task.status === 'active' ? 'paused' : 'active';
+
+                    renderAutomations();
+
+                }
+
+            }
+
+
+
+            function deleteAutomation(event) {
+
+                const taskId = Number(event.target.dataset.id);
+
+                activeAutomations = activeAutomations.filter(t => t.id !== taskId);
+
+                renderAutomations();
+
+            }
+
+
+
+            // Simulate automation runs
+
+            setInterval(() => {
+
+                activeAutomations.forEach(task => {
+
+                    if (task.status === 'active') {
+
+                        task.lastRun = new Date().toLocaleTimeString();
+
+                        const taskElement = document.getElementById(`task-${task.id}`);
+
+                        if (taskElement) {
+
+                            const statusDot = taskElement.querySelector('.status-dot');
+
+                            statusDot.classList.add('running');
+
+                            setTimeout(() => {
+
+                                statusDot.classList.remove('running');
+
+                                renderAutomations(); // Update the 'Last run' time
+
+                            }, 1500);
+
+                        }
+
+                    }
+
+                });
+
+            }, 15000); // Run every 15 seconds
+
+
+
+            // --- Legacy & Static Content Handlers ---
+
+            const osintData = [
+
+                { "Name": "Jackson Hinkle", "Platform": "X / Rumble", "Audience": 3400000, "Narrative": "Pro-Iran/Russia", "Affiliation": "Grayzone orbit; RT" },
+
+                { "Name": "Sulaiman Ahmed", "Platform": "X / Telegram", "Audience": 722000, "Narrative": "Anti-Israel", "Affiliation": "PressTV/RT Arabic" },
+
+                { "Name": "Khalissee", "Platform": "X", "Audience": 376000, "Narrative": "Anti-US/West", "Affiliation": "Pro-Pal networks" },
+
+                { "Name": "Motaz Azaiza", "Platform": "X / IG", "Audience": 18500000, "Narrative": "Gaza-centric visual", "Affiliation": "Broad pro-Pal ecosystem" },
+
+                { "Name": "Mohamad Safa", "Platform": "X", "Audience": 1300000, "Narrative": "Pro-Lebanon/anti-Israel", "Affiliation": "Lebanon-aligned media" },
+
+                { "Name": "Anastasia Maria Loupis", "Platform": "X", "Audience": 950000, "Narrative": "Anti-West/anti-vax", "Affiliation": "Disinfo influencer cluster" },
+
+                { "Name": "Quds News Network", "Platform": "X / Telegram", "Audience": 2100000, "Narrative": "Hamas-aligned news", "Affiliation": "Amplification accelerator" },
+
+                { "Name": "The Grayzone", "Platform": "Web / X", "Audience": 800000, "Narrative": "Pro-Russia/Iran/Assad", "Affiliation": "Core Hub" },
+
+                { "Name": "MintPress News", "Platform": "Web / X", "Audience": 750000, "Narrative": "Pro-Russia; anti-Israel", "Affiliation": "Core Hub" }
+
+            ];
+
+            const deepDives = {
+
+                "Jackson Hinkle": {
+
+                    prompt: "Conduct a full digital influence profile on Jackson Hinkle. Analyze ideological narrative, tone of content, affiliations, signal amplification patterns, engagement metrics, use of hashtags, interactions with known pro-Iranian or anti-Israel actors, and any indications of bot support or inorganic reach. Include timeline of activity since October 2023.",
+
+                    report: `<h3>Biographical Background</h3><p>Jackson Hinkle is an American political influencer, born in September 1999. His political journey spans from progressive environmentalism to “MAGA Communism” and open alliances with Russia, Iran, Hezbollah, Hamas, and the Houthis.</p><h3>Political and Public Activity</h3><p>The Gaza war in October 2023 marked his breakthrough, with his X following soaring from ~417,000 to over 2.3 million by December 2023. He launched the show 'Legitimate Targets' on X, rapidly becoming one of the platform’s most viral accounts.</p><h3>Links to Political, State, and Ideological Actors</h3><p>Hinkle has openly supported Kremlin narratives and embraced Iran’s “Axis of Resistance.” In February 2025, he traveled to Lebanon and later interviewed Hamas politburo member Dr. Basem Naim in Doha, Qatar. He acts as a “multiplier” for Russian and Iranian propaganda in English.</p>`
+
+                }
+
+            };
+
+
+
+            function renderTable(data) {
+
+                osintTableBody.innerHTML = '';
+
+                data.forEach(actor => {
+
+                    const row = document.createElement('tr');
+
+                    row.className = 'border-b border-gray-800 hover:bg-gray-800 cursor-pointer';
+
+                    const audience = actor.Audience > 1000000 ? `${(actor.Audience / 1000000).toFixed(1)}M` : `${Math.round(actor.Audience / 1000)}K`;
+
+                    row.innerHTML = `<td class="p-2 text-[#B8FFF2]">${actor.Name}</td><td class="p-2">${actor.Platform}</td><td class="p-2">${audience}</td>`;
+
+                    row.addEventListener('click', () => openDossier(actor.Name));
+
+                    osintTableBody.appendChild(row);
+
+                });
+
+            }
+
+            
+
+             // --- Dossier Modal Logic ---
+
+            function openDossier(actorName) {
+
+                currentDossierTarget = actorName;
+
+                const actorData = osintData.find(a => a.Name === actorName);
+
+                const deepDiveData = deepDives[actorName];
+
+                
+
+                dossierTitle.textContent = `Dossier: ${actorName}`;
+
+                let content = `
+
+                    <p><strong>Platform:</strong> ${actorData.Platform}</p>
+
+                    <p><strong>Audience Size:</strong> ${actorData.Audience.toLocaleString()}</p>
+
+                    <p><strong>Primary Narrative:</strong> ${actorData.Narrative}</p>
+
+                    <p><strong>Known Affiliation:</strong> ${actorData.Affiliation}</p>
+
+                `;
+
+
+
+                if (deepDiveData && deepDiveData.report) {
+
+                    content += `<hr class="my-4 border-gray-600"> ${deepDiveData.report}`;
+
+                } else {
+
+                     content += `<p class="mt-4 text-gray-500">No deep dive report available. Generate one below.</p>`;
+
+                }
+
+
+
+                dossierContent.innerHTML = content;
+
+                dossierModal.style.display = 'flex';
+
+            }
+
+
+
+            dossierClose.addEventListener('click', () => dossierModal.style.display = 'none');
+
+            
+
+            dossierAiSummary.addEventListener('click', async () => {
+
+                const actorData = osintData.find(a => a.Name === currentDossierTarget);
+
+                 if (!actorData) return;
+
+                 
+
+                const prompt = `Generate a concise, one-paragraph AI-powered summary of the actor "${actorData.Name}", based on this information: Platform: ${actorData.Platform}, Audience: ${actorData.Audience}, Narrative: ${actorData.Narrative}, Affiliation: ${actorData.Affiliation}. Focus on their strategic role in the information space.`;
+
+                setLoading(true, dossierContent, true);
+
+                const systemPrompt = "You are an intelligence analyst. Create a short, strategic summary of the provided actor.";
+
+                const payload = { contents: [{ parts: [{ text: prompt }] }], systemInstruction: { parts: [{ text: systemPrompt }] } };
+
+                try {
+
+                    const result = await LionSpaceServices._callGemini(payload);
+
+                    const summary = result.candidates?.[0]?.content?.parts?.[0]?.text;
+
+                    if(summary) {
+
+                         dossierContent.innerHTML += `<h3 class="mt-6">AI-Generated Summary</h3><p>${summary}</p>`;
+
+                    }
+
+                } catch (e) {
+
+                     dossierContent.innerHTML += `<p class="text-red-400">Error generating summary.</p>`;
+
+                } finally {
+
+                    setLoading(false, dossierContent, true);
+
+                }
+
+            });
+
+
+
+            dossierLaunchResearch.addEventListener('click', () => {
+
+                const deepDiveData = deepDives[currentDossierTarget];
+
+                if (deepDiveData && deepDiveData.prompt) {
+
+                    document.querySelector('.tab[data-tab="investigation"]').click();
+
+                    chatInput.value = deepDiveData.prompt;
+
+                    handleChatSend();
+
+                    dossierModal.style.display = 'none';
+
+                }
+
+            });
+
+            
+
+            osintSearch.addEventListener('input', (e) => {
+
+                const searchTerm = e.target.value.toLowerCase();
+
+                const filteredData = osintData.filter(actor => 
+
+                    actor.Name.toLowerCase().includes(searchTerm) ||
+
+                    actor.Platform.toLowerCase().includes(searchTerm) ||
+
+                    actor.Narrative.toLowerCase().includes(searchTerm)
+
+                );
+
+                renderTable(filteredData);
+
+            });
+
+
+
+            // --- UI Helper Functions ---
+
+            function setLoading(isLoading, container = resultContainer, isAppending = false) {
+
+                 if(isLoading) {
+
+                    const loader = `<div class="loader text-center p-8"><p class="text-lg text-[#B8FFF2] font-headline animate-pulse">ANALYZING...</p></div>`;
+
+                    if (isAppending) container.innerHTML += loader; else container.innerHTML = loader;
+
+                 } else {
+
+                     const loader = container.querySelector('.loader');
+
+                     if(loader) loader.remove();
+
+                 }
+
+            }
+
+
+
+            function setImageLoading(isLoading, container) {
+
+                if(isLoading) {
+
+                    container.innerHTML = `<div class="loader text-center p-8"><p class="text-lg text-[#B8FFF2] font-headline animate-pulse">GENERATING VISUAL...</p></div>`;
+
+                }
+
+            }
+
+            
+
+            function markdownToHtml(md) {
+
+                // Basic markdown to HTML conversion
+
+                md = md.replace(/</g, '&lt;').replace(/>/g, '&gt;');
+
+                md = md.replace(/### (.*$)/gim, '<h3>$1</h3>');
+
+                md = md.replace(/## (.*$)/gim, '<h2>$1</h2>');
+
+                md = md.replace(/\*\*([^\*]+)\*\*/g, '<strong>$1</strong>');
+
+                md = md.replace(/^\* (.*$)/gim, '<li>$1</li>');
+
+                md = md.replace(/(<li>.*<\/li>)/gs, '<ul>$1</ul>');
+
+                 // This regex is tricky, let's replace list items one by one
+
+                const lines = md.split('\n');
+
+                let inList = false;
+
+                const newLines = lines.map(line => {
+
+                    if (line.startsWith('* ')) {
+
+                        if (!inList) {
+
+                            inList = true;
+
+                            return '<ul><li>' + line.substring(2) + '</li>';

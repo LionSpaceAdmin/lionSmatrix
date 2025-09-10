@@ -1,38 +1,69 @@
 {
   "recommendations": [
+    // GitHub & AI
     "github.copilot",
     "github.copilot-chat",
     "github.vscode-github-actions",
     "github.vscode-pull-request-github",
+    
+    // Core Next.js Development
     "ms-vscode.vscode-typescript-next",
     "bradlc.vscode-tailwindcss",
-    "dsznajder.es7-react-js-snippets",
-    "formulahendry.auto-rename-tag",
-    "christian-kohler.path-intellisense",
     "esbenp.prettier-vscode",
     "dbaeumer.vscode-eslint",
+    
+    // Next.js Specific Extensions
+    "aabassiouni.next-js-app-router-helper",
+    "foxundermoon.next-js",
+    "imgildev.vscode-next-pack",
+    "imgildev.vscode-nextjs-generator",
+    "willluke.nextjs",
+    "loczek.next-js-ts-snippets",
+    "pulkitgangwar.nextjs-snippets",
+    
+    // React Development
+    "dsznajder.es7-react-js-snippets",
+    "formulahendry.auto-rename-tag",
+    
+    // Browser & Live Development
+    "ms-vscode.vscode-simple-browser",
+    "ms-vscode.live-server",
+    "fermelone.simple-browser-multi",
+    
+    // Development Tools
+    "christian-kohler.path-intellisense",
+    "christian-kohler.npm-intellisense",
     "streetsidesoftware.code-spell-checker",
     "usernamehw.errorlens",
     "aaron-bond.better-comments",
+    
+    // Testing (E2E only)
     "ms-playwright.playwright",
-    "orta.vscode-jest",
-    "vitest.explorer",
-    "ms-ossdata.vscode-postgresql",
-    "cweijan.vscode-redis-client",
-    "ms-vscode.sqltools",
+    
+    // Git & Version Control
     "eamodio.gitlens",
     "mhutchie.git-graph",
     "donjayamanne.githistory",
+    
+    // Visual & Productivity
+    "pkief.material-icon-theme",
+    "oderwat.indent-rainbow"
+  ],
+  "unwantedRecommendations": [
+    "ms-vscode.vscode-json", 
+    "hookyqr.beautify",
+    "orta.vscode-jest",
+    "vitest.explorer",
+    "hbenl.vscode-test-explorer",
+    "lucono.karma-test-explorer",
+    "ms-vscode.test-adapter-converter",
     "ms-azuretools.vscode-docker",
     "ms-vscode-remote.remote-containers",
-    "redhat.vscode-yaml",
-    "pkief.material-icon-theme",
-    "ms-vscode.vscode-simple-browser",
-    "ms-vscode.live-server",
-    "oderwat.indent-rainbow",
-    "christian-kohler.npm-intellisense",
+    "ms-ossdata.vscode-postgresql",
+    "cweijan.vscode-redis-client",
+    "ms-vscode.sqltools",
     "humao.rest-client",
-    "rangav.vscode-thunder-client"
-  ],
-  "unwantedRecommendations": ["ms-vscode.vscode-json", "hookyqr.beautify"]
+    "rangav.vscode-thunder-client",
+    "redhat.vscode-yaml"
+  ]
 }

@@ -1,0 +1,16 @@
+/* Main CSS entry point - imports all modular CSS files */
+
+/* Import base styles and variables */
+@import "./styles/base.css";
+
+/* Import component styles */
+@import "./styles/components.css";
+
+/* Import animation styles */
+@import "./styles/animations.css";
+
+/* Import utility classes */
+@import "./styles/utilities.css";
+
+/* Import legacy styles (to be gradually migrated) */
+@import "./styles/legacy.css";
