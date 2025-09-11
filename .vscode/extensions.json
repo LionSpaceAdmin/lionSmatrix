@@ -16,6 +16,7 @@
     // Docker & Kubernetes
     "ms-azuretools.vscode-docker",
     "ms-kubernetes-tools.vscode-kubernetes-tools",
+    "ms-vscode-remote.remote-containers",
     
     // Infrastructure as Code
     "hashicorp.terraform",

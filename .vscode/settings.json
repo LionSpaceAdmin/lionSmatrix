@@ -42,5 +42,13 @@
   
   // Auto-open browser
   "workbench.editor.enablePreview": false,
-  "codespaces.portPrompt": false
+  "codespaces.portPrompt": false,
+  
+  // Dev Container settings
+  "dev.containers.defaultExtensions": [
+    "ms-vscode-remote.remote-containers",
+    "dbaeumer.vscode-eslint",
+    "esbenp.prettier-vscode",
+    "bradlc.vscode-tailwindcss"
+  ]
 }

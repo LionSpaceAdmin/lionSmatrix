@@ -40,6 +40,13 @@ export const env = createEnv({
     SENTRY_ORG: z.string().optional(),
     SENTRY_PROJECT: z.string().optional(),
     SENTRY_AUTH_TOKEN: z.string().optional(),
+    
+    // Redis Cache
+    REDIS_URL: z.string().optional(),
+    
+    // Security & CORS
+    CORS_ALLOWED_ORIGINS: z.string().optional(),
+    CSP_REPORT_URI: z.string().optional(),
   },
 
   /**
@@ -53,6 +60,9 @@ export const env = createEnv({
     // Sentry (client-side)
     NEXT_PUBLIC_SENTRY_DSN: z.string().optional(),
     NEXT_PUBLIC_SENTRY_ENVIRONMENT: z.string().optional(),
+    
+    // CDN
+    NEXT_PUBLIC_CDN_DOMAIN: z.string().optional(),
   },
 
   /**
@@ -86,6 +96,13 @@ export const env = createEnv({
     SENTRY_PROJECT: process.env.SENTRY_PROJECT,
     SENTRY_AUTH_TOKEN: process.env.SENTRY_AUTH_TOKEN,
     
+    // Redis Cache
+    REDIS_URL: process.env.REDIS_URL,
+    
+    // Security & CORS
+    CORS_ALLOWED_ORIGINS: process.env.CORS_ALLOWED_ORIGINS,
+    CSP_REPORT_URI: process.env.CSP_REPORT_URI,
+    
     // Client
     NEXT_PUBLIC_APP_URL: process.env.NEXT_PUBLIC_APP_URL,
     NEXT_PUBLIC_GOOGLE_CLIENT_ID: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID,
@@ -94,6 +111,9 @@ export const env = createEnv({
     // Sentry (client-side)
     NEXT_PUBLIC_SENTRY_DSN: process.env.NEXT_PUBLIC_SENTRY_DSN,
     NEXT_PUBLIC_SENTRY_ENVIRONMENT: process.env.NEXT_PUBLIC_SENTRY_ENVIRONMENT,
+    
+    // CDN
+    NEXT_PUBLIC_CDN_DOMAIN: process.env.NEXT_PUBLIC_CDN_DOMAIN,
   },
 
   /**
