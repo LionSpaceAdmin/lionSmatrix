@@ -1,0 +1,24 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Open in WezTerm",
+      "type": "shell",
+      "command": "open -a WezTerm '${workspaceFolder}'",
+      "presentation": {
+        "reveal": "silent",
+        "panel": "new"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Dev in WezTerm",
+      "type": "shell",
+      "command": "/Applications/WezTerm.app/Contents/MacOS/wezterm start --cwd '${workspaceFolder}' -- bash -c 'cd apps/web && npm run dev'",
+      "presentation": {
+        "reveal": "silent"
+      },
+      "problemMatcher": []
+    }
+  ]
+}

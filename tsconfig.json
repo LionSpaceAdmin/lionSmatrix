@@ -1,0 +1,30 @@
+{
+  "extends": "./tsconfig.base.json",
+  "compilerOptions": {
+    // Override for root monorepo needs
+    "module": "commonjs",
+    "target": "ES2020",
+    "lib": ["ES2020"],
+    
+    // Monorepo paths
+    "baseUrl": ".",
+    "paths": {
+      "@lionspace/*": ["packages/@lionspace/*/src"],
+      "@lionspace/shared": ["packages/shared/src"],
+      "@lionspace/core": ["packages/core/src"]
+    }
+  },
+  "include": [
+    "packages/**/*.ts",
+    "packages/**/*.tsx",
+    "services/**/*.ts",
+    "scripts/**/*.ts"
+  ],
+  "exclude": [
+    "node_modules",
+    "**/dist",
+    "**/build",
+    "**/.next",
+    "apps/**/*"
+  ]
+}

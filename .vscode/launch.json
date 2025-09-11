@@ -1,0 +1,95 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    
+    {
+      "command": "npm start",
+      "name": "Run npm start",
+      "request": "launch",
+      "type": "node-terminal"
+    },
+    {
+      "name": "🦁 LionSpace Dev with Smart Browser",
+      "type": "chrome",
+      "request": "launch",
+      "url": "http://localhost:3000",
+      "webRoot": "${workspaceFolder}/frontend",
+      "preLaunchTask": "Start Full Dev Environment",
+      "postDebugTask": "Save Browser Logs",
+      "sourceMapPathOverrides": {
+        "webpack:///./src/*": "${webRoot}/src/*",
+        "webpack:///./*": "${webRoot}/*",
+        "webpack:///src/*": "${webRoot}/src/*"
+      },
+      "trace": true,
+      "outputCapture": "std",
+      "userDataDir": "${workspaceFolder}/.chrome-debug",
+      "runtimeArgs": [
+        "--enable-logging",
+        "--v=1",
+        "--auto-open-devtools-for-tabs",
+        "--enable-crash-reporter",
+        "--crash-dumps-dir=${workspaceFolder}/logs/crashes",
+        "--enable-features=NetworkService,NetworkServiceInProcess",
+        "--log-level=0",
+        "--dump-dom",
+        "--enable-automation"
+      ],
+      "env": {
+        "BROWSER": "none",
+        "NEXT_PUBLIC_LOG_LEVEL": "debug",
+        "LOG_TO_FILE": "true",
+        "BROWSER_LOG_FILE": "${workspaceFolder}/logs/browser.log",
+        "NODE_ENV": "development"
+      },
+      "timeout": 30000,
+      "smartStep": true,
+      "skipFiles": [
+        "<node_internals>/**",
+        "node_modules/**"
+      ]
+    },
+    {
+      "name": "Next.js: Node Debug",
+      "type": "node",
+      "request": "launch",
+      "program": "${workspaceFolder}/frontend/node_modules/.bin/next",
+      "args": ["dev", "--turbo"],
+      "cwd": "${workspaceFolder}/frontend",
+      "console": "integratedTerminal",
+      "env": {
+        "NODE_OPTIONS": "--inspect",
+        "LOG_FILE": "${workspaceFolder}/logs/next.log"
+      }
+    },
+    {
+      "name": "Cloud Run: Local Development",
+      "type": "cloudcode.cloudrun",
+      "request": "launch",
+      "build": {
+        "docker": {
+          "path": "services/api-gateway/Dockerfile"
+        }
+      },
+      "service": {
+        "name": "api-gateway",
+        "containerPort": 8080
+      },
+      "watch": true,
+      "env": {
+        "LOG_FILE": "${workspaceFolder}/logs/cloudrun.log"
+      }
+    }
+  ],
+  "compounds": [
+    {
+      "name": "🚀 Full Stack with Browser",
+      "configurations": [
+        "🦁 LionSpace Dev with Smart Browser",
+        "Next.js: Node Debug"
+      ],
+      "stopAll": true,
+      "preLaunchTask": "Setup Environment"
+    }
+  ]
+}

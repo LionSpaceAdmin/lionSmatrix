@@ -1,0 +1,152 @@
+/* Base styles and CSS variables */
+/* Import fonts first */
+@import url("https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400;600&display=swap");
+
+/* Import Tailwind CSS v4 */
+@import "tailwindcss";
+
+/* Tailwind v4 CSS-first configuration */
+@theme {
+  /* Custom font families that will generate font-* utilities */
+  --font-terminal: "Space Mono", monospace;
+  --font-headline: "Space Mono", monospace;  
+  --font-body: "Source Sans Pro", system-ui, sans-serif;
+  --font-mono: "Space Mono", "Courier New", monospace;
+  
+  /* Custom colors that will generate bg-*, text-*, border-* utilities */
+  /* Terminal color scale using proper --color-* namespace */
+  --color-terminal-bg: 3 7 18;
+  --color-terminal-secondary: 15 23 42;
+  --color-terminal-text: 248 250 252;
+  --color-terminal-cyan: 34 211 238;
+  --color-terminal-gold: 251 191 36;
+  --color-terminal-red: 239 68 68;
+  --color-terminal-border: 30 41 59;
+  --color-terminal-muted: 156 163 175;
+  --color-terminal-green: 110 231 183;
+}
+
+@layer base {
+  :root {
+    /* LionSpace Terminal Color System - Now aligned with @theme variables */
+    --terminal-bg: 3 7 18; /* #030712 */
+    --terminal-secondary: 15 23 42; /* #0F172A */
+    --terminal-cyan: 34 211 238; /* rgb(34 211 238) */
+    --terminal-gold: 251 191 36; /* rgb(251 191 36) */
+    --terminal-red: 239 68 68; /* rgb(239 68 68) */
+    --terminal-text: 248 250 252; /* rgb(248 250 252) */
+    --terminal-muted: 156 163 175; /* rgb(156 163 175) */
+    --terminal-border: 30 41 59; /* #1E293B */
+    /* Semantic aliases (first step – can expand later) */
+    --color-surface-base: rgb(var(--terminal-bg));
+    --color-surface-alt: rgb(var(--terminal-secondary));
+    --color-border-default: rgb(var(--terminal-border));
+    --color-text-primary: rgb(var(--terminal-text));
+    --color-text-muted: rgb(var(--terminal-muted));
+    --color-accent-primary: rgb(var(--terminal-cyan));
+    --color-accent-warn: rgb(var(--terminal-gold));
+    --color-accent-error: rgb(var(--terminal-red));
+    --color-focus-ring: rgb(var(--terminal-cyan));
+
+    /* Animation speeds */
+    --scan-speed: 8s;
+    --data-flow-speed: 3s;
+    --pulse-speed: 2s;
+    --matrix-speed: 6s;
+    --connection-speed: 4s;
+    --neural-speed: 3s;
+
+    /* Grid dimensions */
+    --grid-size: 40px;
+    --grid-opacity: 0.03;
+
+    /* Network visualization */
+    --node-size-small: 4px;
+    --node-size-medium: 6px;
+    --node-size-large: 8px;
+    --connection-opacity: 0.3;
+    --network-glow: 0 0 10px;
+
+    /* Matrix data flow */
+    --matrix-char-size: 12px;
+    --matrix-column-width: 20px;
+    --matrix-density-low: 0.2;
+    --matrix-density-medium: 0.4;
+    --matrix-density-high: 0.6;
+    --matrix-density-extreme: 0.8;
+
+    /* Performance optimizations */
+    --will-change-transform: transform;
+    --will-change-opacity: opacity;
+    --will-change-full: transform, opacity, box-shadow;
+
+    /* shadcn/ui variables */
+    --background: 220 14.3% 3.9%;
+    --foreground: 0 0% 89.8%;
+    --card: 220 14.3% 7.1%;
+    --card-foreground: 0 0% 89.8%;
+    --popover: 220 14.3% 7.1%;
+    --popover-foreground: 0 0% 89.8%;
+    --primary: 152 57% 68%;
+    --primary-foreground: 220 14.3% 3.9%;
+    --secondary: 220 14.3% 14.3%;
+    --secondary-foreground: 0 0% 89.8%;
+    --muted: 220 14.3% 14.3%;
+    --muted-foreground: 220 8.9% 46.1%;
+    --accent: 152 57% 68%;
+    --accent-foreground: 220 14.3% 3.9%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 89.8%;
+    --border: 220 14.3% 14.3%;
+    --input: 220 14.3% 14.3%;
+    --ring: 152 57% 68%;
+    --radius: 0.5rem;
+  }
+
+  .dark {
+    --background: 220 14.3% 3.9%;
+    --foreground: 0 0% 89.8%;
+    --card: 220 14.3% 7.1%;
+    --card-foreground: 0 0% 89.8%;
+    --popover: 220 14.3% 7.1%;
+    --popover-foreground: 0 0% 89.8%;
+    --primary: 152 57% 68%;
+    --primary-foreground: 220 14.3% 3.9%;
+    --secondary: 220 14.3% 14.3%;
+    --secondary-foreground: 0 0% 89.8%;
+    --muted: 220 14.3% 14.3%;
+    --muted-foreground: 220 8.9% 46.1%;
+    --accent: 152 57% 68%;
+    --accent-foreground: 220 14.3% 3.9%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 89.8%;
+    --border: 220 14.3% 14.3%;
+    --input: 220 14.3% 14.3%;
+    --ring: 152 57% 68%;
+  }
+
+  * {
+    border-color: rgba(var(--terminal-border), 0.3);
+  }
+
+  body {
+    /* Use token instead of hard-coded base color */
+    background-color: rgb(var(--terminal-bg));
+    color: #e5e7eb;
+    font-family: "Space Mono", monospace;
+    letter-spacing: 0.02em;
+    @apply antialiased;
+  }
+
+  html.dark body {
+    background-color: rgb(var(--terminal-bg));
+    color: #e5e7eb;
+  }
+
+  /* Terminal cursor effect */
+  ::selection {
+    background: rgba(var(--terminal-cyan), 0.3);
+    color: rgb(var(--terminal-text));
+  }
+}

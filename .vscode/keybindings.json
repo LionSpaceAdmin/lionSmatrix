@@ -1,0 +1,6 @@
+{
+  // קיצורי מקלדת מותאמים אישית
+  "key": "cmd+shift+w",
+  "command": "workbench.action.terminal.openNativeConsole",
+  "when": "!terminalFocus"
+}

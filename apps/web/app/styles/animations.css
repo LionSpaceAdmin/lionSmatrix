@@ -1,0 +1,493 @@
+/* Advanced Matrix and Neural Network Animation Keyframes */
+
+/* Enhanced Matrix Animation Keyframes */
+@keyframes scanline {
+  0% {
+    transform: translateY(-100vh);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(100vh);
+    opacity: 0;
+  }
+}
+
+@keyframes vertical-scan {
+  0% {
+    transform: translateX(-100vw);
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(100vw);
+    opacity: 0;
+  }
+}
+
+@keyframes gradient-shift {
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+@keyframes pulse-glow {
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.8;
+    transform: scale(1.02);
+  }
+}
+
+@keyframes scan-effect {
+  0% {
+    transform: translateY(-100%);
+  }
+  100% {
+    transform: translateY(100vh);
+  }
+}
+
+@keyframes grid-fade {
+  0%,
+  100% {
+    opacity: 0.03;
+  }
+  50% {
+    opacity: 0.06;
+  }
+}
+
+@keyframes blink {
+  50% {
+    opacity: 0;
+  }
+}
+
+@keyframes pulse-animation {
+  0% {
+    box-shadow: 0 0 0 0 rgba(74, 222, 128, 0.7);
+  }
+  70% {
+    box-shadow: 0 0 0 10px rgba(74, 222, 128, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(74, 222, 128, 0);
+  }
+}
+
+/* Advanced Neural Network Node Animations */
+@keyframes node-pulse {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: 
+      0 0 10px rgba(var(--terminal-cyan), 0.5),
+      0 0 20px rgba(var(--terminal-cyan), 0.3),
+      inset 0 0 4px rgba(var(--terminal-cyan), 0.5);
+  }
+  50% {
+    transform: scale(1.2);
+    box-shadow: 
+      0 0 20px rgba(var(--terminal-cyan), 0.8),
+      0 0 40px rgba(var(--terminal-cyan), 0.5),
+      inset 0 0 8px rgba(var(--terminal-cyan), 0.7);
+  }
+}
+
+@keyframes neural-pulse {
+  0%, 100% {
+    opacity: 0.6;
+    transform: scale(0.9);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.1);
+  }
+}
+
+/* Network Connection Line Animations */
+@keyframes connection-pulse {
+  0% {
+    opacity: 0;
+    stroke-dasharray: 0 100;
+  }
+  50% {
+    opacity: 0.8;
+    stroke-dasharray: 50 50;
+  }
+  100% {
+    opacity: 0;
+    stroke-dasharray: 100 0;
+  }
+}
+
+@keyframes data-pulse {
+  0% {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+}
+
+/* Matrix Digital Rain Animations */
+@keyframes matrix-rain {
+  0% {
+    transform: translateY(-100vh);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 0.8;
+  }
+  100% {
+    transform: translateY(100vh);
+    opacity: 0;
+  }
+}
+
+@keyframes matrix-char-fade {
+  0% {
+    opacity: 1;
+    color: rgba(var(--terminal-cyan), 1);
+  }
+  50% {
+    opacity: 0.5;
+    color: rgba(var(--terminal-cyan), 0.6);
+  }
+  100% {
+    opacity: 0.1;
+    color: rgba(var(--terminal-cyan), 0.2);
+  }
+}
+
+/* Enhanced Data Flow Animations */
+@keyframes data-flow {
+  0% {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+}
+
+@keyframes data-flow-vertical {
+  0% {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+}
+
+/* Terminal Effects */
+@keyframes terminal-blink {
+  0%, 50% {
+    opacity: 1;
+  }
+  51%, 100% {
+    opacity: 0;
+  }
+}
+
+@keyframes glow-pulse {
+  0%, 100% {
+    text-shadow:
+      0 0 10px rgba(var(--terminal-cyan), 0.5),
+      0 0 20px rgba(var(--terminal-cyan), 0.3),
+      0 0 30px rgba(var(--terminal-cyan), 0.1);
+  }
+  50% {
+    text-shadow:
+      0 0 20px rgba(var(--terminal-cyan), 0.8),
+      0 0 40px rgba(var(--terminal-cyan), 0.5),
+      0 0 60px rgba(var(--terminal-cyan), 0.3);
+  }
+}
+
+@keyframes scan-line {
+  0% {
+    transform: translateY(-100vh);
+  }
+  100% {
+    transform: translateY(100vh);
+  }
+}
+
+@keyframes status-ping {
+  75%, 100% {
+    transform: scale(2);
+    opacity: 0;
+  }
+}
+
+/* Advanced Animation Utility Classes */
+@layer utilities {
+  .animate-pulse-glow {
+    animation: pulse-glow 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+
+  .animate-scan {
+    animation: scan-effect 8s linear infinite;
+  }
+
+  .animate-grid-fade {
+    animation: grid-fade 4s ease-in-out infinite;
+  }
+
+  /* Neural Network Animations */
+  .animate-neural-pulse {
+    animation: neural-pulse 3s ease-in-out infinite;
+  }
+
+  .animate-node-pulse {
+    animation: node-pulse 2s ease-in-out infinite;
+  }
+
+  /* Data Flow Animations */
+  .animate-data-flow {
+    animation: data-flow 3s ease-in-out infinite;
+  }
+
+  .animate-data-flow-vertical {
+    animation: data-flow-vertical 4s ease-in-out infinite;
+  }
+
+  .animate-data-pulse {
+    animation: data-pulse 2s ease-in-out infinite;
+  }
+
+  /* Matrix Animations */
+  .animate-matrix-rain {
+    animation: matrix-rain 8s linear infinite;
+  }
+
+  .animate-matrix-rain-fast {
+    animation: matrix-rain 4s linear infinite;
+  }
+
+  .animate-matrix-rain-slow {
+    animation: matrix-rain 12s linear infinite;
+  }
+
+  .animate-matrix-char-fade {
+    animation: matrix-char-fade 2s ease-in-out infinite;
+  }
+
+  /* Connection Animations */
+  .animate-connection-pulse {
+    animation: connection-pulse 4s ease-in-out infinite;
+  }
+
+  /* Glow Effects */
+  .animate-glow-pulse {
+    animation: glow-pulse 2s ease-in-out infinite alternate;
+  }
+
+  /* Terminal Effects */
+  .animate-terminal-blink {
+    animation: terminal-blink 1.5s step-end infinite;
+  }
+}
+
+/* Enhanced Reduced Motion Support */
+@media (prefers-reduced-motion: reduce) {
+  .terminal-grid::before,
+  .data-flow-line,
+  .data-flow-vertical,
+  .scanline,
+  .network-node,
+  .neural-node,
+  .network-connection,
+  .network-svg-line,
+  .matrix-rain,
+  .matrix-char,
+  .data-packet,
+  .terminal-glow,
+  .terminal-button::before,
+  .terminal-cursor,
+  .status-online::before,
+  .animate-pulse-glow,
+  .animate-scan,
+  .animate-grid-fade,
+  .animate-neural-pulse,
+  .animate-node-pulse,
+  .animate-data-flow,
+  .animate-data-flow-vertical,
+  .animate-data-pulse,
+  .animate-matrix-rain,
+  .animate-matrix-rain-fast,
+  .animate-matrix-rain-slow,
+  .animate-matrix-char-fade,
+  .animate-connection-pulse,
+  .animate-glow-pulse,
+  .animate-terminal-blink {
+    animation: none !important;
+  }
+
+  .terminal-button:hover {
+    transition: none;
+  }
+
+  /* Static fallbacks for reduced motion */
+  .network-node, .neural-node {
+    opacity: 0.7 !important;
+    transform: none !important;
+  }
+  
+  .network-connection {
+    opacity: 0.3 !important;
+  }
+  
+  .matrix-rain, .matrix-char {
+    opacity: 0.2 !important;
+    position: static !important;
+  }
+}
+
+/* Cognitive Warfare Messages Animations */
+@keyframes cursor-blink {
+  0%, 50% {
+    opacity: 1;
+  }
+  51%, 100% {
+    opacity: 0;
+  }
+}
+
+@keyframes progress-shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+@keyframes loading-pulse {
+  0%, 100% {
+    opacity: 0.4;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+@keyframes message-fade-in {
+  0% {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes message-fade-out {
+  0% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes typewriter-typing {
+  0% {
+    width: 0;
+  }
+  100% {
+    width: 100%;
+  }
+}
+
+/* Enhanced Cognitive Warfare Animation Utilities */
+@layer utilities {
+  .animate-cursor-blink {
+    animation: cursor-blink 1s infinite;
+  }
+
+  .animate-progress-shimmer {
+    animation: progress-shimmer 2s ease-in-out infinite;
+  }
+
+  .animate-loading-pulse {
+    animation: loading-pulse 1.5s ease-in-out infinite;
+  }
+
+  .animate-message-fade-in {
+    animation: message-fade-in 0.3s ease-out;
+  }
+
+  .animate-message-fade-out {
+    animation: message-fade-out 0.3s ease-in;
+  }
+
+  .animate-typewriter-typing {
+    animation: typewriter-typing var(--typing-duration, 2s) linear;
+  }
+}
+
+/* Reduced Motion Support for Cognitive Warfare Messages */
+@media (prefers-reduced-motion: reduce) {
+  .cognitive-warfare-messages .cursor,
+  .cognitive-warfare-messages .progress-fill,
+  .cognitive-warfare-messages .message-text,
+  .cognitive-warfare-messages .pause-button::before,
+  .animate-cursor-blink,
+  .animate-progress-shimmer,
+  .animate-loading-pulse,
+  .animate-message-fade-in,
+  .animate-message-fade-out,
+  .animate-typewriter-typing {
+    animation: none !important;
+    transition: none !important;
+  }
+
+  .cognitive-warfare-messages .cursor {
+    opacity: 1 !important;
+  }
+
+  .cognitive-warfare-messages .progress-fill {
+    background: rgba(var(--terminal-cyan), 1) !important;
+  }
+
+  .cognitive-warfare-messages .pause-button:hover {
+    transform: none !important;
+  }
+}

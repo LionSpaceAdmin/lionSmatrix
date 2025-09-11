@@ -1,0 +1,42 @@
+{
+  // Cursor AI Configuration
+  "cursor.aiProvider": "claude-3.5-sonnet",
+  "cursor.copilot++": true,
+  "cursor.indexing.enabled": true,
+  "cursor.chat.showContext": true,
+  "cursor.composer.alwaysAllowWriting": true,
+  "cursor.cpp.enabled": true,
+  
+  // Editor Settings
+  "editor.fontSize": 14,
+  "editor.fontFamily": "'JetBrains Mono', 'Fira Code', Menlo, Monaco",
+  "editor.fontLigatures": true,
+  "editor.formatOnSave": true,
+  "editor.tabSize": 2,
+  "editor.minimap.enabled": true,
+  "editor.inlineSuggest.enabled": true,
+  "editor.suggestSelection": "first",
+  
+  // Terminal - רק zsh רגיל, WezTerm יהיה חיצוני
+  "terminal.integrated.defaultProfile.osx": "zsh",
+  "terminal.integrated.profiles.osx": {
+    "zsh": {
+      "path": "/bin/zsh"
+    }
+  },
+  "terminal.integrated.fontSize": 14,
+  "terminal.integrated.fontFamily": "'JetBrains Mono', 'Fira Code'",
+  
+  // External Terminal - WezTerm
+  "terminal.external.osxExec": "WezTerm.app",
+  "terminal.explorerKind": "external",
+  
+  // Performance
+  "files.watcherExclude": {
+    "**/.git/objects/**": true,
+    "**/node_modules/**": true,
+    "**/__pycache__/**": true,
+    "**/dist/**": true,
+    "**/.next/**": true
+  }
+}
