@@ -8,17 +8,17 @@ const getLCP = () => Promise.resolve(mockMetric);
 const getTTFB = () => Promise.resolve(mockMetric);
 const getINP = () => Promise.resolve(mockMetric);
 
-const onFCP = (callback: any) => { console.log('FCP tracking disabled (mock)'); };
-const onLCP = (callback: any) => { console.log('LCP tracking disabled (mock)'); };
-const onCLS = (callback: any) => { console.log('CLS tracking disabled (mock)'); };
-const onFID = (callback: any) => { console.log('FID tracking disabled (mock)'); };
-const onTTFB = (callback: any) => { console.log('TTFB tracking disabled (mock)'); };
-const onINP = (callback: any) => { console.log('INP tracking disabled (mock)'); };
+const onFCP = (_callback: unknown) => { console.log('FCP tracking disabled (mock)'); };
+const onLCP = (_callback: unknown) => { console.log('LCP tracking disabled (mock)'); };
+const onCLS = (_callback: unknown) => { console.log('CLS tracking disabled (mock)'); };
+const onFID = (_callback: unknown) => { console.log('FID tracking disabled (mock)'); };
+const onTTFB = (_callback: unknown) => { console.log('TTFB tracking disabled (mock)'); };
+const onINP = (_callback: unknown) => { console.log('INP tracking disabled (mock)'); };
 
 // Mock Sentry
 const Sentry = {
-  captureMessage: (message: string, level?: string) => { console.log('Sentry:', message); },
-  addBreadcrumb: (data: any) => { console.log('Sentry breadcrumb:', data); },
+  captureMessage: (message: string, _level?: string) => { console.log('Sentry:', message); },
+  addBreadcrumb: (data: unknown) => { console.log('Sentry breadcrumb:', data); },
   setMeasurement: (name: string, value: number, unit: string) => { console.log('Sentry measurement:', name, value, unit); }
 };
 

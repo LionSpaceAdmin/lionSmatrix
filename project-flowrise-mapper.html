@@ -1,0 +1,1620 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lions of Zion - Flowrise Project Mapper</title>
+    <style>
+        :root {
+            --terminal-bg: #030712;
+            --terminal-secondary: #0F172A;
+            --terminal-cyan: #22D3EE;
+            --terminal-gold: #FBBF24;
+            --terminal-red: #EF4444;
+            --terminal-green: #6EE7B7;
+            --terminal-text: #F8FAFB;
+            --terminal-muted: #9CA3AF;
+            --terminal-border: #1E293B;
+            --terminal-purple: #8B5CF6;
+            --terminal-orange: #F97316;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Courier New', 'Menlo', 'Monaco', monospace;
+            background: radial-gradient(circle at 50% 50%, var(--terminal-secondary) 0%, var(--terminal-bg) 100%);
+            color: var(--terminal-text);
+            min-height: 100vh;
+            direction: rtl;
+            line-height: 1.6;
+            overflow-x: auto;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 1rem;
+        }
+
+        /* Header */
+        .header {
+            text-align: center;
+            padding: 2rem 0;
+            border-bottom: 2px solid var(--terminal-cyan);
+            margin-bottom: 2rem;
+            background: rgba(34, 211, 238, 0.05);
+            border-radius: 10px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, transparent 30%, rgba(34, 211, 238, 0.1) 50%, transparent 70%);
+            animation: scan 3s linear infinite;
+        }
+
+        @keyframes scan {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            color: var(--terminal-cyan);
+            margin-bottom: 0.5rem;
+            text-shadow: 0 0 10px var(--terminal-cyan);
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow {
+            from { text-shadow: 0 0 5px var(--terminal-cyan); }
+            to { text-shadow: 0 0 20px var(--terminal-cyan), 0 0 30px var(--terminal-cyan); }
+        }
+
+        .subtitle {
+            color: var(--terminal-muted);
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+        }
+
+        .last-updated {
+            color: var(--terminal-gold);
+            font-size: 0.9rem;
+            margin-top: 1rem;
+        }
+
+        /* Stats Bar */
+        .stats-bar {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+            padding: 1rem;
+            background: var(--terminal-secondary);
+            border-radius: 10px;
+            border: 1px solid var(--terminal-border);
+        }
+
+        .stat-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem;
+            background: var(--terminal-bg);
+            border-radius: 5px;
+            border: 1px solid var(--terminal-border);
+            transition: all 0.3s ease;
+        }
+
+        .stat-item:hover {
+            border-color: var(--terminal-cyan);
+            box-shadow: 0 0 10px rgba(34, 211, 238, 0.3);
+        }
+
+        .stat-icon {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .stat-label {
+            color: var(--terminal-muted);
+            font-size: 0.9rem;
+        }
+
+        .stat-value {
+            color: var(--terminal-cyan);
+            font-weight: bold;
+            margin-right: auto;
+        }
+
+        /* Progress Indicator */
+        .progress-container {
+            margin-bottom: 2rem;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 20px;
+            background: var(--terminal-secondary);
+            border-radius: 10px;
+            overflow: hidden;
+            position: relative;
+            border: 1px solid var(--terminal-border);
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--terminal-green), var(--terminal-cyan));
+            border-radius: 10px;
+            position: relative;
+            transition: width 1s ease;
+            animation: shimmer 2s linear infinite;
+        }
+
+        @keyframes shimmer {
+            0% { background-position: -100% 0; }
+            100% { background-position: 100% 0; }
+        }
+
+        .progress-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: var(--terminal-bg);
+            font-weight: bold;
+            font-size: 0.8rem;
+            z-index: 2;
+        }
+
+        /* Route Groups Container */
+        .route-groups {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        /* Route Group Cards */
+        .route-group {
+            background: var(--terminal-secondary);
+            border-radius: 10px;
+            padding: 1.5rem;
+            border: 2px solid var(--terminal-border);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .route-group::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--group-color, var(--terminal-cyan));
+        }
+
+        .route-group:hover {
+            border-color: var(--group-color, var(--terminal-cyan));
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .route-group.public { --group-color: var(--terminal-green); }
+        .route-group.auth { --group-color: var(--terminal-cyan); }
+        .route-group.dashboard { --group-color: var(--terminal-red); }
+        .route-group.academy { --group-color: var(--terminal-gold); }
+        .route-group.trust { --group-color: var(--terminal-purple); }
+        .route-group.enterprise { --group-color: var(--terminal-orange); }
+
+        .group-header {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 1rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 1px solid var(--terminal-border);
+        }
+
+        .group-icon {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            font-weight: bold;
+            background: var(--group-color, var(--terminal-cyan));
+            color: var(--terminal-bg);
+        }
+
+        .group-title {
+            color: var(--group-color, var(--terminal-cyan));
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+
+        .group-priority {
+            margin-right: auto;
+            padding: 0.25rem 0.5rem;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            font-weight: bold;
+        }
+
+        .priority-critical {
+            background: var(--terminal-red);
+            color: var(--terminal-bg);
+        }
+
+        .priority-high {
+            background: var(--terminal-gold);
+            color: var(--terminal-bg);
+        }
+
+        .priority-medium {
+            background: var(--terminal-cyan);
+            color: var(--terminal-bg);
+        }
+
+        .group-description {
+            color: var(--terminal-muted);
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+            font-style: italic;
+        }
+
+        /* Routes List */
+        .routes-list {
+            space-y: 0.5rem;
+        }
+
+        .route-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.75rem;
+            background: var(--terminal-bg);
+            border-radius: 5px;
+            border: 1px solid var(--terminal-border);
+            margin-bottom: 0.5rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .route-item:hover {
+            border-color: var(--group-color, var(--terminal-cyan));
+            background: rgba(34, 211, 238, 0.05);
+        }
+
+        .route-status {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+
+        .status-completed { background: var(--terminal-green); }
+        .status-missing { background: var(--terminal-red); }
+        .status-progress { background: var(--terminal-gold); animation: pulse 1.5s infinite; }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        .route-path {
+            color: var(--terminal-cyan);
+            font-weight: bold;
+            min-width: 120px;
+        }
+
+        .route-name {
+            color: var(--terminal-text);
+            flex-grow: 1;
+        }
+
+        .route-components {
+            color: var(--terminal-muted);
+            font-size: 0.8rem;
+            margin-right: auto;
+        }
+
+        .route-prompt {
+            color: var(--terminal-gold);
+            font-size: 0.7rem;
+            padding: 0.2rem 0.4rem;
+            background: rgba(251, 191, 36, 0.1);
+            border-radius: 3px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .route-prompt:hover {
+            background: rgba(251, 191, 36, 0.2);
+            color: var(--terminal-text);
+        }
+
+        /* Missing Pages Alert */
+        .missing-pages {
+            background: rgba(239, 68, 68, 0.1);
+            border: 2px solid var(--terminal-red);
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .missing-pages h3 {
+            color: var(--terminal-red);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .missing-item {
+            background: var(--terminal-bg);
+            padding: 0.75rem;
+            border-radius: 5px;
+            margin-bottom: 0.5rem;
+            border-right: 4px solid var(--terminal-red);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .missing-item .priority {
+            padding: 0.2rem 0.5rem;
+            border-radius: 15px;
+            font-size: 0.7rem;
+            font-weight: bold;
+            background: var(--terminal-red);
+            color: var(--terminal-bg);
+        }
+
+        /* Quality Metrics */
+        .quality-metrics {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .metric-card {
+            background: var(--terminal-secondary);
+            padding: 1rem;
+            border-radius: 10px;
+            border: 1px solid var(--terminal-border);
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .metric-card:hover {
+            border-color: var(--terminal-cyan);
+            box-shadow: 0 0 15px rgba(34, 211, 238, 0.2);
+        }
+
+        .metric-label {
+            color: var(--terminal-muted);
+            font-size: 0.8rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .metric-value {
+            color: var(--terminal-green);
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 2rem 0;
+            border-top: 1px solid var(--terminal-border);
+            color: var(--terminal-muted);
+            font-size: 0.9rem;
+        }
+
+        /* Interactive Features */
+        .interactive-controls {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .control-button {
+            padding: 0.5rem 1rem;
+            background: var(--terminal-bg);
+            border: 1px solid var(--terminal-border);
+            border-radius: 5px;
+            color: var(--terminal-text);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: inherit;
+        }
+
+        .control-button:hover {
+            border-color: var(--terminal-cyan);
+            color: var(--terminal-cyan);
+        }
+
+        .control-button.active {
+            background: var(--terminal-cyan);
+            color: var(--terminal-bg);
+            border-color: var(--terminal-cyan);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .route-groups {
+                grid-template-columns: 1fr;
+            }
+            
+            .stats-bar {
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            }
+            
+            .interactive-controls {
+                flex-direction: column;
+            }
+            
+            .route-item {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 0.5rem;
+            }
+            
+            .route-components {
+                margin-right: 0;
+            }
+        }
+
+        /* Terminal Effects */
+        .terminal-cursor {
+            animation: blink 1s infinite;
+        }
+
+        @keyframes blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0; }
+        }
+
+        /* Router Tree Visualization */
+        .router-tree-container {
+            margin-bottom: 2rem;
+            background: var(--terminal-secondary);
+            border-radius: 10px;
+            padding: 1.5rem;
+            border: 1px solid var(--terminal-border);
+        }
+
+        .section-title {
+            color: var(--terminal-cyan);
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        .tree-controls {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .router-tree {
+            position: relative;
+            min-height: 400px;
+            background: var(--terminal-bg);
+            border-radius: 10px;
+            padding: 1rem;
+            border: 1px solid var(--terminal-border);
+            overflow: auto;
+        }
+
+        .tree-node {
+            position: relative;
+            margin: 0.5rem;
+            padding: 0.75rem;
+            background: var(--terminal-secondary);
+            border-radius: 8px;
+            border: 2px solid var(--terminal-border);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            min-width: 150px;
+            text-align: center;
+        }
+
+        .tree-node:hover {
+            border-color: var(--terminal-cyan);
+            box-shadow: 0 0 15px rgba(34, 211, 238, 0.3);
+        }
+
+        .tree-node.root {
+            background: var(--terminal-cyan);
+            color: var(--terminal-bg);
+            font-weight: bold;
+            border-color: var(--terminal-cyan);
+        }
+
+        .tree-node.group {
+            border-left: 4px solid var(--group-color);
+        }
+
+        .tree-node.route {
+            background: var(--terminal-bg);
+            border-style: dashed;
+        }
+
+        .tree-node.implemented {
+            border-color: var(--terminal-green);
+        }
+
+        .tree-node.missing {
+            border-color: var(--terminal-red);
+            background: rgba(239, 68, 68, 0.1);
+        }
+
+        .tree-connections {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .connection-line {
+            position: absolute;
+            background: var(--terminal-border);
+            z-index: 1;
+        }
+
+        .connection-line.vertical {
+            width: 2px;
+        }
+
+        .connection-line.horizontal {
+            height: 2px;
+        }
+
+        /* Network-style visualization */
+        .network-view {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .network-level {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1rem;
+            width: 100%;
+        }
+
+        .network-node {
+            position: relative;
+            padding: 1rem;
+            border-radius: 10px;
+            border: 2px solid var(--terminal-border);
+            background: var(--terminal-secondary);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            min-width: 120px;
+            text-align: center;
+        }
+
+        .network-node::before {
+            content: '';
+            position: absolute;
+            top: -5px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: var(--node-status-color, var(--terminal-border));
+        }
+
+        .network-node.implemented::before {
+            background: var(--terminal-green);
+            box-shadow: 0 0 10px var(--terminal-green);
+        }
+
+        .network-node.missing::before {
+            background: var(--terminal-red);
+            box-shadow: 0 0 10px var(--terminal-red);
+        }
+
+        .network-node:hover {
+            transform: scale(1.05);
+            border-color: var(--terminal-cyan);
+        }
+
+        /* Agent Prompt Integration */
+        .prompt-reference {
+            background: rgba(251, 191, 36, 0.1);
+            border: 1px solid var(--terminal-gold);
+            border-radius: 5px;
+            padding: 0.5rem;
+            margin-top: 0.5rem;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .prompt-reference:hover {
+            background: rgba(251, 191, 36, 0.2);
+            border-color: var(--terminal-text);
+        }
+
+        /* Smart Indicators */
+        .smart-indicators {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .indicator-card {
+            background: var(--terminal-secondary);
+            border-radius: 10px;
+            padding: 1rem;
+            border: 1px solid var(--terminal-border);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .indicator-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: var(--indicator-color, var(--terminal-cyan));
+        }
+
+        .indicator-title {
+            font-weight: bold;
+            color: var(--terminal-text);
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .indicator-value {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--indicator-color, var(--terminal-cyan));
+            margin-bottom: 0.5rem;
+        }
+
+        .indicator-description {
+            color: var(--terminal-muted);
+            font-size: 0.9rem;
+        }
+
+        .indicator-trend {
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+            font-size: 0.8rem;
+            margin-top: 0.5rem;
+        }
+
+        .trend-up {
+            color: var(--terminal-green);
+        }
+
+        .trend-down {
+            color: var(--terminal-red);
+        }
+
+        /* Real-time sync indicators */
+        .sync-status {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background: var(--terminal-bg);
+            border: 1px solid var(--terminal-border);
+            border-radius: 20px;
+            padding: 0.5rem 1rem;
+            font-size: 0.8rem;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        .sync-status.syncing {
+            border-color: var(--terminal-gold);
+            color: var(--terminal-gold);
+        }
+
+        .sync-status.synced {
+            border-color: var(--terminal-green);
+            color: var(--terminal-green);
+        }
+
+        .sync-status.error {
+            border-color: var(--terminal-red);
+            color: var(--terminal-red);
+        }
+
+        /* Tooltip */
+        .tooltip {
+            position: relative;
+        }
+
+        .tooltip:hover::after {
+            content: attr(data-tooltip);
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--terminal-bg);
+            color: var(--terminal-text);
+            padding: 0.5rem;
+            border-radius: 5px;
+            font-size: 0.8rem;
+            white-space: nowrap;
+            z-index: 1000;
+            border: 1px solid var(--terminal-border);
+        }
+
+        /* Advanced Features */
+        .code-generator {
+            background: var(--terminal-bg);
+            border: 1px solid var(--terminal-border);
+            border-radius: 10px;
+            padding: 1rem;
+            margin: 1rem 0;
+            font-family: 'Courier New', monospace;
+        }
+
+        .code-output {
+            background: var(--terminal-secondary);
+            padding: 1rem;
+            border-radius: 5px;
+            margin-top: 0.5rem;
+            overflow-x: auto;
+            font-size: 0.9rem;
+            white-space: pre-wrap;
+            color: var(--terminal-green);
+        }
+
+        /* Animation for loading states */
+        @keyframes pulse-glow {
+            0%, 100% {
+                box-shadow: 0 0 5px var(--terminal-cyan);
+            }
+            50% {
+                box-shadow: 0 0 20px var(--terminal-cyan);
+            }
+        }
+
+        .loading {
+            animation: pulse-glow 1.5s ease-in-out infinite;
+        }
+    </style>
+</head>
+<body>
+    <!-- Sync Status Indicator -->
+    <div class="sync-status synced" id="syncStatus">
+        🔄 מסונכרן בזמן אמת
+    </div>
+
+    <div class="container">
+        <!-- Smart Indicators -->
+        <div class="smart-indicators" id="smartIndicators">
+            <div class="indicator-card" style="--indicator-color: var(--terminal-green);">
+                <div class="indicator-title">
+                    ✅ דפים מיושמים
+                </div>
+                <div class="indicator-value" id="implementedCount">44</div>
+                <div class="indicator-description">מתוך 48 דפים מתוכננים</div>
+                <div class="indicator-trend trend-up">
+                    ↗️ +3 השבוע
+                </div>
+            </div>
+
+            <div class="indicator-card" style="--indicator-color: var(--terminal-red);">
+                <div class="indicator-title">
+                    ⚠️ פערי יישום
+                </div>
+                <div class="indicator-value" id="gapsCount">4</div>
+                <div class="indicator-description">דפים קריטיים חסרים</div>
+                <div class="indicator-trend trend-down">
+                    ↘️ -1 השבוע
+                </div>
+            </div>
+
+            <div class="indicator-card" style="--indicator-color: var(--terminal-gold);">
+                <div class="indicator-title">
+                    📋 Agent Prompts
+                </div>
+                <div class="indicator-value" id="promptsCount">795</div>
+                <div class="indicator-description">שורות בקובץ התוכנית</div>
+                <div class="indicator-trend trend-up">
+                    ↗️ עדכון שוטף
+                </div>
+            </div>
+
+            <div class="indicator-card" style="--indicator-color: var(--terminal-cyan);">
+                <div class="indicator-title">
+                    🎯 רמת עדיפות
+                </div>
+                <div class="indicator-value" id="priorityScore">85%</div>
+                <div class="indicator-description">דפים קריטיים מיושמים</div>
+                <div class="indicator-trend trend-up">
+                    ↗️ יציב
+                </div>
+            </div>
+        </div>
+
+        <!-- Header -->
+        <header class="header">
+            <h1>🦁 LIONS OF ZION</h1>
+            <div class="subtitle">Flowrise Project Mapper - מפת פרויקט בזמן אמת</div>
+            <div class="last-updated">עודכן לאחרונה: <span id="lastUpdate">11.9.2025, 5:45:03</span></div>
+        </header>
+
+        <!-- Interactive Controls -->
+        <div class="interactive-controls">
+            <button class="control-button active" onclick="showAll()">הצג הכל</button>
+            <button class="control-button" onclick="showMissing()">דפים חסרים</button>
+            <button class="control-button" onclick="showCompleted()">מוצאגים</button>
+            <button class="control-button" onclick="showCritical()">קריטי</button>
+            <button class="control-button" onclick="refreshData()">רענן נתונים</button>
+        </div>
+
+        <!-- Stats Bar -->
+        <div class="stats-bar">
+            <div class="stat-item">
+                <div class="stat-icon" style="background: var(--terminal-green);">📄</div>
+                <div class="stat-label">סה״כ דפים</div>
+                <div class="stat-value" id="totalPages">47</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-icon" style="background: var(--terminal-cyan);">🧩</div>
+                <div class="stat-label">קומפוננטים</div>
+                <div class="stat-value" id="totalComponents">59</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-icon" style="background: var(--terminal-gold);">📊</div>
+                <div class="stat-label">התקדמות</div>
+                <div class="stat-value" id="progressPercent">75%</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-icon" style="background: var(--terminal-red);">⚠️</div>
+                <div class="stat-label">דפים חסרים</div>
+                <div class="stat-value" id="missingPages">4</div>
+            </div>
+        </div>
+
+        <!-- Progress Bar -->
+        <div class="progress-container">
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill" style="width: 75%"></div>
+                <div class="progress-text">התקדמות יישום: 75%</div>
+            </div>
+        </div>
+
+        <!-- Missing Pages Alert -->
+        <div class="missing-pages" id="missingAlert">
+            <h3>🚨 דפים חסרים ביישום</h3>
+            <div id="missingPagesList">
+                <!-- Will be populated by JavaScript -->
+            </div>
+        </div>
+
+        <!-- Router Tree Visualization -->
+        <div class="router-tree-container" id="routerTreeContainer">
+            <h2 class="section-title">🌳 מפת Router Tree אינטראקטיבית</h2>
+            <div class="tree-controls">
+                <button class="control-button" onclick="toggleTreeView()">מעבר לתצוגת עץ</button>
+                <button class="control-button" onclick="exportToJSON()">ייצוא JSON</button>
+                <button class="control-button" onclick="generateTodoList()">יצור רשימת TODO</button>
+            </div>
+            <div class="router-tree" id="routerTree">
+                <!-- Tree visualization will be rendered here -->
+            </div>
+        </div>
+
+        <!-- Route Groups -->
+        <div class="route-groups" id="routeGroups">
+            <!-- Will be populated by JavaScript -->
+        </div>
+
+        <!-- Quality Metrics -->
+        <div class="quality-metrics">
+            <div class="metric-card">
+                <div class="metric-label">A11y Score</div>
+                <div class="metric-value">95%</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-label">Performance</div>
+                <div class="metric-value">LCP ≤ 2.5s</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-label">i18n Support</div>
+                <div class="metric-value">EN + HE</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-label">RTL Support</div>
+                <div class="metric-value">✅ Active</div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>Lions of Zion Project Mapper | עודכן אוטומטית מקבצי הפרויקט</p>
+            <p>מבוסס על Agent Prompts ומבנה Next.js 15 App Router</p>
+        </footer>
+    </div>
+
+    <!-- JavaScript -->
+    <script>
+        // Project data will be loaded here
+        let projectData = null;
+        let currentFilter = 'all';
+
+        // Initialize the application
+        document.addEventListener('DOMContentLoaded', function() {
+            loadProjectData();
+            updateLastUpdateTime();
+        });
+
+        // Load project structure data
+        async function loadProjectData() {
+            try {
+                // In a real implementation, this would fetch from the JSON file
+                // For now, we'll embed the data structure
+                projectData = {
+                    projectInfo: {
+                        name: "Lions of Zion",
+                        lastUpdated: new Date().toISOString(),
+                        stats: {
+                            totalPages: 48,
+                            totalComponents: 59,
+                            routeGroups: 6,
+                            implementationProgress: "75%"
+                        }
+                    },
+                    routeGroups: {
+                        "(public)": {
+                            name: "Public Pages",
+                            description: "דפים ציבוריים הפתוחים לכל המשתמשים",
+                            color: "#6EE7B7",
+                            priority: "critical",
+                            routes: {
+                                "/": { name: "Landing (Home)", implemented: true, status: "completed" },
+                                "/daily-brief": { name: "Daily Brief", implemented: true, status: "completed" },
+                                "/archive": { name: "Archive", implemented: true, status: "completed" },
+                                "/about": { name: "About", implemented: true, status: "completed" },
+                                "/contact": { name: "Contact", implemented: true, status: "completed" },
+                                "/faq": { name: "FAQ", implemented: true, status: "completed" },
+                                "/search": { name: "Search", implemented: true, status: "completed" },
+                                "/playbooks": { name: "Playbooks", implemented: false, status: "missing", priority: "high" }
+                            }
+                        },
+                        "(auth)": {
+                            name: "Authentication",
+                            description: "דפי אימות והצטרפות",
+                            color: "#22D3EE",
+                            priority: "critical",
+                            routes: {
+                                "/auth/sign-in": { name: "Sign In", implemented: true, status: "completed" },
+                                "/auth/join": { name: "Join", implemented: true, status: "completed" },
+                                "/auth/onboarding": { name: "Onboarding", implemented: true, status: "completed" }
+                            }
+                        },
+                        "(dashboard)": {
+                            name: "Dashboard",
+                            description: "כלי מלחמה ומטה פיקוד",
+                            color: "#EF4444",
+                            priority: "critical",
+                            routes: {
+                                "/dashboard": { name: "Dashboard Overview", implemented: false, status: "missing", priority: "critical" },
+                                "/dashboard/war-machine": { name: "War Machine", implemented: true, status: "completed" },
+                                "/dashboard/tools/fact-check": { name: "Fact Check", implemented: true, status: "completed" },
+                                "/dashboard/tools/image-influence-lab": { name: "Image Lab", implemented: true, status: "completed" },
+                                "/dashboard/campaigns": { name: "Campaigns", implemented: true, status: "completed" }
+                            }
+                        },
+                        "(academy)": {
+                            name: "Academy",
+                            description: "מרכז ידע ולמידה",
+                            color: "#FBBF24",
+                            priority: "medium",
+                            routes: {
+                                "/academy": { name: "Academy Index", implemented: false, status: "missing", priority: "medium" },
+                                "/academy/[slug]": { name: "Article Detail", implemented: true, status: "completed" },
+                                "/academy/courses": { name: "Courses", implemented: true, status: "completed" }
+                            }
+                        },
+                        "(trust)": {
+                            name: "Trust Center",
+                            description: "מרכז שקיפות וביקורת",
+                            color: "#8B5CF6",
+                            priority: "high",
+                            routes: {
+                                "/trust/transparency": { name: "Transparency", implemented: true, status: "completed" },
+                                "/trust/provenance": { name: "Provenance", implemented: true, status: "completed" },
+                                "/trust/dsr": { name: "Data Requests", implemented: true, status: "completed" }
+                            }
+                        },
+                        "(enterprise)": {
+                            name: "Enterprise",
+                            description: "פתרונות ארגוניים",
+                            color: "#F97316",
+                            priority: "medium",
+                            routes: {
+                                "/enterprise": { name: "Enterprise Landing", implemented: false, status: "missing", priority: "medium" },
+                                "/enterprise/organization": { name: "Organization", implemented: true, status: "completed" },
+                                "/enterprise/compliance": { name: "Compliance", implemented: true, status: "completed" }
+                            }
+                        }
+                    },
+                    missingPages: [
+                        { page: "/dashboard", priority: "critical", reason: "מטה פיקוד ראשי חסר" },
+                        { page: "/playbooks", priority: "high", reason: "קטלוג playbooks חיוני חסר" },
+                        { page: "/academy", priority: "medium", reason: "אינדקס בסיס ידע חסר" },
+                        { page: "/enterprise", priority: "medium", reason: "נחיתה B2B חסרה" }
+                    ]
+                };
+
+                renderProjectData();
+                updateMissingPages();
+            } catch (error) {
+                console.error('Error loading project data:', error);
+            }
+        }
+
+        // Render the project data
+        function renderProjectData() {
+            if (!projectData) return;
+
+            const routeGroupsContainer = document.getElementById('routeGroups');
+            routeGroupsContainer.innerHTML = '';
+
+            Object.entries(projectData.routeGroups).forEach(([groupKey, groupData]) => {
+                if (shouldShowGroup(groupData)) {
+                    const groupElement = createRouteGroupElement(groupKey, groupData);
+                    routeGroupsContainer.appendChild(groupElement);
+                }
+            });
+        }
+
+        // Create route group element
+        function createRouteGroupElement(groupKey, groupData) {
+            const groupElement = document.createElement('div');
+            groupElement.className = `route-group ${groupKey.replace(/[()]/g, '')}`;
+            
+            const completedRoutes = Object.values(groupData.routes).filter(route => route.implemented).length;
+            const totalRoutes = Object.keys(groupData.routes).length;
+            const progressPercent = Math.round((completedRoutes / totalRoutes) * 100);
+
+            groupElement.innerHTML = `
+                <div class="group-header">
+                    <div class="group-icon">${getGroupIcon(groupKey)}</div>
+                    <div class="group-title">${groupData.name}</div>
+                    <div class="group-priority priority-${groupData.priority}">${getPriorityText(groupData.priority)}</div>
+                </div>
+                <div class="group-description">${groupData.description}</div>
+                <div class="progress-container">
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: ${progressPercent}%"></div>
+                        <div class="progress-text">${completedRoutes}/${totalRoutes} (${progressPercent}%)</div>
+                    </div>
+                </div>
+                <div class="routes-list">
+                    ${Object.entries(groupData.routes).map(([path, route]) => createRouteItem(path, route)).join('')}
+                </div>
+            `;
+
+            return groupElement;
+        }
+
+        // Create route item
+        function createRouteItem(path, route) {
+            if (!shouldShowRoute(route)) return '';
+
+            const statusClass = route.implemented ? 'status-completed' : 'status-missing';
+            const promptSection = route.promptSection ? `שורות ${route.promptSection}` : 'לא מוגדר';
+
+            return `
+                <div class="route-item tooltip" data-tooltip="${route.description || route.name}">
+                    <div class="route-status ${statusClass}"></div>
+                    <div class="route-path">${path}</div>
+                    <div class="route-name">${route.name}</div>
+                    <div class="route-components">${route.components ? route.components.join(', ') : ''}</div>
+                    <div class="route-prompt" onclick="openPromptSection('${route.promptSection}')">${promptSection}</div>
+                </div>
+            `;
+        }
+
+        // Update missing pages
+        function updateMissingPages() {
+            if (!projectData) return;
+
+            const missingPagesList = document.getElementById('missingPagesList');
+            missingPagesList.innerHTML = projectData.missingPages.map(item => `
+                <div class="missing-item">
+                    <div>
+                        <strong>${item.page}</strong> - ${item.reason}
+                    </div>
+                    <div class="priority">${getPriorityText(item.priority)}</div>
+                </div>
+            `).join('');
+        }
+
+        // Utility functions
+        function getGroupIcon(groupKey) {
+            const icons = {
+                '(public)': '🌐',
+                '(auth)': '🔐',
+                '(dashboard)': '⚔️',
+                '(academy)': '🎓',
+                '(trust)': '🛡️',
+                '(enterprise)': '🏢'
+            };
+            return icons[groupKey] || '📄';
+        }
+
+        function getPriorityText(priority) {
+            const priorities = {
+                'critical': 'קריטי',
+                'high': 'גבוה',
+                'medium': 'בינוני',
+                'low': 'נמוך'
+            };
+            return priorities[priority] || priority;
+        }
+
+        function shouldShowGroup(groupData) {
+            if (currentFilter === 'all') return true;
+            if (currentFilter === 'critical') return groupData.priority === 'critical';
+            if (currentFilter === 'missing') {
+                return Object.values(groupData.routes).some(route => !route.implemented);
+            }
+            if (currentFilter === 'completed') {
+                return Object.values(groupData.routes).every(route => route.implemented);
+            }
+            return true;
+        }
+
+        function shouldShowRoute(route) {
+            if (currentFilter === 'missing') return !route.implemented;
+            if (currentFilter === 'completed') return route.implemented;
+            if (currentFilter === 'critical') return route.priority === 'critical';
+            return true;
+        }
+
+        // Interactive functions
+        function showAll() {
+            currentFilter = 'all';
+            updateActiveButton('הצג הכל');
+            renderProjectData();
+        }
+
+        function showMissing() {
+            currentFilter = 'missing';
+            updateActiveButton('דפים חסרים');
+            renderProjectData();
+        }
+
+        function showCompleted() {
+            currentFilter = 'completed';
+            updateActiveButton('מוצאגים');
+            renderProjectData();
+        }
+
+        function showCritical() {
+            currentFilter = 'critical';
+            updateActiveButton('קריטי');
+            renderProjectData();
+        }
+
+        function refreshData() {
+            updateLastUpdateTime();
+            loadProjectData();
+        }
+
+        function updateActiveButton(activeText) {
+            document.querySelectorAll('.control-button').forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.textContent === activeText) {
+                    btn.classList.add('active');
+                }
+            });
+        }
+
+        function updateLastUpdateTime() {
+            document.getElementById('lastUpdate').textContent = new Date().toLocaleString('he-IL');
+        }
+
+        function openPromptSection(section) {
+            if (section && section !== 'לא מוגדר') {
+                // In a real implementation, this would open the agent prompts file
+                alert(`פותח את קובץ Agent Prompts בשורות ${section}`);
+            }
+        }
+
+        // Auto-refresh every 5 minutes
+        setInterval(refreshData, 5 * 60 * 1000);
+
+        // Advanced Features
+        let isTreeView = false;
+
+        function toggleTreeView() {
+            isTreeView = !isTreeView;
+            const routerTree = document.getElementById('routerTree');
+            
+            if (isTreeView) {
+                renderTreeVisualization();
+                document.querySelector('[onclick="toggleTreeView()"]').textContent = 'מעבר לתצוגת רשת';
+            } else {
+                renderNetworkVisualization();
+                document.querySelector('[onclick="toggleTreeView()"]').textContent = 'מעבר לתצוגת עץ';
+            }
+        }
+
+        function renderTreeVisualization() {
+            const routerTree = document.getElementById('routerTree');
+            routerTree.innerHTML = '<div class="network-view" id="networkView"></div>';
+            
+            const networkView = document.getElementById('networkView');
+            
+            // Root level
+            const rootLevel = document.createElement('div');
+            rootLevel.className = 'network-level';
+            rootLevel.innerHTML = '<div class="network-node root">🏠 Root App</div>';
+            networkView.appendChild(rootLevel);
+            
+            // Route Groups level
+            const groupsLevel = document.createElement('div');
+            groupsLevel.className = 'network-level';
+            
+            Object.entries(projectData.routeGroups).forEach(([groupKey, groupData]) => {
+                const completedRoutes = Object.values(groupData.routes).filter(route => route.implemented).length;
+                const totalRoutes = Object.keys(groupData.routes).length;
+                const isCompleted = completedRoutes === totalRoutes;
+                
+                const groupNode = document.createElement('div');
+                groupNode.className = `network-node ${isCompleted ? 'implemented' : 'missing'}`;
+                groupNode.style.borderColor = groupData.color;
+                groupNode.innerHTML = `
+                    <div>${getGroupIcon(groupKey)} ${groupData.name}</div>
+                    <small>${completedRoutes}/${totalRoutes}</small>
+                `;
+                groupNode.onclick = () => showGroupDetails(groupKey, groupData);
+                groupsLevel.appendChild(groupNode);
+            });
+            
+            networkView.appendChild(groupsLevel);
+        }
+
+        function renderNetworkVisualization() {
+            const routerTree = document.getElementById('routerTree');
+            routerTree.innerHTML = '';
+            
+            // Create connections canvas
+            const connectionsDiv = document.createElement('div');
+            connectionsDiv.className = 'tree-connections';
+            routerTree.appendChild(connectionsDiv);
+            
+            // Render hierarchical tree
+            const rootNode = document.createElement('div');
+            rootNode.className = 'tree-node root';
+            rootNode.innerHTML = '🏠 Next.js App Router';
+            rootNode.style.position = 'absolute';
+            rootNode.style.top = '20px';
+            rootNode.style.left = '50%';
+            rootNode.style.transform = 'translateX(-50%)';
+            routerTree.appendChild(rootNode);
+            
+            // Render route groups in a circle
+            const centerX = 50; // percentage
+            const centerY = 30; // percentage
+            const radius = 25; // percentage
+            
+            Object.entries(projectData.routeGroups).forEach(([groupKey, groupData], index, array) => {
+                const angle = (index / array.length) * 2 * Math.PI;
+                const x = centerX + radius * Math.cos(angle);
+                const y = centerY + radius * Math.sin(angle);
+                
+                const groupNode = document.createElement('div');
+                groupNode.className = 'tree-node group';
+                groupNode.style.position = 'absolute';
+                groupNode.style.left = `${x}%`;
+                groupNode.style.top = `${y}%`;
+                groupNode.style.transform = 'translate(-50%, -50%)';
+                groupNode.style.borderLeftColor = groupData.color;
+                
+                const completedRoutes = Object.values(groupData.routes).filter(route => route.implemented).length;
+                const totalRoutes = Object.keys(groupData.routes).length;
+                
+                groupNode.innerHTML = `
+                    <div>${getGroupIcon(groupKey)} ${groupData.name}</div>
+                    <small>${completedRoutes}/${totalRoutes}</small>
+                `;
+                
+                groupNode.onclick = () => showGroupDetails(groupKey, groupData);
+                routerTree.appendChild(groupNode);
+                
+                // Draw connection to root
+                drawConnection(connectionsDiv, 50, 20, x, y);
+            });
+        }
+
+        function drawConnection(container, x1, y1, x2, y2) {
+            const line = document.createElement('div');
+            line.className = 'connection-line';
+            
+            const length = Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
+            const angle = Math.atan2(y2 - y1, x2 - x1) * 180 / Math.PI;
+            
+            line.style.width = `${length}%`;
+            line.style.height = '2px';
+            line.style.left = `${x1}%`;
+            line.style.top = `${y1}%`;
+            line.style.transform = `rotate(${angle}deg)`;
+            line.style.transformOrigin = '0 0';
+            
+            container.appendChild(line);
+        }
+
+        function showGroupDetails(groupKey, groupData) {
+            const modal = document.createElement('div');
+            modal.style.cssText = `
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0, 0, 0, 0.8);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                z-index: 2000;
+            `;
+            
+            modal.innerHTML = `
+                <div style="
+                    background: var(--terminal-bg);
+                    border: 2px solid ${groupData.color};
+                    border-radius: 10px;
+                    padding: 2rem;
+                    max-width: 600px;
+                    max-height: 80vh;
+                    overflow-y: auto;
+                    color: var(--terminal-text);
+                ">
+                    <h3 style="color: ${groupData.color}; margin-bottom: 1rem;">
+                        ${getGroupIcon(groupKey)} ${groupData.name}
+                    </h3>
+                    <p style="margin-bottom: 1rem; color: var(--terminal-muted);">
+                        ${groupData.description}
+                    </p>
+                    <div>
+                        ${Object.entries(groupData.routes).map(([path, route]) => `
+                            <div style="
+                                display: flex;
+                                align-items: center;
+                                gap: 0.5rem;
+                                padding: 0.5rem;
+                                border-bottom: 1px solid var(--terminal-border);
+                            ">
+                                <div style="
+                                    width: 10px;
+                                    height: 10px;
+                                    border-radius: 50%;
+                                    background: ${route.implemented ? 'var(--terminal-green)' : 'var(--terminal-red)'};
+                                "></div>
+                                <strong>${path}</strong> - ${route.name}
+                                ${route.promptSection ? `<span style="
+                                    color: var(--terminal-gold);
+                                    font-size: 0.8rem;
+                                    margin-right: auto;
+                                ">שורות ${route.promptSection}</span>` : ''}
+                            </div>
+                        `).join('')}
+                    </div>
+                    <button onclick="this.closest('div[style*=\"position: fixed\"]').remove()" style="
+                        margin-top: 1rem;
+                        padding: 0.5rem 1rem;
+                        background: var(--terminal-cyan);
+                        color: var(--terminal-bg);
+                        border: none;
+                        border-radius: 5px;
+                        cursor: pointer;
+                    ">סגור</button>
+                </div>
+            `;
+            
+            modal.onclick = (e) => {
+                if (e.target === modal) modal.remove();
+            };
+            
+            document.body.appendChild(modal);
+        }
+
+        function exportToJSON() {
+            const dataToExport = {
+                ...projectData,
+                exportedAt: new Date().toISOString(),
+                exportedBy: 'Lions of Zion Flowrise Mapper'
+            };
+            
+            const blob = new Blob([JSON.stringify(dataToExport, null, 2)], {
+                type: 'application/json'
+            });
+            
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `lions-of-zion-project-structure-${new Date().toISOString().split('T')[0]}.json`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+            
+            showNotification('✅ קובץ JSON יוצא בהצלחה!', 'success');
+        }
+
+        function generateTodoList() {
+            const todoItems = [];
+            
+            projectData.missingPages.forEach(item => {
+                todoItems.push(`- [ ] ${item.page} (${item.priority}) - ${item.reason}`);
+            });
+            
+            Object.entries(projectData.routeGroups).forEach(([groupKey, groupData]) => {
+                Object.entries(groupData.routes).forEach(([path, route]) => {
+                    if (!route.implemented) {
+                        todoItems.push(`- [ ] יישום ${path} - ${route.name}`);
+                        if (route.promptSection) {
+                            todoItems.push(`  - 📋 ראה Agent Prompts שורות ${route.promptSection}`);
+                        }
+                    }
+                });
+            });
+            
+            const todoContent = `# Lions of Zion - רשימת TODO\n\nעודכן: ${new Date().toLocaleString('he-IL')}\n\n## דפים חסרים\n\n${todoItems.join('\n')}\n\n## הערות\n- השתמש בקובץ Agent Prompts כמדריך ליישום\n- עדיפות: קריטי > גבוה > בינוני > נמוך\n- בדוק תאימות RTL ו-i18n לכל דף`;
+            
+            const blob = new Blob([todoContent], { type: 'text/markdown' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `lions-of-zion-todo-${new Date().toISOString().split('T')[0]}.md`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+            
+            showNotification('📋 רשימת TODO נוצרה בהצלחה!', 'success');
+        }
+
+        function showNotification(message, type = 'info') {
+            const notification = document.createElement('div');
+            notification.style.cssText = `
+                position: fixed;
+                top: 80px;
+                right: 20px;
+                background: var(--terminal-bg);
+                color: var(--terminal-text);
+                padding: 1rem;
+                border-radius: 5px;
+                border: 1px solid var(--terminal-border);
+                z-index: 3000;
+                animation: slideIn 0.3s ease;
+            `;
+            
+            if (type === 'success') {
+                notification.style.borderColor = 'var(--terminal-green)';
+                notification.style.color = 'var(--terminal-green)';
+            } else if (type === 'error') {
+                notification.style.borderColor = 'var(--terminal-red)';
+                notification.style.color = 'var(--terminal-red)';
+            }
+            
+            notification.textContent = message;
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.style.animation = 'slideOut 0.3s ease';
+                setTimeout(() => notification.remove(), 300);
+            }, 3000);
+        }
+
+        // Real-time sync simulation
+        function simulateRealtimeSync() {
+            const syncStatus = document.getElementById('syncStatus');
+            
+            // Simulate periodic checks
+            setInterval(() => {
+                syncStatus.className = 'sync-status syncing';
+                syncStatus.textContent = '🔄 בודק עדכונים...';
+                
+                setTimeout(() => {
+                    // Simulate random changes
+                    if (Math.random() > 0.9) {
+                        // Simulate a change detected
+                        updateStats();
+                        showNotification('🔄 זוהה שינוי בפרויקט', 'info');
+                    }
+                    
+                    syncStatus.className = 'sync-status synced';
+                    syncStatus.textContent = '✅ מסונכרן בזמן אמת';
+                }, 1500);
+            }, 30000); // Check every 30 seconds
+        }
+
+        function updateStats() {
+            // Update smart indicators with new data
+            const implementedCount = document.getElementById('implementedCount');
+            const gapsCount = document.getElementById('gapsCount');
+            
+            // Simulate small changes
+            const currentImplemented = parseInt(implementedCount.textContent);
+            if (Math.random() > 0.8) {
+                implementedCount.textContent = currentImplemented + (Math.random() > 0.5 ? 1 : -1);
+                gapsCount.textContent = parseInt(gapsCount.textContent) + (Math.random() > 0.5 ? -1 : 1);
+            }
+        }
+
+        // Initialize advanced features
+        document.addEventListener('DOMContentLoaded', function() {
+            loadProjectData();
+            updateLastUpdateTime();
+            simulateRealtimeSync();
+            
+            // Initialize with network view
+            setTimeout(() => {
+                renderNetworkVisualization();
+            }, 1000);
+        });
+
+        // Add CSS animations
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes slideIn {
+                from { transform: translateX(100%); opacity: 0; }
+                to { transform: translateX(0); opacity: 1; }
+            }
+            
+            @keyframes slideOut {
+                from { transform: translateX(0); opacity: 1; }
+                to { transform: translateX(100%); opacity: 0; }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>

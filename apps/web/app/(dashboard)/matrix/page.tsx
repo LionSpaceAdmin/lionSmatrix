@@ -1,7 +1,6 @@
 import type { Metadata } from 'next'
 import { IntelligenceMatrix } from '@/components/organisms/IntelligenceMatrix'
-import { NetworkVisualization } from '@/components/organisms/NetworkVisualization'
-import { Activity, Globe, Shield, Zap, Users, AlertTriangle, TrendingUp, Eye } from 'lucide-react'
+import { Globe, Users, AlertTriangle, TrendingUp, Shield } from 'lucide-react'
 
 export const metadata: Metadata = {
   title: 'Intelligence Matrix | Lions of Zion',

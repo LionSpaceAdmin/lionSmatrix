@@ -116,7 +116,8 @@ function useTypewriterEffect(
   text: string,
   isActive: boolean,
   reducedMotion: boolean,
-  isPaused: boolean
+  isPaused: boolean,
+  isRTL: boolean = false
 ) {
   const [displayText, setDisplayText] = useState('')
   const [isTyping, setIsTyping] = useState(false)
@@ -174,7 +175,14 @@ function useTypewriterEffect(
       if (isCurrentlyTyping) {
         if (currentIndex < text.length) {
           currentIndex++
-          setDisplayText(text.slice(0, currentIndex))
+          // For RTL languages, we need to handle text building differently
+          if (isRTL) {
+            // For RTL, we build the text normally but ensure proper RTL display
+            setDisplayText(text.slice(0, currentIndex))
+          } else {
+            // For LTR, normal slicing
+            setDisplayText(text.slice(0, currentIndex))
+          }
           animationRef.current = requestAnimationFrame(animate)
         } else {
           setIsTyping(false)
@@ -192,7 +200,14 @@ function useTypewriterEffect(
       } else {
         if (currentIndex > 0) {
           currentIndex--
-          setDisplayText(text.slice(0, currentIndex))
+          // For RTL languages, we need to handle text building differently
+          if (isRTL) {
+            // For RTL, we build the text normally but ensure proper RTL display
+            setDisplayText(text.slice(0, currentIndex))
+          } else {
+            // For LTR, normal slicing
+            setDisplayText(text.slice(0, currentIndex))
+          }
           animationRef.current = requestAnimationFrame(animate)
         } else {
           setIsBackspacing(false)
@@ -231,7 +246,8 @@ export function CognitiveWarfareRotatingMessages({
     currentText,
     hasStarted && isVisible && !isLoading,
     reducedMotion,
-    isPaused
+    isPaused,
+    isRTL
   )
 
   // Load messages on mount
@@ -358,15 +374,19 @@ export function CognitiveWarfareRotatingMessages({
             paddingInlineStart: isRTL ? '0' : '0.5rem',
             paddingInlineEnd: isRTL ? '0.5rem' : '0',
             borderInlineStart: isRTL ? 'none' : '2px solid currentColor',
-            borderInlineEnd: isRTL ? '2px solid currentColor' : 'none'
+            borderInlineEnd: isRTL ? '2px solid currentColor' : 'none',
+            // Force RTL direction for Hebrew text
+            direction: isRTL ? 'rtl' : 'ltr',
+            unicodeBidi: isRTL ? 'bidi-override' : 'normal'
           }}
         >
-          <span>
+          <span style={{ direction: isRTL ? 'rtl' : 'ltr', unicodeBidi: isRTL ? 'bidi-override' : 'normal' }}>
             {displayText}
             {(isTyping || isBackspacing) && !reducedMotion && (
               <span 
                 className="cursor inline-block w-0.5 h-[1em] bg-terminal-cyan ml-1 animate-pulse"
                 aria-hidden="true"
+                style={{ direction: isRTL ? 'rtl' : 'ltr', unicodeBidi: isRTL ? 'bidi-override' : 'normal' }}
               />
             )}
           </span>

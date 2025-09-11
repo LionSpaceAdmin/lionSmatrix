@@ -71,7 +71,7 @@ export default function PrivacyPage() {
     {
       icon: Eye,
       title: 'Transparency',
-      description: 'We're open about what data we collect and how we use it'
+      description: 'We are open about what data we collect and how we use it'
     }
   ]
 

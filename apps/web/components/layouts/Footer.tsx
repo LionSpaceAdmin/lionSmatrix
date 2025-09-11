@@ -43,7 +43,7 @@ export default function Footer({ locale }: FooterProps) {
                 </Link>
               </li>
               <li>
-                <Link href="/playbooks" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+                <Link href="/academy/playbooks" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
                   Response Playbooks
                 </Link>
               </li>

@@ -29,7 +29,8 @@
   .terminal-grid {
     position: fixed;
     inset: 0;
-    background: linear-gradient(180deg, rgb(var(--terminal-bg)) 0%, rgb(var(--terminal-secondary)) 100%),
+    background:
+      linear-gradient(180deg, rgb(var(--terminal-bg)) 0%, rgb(var(--terminal-secondary)) 100%),
       repeating-linear-gradient(
         0deg,
         transparent,
@@ -162,7 +163,12 @@
     position: absolute;
     width: var(--node-size-large);
     height: var(--node-size-large);
-    background: radial-gradient(circle, rgba(var(--terminal-cyan), 1) 0%, rgba(var(--terminal-cyan), 0.6) 70%, transparent 100%);
+    background: radial-gradient(
+      circle,
+      rgba(var(--terminal-cyan), 1) 0%,
+      rgba(var(--terminal-cyan), 0.6) 70%,
+      transparent 100%
+    );
     border-radius: 50%;
     box-shadow:
       0 0 15px rgba(var(--terminal-cyan), 0.6),
@@ -178,11 +184,12 @@
   .network-connection {
     position: absolute;
     height: 1px;
-    background: linear-gradient(90deg, 
-      transparent 0%, 
-      rgba(var(--terminal-cyan), 0.3) 20%, 
-      rgba(var(--terminal-cyan), 0.8) 50%, 
-      rgba(var(--terminal-cyan), 0.3) 80%, 
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      rgba(var(--terminal-cyan), 0.3) 20%,
+      rgba(var(--terminal-cyan), 0.8) 50%,
+      rgba(var(--terminal-cyan), 0.3) 80%,
       transparent 100%
     );
     transform-origin: left center;
@@ -399,11 +406,35 @@
   .message-text[dir="rtl"] {
     text-align: right;
     direction: rtl;
+    unicode-bidi: bidi-override;
   }
 
   .message-text[dir="ltr"] {
     text-align: left;
     direction: ltr;
+  }
+
+  /* Hebrew text specific fixes */
+  .cognitive-warfare-messages[dir="rtl"] .message-text {
+    direction: rtl;
+    unicode-bidi: bidi-override;
+    text-align: right;
+  }
+
+  .cognitive-warfare-messages[dir="rtl"] .message-text span {
+    direction: rtl;
+    unicode-bidi: bidi-override;
+  }
+
+  /* Fix for Hebrew text display */
+  .cognitive-warfare-messages[dir="rtl"] {
+    direction: rtl;
+    unicode-bidi: bidi-override;
+  }
+
+  .cognitive-warfare-messages[dir="rtl"] * {
+    direction: rtl;
+    unicode-bidi: bidi-override;
   }
 
   /* Typewriter Cursor */
@@ -425,9 +456,10 @@
 
   .progress-fill {
     height: 100%;
-    background: linear-gradient(90deg, 
-      rgba(var(--terminal-cyan), 0.8) 0%, 
-      rgba(var(--terminal-cyan), 1) 50%, 
+    background: linear-gradient(
+      90deg,
+      rgba(var(--terminal-cyan), 0.8) 0%,
+      rgba(var(--terminal-cyan), 1) 50%,
       rgba(var(--terminal-cyan), 0.8) 100%
     );
     background-size: 200% 100%;
@@ -502,11 +534,11 @@
     .message-text {
       text-shadow: none;
     }
-    
+
     .progress-fill {
       background: currentColor;
     }
-    
+
     .pause-button {
       border-width: 2px;
     }
@@ -527,5 +559,213 @@
   /* Loading State Animation */
   .cognitive-warfare-loading .font-mono {
     animation: loading-pulse 1.5s ease-in-out infinite;
+  }
+
+  /* TODO(human): Add missing terminal animations */
+
+  /* Keyframe Animations */
+  @keyframes grid-fade {
+    0%,
+    100% {
+      opacity: 0.3;
+    }
+    50% {
+      opacity: 0.1;
+    }
+  }
+
+  @keyframes gradient-shift {
+    0% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
+  }
+
+  @keyframes data-flow {
+    0% {
+      transform: translateX(-100%);
+      opacity: 0;
+    }
+    10% {
+      opacity: 1;
+    }
+    90% {
+      opacity: 1;
+    }
+    100% {
+      transform: translateX(100vw);
+      opacity: 0;
+    }
+  }
+
+  @keyframes data-flow-vertical {
+    0% {
+      transform: translateY(-100%);
+      opacity: 0;
+    }
+    10% {
+      opacity: 1;
+    }
+    90% {
+      opacity: 1;
+    }
+    100% {
+      transform: translateY(100vh);
+      opacity: 0;
+    }
+  }
+
+  @keyframes scan-line {
+    0% {
+      transform: translateY(-100vh);
+    }
+    100% {
+      transform: translateY(100vh);
+    }
+  }
+
+  @keyframes node-pulse {
+    0%,
+    100% {
+      transform: scale(1);
+      opacity: 0.8;
+    }
+    50% {
+      transform: scale(1.2);
+      opacity: 1;
+    }
+  }
+
+  @keyframes neural-pulse {
+    0%,
+    100% {
+      opacity: 0.6;
+      transform: scale(1);
+    }
+    50% {
+      opacity: 1;
+      transform: scale(1.1);
+    }
+  }
+
+  @keyframes connection-pulse {
+    0% {
+      opacity: 0;
+      transform: scaleX(0);
+    }
+    50% {
+      opacity: 1;
+      transform: scaleX(1);
+    }
+    100% {
+      opacity: 0;
+      transform: scaleX(0);
+    }
+  }
+
+  @keyframes glow-pulse {
+    0% {
+      filter: brightness(1) saturate(1);
+    }
+    100% {
+      filter: brightness(1.2) saturate(1.4);
+    }
+  }
+
+  @keyframes status-ping {
+    0% {
+      transform: scale(1);
+      opacity: 1;
+    }
+    75%,
+    100% {
+      transform: scale(2);
+      opacity: 0;
+    }
+  }
+
+  @keyframes terminal-blink {
+    0%,
+    50% {
+      opacity: 1;
+    }
+    51%,
+    100% {
+      opacity: 0;
+    }
+  }
+
+  @keyframes cursor-blink {
+    0%,
+    50% {
+      opacity: 1;
+    }
+    51%,
+    100% {
+      opacity: 0;
+    }
+  }
+
+  @keyframes progress-shimmer {
+    0% {
+      background-position: -200% 0;
+    }
+    100% {
+      background-position: 200% 0;
+    }
+  }
+
+  @keyframes loading-pulse {
+    0%,
+    100% {
+      opacity: 0.4;
+    }
+    50% {
+      opacity: 1;
+    }
+  }
+
+  @keyframes matrix-rain {
+    0% {
+      transform: translateY(-100vh);
+      opacity: 0;
+    }
+    10% {
+      opacity: 1;
+    }
+    90% {
+      opacity: 1;
+    }
+    100% {
+      transform: translateY(100vh);
+      opacity: 0;
+    }
+  }
+
+  @keyframes matrix-char-fade {
+    0%,
+    100% {
+      opacity: 0.2;
+    }
+    50% {
+      opacity: 1;
+    }
+  }
+
+  @keyframes data-pulse {
+    0%,
+    100% {
+      transform: scale(1);
+      opacity: 0.8;
+    }
+    50% {
+      transform: scale(1.5);
+      opacity: 1;
+    }
   }
 }

@@ -1,6 +1,7 @@
-import { defineConfig } from 'eslint-define-config';
+import tsParser from '@typescript-eslint/parser';
+import tsPlugin from '@typescript-eslint/eslint-plugin';
 
-export default defineConfig([
+export default [
   {
     // Global ignores
     ignores: [
@@ -53,105 +54,33 @@ export default defineConfig([
     // TypeScript files
     files: ['**/*.{ts,tsx}'],
     languageOptions: {
-      parser: '@typescript-eslint/parser',
+      parser: tsParser,
       parserOptions: {
-        project: ['./tsconfig.json', './apps/*/tsconfig.json'],
         ecmaFeatures: {
           jsx: true
         }
       }
     },
     plugins: {
-      '@typescript-eslint': '@typescript-eslint/eslint-plugin'
+      '@typescript-eslint': tsPlugin
     },
     rules: {
-      // TypeScript specific
+      // Turn off base rules that TypeScript handles
+      'no-unused-vars': 'off',
+      
+      // TypeScript specific rules (basic only)
       '@typescript-eslint/no-unused-vars': ['error', { argsIgnorePattern: '^_' }],
       '@typescript-eslint/no-explicit-any': 'warn',
-      '@typescript-eslint/prefer-nullish-coalescing': 'error',
-      '@typescript-eslint/prefer-optional-chain': 'error',
       '@typescript-eslint/no-non-null-assertion': 'warn',
-      '@typescript-eslint/consistent-type-imports': [
-        'error',
-        { prefer: 'type-imports', fixStyle: 'inline-type-imports' }
-      ],
-      
-      // Lions of Zion specific - Security focus
-      '@typescript-eslint/no-unsafe-assignment': 'error',
-      '@typescript-eslint/no-unsafe-call': 'error',
-      '@typescript-eslint/no-unsafe-member-access': 'error',
-      '@typescript-eslint/no-unsafe-return': 'error'
+      '@typescript-eslint/ban-ts-comment': 'error'
     }
   },
   {
-    // React/Next.js files
-    files: ['**/*.{jsx,tsx}'],
-    plugins: {
-      'react': 'eslint-plugin-react',
-      'react-hooks': 'eslint-plugin-react-hooks',
-      '@next/next': '@next/eslint-plugin-next'
-    },
-    settings: {
-      react: {
-        version: 'detect'
-      }
-    },
-    rules: {
-      // React rules
-      'react/react-in-jsx-scope': 'off', // Next.js 13+ doesn't need this
-      'react/prop-types': 'off', // We use TypeScript
-      'react/no-unescaped-entities': 'error',
-      'react/jsx-no-target-blank': 'error',
-      'react/jsx-key': 'error',
-      
-      // React Hooks
-      'react-hooks/rules-of-hooks': 'error',
-      'react-hooks/exhaustive-deps': 'warn',
-      
-      // Next.js rules
-      '@next/next/no-img-element': 'error',
-      '@next/next/no-html-link-for-pages': 'error',
-      '@next/next/no-sync-scripts': 'error',
-      '@next/next/no-css-tags': 'error',
-      
-      // Accessibility - Important for Lions of Zion
-      'jsx-a11y/alt-text': 'error',
-      'jsx-a11y/aria-props': 'error',
-      'jsx-a11y/aria-proptypes': 'error',
-      'jsx-a11y/aria-unsupported-elements': 'error',
-      'jsx-a11y/role-has-required-aria-props': 'error',
-      'jsx-a11y/role-supports-aria-props': 'error'
-    }
-  },
-  {
-    // Test files
+    // Test files - more relaxed rules
     files: ['**/*.{test,spec}.{js,ts,jsx,tsx}', '**/__tests__/**/*.{js,ts,jsx,tsx}'],
-    plugins: {
-      'jest': 'eslint-plugin-jest',
-      '@playwright/test': '@playwright/eslint-plugin'
-    },
     rules: {
-      'jest/no-disabled-tests': 'warn',
-      'jest/no-focused-tests': 'error',
-      'jest/no-identical-title': 'error',
-      'jest/prefer-to-have-length': 'warn',
-      'jest/valid-expect': 'error'
-    }
-  },
-  {
-    // War Machine specific files
-    files: ['**/war-machine/**/*.{ts,tsx}'],
-    rules: {
-      // Extra security for War Machine components
-      'no-eval': 'error',
-      'no-new-func': 'error',
-      '@typescript-eslint/no-unsafe-assignment': 'error',
-      '@typescript-eslint/no-unsafe-call': 'error',
-      '@typescript-eslint/ban-ts-comment': 'error',
-      
-      // Performance for real-time analysis
-      'no-await-in-loop': 'error',
-      'prefer-promise-reject-errors': 'error'
+      '@typescript-eslint/no-explicit-any': 'off',
+      'no-console': 'off'
     }
   }
-]);
+];

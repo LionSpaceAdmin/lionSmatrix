@@ -7,7 +7,7 @@
 
 const fs = require('fs')
 const path = require('path')
-const { execSync } = require('child_process')
+// const { execSync } = require('child_process') // TODO: Implement bundle analysis
 
 const BUNDLE_SIZE_LIMITS = {
   initial: 200 * 1024, // 200KB initial bundle
@@ -41,7 +41,7 @@ function formatBytes(bytes) {
   return `${size.toFixed(1)} ${units[unitIndex]}`
 }
 
-function analyzeManifest() {
+function _analyzeManifest() {
   const buildManifestPath = path.join(__dirname, '../.next/build-manifest.json')
   
   if (!fs.existsSync(buildManifestPath)) {
@@ -198,9 +198,9 @@ function printAnalysis(analysis) {
   
   if (allFiles.length > 0) {
     console.log(colorize('\n📁 Largest Files:', 'blue'))
-    allFiles.forEach((file, index) => {
+    allFiles.forEach((file, _index) => {
       const sizeColor = file.size > 100 * 1024 ? 'red' : file.size > 50 * 1024 ? 'yellow' : 'green'
-      console.log(`${(index + 1).toString().padStart(2)}. ${file.name.padEnd(40)} ${colorize(formatBytes(file.size), sizeColor)}`)
+      console.log(`${(_index + 1).toString().padStart(2)}. ${file.name.padEnd(40)} ${colorize(formatBytes(file.size), sizeColor)}`)
     })
   }
 }
@@ -214,7 +214,7 @@ function printRecommendations(recommendations) {
   console.log(colorize('\n💡 Optimization Recommendations:', 'blue'))
   console.log('━'.repeat(50))
   
-  recommendations.forEach((rec, index) => {
+  recommendations.forEach((rec, _index) => {
     const icon = rec.type === 'error' ? '❌' : rec.type === 'warning' ? '⚠️' : 'ℹ️'
     const color = rec.type === 'error' ? 'red' : rec.type === 'warning' ? 'yellow' : 'blue'
     

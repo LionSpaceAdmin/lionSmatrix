@@ -3,7 +3,7 @@
   "pipeline": {
     "build": {
       "dependsOn": ["^build"],
-      "outputs": [".next/**", "!.next/cache/**"],
+      "outputs": [".next/**", "!.next/cache/**", "dist/**"],
       "env": ["NODE_ENV", "NEXT_PUBLIC_*"]
     },
     "dev": {
@@ -12,12 +12,34 @@
       "env": ["NODE_ENV", "NEXT_PUBLIC_*"]
     },
     "lint": {
+      "inputs": [
+        "src/**/*.{ts,tsx,js,jsx}",
+        "app/**/*.{ts,tsx,js,jsx}",
+        "components/**/*.{ts,tsx,js,jsx}",
+        "lib/**/*.{ts,tsx,js,jsx}",
+        "eslint.config.mjs",
+        "../../eslint.config.mjs"
+      ]
+    },
+    "type-check": {
       "dependsOn": ["^build"],
-      "inputs": ["src/**/*.{ts,tsx,js,jsx}"]
+      "inputs": [
+        "src/**/*.{ts,tsx}",
+        "app/**/*.{ts,tsx}",
+        "components/**/*.{ts,tsx}",
+        "lib/**/*.{ts,tsx}",
+        "tsconfig.json"
+      ]
     },
     "test": {
       "dependsOn": ["build"],
-      "inputs": ["src/**/*.{ts,tsx,js,jsx}", "tests/**/*.{ts,tsx,js,jsx}"]
+      "inputs": [
+        "src/**/*.{ts,tsx,js,jsx}",
+        "app/**/*.{ts,tsx,js,jsx}",
+        "tests/**/*.{ts,tsx,js,jsx}",
+        "**/*.test.{ts,tsx,js,jsx}",
+        "**/*.spec.{ts,tsx,js,jsx}"
+      ]
     }
   }
 }

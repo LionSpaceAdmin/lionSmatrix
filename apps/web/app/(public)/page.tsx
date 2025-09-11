@@ -136,8 +136,9 @@ export default function HomePage() {
         {/* Alert Banner */}
         <div className="container mx-auto max-w-7xl px-4 pt-4">
           <AlertBanner
-            alerts={currentThreats}
-            variant="critical"
+            type="error"
+            title="Threat Alert"
+            message="Critical disinformation campaigns detected"
             className="mb-6"
           />
         </div>

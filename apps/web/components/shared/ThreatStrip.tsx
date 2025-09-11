@@ -14,7 +14,8 @@ export interface ThreatAlert {
 }
 
 interface ThreatStripProps {
-  alerts: ThreatAlert[]
+  alerts?: ThreatAlert[]
+  threats?: ThreatAlert[]
   className?: string
   autoScroll?: boolean
   speed?: number
@@ -43,25 +44,33 @@ const levelConfig = {
 
 export function ThreatStrip({
   alerts,
+  threats,
   className,
   autoScroll = true,
   speed = 50
 }: ThreatStripProps) {
+  // Support both alerts and threats props for backwards compatibility
+  const threatData = alerts || threats || []
+  
+  // Early return if no data
+  if (!threatData || threatData.length === 0) {
+    return null
+  }
   const scrollRef = useRef<HTMLDivElement>(null)
   const [isPaused, setIsPaused] = useState(false)
   const [currentAlertIndex, setCurrentAlertIndex] = useState(0)
 
   useEffect(() => {
-    if (!autoScroll || isPaused || alerts.length <= 1) return
+    if (!autoScroll || isPaused || threatData.length <= 1) return
 
     const interval = setInterval(() => {
-      setCurrentAlertIndex((prev) => (prev + 1) % alerts.length)
+      setCurrentAlertIndex((prev) => (prev + 1) % threatData.length)
     }, 5000)
 
     return () => clearInterval(interval)
-  }, [autoScroll, isPaused, alerts.length])
+  }, [autoScroll, isPaused, threatData.length])
 
-  const currentAlert = alerts[currentAlertIndex]
+  const currentAlert = threatData[currentAlertIndex]
   
   if (!currentAlert) {
     return null
@@ -139,7 +148,7 @@ export function ThreatStrip({
       </div>
 
       {/* Progress Bar for Auto-scroll */}
-      {autoScroll && alerts.length > 1 && (
+      {autoScroll && threatData.length > 1 && (
         <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-black/20">
           <div
             className={cn(
@@ -155,9 +164,9 @@ export function ThreatStrip({
       )}
 
       {/* Alert Counter */}
-      {alerts.length > 1 && (
+      {threatData.length > 1 && (
         <div className="absolute bottom-2 left-3 text-xs font-mono opacity-50">
-          {currentAlertIndex + 1} / {alerts.length}
+          {currentAlertIndex + 1} / {threatData.length}
         </div>
       )}
     </div>

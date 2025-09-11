@@ -73,8 +73,9 @@ export default function OpeningPage() {
         {/* Threat Advisory Banner */}
         <div className="mb-8">
           <AlertBanner
-            alerts={threatAdvisories}
-            variant="critical"
+            type="error"
+            title="Critical Alert"
+            message="Multiple threat advisories detected"
             className="mb-4"
           />
         </div>

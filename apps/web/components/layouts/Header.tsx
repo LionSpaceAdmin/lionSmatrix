@@ -63,7 +63,7 @@ export default function Header({ locale }: HeaderProps) {
               Archive
             </Link>
             <Link 
-              href="/playbooks" 
+              href="/academy/playbooks" 
               className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
             >
               Playbooks
@@ -152,7 +152,7 @@ export default function Header({ locale }: HeaderProps) {
               Archive
             </Link>
             <Link 
-              href="/playbooks" 
+              href="/academy/playbooks" 
               className="block py-2 text-sm font-medium text-muted-foreground hover:text-foreground"
             >
               Playbooks

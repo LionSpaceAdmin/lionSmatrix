@@ -1,0 +1,3 @@
+store-dir=~/.pnpm-store
+package-import-method=copy
+shamefully-hoist=false

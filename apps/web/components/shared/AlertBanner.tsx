@@ -53,7 +53,10 @@ export function AlertBanner({
   className
 }: AlertBannerProps) {
   const [isVisible, setIsVisible] = useState(true)
-  const config = alertConfig[type]
+  
+  // Ensure we have a valid type
+  const validType = type && alertConfig[type] ? type : 'error'
+  const config = alertConfig[validType]
   const Icon = config.icon
 
   const handleDismiss = () => {

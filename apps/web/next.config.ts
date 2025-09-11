@@ -3,7 +3,7 @@ import { withSentryConfig } from "@sentry/nextjs"
 import { type NextConfig } from "next"
 import path from "path"
 
-import { env } from "./env.mjs"
+// import { env } from "./env.mjs" // Temporarily disabled
 
 const config: NextConfig = {
   reactStrictMode: true,
@@ -34,7 +34,7 @@ const config: NextConfig = {
   },
   
   // Webpack optimizations for code splitting and tree shaking
-  webpack: (config, { buildId, dev, isServer, defaultLoaders, webpack }) => {
+  webpack: (config, { dev }) => {
     // Hot reload configuration for containers
     if (dev) {
       config.watchOptions = {
@@ -122,17 +122,18 @@ const config: NextConfig = {
   experimental: {
     // Optimize CSS
     optimizeCss: true,
-    // Enable turbo mode for faster builds
-    turbo: {
-      rules: {
-        '*.svg': {
-          loaders: ['@svgr/webpack'],
-          as: '*.js',
-        },
-      },
-    },
     // Cache Server Components during HMR
     serverComponentsHmrCache: process.env.NODE_ENV === 'development'
+  },
+  
+  // Turbopack configuration (moved from experimental.turbo)
+  turbopack: {
+    rules: {
+      '*.svg': {
+        loaders: ['@svgr/webpack'],
+        as: '*.js',
+      },
+    },
   },
   
   // External packages configuration
@@ -159,8 +160,8 @@ const sentryConfig = {
   // For all available options, see:
   // https://github.com/getsentry/sentry-webpack-plugin#options
 
-  org: env.SENTRY_ORG,
-  project: env.SENTRY_PROJECT,
+  org: process.env.SENTRY_ORG,
+  project: process.env.SENTRY_PROJECT,
   
   // Only print logs for uploading source maps in CI
   silent: !process.env.CI,
@@ -188,12 +189,12 @@ const sentryConfig = {
 let finalConfig = config
 
 // Apply bundle analyzer if enabled
-if (env.ANALYZE) {
-  finalConfig = withBundleAnalyzer({ enabled: env.ANALYZE })(finalConfig)
+if (process.env.ANALYZE === 'true') {
+  finalConfig = withBundleAnalyzer({ enabled: true })(finalConfig)
 }
 
 // Apply Sentry configuration if DSN is available
-if (env.SENTRY_DSN || env.NEXT_PUBLIC_SENTRY_DSN) {
+if (process.env.SENTRY_DSN || process.env.NEXT_PUBLIC_SENTRY_DSN) {
   finalConfig = withSentryConfig(finalConfig, sentryConfig)
 }
 

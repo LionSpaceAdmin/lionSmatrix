@@ -145,7 +145,7 @@ export default function SearchPage() {
     if (!query.trim()) return []
 
     const searchTerm = query.toLowerCase()
-    let results: any[] = []
+    const results: any[] = []
 
     // Include different types based on selection
     if (selectedTypes.includes('all') || selectedTypes.includes('narratives')) {

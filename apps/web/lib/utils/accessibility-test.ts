@@ -20,17 +20,19 @@ export function testColorContrast(): void {
     { foreground: 'rgb(34, 211, 238)', background: 'rgb(15, 23, 42)', name: 'Terminal Cyan on Secondary BG' },
   ];
 
-  console.group('🎨 Color Contrast Testing');
+  console.warn('🎨 Color Contrast Testing');
   
   testCases.forEach(({ foreground, background, name }) => {
     const ratio = calculateContrastRatio(foreground, background);
     const passes = ratio >= 4.5;
     const status = passes ? '✅ PASS' : '❌ FAIL';
     
-    console.log(`${status} ${name}: ${ratio.toFixed(2)}:1 ${passes ? '(WCAG AA)' : '(Below WCAG AA)'}`);
+    if (passes) {
+      console.warn(`${status} ${name}: ${ratio.toFixed(2)}:1 (WCAG AA)`);
+    } else {
+      console.error(`${status} ${name}: ${ratio.toFixed(2)}:1 (Below WCAG AA)`);
+    }
   });
-  
-  console.groupEnd();
 }
 
 /**
@@ -79,7 +81,7 @@ export function testKeyboardNavigation(): void {
     'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
   );
   
-  console.log(`Found ${focusableElements.length} focusable elements`);
+  console.warn(`Found ${focusableElements.length} focusable elements`);
   
   // Test if all interactive elements have focus indicators
   let elementsWithFocus = 0;
@@ -91,11 +93,11 @@ export function testKeyboardNavigation(): void {
   });
   
   const focusStatus = elementsWithFocus === focusableElements.length ? '✅ PASS' : '⚠️ PARTIAL';
-  console.log(`${focusStatus} Focus indicators: ${elementsWithFocus}/${focusableElements.length} elements`);
+  console.warn(`${focusStatus} Focus indicators: ${elementsWithFocus}/${focusableElements.length} elements`);
   
   // Test skip links
   const skipLinks = document.querySelectorAll('.skip-links a');
-  console.log(`${skipLinks.length > 0 ? '✅ PASS' : '❌ FAIL'} Skip links: ${skipLinks.length} found`);
+  console.warn(`${skipLinks.length > 0 ? '✅ PASS' : '❌ FAIL'} Skip links: ${skipLinks.length} found`);
   
   console.groupEnd();
 }
@@ -193,7 +195,7 @@ export function testARIACompliance(): void {
   tests.forEach(({ name, test }) => {
     const result = test();
     const status = result.pass ? '✅ PASS' : '❌ FAIL';
-    console.log(`${status} ${name}: ${result.message}`);
+    console.warn(`${status} ${name}: ${result.message}`);
   });
   
   console.groupEnd();
@@ -207,7 +209,7 @@ export function testScreenReaderSupport(): void {
   
   // Test for screen reader only content
   const srOnlyElements = document.querySelectorAll('.sr-only');
-  console.log(`✅ Screen reader only content: ${srOnlyElements.length} elements found`);
+  console.warn(`✅ Screen reader only content: ${srOnlyElements.length} elements found`);
   
   // Test for proper heading hierarchy
   const headings = document.querySelectorAll('h1, h2, h3, h4, h5, h6');
@@ -222,7 +224,7 @@ export function testScreenReaderSupport(): void {
     lastLevel = level;
   });
   
-  console.log(`${headingHierarchy ? '✅ PASS' : '❌ FAIL'} Heading hierarchy: ${headings.length} headings checked`);
+  console.warn(`${headingHierarchy ? '✅ PASS' : '❌ FAIL'} Heading hierarchy: ${headings.length} headings checked`);
   
   // Test for alt text on images
   const images = document.querySelectorAll('img');
@@ -230,11 +232,11 @@ export function testScreenReaderSupport(): void {
     img.getAttribute('alt') !== null || img.getAttribute('role') === 'presentation'
   );
   
-  console.log(`${imagesWithAlt.length === images.length ? '✅ PASS' : '❌ FAIL'} Image alt text: ${imagesWithAlt.length}/${images.length} images`);
+  console.warn(`${imagesWithAlt.length === images.length ? '✅ PASS' : '❌ FAIL'} Image alt text: ${imagesWithAlt.length}/${images.length} images`);
   
   // Test for live regions
   const liveRegions = document.querySelectorAll('[aria-live]');
-  console.log(`✅ Live regions: ${liveRegions.length} regions found`);
+  console.warn(`✅ Live regions: ${liveRegions.length} regions found`);
   
   console.groupEnd();
 }
@@ -243,14 +245,14 @@ export function testScreenReaderSupport(): void {
  * Run all accessibility tests
  */
 export function runAllAccessibilityTests(): void {
-  console.log('🔍 Running LionSpace Accessibility Test Suite...\n');
+  console.warn('🔍 Running LionSpace Accessibility Test Suite...\n');
   
   testColorContrast();
   testKeyboardNavigation();
   testARIACompliance();
   testScreenReaderSupport();
   
-  console.log('\n✨ Accessibility testing complete! Check results above.');
+  console.warn('\n✨ Accessibility testing complete! Check results above.');
 }
 
 /**
@@ -269,15 +271,15 @@ export function testComponentAccessibility(componentSelector: string): void {
   const focusable = component.querySelectorAll(
     'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
   );
-  console.log(`Focusable elements: ${focusable.length}`);
+  console.warn(`Focusable elements: ${focusable.length}`);
   
   // Test ARIA attributes
   const ariaElements = component.querySelectorAll('[aria-label], [aria-labelledby], [aria-describedby], [role]');
-  console.log(`Elements with ARIA: ${ariaElements.length}`);
+  console.warn(`Elements with ARIA: ${ariaElements.length}`);
   
   // Test semantic HTML
   const semanticElements = component.querySelectorAll('button, a, input, select, textarea, h1, h2, h3, h4, h5, h6, main, nav, section, article, aside, header, footer');
-  console.log(`Semantic elements: ${semanticElements.length}`);
+  console.warn(`Semantic elements: ${semanticElements.length}`);
   
   console.groupEnd();
 }

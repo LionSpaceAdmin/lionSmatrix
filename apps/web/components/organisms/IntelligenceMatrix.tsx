@@ -223,11 +223,11 @@ export function IntelligenceMatrix({
   // 3D rotation helper
   function rotatePoint(x: number, y: number, z: number, rotation: { x: number, y: number, z: number }) {
     // Rotate around X axis
-    let newY = y * Math.cos(rotation.x) - z * Math.sin(rotation.x)
+    const newY = y * Math.cos(rotation.x) - z * Math.sin(rotation.x)
     let newZ = y * Math.sin(rotation.x) + z * Math.cos(rotation.x)
     
     // Rotate around Y axis
-    let newX = x * Math.cos(rotation.y) + newZ * Math.sin(rotation.y)
+    const newX = x * Math.cos(rotation.y) + newZ * Math.sin(rotation.y)
     newZ = -x * Math.sin(rotation.y) + newZ * Math.cos(rotation.y)
     
     // Rotate around Z axis

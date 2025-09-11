@@ -19,6 +19,16 @@
         "reveal": "silent"
       },
       "problemMatcher": []
+    },
+    {
+      "label": "Dev: Next.js",
+      "type": "shell",
+      "command": "cd apps/web && npm run dev",
+      "problemMatcher": [],
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      }
     }
   ]
 }
