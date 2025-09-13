@@ -47,10 +47,11 @@ http://localhost:3000
 ### 🚀 **Vercel**
 - **Token**: `kHqVTQ8sr6ryaJvskfkRu7wJ`
 
+
 ### 🔗 **GitHub Integration**
 - **Account**: `LionSpaceAdmin`
-- **Repository**: `modern-nextjs-app`
-- **URL**: `https://github.com/LionSpaceAdmin/modern-nextjs-app`
+- **Repository**: `lionSmatrix`
+- **URL**: `https://github.com/LionSpaceAdmin/lionSmatrix`
 
 ## 🌐 **Production URLs**
 - **Primary**: `https://www.lionsofzion.io`
