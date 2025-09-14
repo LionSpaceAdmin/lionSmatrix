@@ -263,11 +263,11 @@ export default function PerformanceDashboard() {
                   </div>
                   <div className="flex justify-between text-sm">
                     <span>DOM Content Loaded</span>
-                    <span>{Math.round(perfMetrics.navigation.domContentLoadedEventEnd - perfMetrics.navigation.navigationStart)}ms</span>
+                    <span>{Math.round(perfMetrics.navigation.domContentLoadedEventEnd - (perfMetrics.navigation as any).navigationStart || 0)}ms</span>
                   </div>
                   <div className="flex justify-between text-sm">
                     <span>Load Complete</span>
-                    <span>{Math.round(perfMetrics.navigation.loadEventEnd - perfMetrics.navigation.navigationStart)}ms</span>
+                    <span>{Math.round(perfMetrics.navigation.loadEventEnd - (perfMetrics.navigation as any).navigationStart || 0)}ms</span>
                   </div>
                 </CardContent>
               </Card>

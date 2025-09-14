@@ -118,7 +118,7 @@ export function captureUserFeedback(
   email: string,
   comments: string
 ): void {
-  Sentry.captureUserFeedback({
+  Sentry.captureFeedback({
     name,
     email,
     comments,

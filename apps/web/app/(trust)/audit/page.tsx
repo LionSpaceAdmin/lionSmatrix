@@ -123,10 +123,10 @@ export default function AuditPage() {
     }
     
     const variant = variants[status] || variants['Pass']
-    const Icon = variant.icon
+    const Icon = variant?.icon
     
     return (
-      <Badge className={`${variant.color} flex items-center gap-1`}>
+      <Badge className={`${variant?.color} flex items-center gap-1`}>
         <Icon className="w-3 h-3" />
         {status}
       </Badge>

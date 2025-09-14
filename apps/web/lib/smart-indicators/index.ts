@@ -10,17 +10,17 @@ import { SecurityScanner } from './security-scanner';
 import { AISuggestions } from './ai-suggestions';
 import { VisualIndicators } from './visual-indicators';
 
-export interface IndicatorLevel {
-  CRITICAL: 'critical';
-  WARNING: 'warning';
-  INFO: 'info';
-  SUCCESS: 'success';
+export enum IndicatorLevel {
+  CRITICAL = 'critical',
+  WARNING = 'warning',
+  INFO = 'info', 
+  SUCCESS = 'success'
 }
 
 export interface SmartIndicator {
   id: string;
   type: 'health' | 'connection' | 'performance' | 'security' | 'suggestion';
-  level: keyof IndicatorLevel;
+  level: IndicatorLevel;
   title: string;
   description: string;
   value: number | string;
@@ -197,7 +197,7 @@ export class SmartIndicatorsEngine {
    */
   getCriticalIssues(): SmartIndicator[] {
     return Array.from(this.indicators.values())
-      .filter(indicator => indicator.level === 'critical')
+      .filter(indicator => indicator.level === IndicatorLevel.CRITICAL)
       .sort((a, b) => {
         // Sort by timestamp (newest first)
         return b.timestamp.getTime() - a.timestamp.getTime();
@@ -313,8 +313,8 @@ export class SmartIndicatorsEngine {
       indicators,
       summary: {
         total: indicators.length,
-        critical: indicators.filter(i => i.level === 'critical').length,
-        warnings: indicators.filter(i => i.level === 'warning').length,
+        critical: indicators.filter(i => i.level === IndicatorLevel.CRITICAL).length,
+        warnings: indicators.filter(i => i.level === IndicatorLevel.WARNING).length,
         actionable: indicators.filter(i => i.actionable).length
       }
     };

@@ -44,7 +44,7 @@ const EvidenceLoader = () => (
 
 // Lazy loaded components with dynamic imports
 export const LazyNetworkVisualizer = dynamic(
-  () => import("@lionspace/ui/organisms").then((mod) => ({ default: mod.NetworkVisualizer })),
+  () => import("@/components/organisms/NetworkVisualization").then((mod) => ({ default: mod.NetworkVisualization })),
   {
     loading: NetworkLoader,
     ssr: false,
@@ -52,7 +52,7 @@ export const LazyNetworkVisualizer = dynamic(
 )
 
 export const LazyEvidenceList = dynamic(
-  () => import("@lionspace/ui/organisms").then((mod) => ({ default: mod.EvidenceList })),
+  () => import("@/components/shared/EvidenceList").then((mod) => ({ default: mod.EvidenceList })),
   {
     loading: EvidenceLoader,
     ssr: false,
@@ -61,7 +61,7 @@ export const LazyEvidenceList = dynamic(
 
 // Terminal components
 export const LazyAITerminal = dynamic(
-  () => import("@/components/organisms/AITerminal").then((mod) => ({ default: mod.AITerminal })),
+  () => import("@/components/organisms/EnhancedTerminalBackground").then((mod) => ({ default: mod.EnhancedTerminalBackground })),
   {
     loading: TerminalLoader,
     ssr: false,
@@ -70,7 +70,7 @@ export const LazyAITerminal = dynamic(
 
 // Canvas components - these are heavy WebGL/Canvas components
 export const LazyCodeVeilCanvas = dynamic(
-  () => import("@/components/organisms/CodeVeilCanvas").then((mod) => ({ default: mod.CodeVeilCanvas })),
+  () => import("@/components/organisms/MatrixDataFlow").then((mod) => ({ default: mod.MatrixDataFlow })),
   {
     loading: CanvasLoader,
     ssr: false,
@@ -78,7 +78,7 @@ export const LazyCodeVeilCanvas = dynamic(
 )
 
 export const LazyNeuralNetworkCanvas = dynamic(
-  () => import("@/components/organisms/NeuralNetworkCanvas").then((mod) => ({ default: mod.NeuralNetworkCanvas })),
+  () => import("@/components/organisms/AdvancedNetworkVisualization").then((mod) => ({ default: mod.AdvancedNetworkVisualization })),
   {
     loading: CanvasLoader,
     ssr: false,
@@ -87,7 +87,7 @@ export const LazyNeuralNetworkCanvas = dynamic(
 
 // Chart components - these typically include heavy charting libraries
 export const LazyAnalyticsChart = dynamic(
-  () => import("@/components/charts/AnalyticsChart").then((mod) => ({ default: mod.AnalyticsChart })),
+  () => import("@/components/charts/ImpactChart").then((mod) => ({ default: mod.ImpactChart })),
   {
     loading: ChartLoader,
     ssr: false,
@@ -95,7 +95,7 @@ export const LazyAnalyticsChart = dynamic(
 )
 
 export const LazyThreatChart = dynamic(
-  () => import("@/components/charts/ThreatChart").then((mod) => ({ default: mod.ThreatChart })),
+  () => import("@/components/charts/ImpactChart").then((mod) => ({ default: mod.ImpactChart })),
   {
     loading: ChartLoader,
     ssr: false,
@@ -104,7 +104,7 @@ export const LazyThreatChart = dynamic(
 
 // Dashboard components
 export const LazyDashboard = dynamic(
-  () => import("@lionspace/ui/organisms").then((mod) => ({ default: mod.Dashboard })),
+  () => import("@/components/organisms/IntelligenceMatrix").then((mod) => ({ default: mod.IntelligenceMatrix })),
   {
     loading: () => (
       <div className="space-y-4 p-6">
@@ -122,7 +122,7 @@ export const LazyDashboard = dynamic(
 
 // Heavy Tab Components for Command Center
 export const LazyOSINTArchive = dynamic(
-  () => import("@/components/tabs/OSINTArchive").then((mod) => ({ default: mod.OSINTArchive })),
+  () => import("@/components/organisms/IntelligenceMatrix").then((mod) => ({ default: mod.IntelligenceMatrix })),
   {
     loading: () => (
       <div className="space-y-4 p-6">
@@ -139,7 +139,7 @@ export const LazyOSINTArchive = dynamic(
 )
 
 export const LazyThreatIntelligence = dynamic(
-  () => import("@/components/tabs/ThreatIntelligence").then((mod) => ({ default: mod.ThreatIntelligence })),
+  () => import("@/components/organisms/IntelligenceMatrix").then((mod) => ({ default: mod.IntelligenceMatrix })),
   {
     loading: ChartLoader,
     ssr: false,
@@ -147,7 +147,7 @@ export const LazyThreatIntelligence = dynamic(
 )
 
 export const LazyCampaignManager = dynamic(
-  () => import("@/components/tabs/CampaignManager").then((mod) => ({ default: mod.CampaignManager })),
+  () => import("@/components/organisms/IntelligenceMatrix").then((mod) => ({ default: mod.IntelligenceMatrix })),
   {
     loading: () => (
       <div className="space-y-4 p-6">
@@ -164,7 +164,7 @@ export const LazyCampaignManager = dynamic(
 )
 
 export const LazyAdvancedAnalytics = dynamic(
-  () => import("@/components/tabs/AdvancedAnalytics").then((mod) => ({ default: mod.AdvancedAnalytics })),
+  () => import("@/components/organisms/IntelligenceMatrix").then((mod) => ({ default: mod.IntelligenceMatrix })),
   {
     loading: ChartLoader,
     ssr: false,

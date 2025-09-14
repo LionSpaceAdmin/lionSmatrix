@@ -109,7 +109,8 @@ try {
   if (error instanceof z.ZodError) {
     const missingVars = error.issues.map((e) => e.path.join('.'));
     console.error('❌ Invalid environment variables:', missingVars);
-    if (process.env.NODE_ENV === 'production') {
+    const skipValidation = (process.env.SKIP_ENV_VALIDATION === 'true' || process.env.SKIP_ENV_VALIDATION === '1');
+    if (process.env.NODE_ENV === 'production' && !skipValidation) {
       throw new Error('Invalid environment configuration');
     }
   }

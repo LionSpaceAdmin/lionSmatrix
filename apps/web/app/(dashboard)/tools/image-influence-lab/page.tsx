@@ -56,7 +56,7 @@ export default function ImageInfluenceLabPage() {
       file.type.startsWith('image/')
     )
     
-    if (files.length > 0) {
+    if (files.length > 0 && files[0]) {
       handleFileUpload(files[0])
     }
   }, [])

@@ -3,7 +3,7 @@
  * Intelligent recommendations and optimization insights
  */
 
-import { SmartIndicator } from './index';
+import { SmartIndicator, IndicatorLevel } from './index';
 
 interface SuggestionContext {
   projectType: 'web-app' | 'api' | 'library' | 'fullstack';
@@ -19,7 +19,7 @@ interface SuggestionRule {
   name: string;
   description: string;
   category: 'architecture' | 'performance' | 'security' | 'maintainability' | 'best-practices';
-  priority: 'critical' | 'high' | 'medium' | 'low';
+  priority: IndicatorLevel.CRITICAL | 'high' | 'medium' | 'low';
   confidence: number; // 0-100
   conditions: (indicators: SmartIndicator[], context: SuggestionContext) => boolean;
   generate: (indicators: SmartIndicator[], context: SuggestionContext) => AISuggestionResult;
@@ -122,7 +122,7 @@ export class AISuggestions {
         confidence: 90,
         conditions: (indicators, context) => {
           const bundleSize = indicators.find(i => i.id === 'bundle-size-total');
-          return bundleSize && typeof bundleSize.value === 'number' && bundleSize.value > 3;
+          return !!(bundleSize && typeof bundleSize.value === 'number' && bundleSize.value > 3);
         },
         generate: (indicators, context) => ({
           title: 'Optimize Large JavaScript Bundle',
@@ -160,11 +160,11 @@ export class AISuggestions {
         name: 'Critical Security Fix',
         description: 'Address critical security vulnerabilities immediately',
         category: 'security',
-        priority: 'critical',
+        priority: IndicatorLevel.CRITICAL,
         confidence: 95,
         conditions: (indicators, context) => {
           const criticalVulns = indicators.find(i => i.id === 'critical-vulnerabilities');
-          return criticalVulns && typeof criticalVulns.value === 'number' && criticalVulns.value > 0;
+          return !!(criticalVulns && typeof criticalVulns.value === 'number' && criticalVulns.value > 0);
         },
         generate: (indicators, context) => ({
           title: 'Fix Critical Security Vulnerabilities',
@@ -202,7 +202,7 @@ export class AISuggestions {
         confidence: 80,
         conditions: (indicators, context) => {
           const complexity = indicators.find(i => i.id === 'code-complexity');
-          return complexity && typeof complexity.value === 'number' && complexity.value > 15;
+          return !!(complexity && typeof complexity.value === 'number' && complexity.value > 15);
         },
         generate: (indicators, context) => ({
           title: 'Reduce Code Complexity',
@@ -256,7 +256,7 @@ export class AISuggestions {
         confidence: 85,
         conditions: (indicators, context) => {
           const circularDeps = indicators.find(i => i.id === 'circular-dependencies-critical');
-          return circularDeps && typeof circularDeps.value === 'number' && circularDeps.value > 0;
+          return !!(circularDeps && typeof circularDeps.value === 'number' && circularDeps.value > 0);
         },
         generate: (indicators, context) => ({
           title: 'Eliminate Circular Dependencies',
@@ -302,7 +302,7 @@ export class A implements IShared { ... }`,
         confidence: 90,
         conditions: (indicators, context) => {
           const imageOpt = indicators.find(i => i.id === 'image-optimization-score');
-          return imageOpt && typeof imageOpt.value === 'number' && imageOpt.value < 80;
+          return !!(imageOpt && typeof imageOpt.value === 'number' && imageOpt.value < 80);
         },
         generate: (indicators, context) => ({
           title: 'Optimize Images for Better Performance',
@@ -412,8 +412,8 @@ export class A implements IShared { ... }`,
     };
 
     // Detect anti-patterns based on indicators
-    const criticalIssues = indicators.filter(i => i.level === 'critical');
-    const warningIssues = indicators.filter(i => i.level === 'warning');
+    const criticalIssues = indicators.filter(i => i.level === IndicatorLevel.CRITICAL);
+    const warningIssues = indicators.filter(i => i.level === IndicatorLevel.WARNING);
 
     if (criticalIssues.some(i => i.category === 'security')) {
       analysis.antiPatterns.push({
@@ -433,7 +433,7 @@ export class A implements IShared { ... }`,
 
     // Detect missing patterns
     const hasTestCoverage = indicators.some(i => i.id === 'test-coverage');
-    if (!hasTestCoverage || indicators.find(i => i.id === 'test-coverage')?.value < 80) {
+    if (!hasTestCoverage || (typeof indicators.find(i => i.id === 'test-coverage')?.value === 'number' && indicators.find(i => i.id === 'test-coverage')?.value < 80)) {
       analysis.missingPatterns.push({
         pattern: 'Comprehensive testing',
         benefit: 'Improved code reliability and easier refactoring',
@@ -442,7 +442,7 @@ export class A implements IShared { ... }`,
     }
 
     const hasDocumentation = indicators.some(i => i.id === 'documentation-quality');
-    if (!hasDocumentation || indicators.find(i => i.id === 'documentation-quality')?.value < 70) {
+    if (!hasDocumentation || (typeof indicators.find(i => i.id === 'documentation-quality')?.value === 'number' && indicators.find(i => i.id === 'documentation-quality')?.value < 70)) {
       analysis.missingPatterns.push({
         pattern: 'Documentation standards',
         benefit: 'Better developer onboarding and maintenance',
@@ -716,13 +716,13 @@ export class A implements IShared { ... }`,
     confidence?: number;
   }): SmartIndicator {
     // Determine level based on impact and effort
-    let level: SmartIndicator['level'] = 'info';
+    let level: SmartIndicator['level'] = IndicatorLevel.INFO;
     if (config.impact === 'high' && config.effort === 'low') {
-      level = 'success'; // High impact, low effort = quick win
+      level = IndicatorLevel.SUCCESS; // High impact, low effort = quick win
     } else if (config.impact === 'high') {
-      level = 'warning'; // High impact = important
+      level = IndicatorLevel.WARNING; // High impact = important
     } else if (config.impact === 'medium' && config.effort === 'low') {
-      level = 'info'; // Medium impact, low effort = good to do
+      level = IndicatorLevel.INFO; // Medium impact, low effort = good to do
     }
 
     return {
@@ -748,7 +748,7 @@ export class A implements IShared { ... }`,
     return {
       id: 'ai-suggestion-error',
       type: 'suggestion',
-      level: 'warning',
+      level: IndicatorLevel.WARNING,
       title: 'AI Suggestion Generation Error',
       description: `Failed to generate AI suggestions: ${error.message}`,
       value: 'Error',

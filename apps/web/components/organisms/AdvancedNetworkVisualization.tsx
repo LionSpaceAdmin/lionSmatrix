@@ -87,12 +87,12 @@ export function AdvancedNetworkVisualization({
     
     for (let i = 0; i < columns; i++) {
       if (Math.random() < 0.3) { // 30% chance for each column
-        const wordOrChar = Math.random() < 0.4 ? 
+        const wordOrChar = (Math.random() < 0.4 ? 
           MATRIX_WORDS[Math.floor(Math.random() * MATRIX_WORDS.length)] :
-          TECH_CHARS[Math.floor(Math.random() * TECH_CHARS.length)]
+          TECH_CHARS[Math.floor(Math.random() * TECH_CHARS.length)]) || '0'
         
         chars.push({
-          id: `matrix-${i}-${Date.now()}`,
+          id: `matrix-${i}-${Date.now()}-${Math.random()}`,
           x: i * 20,
           y: -20,
           char: wordOrChar,
@@ -131,7 +131,7 @@ export function AdvancedNetworkVisualization({
         id: `node-${i}`,
         x: Math.random() * container.offsetWidth,
         y: Math.random() * container.offsetHeight,
-        type,
+        type: type || 'sensor',
         connections: [],
         activity: Math.random(),
         pulsePhase: Math.random() * Math.PI * 2,
@@ -156,7 +156,9 @@ export function AdvancedNetworkVisualization({
           // Prefer connecting to higher intelligence nodes
           possibleTargets.sort((a, b) => b.intelligence - a.intelligence)
           const target = possibleTargets[Math.floor(Math.random() * Math.min(3, possibleTargets.length))]
-          node.connections.push(target.id)
+          if (target) {
+            node.connections.push(target.id)
+          }
         }
       }
     })
@@ -173,7 +175,7 @@ export function AdvancedNetworkVisualization({
     
     for (let i = 0; i < packetCount; i++) {
       const sourceNode = neuralNodes[Math.floor(Math.random() * neuralNodes.length)]
-      if (sourceNode.connections.length > 0) {
+      if (sourceNode && sourceNode.connections.length > 0) {
         const targetId = sourceNode.connections[Math.floor(Math.random() * sourceNode.connections.length)]
         const dataType: DataPacket['type'] = 
           Math.random() < 0.3 ? 'threat' :
@@ -181,11 +183,11 @@ export function AdvancedNetworkVisualization({
           Math.random() < 0.7 ? 'analysis' : 'response'
         
         packets.push({
-          id: `packet-${i}`,
+          id: `packet-${i}-${Date.now()}-${Math.random()}`,
           sourceId: sourceNode.id,
-          targetId,
+          targetId: targetId || 'unknown',
           progress: 0,
-          data: MATRIX_WORDS[Math.floor(Math.random() * MATRIX_WORDS.length)],
+          data: MATRIX_WORDS[Math.floor(Math.random() * MATRIX_WORDS.length)] || 'data',
           type: dataType
         })
       }
@@ -288,6 +290,13 @@ export function AdvancedNetworkVisualization({
           primaryColor: 'terminal-gold',
           secondaryColor: 'terminal-cyan'
         }
+      default:
+        return {
+          title: 'INTELLIGENCE NETWORK',
+          icon: Brain,
+          primaryColor: 'terminal-cyan',
+          secondaryColor: 'terminal-gold'
+        }
     }
   }
 
@@ -333,7 +342,7 @@ export function AdvancedNetworkVisualization({
               className={`neural-node animate-neural-pulse ${
                 node.type === 'core' ? 'bg-terminal-gold' :
                 node.type === 'hub' ? 'bg-terminal-cyan' :
-                node.type === 'threat' ? 'bg-terminal-red' :
+                node.type === 'sensor' ? 'bg-terminal-red' :
                 'bg-terminal-cyan'
               }`}
               style={{

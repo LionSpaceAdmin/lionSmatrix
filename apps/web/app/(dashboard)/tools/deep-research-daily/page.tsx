@@ -167,9 +167,12 @@ export default function DeepResearchDailyPage() {
       const queryIndex = savedQueries.findIndex(q => q.query === currentQuery)
       if (queryIndex !== -1) {
         const updatedQueries = [...savedQueries]
-        updatedQueries[queryIndex].usageCount++
-        updatedQueries[queryIndex].lastUsed = new Date().toISOString().split('T')[0]
-        setSavedQueries(updatedQueries)
+        const query = updatedQueries[queryIndex]
+        if (query) {
+          query.usageCount++
+          query.lastUsed = new Date().toISOString().split('T')[0] || new Date().toISOString()
+          setSavedQueries(updatedQueries)
+        }
       }
     }, 1500)
   }
@@ -181,8 +184,8 @@ export default function DeepResearchDailyPage() {
       query: currentQuery,
       category,
       tags,
-      createdAt: new Date().toISOString().split('T')[0],
-      lastUsed: new Date().toISOString().split('T')[0],
+      createdAt: new Date().toISOString().split('T')[0] || new Date().toISOString(),
+      lastUsed: new Date().toISOString().split('T')[0] || new Date().toISOString(),
       usageCount: 1,
       starred: false
     }

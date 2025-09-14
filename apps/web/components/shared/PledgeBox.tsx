@@ -5,15 +5,31 @@ import { Shield, CheckCircle, AlertTriangle, Users, Target, Heart } from 'lucide
 import { cn } from '@/lib/utils'
 
 interface PledgeBoxProps {
+  title?: string
+  description?: string
+  points?: string[]
   onAccept?: () => void
   onDecline?: () => void
+  acceptText?: string
+  disabled?: boolean
   className?: string
   variant?: 'default' | 'compact'
 }
 
 export function PledgeBox({
+  title = "Commitment to Truth & Responsibility",
+  description = "By continuing, you pledge to use this platform responsibly, respect democratic values, and contribute to the fight against disinformation.",
+  points = [
+    "I will verify information before sharing",
+    "I will respect the privacy and dignity of all individuals",
+    "I will not use this platform to spread false information",
+    "I will report suspicious activity when I encounter it",
+    "I will use this tool to protect democratic processes"
+  ],
   onAccept,
   onDecline,
+  acceptText = "I Accept",
+  disabled = false,
   className,
   variant = 'default'
 }: PledgeBoxProps) {

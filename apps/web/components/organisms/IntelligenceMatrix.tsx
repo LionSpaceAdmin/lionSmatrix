@@ -30,7 +30,7 @@ export function IntelligenceMatrix({
   showConnections = true
 }: IntelligenceMatrixProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null)
-  const animationRef = useRef<number>()
+  const animationRef = useRef<number | undefined>(undefined)
   const [rotation, setRotation] = useState({ x: 0, y: 0, z: 0 })
   const [hoveredNode, setHoveredNode] = useState<string | null>(null)
   const [metrics, setMetrics] = useState({
@@ -60,8 +60,8 @@ export function IntelligenceMatrix({
             x: (x - gridSize / 2) * spacing,
             y: (y - gridSize / 2) * spacing,
             z: (z - gridSize / 2) * spacing,
-            label: `${type.toUpperCase()}-${Math.floor(Math.random() * 1000)}`,
-            type,
+            label: `${(type || 'neutral').toUpperCase()}-${Math.floor(Math.random() * 1000)}`,
+            type: type || 'neutral',
             intensity: Math.random(),
             connections: []
           })
@@ -74,7 +74,7 @@ export function IntelligenceMatrix({
       const numConnections = Math.floor(Math.random() * 3)
       for (let j = 0; j < numConnections; j++) {
         const targetIndex = Math.floor(Math.random() * nodes.length)
-        if (targetIndex !== i) {
+        if (targetIndex !== i && nodes[targetIndex]) {
           node.connections.push(nodes[targetIndex].id)
         }
       }

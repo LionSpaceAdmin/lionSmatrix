@@ -76,7 +76,7 @@ export function ThreatStrip({
     return null
   }
 
-  const config = levelConfig[currentAlert.level]
+  const config = levelConfig[currentAlert.level] || levelConfig.info
   const Icon = config.icon
 
   return (

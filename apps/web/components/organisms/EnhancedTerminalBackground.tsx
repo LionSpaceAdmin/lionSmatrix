@@ -87,7 +87,7 @@ export function EnhancedTerminalBackground({
           <AdvancedNetworkVisualization
             density={currentConfig.networkDensity}
             mode={networkMode}
-            showMatrix={currentConfig.showMatrix}
+            showMatrix={false}
             showDataFlow={currentConfig.showDataFlow}
             interactive={currentConfig.networkInteractive}
           />
@@ -101,7 +101,7 @@ export function EnhancedTerminalBackground({
             intensity={currentConfig.matrixIntensity}
             mode={matrixMode}
             showHorizontalStreams={currentConfig.showDataFlow}
-            showVerticalMatrix={currentConfig.showMatrix}
+            showVerticalMatrix={true}
             highlightThreats={mode === "extreme"}
           />
         </div>

@@ -129,7 +129,7 @@ export function AccessibleNavigation({
             role="group"
             aria-label={`${item.label} submenu`}
           >
-            {item.children.map((child, childIndex) => (
+            {item.children?.map((child, childIndex) => (
               <li key={child.href}>
                 <Link
                   href={child.href}

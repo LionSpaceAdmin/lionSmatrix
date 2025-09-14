@@ -1,16 +1,16 @@
 import { Suspense } from 'react';
-import { WarRoomDashboard } from '@/components/war-room/war-room-dashboard';
-import { ActiveSessions } from '@/components/war-room/active-sessions';
-import { ThreatOverview } from '@/components/war-room/threat-overview';
-import { UnifiedBackground } from '@/components/organisms';
+// import { WarRoomDashboard } from '@/components/war-room/war-room-dashboard';
+// import { ActiveSessions } from '@/components/war-room/active-sessions';
+// import { ThreatOverview } from '@/components/war-room/threat-overview';
+import { EnhancedTerminalBackground } from '@/components/organisms';
 
 export default function WarRoomPage() {
   return (
     <div className="min-h-screen bg-terminal-bg text-terminal-text">
       {/* Neural War Room Background */}
-      <UnifiedBackground 
-        variant="platform" 
+      <EnhancedTerminalBackground 
         intensity="medium" 
+        mode="warfare"
         interactive={true}
       />
       
@@ -25,57 +25,32 @@ export default function WarRoomPage() {
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          {/* Active Sessions */}
+          {/* Active Sessions - Placeholder */}
           <div className="lg:col-span-1">
-            <Suspense fallback={<SessionsLoading />}>
-              <ActiveSessions />
-            </Suspense>
+            <div className="bg-terminal-secondary/50 border border-red-500/30 rounded-lg p-4">
+              <h3 className="text-red-400 font-terminal text-lg mb-2">ACTIVE SESSIONS</h3>
+              <p className="text-terminal-text/70 text-sm">Component not yet implemented</p>
+            </div>
           </div>
 
-          {/* Main Dashboard */}
+          {/* Main Dashboard - Placeholder */}
           <div className="lg:col-span-2">
-            <Suspense fallback={<DashboardLoading />}>
-              <WarRoomDashboard />
-            </Suspense>
+            <div className="bg-terminal-secondary/50 border border-red-500/30 rounded-lg p-4">
+              <h3 className="text-red-400 font-terminal text-lg mb-2">WAR ROOM DASHBOARD</h3>
+              <p className="text-terminal-text/70 text-sm">Component not yet implemented</p>
+            </div>
           </div>
         </div>
 
-        {/* Threat Overview */}
-        <Suspense fallback={<ThreatLoading />}>
-          <ThreatOverview />
-        </Suspense>
+        {/* Threat Overview - Placeholder */}
+        <div className="mt-6">
+          <div className="bg-terminal-secondary/50 border border-red-500/30 rounded-lg p-4">
+            <h3 className="text-red-400 font-terminal text-lg mb-2">THREAT OVERVIEW</h3>
+            <p className="text-terminal-text/70 text-sm">Component not yet implemented</p>
+          </div>
+        </div>
       </div>
     </div>
   );
 }
 
-function SessionsLoading() {
-  return (
-    <div className="bg-gray-900/50 border border-red-500/30 rounded-lg p-4 animate-pulse backdrop-blur-sm">
-      <div className="h-4 bg-red-500/20 rounded w-3/4 mb-4"></div>
-      <div className="space-y-3">
-        <div className="h-12 bg-red-500/10 rounded"></div>
-        <div className="h-12 bg-red-500/10 rounded"></div>
-        <div className="h-12 bg-red-500/10 rounded"></div>
-      </div>
-    </div>
-  );
-}
-
-function DashboardLoading() {
-  return (
-    <div className="bg-gray-900/50 border border-red-500/30 rounded-lg p-6 animate-pulse backdrop-blur-sm">
-      <div className="h-6 bg-red-500/20 rounded w-1/2 mb-6"></div>
-      <div className="h-64 bg-red-500/10 rounded"></div>
-    </div>
-  );
-}
-
-function ThreatLoading() {
-  return (
-    <div className="bg-gray-900/50 border border-red-500/30 rounded-lg p-6 animate-pulse backdrop-blur-sm">
-      <div className="h-6 bg-red-500/20 rounded w-1/3 mb-4"></div>
-      <div className="h-32 bg-red-500/10 rounded"></div>
-    </div>
-  );
-}

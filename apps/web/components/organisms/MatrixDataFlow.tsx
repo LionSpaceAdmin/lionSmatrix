@@ -137,7 +137,7 @@ export function MatrixDataFlow({
           chars: [],
           speed: 0.5 + Math.random() * (intensity === 'extreme' ? 3 : 2),
           density: config.density + Math.random() * 0.3,
-          category
+          category: category || 'intelligence'
         })
       }
     }
@@ -161,10 +161,10 @@ export function MatrixDataFlow({
       let isHighlight = false
       
       if (column.category === 'symbols') {
-        char = MATRIX_SYMBOLS[Math.floor(Math.random() * MATRIX_SYMBOLS.length)]
+        char = MATRIX_SYMBOLS[Math.floor(Math.random() * MATRIX_SYMBOLS.length)] || '0'
       } else {
         if (Math.random() < 0.3) { // 30% chance for words
-          char = wordPool[Math.floor(Math.random() * wordPool.length)]
+          char = wordPool[Math.floor(Math.random() * wordPool.length)] || 'Data'
           isHighlight = highlightThreats && (
             char.includes('Threat') || 
             char.includes('Attack') || 
@@ -173,14 +173,14 @@ export function MatrixDataFlow({
             char.includes('Propaganda')
           )
         } else {
-          char = MATRIX_SYMBOLS[Math.floor(Math.random() * MATRIX_SYMBOLS.length)]
+          char = MATRIX_SYMBOLS[Math.floor(Math.random() * MATRIX_SYMBOLS.length)] || '0'
         }
       }
       
       chars.push({
-        id: `char-${column.id}-${i}`,
+        id: `char-${column.id}-${i}-${Date.now()}-${Math.random()}`,
         char,
-        y: -Math.random() * container.offsetHeight,
+        y: -20 - (i * 20), // Stack vertically like Matrix movie
         opacity: 0.3 + Math.random() * 0.7,
         age: 0,
         maxAge: 100 + Math.random() * 200,
@@ -212,7 +212,7 @@ export function MatrixDataFlow({
       ).join(' ')
       
       streams.push({
-        id: `stream-${i}`,
+        id: `stream-${i}-${Date.now()}-${Math.random()}`,
         y: Math.random() * container.offsetHeight,
         content,
         speed: 1 + Math.random() * 3,
@@ -227,10 +227,16 @@ export function MatrixDataFlow({
 
   // Initialize everything
   useEffect(() => {
-    initializeMatrix()
-    if (showHorizontalStreams) {
-      setHorizontalStreams(generateHorizontalStreams())
-    }
+    const timer = setTimeout(() => {
+      if (containerRef.current) {
+        initializeMatrix()
+        if (showHorizontalStreams) {
+          setHorizontalStreams(generateHorizontalStreams())
+        }
+      }
+    }, 200) // Longer delay to ensure container is ready
+    
+    return () => clearTimeout(timer)
   }, [initializeMatrix, generateHorizontalStreams, showHorizontalStreams])
 
   // Animation loop
@@ -317,6 +323,13 @@ export function MatrixDataFlow({
           primaryColor: 'text-terminal-red',
           accentColor: 'text-terminal-gold'
         }
+      default:
+        return {
+          title: 'INTELLIGENCE_MATRIX',
+          icon: Search,
+          primaryColor: 'text-terminal-cyan',
+          accentColor: 'text-terminal-gold'
+        }
     }
   }
 
@@ -341,7 +354,7 @@ export function MatrixDataFlow({
                 char.category === 'cyber' ? 'text-terminal-red' :
                 char.category === 'operations' ? 'text-terminal-green' :
                 'text-terminal-cyan'
-              } animate-matrix-char-fade`}
+              } animate-matrix-rain`}
               style={{
                 top: char.y,
                 opacity: char.opacity,

@@ -3,7 +3,7 @@
  * Advanced performance monitoring and optimization insights
  */
 
-import { SmartIndicator, IndicatorThresholds } from './index';
+import { SmartIndicator, IndicatorThresholds, IndicatorLevel } from './index';
 import { existsSync, readFileSync, statSync } from 'fs';
 import { join } from 'path';
 import { glob } from 'glob';
@@ -792,7 +792,7 @@ export class PerformanceMetrics {
       value: sizeMB,
       unit: 'MB',
       category: 'bundle',
-      level: sizeMB > 5 ? 'critical' : sizeMB > 3 ? 'warning' : 'info'
+      level: sizeMB > 5 ? IndicatorLevel.CRITICAL : sizeMB > 3 ? IndicatorLevel.WARNING : IndicatorLevel.INFO
     }));
 
     if (analysis.heavyDependencies.length > 0) {
@@ -803,7 +803,7 @@ export class PerformanceMetrics {
         description: `${analysis.heavyDependencies.length} large dependencies detected`,
         value: analysis.heavyDependencies.length,
         category: 'bundle',
-        level: analysis.heavyDependencies.length > 3 ? 'warning' : 'info',
+        level: analysis.heavyDependencies.length > 3 ? IndicatorLevel.WARNING : IndicatorLevel.INFO,
         actionable: true,
         suggestion: 'Consider lighter alternatives or dynamic imports'
       }));
@@ -817,7 +817,7 @@ export class PerformanceMetrics {
         description: 'Libraries that could benefit from tree shaking',
         value: analysis.treeShakingOpportunities.length,
         category: 'optimization',
-        level: 'info',
+        level: IndicatorLevel.INFO,
         actionable: true,
         suggestion: 'Use specific imports instead of importing entire libraries'
       }));
@@ -837,7 +837,7 @@ export class PerformanceMetrics {
         description: `${largeFiles.length} files exceed size recommendations`,
         value: largeFiles.length,
         category: 'files',
-        level: largeFiles.length > 5 ? 'warning' : 'info',
+        level: largeFiles.length > 5 ? IndicatorLevel.WARNING : IndicatorLevel.INFO,
         actionable: true,
         suggestion: 'Consider splitting large files or optimizing content'
       }));
@@ -854,7 +854,7 @@ export class PerformanceMetrics {
         value: sizeMB,
         unit: 'MB',
         category: 'files',
-        level: sizeMB > 1 ? 'warning' : 'info'
+        level: sizeMB > 1 ? IndicatorLevel.WARNING : IndicatorLevel.INFO
       }));
     }
 
@@ -872,7 +872,7 @@ export class PerformanceMetrics {
         description: `${computations.length} files contain expensive operations`,
         value: computations.length,
         category: 'computation',
-        level: computations.length > 3 ? 'warning' : 'info',
+        level: computations.length > 3 ? IndicatorLevel.WARNING : IndicatorLevel.INFO,
         actionable: true,
         suggestion: 'Consider optimization techniques like memoization or web workers'
       }));
@@ -892,7 +892,7 @@ export class PerformanceMetrics {
         description: `${analysis.potentialLeaks.length} files may have memory leak patterns`,
         value: analysis.potentialLeaks.length,
         category: 'memory',
-        level: 'warning',
+        level: IndicatorLevel.WARNING,
         actionable: true,
         suggestion: 'Add cleanup for event listeners and intervals'
       }));
@@ -906,7 +906,7 @@ export class PerformanceMetrics {
         description: `${analysis.unusedCode.length} files contain unused imports`,
         value: analysis.unusedCode.length,
         category: 'optimization',
-        level: 'info',
+        level: IndicatorLevel.INFO,
         actionable: true,
         suggestion: 'Remove unused imports to reduce bundle size'
       }));
@@ -925,7 +925,7 @@ export class PerformanceMetrics {
         value: vitals.lcp.score,
         unit: '%',
         category: 'web-vitals',
-        level: vitals.lcp.score < 60 ? 'warning' : 'info'
+        level: vitals.lcp.score < 60 ? IndicatorLevel.WARNING : IndicatorLevel.INFO
       }),
       this.createIndicator({
         id: 'web-vitals-fid',
@@ -935,7 +935,7 @@ export class PerformanceMetrics {
         value: vitals.fid.score,
         unit: '%',
         category: 'web-vitals',
-        level: vitals.fid.score < 60 ? 'warning' : 'info'
+        level: vitals.fid.score < 60 ? IndicatorLevel.WARNING : IndicatorLevel.INFO
       }),
       this.createIndicator({
         id: 'web-vitals-cls',
@@ -945,7 +945,7 @@ export class PerformanceMetrics {
         value: vitals.cls.score,
         unit: '%',
         category: 'web-vitals',
-        level: vitals.cls.score < 60 ? 'warning' : 'info'
+        level: vitals.cls.score < 60 ? IndicatorLevel.WARNING : IndicatorLevel.INFO
       })
     ];
   }
@@ -961,7 +961,7 @@ export class PerformanceMetrics {
       value: analysis.jsExecutionTime,
       unit: 'ms',
       category: 'load-time',
-      level: analysis.jsExecutionTime > 1000 ? 'warning' : 'info'
+      level: analysis.jsExecutionTime > 1000 ? IndicatorLevel.WARNING : IndicatorLevel.INFO
     }));
 
     indicators.push(this.createIndicator({
@@ -972,7 +972,7 @@ export class PerformanceMetrics {
       value: analysis.imageOptimization,
       unit: '%',
       category: 'load-time',
-      level: analysis.imageOptimization < 70 ? 'warning' : 'info',
+      level: analysis.imageOptimization < 70 ? IndicatorLevel.WARNING : IndicatorLevel.INFO,
       actionable: analysis.imageOptimization < 90,
       suggestion: 'Optimize and compress images for better performance'
     }));
@@ -991,7 +991,7 @@ export class PerformanceMetrics {
         description: `${unusedFiles.length} files may contain unused code`,
         value: unusedFiles.length,
         category: 'optimization',
-        level: 'info',
+        level: IndicatorLevel.INFO,
         actionable: true,
         suggestion: 'Review and remove unused files to reduce bundle size'
       }));
@@ -1014,7 +1014,7 @@ export class PerformanceMetrics {
         description: `${criticalBottlenecks.length} high-impact performance bottlenecks`,
         value: criticalBottlenecks.length,
         category: 'bottlenecks',
-        level: 'critical',
+        level: IndicatorLevel.CRITICAL,
         actionable: true,
         suggestion: 'Address critical bottlenecks for significant performance gains'
       }));
@@ -1028,7 +1028,7 @@ export class PerformanceMetrics {
         description: `${mediumBottlenecks.length} medium-impact optimization opportunities`,
         value: mediumBottlenecks.length,
         category: 'bottlenecks',
-        level: 'info',
+        level: IndicatorLevel.INFO,
         actionable: true,
         suggestion: 'Optimize these areas for improved performance'
       }));
@@ -1045,7 +1045,7 @@ export class PerformanceMetrics {
     value: number | string; 
     category: string; 
   }): SmartIndicator {
-    const level = config.level || 'info';
+    const level = config.level || IndicatorLevel.INFO;
     
     return {
       id: config.id,
@@ -1063,7 +1063,7 @@ export class PerformanceMetrics {
       visualConfig: {
         color: this.getLevelColor(level),
         icon: this.getTypeIcon(config.type),
-        animation: level === 'critical' ? 'pulse' : undefined
+        animation: level === IndicatorLevel.CRITICAL ? 'pulse' : undefined
       }
     };
   }
@@ -1076,7 +1076,7 @@ export class PerformanceMetrics {
       description: `Performance analysis encountered an error: ${error.message}`,
       value: 'Error',
       category: 'system',
-      level: 'critical',
+      level: IndicatorLevel.CRITICAL,
       actionable: true,
       suggestion: 'Check system permissions and build configuration'
     });

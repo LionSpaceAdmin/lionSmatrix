@@ -64,9 +64,8 @@ export default function AboutPage() {
         {/* Hero Section */}
         <div className="text-center mb-12">
           <ProvenanceBadge 
-            status="verified" 
-            source="Lions of Zion"
-            timestamp={new Date().toISOString()}
+            state="verified" 
+            showDetails={true}
             className="mb-6 inline-block"
           />
           
@@ -107,6 +106,10 @@ export default function AboutPage() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {values.map((value) => {
               const Icon = value.icon
+              if (!Icon) {
+                console.error('Missing icon for value:', value.title)
+                return null
+              }
               return (
                 <div key={value.title} className="p-6 rounded-lg bg-terminal-secondary border border-terminal-border">
                   <Icon className="w-8 h-8 text-terminal-cyan mb-3" />

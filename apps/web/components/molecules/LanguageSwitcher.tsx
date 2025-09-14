@@ -56,8 +56,8 @@ export function LanguageSwitcher({
       >
         <Globe className="w-4 h-4" />
         <span className="flex items-center gap-2">
-          <span>{currentLang.flag}</span>
-          <span className="hidden sm:inline">{currentLang.name}</span>
+          <span>{currentLang?.flag}</span>
+          <span className="hidden sm:inline">{currentLang?.name}</span>
         </span>
         <ChevronDown className={cn(
           'w-4 h-4 transition-transform duration-200',

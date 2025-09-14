@@ -3,7 +3,7 @@
  * Advanced dependency and connection health analysis for network topology
  */
 
-import { SmartIndicator } from './index';
+import { SmartIndicator, IndicatorLevel } from './index';
 import { existsSync, readFileSync } from 'fs';
 import { join, dirname, relative, resolve } from 'path';
 import { glob } from 'glob';
@@ -32,7 +32,7 @@ interface ExportInfo {
 
 interface ConnectionIssue {
   type: 'broken-import' | 'missing-dependency' | 'circular-dependency' | 'orphaned-file' | 'unused-export';
-  severity: 'critical' | 'warning' | 'info';
+  severity: IndicatorLevel.CRITICAL | IndicatorLevel.WARNING | IndicatorLevel.INFO;
   file: string;
   details: string;
   suggestion: string;
@@ -40,7 +40,7 @@ interface ConnectionIssue {
 
 interface CircularDependency {
   cycle: string[];
-  severity: 'critical' | 'warning';
+  severity: IndicatorLevel.CRITICAL | IndicatorLevel.WARNING;
   impact: number; // Number of files affected
 }
 
@@ -164,13 +164,15 @@ export class ConnectionAnalyzer {
         specifiers.push(...namedImports.split(',').map(s => s.trim()));
       }
 
-      imports.push({
-        source,
-        specifiers,
-        isDefault: !!defaultImport,
-        isDynamic: false,
-        line: lineNumber
-      });
+      if (source) {
+        imports.push({
+          source,
+          specifiers,
+          isDefault: !!defaultImport,
+          isDynamic: false,
+          line: lineNumber
+        });
+      }
     }
 
     // Dynamic imports
@@ -179,13 +181,15 @@ export class ConnectionAnalyzer {
       const [, source] = match;
       const lineNumber = content.substring(0, match.index).split('\n').length;
 
-      imports.push({
-        source,
-        specifiers: [],
-        isDefault: false,
-        isDynamic: true,
-        line: lineNumber
-      });
+      if (source) {
+        imports.push({
+          source,
+          specifiers: [],
+          isDefault: false,
+          isDynamic: true,
+          line: lineNumber
+        });
+      }
     }
 
     // Require statements
@@ -194,13 +198,15 @@ export class ConnectionAnalyzer {
       const [, source] = match;
       const lineNumber = content.substring(0, match.index).split('\n').length;
 
-      imports.push({
-        source,
-        specifiers: [],
-        isDefault: true,
-        isDynamic: false,
-        line: lineNumber
-      });
+      if (source) {
+        imports.push({
+          source,
+          specifiers: [],
+          isDefault: true,
+          isDynamic: false,
+          line: lineNumber
+        });
+      }
     }
 
     return imports;
@@ -217,9 +223,9 @@ export class ConnectionAnalyzer {
       const [, name] = match;
       const lineNumber = content.substring(0, match.index).split('\n').length;
       
-      const type = this.determineExportType(fullMatch);
+      const type = this.determineExportType(match[0]);
       exports.push({
-        name,
+        name: name || '',
         isDefault: false,
         line: lineNumber,
         type
@@ -236,7 +242,7 @@ export class ConnectionAnalyzer {
         name: namedDefault || identifier || 'default',
         isDefault: true,
         line: lineNumber,
-        type: this.determineExportType(fullMatch)
+        type: this.determineExportType(match[0])
       });
     }
 
@@ -246,15 +252,17 @@ export class ConnectionAnalyzer {
       const [, exportList] = match;
       const lineNumber = content.substring(0, match.index).split('\n').length;
       
-      const exportNames = exportList.split(',').map(name => name.trim());
-      exportNames.forEach(name => {
-        exports.push({
-          name: name.split(' as ')[0], // Handle "export { foo as bar }"
-          isDefault: false,
-          line: lineNumber,
-          type: 'variable'
+      if (exportList) {
+        const exportNames = exportList.split(',').map(name => name.trim());
+        exportNames.forEach(name => {
+          exports.push({
+            name: name.split(' as ')[0], // Handle "export { foo as bar }"
+            isDefault: false,
+            line: lineNumber,
+            type: 'variable'
+          });
         });
-      });
+      }
     }
 
     return exports;
@@ -289,7 +297,7 @@ export class ConnectionAnalyzer {
         if (!existsSync(resolvedPath)) {
           issues.push({
             type: 'broken-import',
-            severity: 'critical',
+            severity: IndicatorLevel.CRITICAL,
             file: filePath,
             details: `Cannot resolve import "${importInfo.source}" at line ${importInfo.line}`,
             suggestion: `Check if the file exists at ${resolvedPath} or update the import path`
@@ -305,7 +313,7 @@ export class ConnectionAnalyzer {
             if (missingImports.length > 0) {
               issues.push({
                 type: 'broken-import',
-                severity: 'warning',
+                severity: IndicatorLevel.WARNING,
                 file: filePath,
                 details: `Importing non-existent items: ${missingImports.join(', ')} from ${importInfo.source}`,
                 suggestion: `Check available exports in ${importInfo.source} or remove unused imports`
@@ -335,7 +343,9 @@ export class ConnectionAnalyzer {
       fileInfo.dependencies.forEach(dep => {
         // Extract root package name (handle scoped packages)
         const rootDep = dep.startsWith('@') ? dep.split('/').slice(0, 2).join('/') : dep.split('/')[0];
-        usedDeps.add(rootDep);
+        if (rootDep) {
+          usedDeps.add(rootDep);
+        }
       });
     }
 
@@ -344,7 +354,7 @@ export class ConnectionAnalyzer {
       if (!installedDeps.has(dep) && !existsSync(join(this.nodeModulesPath, dep))) {
         issues.push({
           type: 'missing-dependency',
-          severity: 'critical',
+          severity: IndicatorLevel.CRITICAL,
           file: 'package.json',
           details: `Dependency "${dep}" is used but not declared in package.json`,
           suggestion: `Add "${dep}" to dependencies: npm install ${dep}`
@@ -357,7 +367,7 @@ export class ConnectionAnalyzer {
       if (!usedDeps.has(dep) && !this.isKnownUtilityDep(dep)) {
         issues.push({
           type: 'missing-dependency',
-          severity: 'info',
+          severity: IndicatorLevel.INFO,
           file: 'package.json',
           details: `Dependency "${dep}" is declared but appears unused`,
           suggestion: `Consider removing unused dependency: npm uninstall ${dep}`
@@ -380,7 +390,7 @@ export class ConnectionAnalyzer {
         const cycle = path.slice(cycleStart);
         cycle.push(file); // Complete the cycle
 
-        const severity = cycle.length > 5 ? 'critical' : 'warning';
+        const severity = cycle.length > 5 ? IndicatorLevel.CRITICAL : IndicatorLevel.WARNING;
         circularDeps.push({
           cycle: cycle.map(f => relative(this.projectRoot, f)),
           severity,
@@ -464,7 +474,7 @@ export class ConnectionAnalyzer {
 
   private async analyzeComponentUsage(): Promise<ComponentUsage[]> {
     const usage: ComponentUsage[] = [];
-    // const componentMap = new Map<string, ComponentUsage>(); // TODO: Implement component mapping
+    const componentMap = new Map<string, ComponentUsage>();
 
     // Initialize components
     for (const [file, fileInfo] of this.importExportMap) {
@@ -521,7 +531,7 @@ export class ConnectionAnalyzer {
           if (!hasDefaultExport && !hasNamedPageExport) {
             issues.push({
               type: 'broken-import',
-              severity: 'warning',
+              severity: IndicatorLevel.WARNING,
               file: routeFile,
               details: 'Route file missing default export or Page component',
               suggestion: 'Add a default export or named Page export to this route file'
@@ -537,8 +547,8 @@ export class ConnectionAnalyzer {
   }
 
   private calculateConnectionHealth(indicators: SmartIndicator[]): number {
-    const criticalIssues = indicators.filter(i => i.level === 'critical').length;
-    const warningIssues = indicators.filter(i => i.level === 'warning').length;
+    const criticalIssues = indicators.filter(i => i.level === IndicatorLevel.CRITICAL).length;
+    const warningIssues = indicators.filter(i => i.level === IndicatorLevel.WARNING).length;
     
     const totalFiles = this.importExportMap.size;
     if (totalFiles === 0) return 0;
@@ -645,8 +655,8 @@ export class ConnectionAnalyzer {
   private createBrokenConnectionIndicators(issues: ConnectionIssue[]): SmartIndicator[] {
     const indicators: SmartIndicator[] = [];
     
-    const criticalIssues = issues.filter(issue => issue.severity === 'critical');
-    const warningIssues = issues.filter(issue => issue.severity === 'warning');
+    const criticalIssues = issues.filter(issue => issue.severity === IndicatorLevel.CRITICAL);
+    const warningIssues = issues.filter(issue => issue.severity === IndicatorLevel.WARNING);
 
     if (criticalIssues.length > 0) {
       indicators.push(this.createIndicator({
@@ -656,7 +666,7 @@ export class ConnectionAnalyzer {
         description: `${criticalIssues.length} critical import/export issues found`,
         value: criticalIssues.length,
         category: 'imports',
-        level: 'critical',
+        level: IndicatorLevel.CRITICAL,
         actionable: true,
         suggestion: 'Fix broken imports to prevent runtime errors'
       }));
@@ -670,7 +680,7 @@ export class ConnectionAnalyzer {
         description: `${warningIssues.length} import issues that may cause problems`,
         value: warningIssues.length,
         category: 'imports',
-        level: 'warning',
+        level: IndicatorLevel.WARNING,
         actionable: true,
         suggestion: 'Review and fix import warnings'
       }));
@@ -693,7 +703,7 @@ export class ConnectionAnalyzer {
         description: `${missing.length} dependencies are used but not declared`,
         value: missing.length,
         category: 'dependencies',
-        level: 'critical',
+        level: IndicatorLevel.CRITICAL,
         actionable: true,
         suggestion: 'Add missing dependencies to package.json'
       }));
@@ -707,7 +717,7 @@ export class ConnectionAnalyzer {
         description: `${unused.length} dependencies appear to be unused`,
         value: unused.length,
         category: 'dependencies',
-        level: 'info',
+        level: IndicatorLevel.INFO,
         actionable: true,
         suggestion: 'Remove unused dependencies to reduce bundle size'
       }));
@@ -720,8 +730,8 @@ export class ConnectionAnalyzer {
     const indicators: SmartIndicator[] = [];
     
     if (circularDeps.length > 0) {
-      const critical = circularDeps.filter(dep => dep.severity === 'critical');
-      const warnings = circularDeps.filter(dep => dep.severity === 'warning');
+      const critical = circularDeps.filter(dep => dep.severity === IndicatorLevel.CRITICAL);
+      const warnings = circularDeps.filter(dep => dep.severity === IndicatorLevel.WARNING);
 
       if (critical.length > 0) {
         indicators.push(this.createIndicator({
@@ -731,7 +741,7 @@ export class ConnectionAnalyzer {
           description: `${critical.length} complex circular dependencies detected`,
           value: critical.length,
           category: 'architecture',
-          level: 'critical',
+          level: IndicatorLevel.CRITICAL,
           actionable: true,
           suggestion: 'Refactor code to eliminate circular dependencies'
         }));
@@ -745,7 +755,7 @@ export class ConnectionAnalyzer {
           description: `${warnings.length} circular dependencies found`,
           value: warnings.length,
           category: 'architecture',
-          level: 'warning',
+          level: IndicatorLevel.WARNING,
           actionable: true,
           suggestion: 'Consider refactoring to reduce circular dependencies'
         }));
@@ -766,7 +776,7 @@ export class ConnectionAnalyzer {
         description: `${orphanedFiles.length} files appear to be unused`,
         value: orphanedFiles.length,
         category: 'cleanup',
-        level: 'info',
+        level: IndicatorLevel.INFO,
         actionable: true,
         suggestion: 'Review and remove unused files to keep codebase clean'
       }));
@@ -790,7 +800,7 @@ export class ConnectionAnalyzer {
         description: `${unusedComponents.length} components are not being used`,
         value: unusedComponents.length,
         category: 'components',
-        level: 'info',
+        level: IndicatorLevel.INFO,
         actionable: true,
         suggestion: 'Remove unused components or consider if they should be used'
       }));
@@ -803,7 +813,7 @@ export class ConnectionAnalyzer {
       description: 'Average component usage across the codebase',
       value: Math.round(avgUsage * 100) / 100,
       category: 'components',
-      level: avgUsage < 2 ? 'warning' : 'info'
+      level: avgUsage < 2 ? IndicatorLevel.WARNING : IndicatorLevel.INFO
     }));
 
     return indicators;
@@ -820,7 +830,7 @@ export class ConnectionAnalyzer {
         description: `${issues.length} route files have connectivity problems`,
         value: issues.length,
         category: 'routing',
-        level: 'warning',
+        level: IndicatorLevel.WARNING,
         actionable: true,
         suggestion: 'Fix route export issues to ensure proper navigation'
       }));
@@ -837,7 +847,7 @@ export class ConnectionAnalyzer {
     value: number | string; 
     category: string; 
   }): SmartIndicator {
-    const level = config.level || 'info';
+    const level = config.level || IndicatorLevel.INFO;
     
     return {
       id: config.id,
@@ -855,7 +865,7 @@ export class ConnectionAnalyzer {
       visualConfig: {
         color: this.getLevelColor(level),
         icon: this.getTypeIcon(config.type),
-        animation: level === 'critical' ? 'pulse' : undefined
+        animation: level === IndicatorLevel.CRITICAL ? 'pulse' : undefined
       }
     };
   }
@@ -868,7 +878,7 @@ export class ConnectionAnalyzer {
       description: `Connection analysis encountered an error: ${error.message}`,
       value: 'Error',
       category: 'system',
-      level: 'critical',
+      level: IndicatorLevel.CRITICAL,
       actionable: true,
       suggestion: 'Check system logs and file permissions'
     });

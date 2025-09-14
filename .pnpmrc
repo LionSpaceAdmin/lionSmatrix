@@ -1,3 +1,8 @@
+# pnpm specific settings
+shamefully-hoist=false
+prefer-workspace-packages=true
+prefer-offline=true
 store-dir=~/.pnpm-store
 package-import-method=copy
-shamefully-hoist=false
+side-effects-cache=true
+auto-install-peers=true

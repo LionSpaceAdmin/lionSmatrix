@@ -84,8 +84,8 @@ export default function Header({ locale }: HeaderProps) {
             <DropdownMenuTrigger asChild>
               <Button variant="ghost" size="sm" className="gap-2">
                 <Globe className="h-4 w-4" />
-                <span className="hidden sm:inline">{currentLocale.flag}</span>
-                <span className="hidden lg:inline text-xs">{currentLocale.name}</span>
+                <span className="hidden sm:inline">{currentLocale?.flag}</span>
+                <span className="hidden lg:inline text-xs">{currentLocale?.name}</span>
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">

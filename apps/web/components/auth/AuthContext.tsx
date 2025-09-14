@@ -77,7 +77,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     const userData = {
       ...MOCK_USER,
       email,
-      name: email.split('@')[0]
+      name: email.split('@')[0] || 'User'
     }
     
     setUser(userData)

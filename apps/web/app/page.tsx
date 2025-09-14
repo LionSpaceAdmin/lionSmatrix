@@ -97,15 +97,13 @@ export default function HomePage() {
     {
       id: "election-2024",
       level: "critical" as const,
-      title: "Election Interference Campaign Active",
-      description: "Coordinated disinformation targeting democratic processes detected across multiple platforms.",
+      message: "Election Interference Campaign Active - Coordinated disinformation targeting democratic processes detected across multiple platforms.",
       timestamp: "2025-09-11T11:58:15.095Z", // Static timestamp
     },
     {
       id: "deepfake-surge",
-      level: "high" as const,
-      title: "AI-Generated Content Surge",
-      description: "Significant increase in sophisticated deepfake videos spreading false narratives.",
+      level: "critical" as const,
+      message: "AI-Generated Content Surge - Significant increase in sophisticated deepfake videos spreading false narratives.",
       timestamp: "2025-09-11T10:58:15.095Z", // Static timestamp
     },
   ]
@@ -122,7 +120,7 @@ export default function HomePage() {
 
     const interval = setInterval(() => {
       currentIndex = (currentIndex + 1) % modes.length
-      setBackgroundMode(modes[currentIndex])
+      setBackgroundMode(modes[currentIndex] || 'intelligence')
     }, 15000) // Change every 15 seconds
 
     return () => clearInterval(interval)

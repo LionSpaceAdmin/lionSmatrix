@@ -248,7 +248,7 @@ export default function PrivacyPage() {
                     <div className="space-y-3">
                       <Slider 
                         value={[settings.retention]} 
-                        onValueChange={([value]) => setSettings({...settings, retention: value})}
+                        onValueChange={([value]: number[]) => setSettings({...settings, retention: value || 30})}
                         min={30}
                         max={365}
                         step={30}

@@ -45,17 +45,16 @@ export function OSINTArchiveOptimized({ className }: OSINTArchiveOptimizedProps)
     if (searchTerm.trim()) {
       const term = searchTerm.toLowerCase();
       filtered = filtered.filter(actor => 
-        actor.Name.toLowerCase().includes(term) ||
-        actor.Platform.toLowerCase().includes(term) ||
-        actor.Narrative.toLowerCase().includes(term) ||
-        actor.Affiliation.toLowerCase().includes(term)
+        actor.name.toLowerCase().includes(term) ||
+        actor.description.toLowerCase().includes(term) ||
+        actor.aliases.some(alias => alias.toLowerCase().includes(term))
       );
     }
 
     // Filter by platform
     if (filterPlatform !== 'all') {
       filtered = filtered.filter(actor => 
-        actor.Platform.toLowerCase().includes(filterPlatform.toLowerCase())
+        actor.description.toLowerCase().includes(filterPlatform.toLowerCase())
       );
     }
 
@@ -63,11 +62,11 @@ export function OSINTArchiveOptimized({ className }: OSINTArchiveOptimizedProps)
     return [...filtered].sort((a, b) => {
       switch (sortBy) {
         case 'audience':
-          return b.Audience - a.Audience;
+          return b.name.localeCompare(a.name); // Fallback to name sorting
         case 'name':
-          return a.Name.localeCompare(b.Name);
+          return a.name.localeCompare(b.name);
         case 'platform':
-          return a.Platform.localeCompare(b.Platform);
+          return a.description.localeCompare(b.description);
         default:
           return 0;
       }
@@ -76,7 +75,7 @@ export function OSINTArchiveOptimized({ className }: OSINTArchiveOptimizedProps)
 
   // Get unique platforms for filter dropdown
   const platforms = useMemo(() => {
-    const unique = new Set(extendedOsintData.map(actor => actor.Platform));
+    const unique = new Set(extendedOsintData.map(actor => actor.description.split(' - ')[0]));
     return Array.from(unique);
   }, []);
 
@@ -175,7 +174,7 @@ export function OSINTArchiveOptimized({ className }: OSINTArchiveOptimizedProps)
             Showing {filteredAndSortedData.length} of {extendedOsintData.length} actors
           </div>
           <div className="text-sm text-muted-foreground">
-            Total Audience: {filteredAndSortedData.reduce((sum, actor) => sum + actor.Audience, 0).toLocaleString()}
+            Total Actors: {filteredAndSortedData.length}
           </div>
         </div>
 

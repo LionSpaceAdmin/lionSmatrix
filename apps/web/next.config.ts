@@ -30,7 +30,6 @@ const config: NextConfig = {
       },
     ],
     loader: 'default',
-    loaderFile: './lib/image-loader.ts',
   },
   
   // Webpack optimizations for code splitting and tree shaking
@@ -48,7 +47,6 @@ const config: NextConfig = {
     config.optimization = {
       ...config.optimization,
       usedExports: true,
-      sideEffects: false,
       splitChunks: {
         chunks: 'all',
         minSize: 20000,
@@ -127,14 +125,7 @@ const config: NextConfig = {
   },
   
   // Turbopack configuration (moved from experimental.turbo)
-  turbopack: {
-    rules: {
-      '*.svg': {
-        loaders: ['@svgr/webpack'],
-        as: '*.js',
-      },
-    },
-  },
+  // turbopack: custom loader rules removed to avoid conflicts
   
   // External packages configuration
   serverExternalPackages: ['@lionspace/ui'],

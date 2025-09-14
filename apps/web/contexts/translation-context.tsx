@@ -4,7 +4,9 @@ import React, { createContext, useContext, useState, ReactNode } from 'react'
 
 interface TranslationContextType {
   language: string
+  currentLanguage: string
   setLanguage: (lang: string) => void
+  availableLanguages: string[]
   t: (key: string, fallback?: string) => string
 }
 
@@ -35,6 +37,7 @@ const translations = {
 
 export function TranslationProvider({ children }: { children: ReactNode }) {
   const [language, setLanguage] = useState('en')
+  const availableLanguages = ['en', 'he']
 
   const t = (key: string, fallback?: string) => {
     const lang = translations[language as keyof typeof translations] || translations.en
@@ -42,7 +45,13 @@ export function TranslationProvider({ children }: { children: ReactNode }) {
   }
 
   return (
-    <TranslationContext.Provider value={{ language, setLanguage, t }}>
+    <TranslationContext.Provider value={{ 
+      language, 
+      currentLanguage: language, 
+      setLanguage, 
+      availableLanguages, 
+      t 
+    }}>
       {children}
     </TranslationContext.Provider>
   )

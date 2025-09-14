@@ -7,15 +7,19 @@ import { EvidenceList } from '@/components/shared/EvidenceList'
 import { SharePackModule } from '@/components/shared/SharePackModule'
 import { ProvenanceBadge } from '@/components/shared/ProvenanceBadge'
 
+// Evidence interface
 interface Evidence {
   id: string
-  type: string
+  type: 'document' | 'link' | 'image' | 'video' | 'social'
   title: string
-  description: string
   source: string
-  confidence: number
-  timestamp: string
+  url?: string
+  date: string
+  author?: string
   verified: boolean
+  confidence: number
+  tags?: string[]
+  description?: string
 }
 
 interface TimelineEvent {
@@ -157,9 +161,8 @@ export function NarrativeDetailClient({ narrative }: Props) {
             {/* Provenance Badge */}
             <div className="flex-shrink-0">
               <ProvenanceBadge
-                status={narrative.verificationStatus}
-                confidence={narrative.confidence}
-                lastVerified={narrative.lastUpdated}
+                state={narrative.verificationStatus as any}
+                showDetails={true}
               />
             </div>
           </div>
@@ -290,8 +293,6 @@ export function NarrativeDetailClient({ narrative }: Props) {
             <div>
               <EvidenceList 
                 evidence={narrative.evidence}
-                title="Supporting Evidence"
-                description="All evidence supporting this narrative analysis"
               />
             </div>
           )}
@@ -325,11 +326,12 @@ export function NarrativeDetailClient({ narrative }: Props) {
           {activeTab === 'share' && (
             <div>
               <SharePackModule
-                narrative={narrative}
-                shareUrl={shareUrl}
-                onCopyLink={(url) => copyToClipboard(url, 'Link')}
-                onCopyContent={(content) => copyToClipboard(content, 'Content')}
-                copiedText={copiedText}
+                content={{
+                  title: narrative.title,
+                  text: narrative.description,
+                  url: shareUrl,
+                  hashtags: narrative.shareableContent?.hashtags || []
+                }}
               />
             </div>
           )}
