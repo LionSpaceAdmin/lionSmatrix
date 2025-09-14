@@ -1,11 +1,16 @@
 import withBundleAnalyzer from "@next/bundle-analyzer"
 import { withSentryConfig } from "@sentry/nextjs"
-import { type NextConfig } from "next"
 import path from "path"
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
 
 // import { env } from "./env.mjs" // Temporarily disabled
 
-const config: NextConfig = {
+/** @type {import('next').NextConfig} */
+const config = {
   reactStrictMode: true,
   output: 'standalone',
   
@@ -117,21 +122,17 @@ const config: NextConfig = {
   },
   
   // Performance optimizations
-  // experimental: {
-  //   // Optimize CSS
-  //   optimizeCss: true,
-  //   // Cache Server Components during HMR
-  //   serverComponentsHmrCache: process.env.NODE_ENV === 'development'
-  // },
+  experimental: {
+    // Optimize CSS
+    optimizeCss: true,
+    // Cache Server Components during HMR
+	outputFileTracingRoot: path.join(__dirname, '../../'),
+  },
   
   // Turbopack configuration (moved from experimental.turbo)
   // turbopack: custom loader rules removed to avoid conflicts
   
-  // External packages configuration
-  serverExternalPackages: ['@lionspace/ui'],
-  
   // Fix workspace root warning
-  outputFileTracingRoot: path.join(__dirname, '../../'),
   
   logging: {
     fetches: {
