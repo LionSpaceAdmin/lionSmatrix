@@ -22,6 +22,14 @@ import {
   check
 } from 'drizzle-orm/pg-core';
 import { relations, sql } from 'drizzle-orm';
+import { customType } from 'drizzle-orm/pg-core';
+
+// Custom type for tsvector
+export const tsvector = customType<{ data: string; }>({
+  dataType() {
+    return 'tsvector';
+  },
+});
 
 // =====================================================
 // ENUMS - Define type-safe enums
@@ -501,8 +509,8 @@ export const articles = pgTable('articles', {
   id: uuid('id').defaultRandom().primaryKey(),
   title: text('title').notNull(),
   content: text('content').notNull(),
-  searchVector: sql`tsvector`.generatedAlwaysAs(
-    sql`to_tsvector('english', ${sql.raw('title')} || ' ' || ${sql.raw('content')})`
+  searchVector: tsvector('search_vector').generatedAlwaysAs(
+    sql`to_tsvector('english', ${articles.title} || ' ' || ${articles.content})`
   ),
   publishedAt: timestamp('published_at'),
   createdAt: timestamp('created_at').defaultNow().notNull(),

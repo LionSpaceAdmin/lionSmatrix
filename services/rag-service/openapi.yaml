@@ -1,0 +1,152 @@
+openapi: 3.0.3
+info:
+  title: RAG Service
+  description: A service for Retrieval-Augmented Generation tasks.
+  version: 1.0.0
+paths:
+  /healthz:
+    get:
+      summary: Health Check
+      tags:
+        - Health
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HealthResponse'
+  /v1/rag/search:
+    post:
+      summary: Search RAG
+      tags:
+        - RAG
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RagSearchRequest'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RagSearchResponse'
+        '501':
+          description: Not Implemented
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /v1/rag/grounded-answer:
+    post:
+      summary: Get Grounded Answer
+      tags:
+        - RAG
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GroundedAnswerRequest'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GroundedAnswerResponse'
+        '501':
+          description: Not Implemented
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+components:
+  schemas:
+    HealthResponse:
+      type: object
+      properties:
+        ok:
+          type: boolean
+          default: true
+      required:
+        - ok
+    RagSearchRequest:
+      type: object
+      properties:
+        query:
+          type: string
+        top_k:
+          type: integer
+          default: 5
+        filters:
+          type: object
+          additionalProperties: true
+      required:
+        - query
+    RagSearchResult:
+      type: object
+      properties:
+        document_id:
+          type: string
+        content_chunk:
+          type: string
+        score:
+          type: number
+          format: float
+      required:
+        - document_id
+        - content_chunk
+        - score
+    RagSearchResponse:
+      type: object
+      properties:
+        request_id:
+          type: string
+          format: uuid
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/RagSearchResult'
+      required:
+        - request_id
+        - results
+    GroundedAnswerRequest:
+      type: object
+      properties:
+        query:
+          type: string
+        search_results:
+          type: array
+          items:
+            $ref: '#/components/schemas/RagSearchResult'
+      required:
+        - query
+        - search_results
+    GroundedAnswerResponse:
+      type: object
+      properties:
+        request_id:
+          type: string
+          format: uuid
+        answer:
+          type: string
+        evidence:
+          type: array
+          items:
+            type: string
+      required:
+        - request_id
+        - answer
+        - evidence
+    ErrorResponse:
+      type: object
+      properties:
+        detail:
+          type: string
+      required:
+        - detail

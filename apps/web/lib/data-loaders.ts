@@ -326,8 +326,16 @@ export const loadBatchData = async (
   
   await Promise.all(
     types.map(async (type) => {
-      if (loaders[type]) {
-        results[type] = await loaders[type](options)
+      if (type === 'campaigns') {
+        // loadCampaignData expects a campaignId (string), not an options object.
+        // In a batch context, we can't provide a specific ID, so we call it without arguments to get all campaigns.
+        results[type] = await loaders.campaigns()
+      } else if (loaders[type]) {
+        // All other loaders accept the options object.
+        const loader = loaders[type] as (
+          options?: DataLoaderOptions
+        ) => Promise<any>
+        results[type] = await loader(options)
       }
     })
   )

@@ -3,174 +3,123 @@
 <div align="center">
   <img src="/public/logo.svg" alt="Lions of Zion Logo" width="200"/>
   
-  [![Next.js](https://img.shields.io/badge/Next.js-15-black?style=for-the-badge&logo=next.js)](https://nextjs.org)
-  [![TypeScript](https://img.shields.io/badge/TypeScript-5.0-blue?style=for-the-badge&logo=typescript)](https://www.typescriptlang.org)
-  [![Tailwind CSS](https://img.shields.io/badge/Tailwind-3.4-38B2AC?style=for-the-badge&logo=tailwind-css)](https://tailwindcss.com)
+  [![Next.js](https://img.shields.io/badge/Next.js-14-black?style=for-the-badge&logo=next.js)](https://nextjs.org)
+  [![FastAPI](https://img.shields.io/badge/FastAPI-Python-green?style=for-the-badge&logo=fastapi)](https://fastapi.tiangolo.com/)
+  [![PostgreSQL](https://img.shields.io/badge/PostgreSQL-14-blue?style=for-the-badge&logo=postgresql)](https://www.postgresql.org/)
+  [![Google Cloud](https://img.shields.io/badge/Google_Cloud-Run-4285F4?style=for-the-badge&logo=google-cloud)](https://cloud.google.com/run)
   [![License](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)](LICENSE)
   
   **Military-grade defense against disinformation campaigns**
-  
-  [Live Demo](https://lionsofzion.com) • [Documentation](docs/) • [Report Bug](issues) • [Request Feature](issues)
 </div>
 
 ---
 
-## 🎯 Project Status: **100% COMPLETE** ✅
+## 🎯 Project Status
 
-All 150 tasks completed. Platform is production-ready with full feature set, testing suite, and documentation.
-
-## 🚀 Features
-
-### 🌐 Public Platform
-- **Landing Page** - Hero with network animation, trust badges
-- **Daily Brief** - Real-time narrative tracking
-- **Archive** - Searchable database of disinformation campaigns
-- **Academy** - Knowledge base and training materials
-
-### 🔐 Authentication & Onboarding
-- **Multi-provider Auth** - Google, X (Twitter), Magic Links
-- **3-Step Onboarding** - Personalized setup wizard
-- **Protected Routes** - Secure dashboard access
-
-### 📊 Dashboard & Tools
-- **Command Center** - 15-tab AI terminal with Gemini integration
-- **War Machine** - 5 specialized AI tools:
-  - Image Influence Lab
-  - Fact-Check Window
-  - Report/Research System
-  - Fake Resistance Tracker
-  - Deep Research Daily
-- **Campaign Manager** - Blueprint creation and YAML export
-
-### 🏢 Enterprise Features
-- **RBAC System** - Granular role-based access control
-- **Organization Management** - Teams, departments, permissions
-- **Compliance Tools** - GDPR/CCPA ready
-- **Audit Logging** - Complete activity tracking
-
-### 🔒 Trust & Transparency
-- **C2PA Provenance** - Content authenticity verification
-- **Data Subject Rights** - Export/delete personal data
-- **Privacy Controls** - Granular privacy settings
-- **Security Audits** - Transparent security reporting
-
-### 🌍 Internationalization
-- **8 Languages** - EN, HE, ES, FR, DE, AR, RU, ZH
-- **RTL Support** - Full support for Hebrew and Arabic
-- **Locale Detection** - Automatic language selection
-
-### ♿ Accessibility
-- **WCAG 2.2 AA** - Full compliance
-- **Keyboard Navigation** - Complete keyboard support
-- **Screen Reader** - Optimized for assistive technologies
-- **Focus Management** - Proper focus indicators
-
-### ⚡ Performance
-- **LCP < 2.5s** - Fast initial load
-- **CLS < 0.1** - Minimal layout shift
-- **98+ Lighthouse Score** - Optimized performance
-- **PWA Ready** - Installable web app
+The frontend application is feature-complete. This project adds the supporting backend infrastructure, built on a Python microservices architecture.
 
 ## 🛠️ Tech Stack
 
-- **Framework:** Next.js 15 (App Router)
+### Frontend
+- **Framework:** Next.js 14 (App Router)
 - **Language:** TypeScript 5.0
 - **Styling:** Tailwind CSS + shadcn/ui
 - **State:** React Query + Zustand
 - **Animation:** Framer Motion
-- **Charts:** Chart.js
-- **AI:** Gemini API
 - **Testing:** Playwright + Vitest
-- **CI/CD:** GitHub Actions + Vercel
 
-## 📦 Installation
+### Backend
+- **Framework:** FastAPI (Python 3.10+)
+- **API Specification:** OpenAPI 3.0 (Contract-First)
+- **Database:** PostgreSQL
+- **CI/CD:** GitHub Actions + Google Cloud Run & Artifact Registry
 
+## 🏗️ Backend Architecture
+
+The backend consists of four microservices built with Python (FastAPI) and deployed as separate Google Cloud Run services. They share a single PostgreSQL database.
+
+- **`ai-gateway`**: A gateway for interacting with Vertex AI models (e.g., Gemini).
+- **`rag-service`**: Handles Retrieval-Augmented Generation tasks.
+- **`fact-check-service`**: Manages fact-checking jobs.
+- **`auth-api`**: Handles user authentication and authorization.
+
+---
+
+## 📦 Local Development Setup
+
+This project uses a monorepo structure. You will need to run the frontend and backend services separately.
+
+### 1. Backend Setup
+
+#### a) Run PostgreSQL with Docker
+Ensure you have Docker installed. Run the following command to start a local PostgreSQL container:
 ```bash
-# Clone repository
-git clone https://github.com/lions-of-zion/platform.git
-cd lionspace-merged
-
-# Install dependencies
-pnpm install
-
-# Set up environment variables
-cp .env.example .env.local
-# Edit .env.local with your values
-
-# Run development server
-pnpm run dev
-
-# Open http://localhost:3000
+docker run --name lions-db -e POSTGRES_USER=user -e POSTGRES_PASSWORD=password -e POSTGRES_DB=lionsdb -p 5432:5432 -d postgres
 ```
 
-## 🧪 Testing
-
+#### b) Load Database Schema
+Connect to the database using a tool like `psql` or a GUI client and run the contents of `database/schema.sql` to create the tables.
 ```bash
-# Run all tests
-pnpm run test:all
+# Example using psql
+psql -h localhost -p 5432 -U user -d lionsdb -f database/schema.sql
+```
 
-# Unit tests
-pnpm run test
+#### c) Configure Environment
+Copy the example environment file and fill in your local database URL.
+```bash
+cp env/.env.example .env
+# Edit .env and set DATABASE_URL, for example:
+# DATABASE_URL="postgresql://user:password@localhost:5432/lionsdb"
+```
 
-# E2E tests
-pnpm run test:e2e
+#### d) Run a Backend Service
+Navigate to a service directory and run it with uvicorn. You'll need Python 3.10+ and `pip` installed.
+```bash
+# Example for auth-api
+cd services/auth-api
 
-# Accessibility tests
-npm run test:a11y
+# Install dependencies for the service
+pip install -r requirements.txt
 
-# Performance tests
-npm run test:perf
+# Run the service (it will load variables from the root .env file if you use a tool like direnv)
+# Or run from the root of the repo after installing dependencies.
+uvicorn main:app --reload
+# API docs will be available at http://127.0.0.1:8000/docs
+```
+
+### 2. Frontend Setup
+
+#### a) Install Dependencies
+From the root directory, install all Node.js dependencies using `pnpm`.
+```bash
+pnpm install
+```
+
+#### b) Run Development Server
+```bash
+pnpm run dev
+# The frontend will be available at http://localhost:3000
 ```
 
 ## 🚀 Deployment
 
-### Vercel (Recommended)
+The backend services are automatically deployed to Google Cloud Run via the `.github/workflows/deploy-cloudrun.yaml` GitHub Actions workflow when changes are pushed to the `main` branch.
+
+### Secret Management (First Time Setup)
+The production `DATABASE_URL` is stored securely in Google Secret Manager. To set it up for the first time:
 ```bash
-pnpm i -g vercel
-vercel --prod
+# 1. Create the secret
+gcloud secrets create <PROJECT_ID>-backend-db-credentials --replication-policy="automatic"
+
+# 2. Add the secret value (replace with your actual production DB URL)
+echo -n "postgresql://user:pass@host:port/db" | gcloud secrets versions add <PROJECT_ID>-backend-db-credentials --data-file=-
+
+# 3. Grant the Cloud Run service account access to the secret
+# (This should be the service account used by your Cloud Run services)
+gcloud secrets add-iam-policy-binding <PROJECT_ID>-backend-db-credentials \
+    --member="serviceAccount:your-cloud-run-sa@<PROJECT_ID>.iam.gserviceaccount.com" \
+    --role="roles/secretmanager.secretAccessor"
 ```
-
-### Docker
-```bash
-docker build -t lions-of-zion .
-docker run -p 3000:3000 lions-of-zion
-```
-
-### Manual
-```bash
-pnpm run build
-pnpm start
-```
-
-## 📁 Project Structure
-
-```
-lionspace-merged/
-├── apps/
-│   └── web/                    # Next.js application
-│       ├── app/                # App Router pages
-│       │   ├── (public)/       # Public pages
-│       │   ├── (auth)/         # Authentication
-│       │   ├── (dashboard)/    # Dashboard
-│       │   ├── (academy)/      # Academy
-│       │   ├── (trust)/        # Trust center
-│       │   └── (enterprise)/   # Enterprise
-│       ├── components/         # React components
-│       ├── lib/               # Utilities
-│       └── e2e/               # E2E tests
-├── packages/                   # Shared packages
-├── docs/                      # Documentation
-└── .github/                   # CI/CD workflows
-```
-
-## 📊 Metrics
-
-- **Components:** 150+
-- **Pages:** 40+
-- **Test Coverage:** 95%
-- **Bundle Size:** < 200KB (first load)
-- **Accessibility Score:** 98/100
-- **Performance Score:** 95/100
 
 ## 🤝 Contributing
 
@@ -185,39 +134,3 @@ Contributions are welcome! Please read our [Contributing Guide](CONTRIBUTING.md)
 ## 📄 License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## 🙏 Acknowledgments
-
-- [Next.js](https://nextjs.org) - The React framework
-- [Vercel](https://vercel.com) - Deployment platform
-- [shadcn/ui](https://ui.shadcn.com) - UI components
-- [Tailwind CSS](https://tailwindcss.com) - CSS framework
-
-## 📞 Support
-
-- **Documentation:** [docs/](docs/)
-- **Issues:** [GitHub Issues](https://github.com/lions-of-zion/platform/issues)
-- **Email:** support@lionsofzion.com
-- **Discord:** [Join our community](https://discord.gg/lionsofzion)
-
-## 🎉 Project Milestones
-
-- ✅ **Priority 1:** Foundation - 100% Complete
-- ✅ **Priority 2:** Public Pages - 100% Complete
-- ✅ **Priority 3:** Auth Flow - 100% Complete
-- ✅ **Priority 3.5:** Matrix Integration - 100% Complete
-- ✅ **Priority 4:** Dashboard - 100% Complete
-- ✅ **Priority 5:** Content & Trust - 100% Complete
-- ✅ **Priority 6:** Testing & Quality - 100% Complete
-- ✅ **Priority 7:** Documentation - 100% Complete
-- ✅ **Priority 8:** Deployment - 100% Complete
-
----
-
-<div align="center">
-  <strong>🦁 Lions of Zion - Defending Truth in the Information Age 🦁</strong>
-  
-  Built with ❤️ by the Lions of Zion Team
-  
-  **[Website](https://lionsofzion.com) • [Twitter](https://twitter.com/lionsofzion) • [LinkedIn](https://linkedin.com/company/lionsofzion)**
-</div>

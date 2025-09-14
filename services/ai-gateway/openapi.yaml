@@ -1,0 +1,139 @@
+openapi: 3.0.3
+info:
+  title: AI Gateway Service
+  description: A service to interact with underlying AI models like Gemini and Anthropic via Vertex AI.
+  version: 1.0.0
+paths:
+  /healthz:
+    get:
+      summary: Health Check
+      description: Performs a health check of the service.
+      tags:
+        - Health
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HealthResponse'
+  /v1/ai/generate:
+    post:
+      summary: Generate Text
+      description: Stub for generating text using an AI model.
+      tags:
+        - AI
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GenerateRequest'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenerateResponse'
+        '501':
+          description: Not Implemented
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /v1/ai/embedding:
+    post:
+      summary: Get Embedding
+      description: Stub for generating embeddings for a list of texts.
+      tags:
+        - AI
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EmbeddingRequest'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EmbeddingResponse'
+        '501':
+          description: Not Implemented
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+components:
+  schemas:
+    HealthResponse:
+      type: object
+      properties:
+        ok:
+          type: boolean
+          default: true
+      required:
+        - ok
+    GenerateRequest:
+      type: object
+      properties:
+        prompt:
+          type: string
+        model:
+          type: string
+          default: 'gemini-1.5-pro'
+        config:
+          type: object
+          additionalProperties: true
+      required:
+        - prompt
+    GenerateResponse:
+      type: object
+      properties:
+        request_id:
+          type: string
+          format: uuid
+        text:
+          type: string
+      required:
+        - request_id
+        - text
+    EmbeddingRequest:
+      type: object
+      properties:
+        texts:
+          type: array
+          items:
+            type: string
+        model:
+          type: string
+          default: 'text-embedding-004'
+      required:
+        - texts
+    EmbeddingResponse:
+      type: object
+      properties:
+        request_id:
+          type: string
+          format: uuid
+        embeddings:
+          type: array
+          items:
+            type: array
+            items:
+              type: number
+              format: float
+      required:
+        - request_id
+        - embeddings
+    ErrorResponse:
+      type: object
+      properties:
+        detail:
+          type: string
+      required:
+        - detail

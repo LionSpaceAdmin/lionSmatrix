@@ -12,7 +12,7 @@ export function useProgressiveAnimation(options: {
 } = {}) {
   const [isIntersecting, setIsIntersecting] = useState(false);
   const [shouldAnimate, setShouldAnimate] = useState(false);
-  const ref = useRef<HTMLElement>(null);
+  const ref = useRef<HTMLDivElement>(null);
 
   const {
     threshold = 0.1,
@@ -35,21 +35,23 @@ export function useProgressiveAnimation(options: {
 
     const observer = new IntersectionObserver(
       ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsIntersecting(true);
-          
-          if (delay > 0) {
-            setTimeout(() => setShouldAnimate(true), delay);
-          } else {
-            setShouldAnimate(true);
-          }
+        if (entry) {
+          if (entry.isIntersecting) {
+            setIsIntersecting(true);
 
-          if (triggerOnce) {
-            observer.unobserve(entry.target);
+            if (delay > 0) {
+              setTimeout(() => setShouldAnimate(true), delay);
+            } else {
+              setShouldAnimate(true);
+            }
+
+            if (triggerOnce) {
+              observer.unobserve(entry.target);
+            }
+          } else if (!triggerOnce) {
+            setIsIntersecting(false);
+            setShouldAnimate(false);
           }
-        } else if (!triggerOnce) {
-          setIsIntersecting(false);
-          setShouldAnimate(false);
         }
       },
       {

@@ -1,0 +1,118 @@
+name: Deploy Backend Services to Cloud Run
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'services/**'
+  workflow_dispatch:
+
+env:
+  PROJECT_ID: <PROJECT_ID>
+  REGION: <REGION>
+  ARTIFACT_REGISTRY: ${{ env.REGION }}-docker.pkg.dev
+
+jobs:
+  lint-and-test:
+    name: Lint and Typecheck
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - name: Install linting tools
+        run: pip install ruff
+
+      - name: Run linter (Ruff)
+        # We can add more specific checks or formatting later
+        run: ruff check services/
+
+  build-and-deploy:
+    name: Build and Deploy ${{ matrix.service }}
+    needs: lint-and-test
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        service: [ai-gateway, rag-service, fact-check-service, auth-api]
+
+    permissions:
+      contents: 'read'
+      id-token: 'write'
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Authenticate to Google Cloud
+        id: auth
+        uses: 'google-github-actions/auth@v2'
+        with:
+          # Replace with your Workload Identity Federation details
+          workload_identity_provider: 'projects/<your-gcp-project-number>/locations/global/workloadIdentityPools/<your-pool-name>/providers/<your-provider-name>'
+          service_account: 'your-cloud-run-deployer-sa@${{ env.PROJECT_ID }}.iam.gserviceaccount.com'
+
+      - name: Set up Cloud SDK
+        uses: 'google-github-actions/setup-gcloud@v2'
+
+      - name: Configure Docker
+        run: gcloud auth configure-docker ${{ env.ARTIFACT_REGISTRY }}
+
+      - name: Build Docker image
+        run: |
+          docker build -t ${{ env.ARTIFACT_REGISTRY }}/${{ env.PROJECT_ID }}/backend-services/${{ matrix.service }}:${{ github.sha }} \
+            ./services/${{ matrix.service }}
+
+      - name: Push Docker image to Artifact Registry
+        run: |
+          docker push ${{ env.ARTIFACT_REGISTRY }}/${{ env.PROJECT_ID }}/backend-services/${{ matrix.service }}:${{ github.sha }}
+
+      - name: Deploy to Cloud Run
+        id: deploy
+        run: |
+          gcloud run deploy ${{ matrix.service }} \
+            --image ${{ env.ARTIFACT_REGISTRY }}/${{ env.PROJECT_ID }}/backend-services/${{ matrix.service }}:${{ github.sha }} \
+            --region ${{ env.REGION }} \
+            --platform managed \
+            --allow-unauthenticated \
+            --set-env-vars="GOOGLE_PROJECT_ID=${{ env.PROJECT_ID }},VERTEX_LOCATION=${{ env.REGION }}" \
+            --set-secrets="DATABASE_URL=${{ env.PROJECT_ID }}-backend-db-credentials:latest" \
+            --quiet
+            # NOTE: The DATABASE_URL is securely fetched from Secret Manager.
+            # The secret name should be '<project-id>-backend-db-credentials' and it must contain the full connection string.
+            # Example secret creation:
+            # gcloud secrets create ${{ env.PROJECT_ID }}-backend-db-credentials --replication-policy="automatic"
+            # echo -n "postgresql://user:password@host:port/db" | gcloud secrets versions add ${{ env.PROJECT_ID }}-backend-db-credentials --data-file=-
+      - name: 'Set Service URL as output'
+        run: echo "service_url=$(gcloud run services describe ${{ matrix.service }} --platform managed --region ${{ env.REGION }} --format 'value(status.url)')" >> $GITHUB_ENV
+
+
+  smoke-test:
+    name: Smoke Test Deployed Services
+    needs: build-and-deploy
+    runs-on: ubuntu-latest
+    environment: production # Optional: define an environment for protection rules
+    strategy:
+      matrix:
+        service: [ai-gateway, rag-service, fact-check-service, auth-api]
+
+    steps:
+      - name: Set up Cloud SDK
+        uses: 'google-github-actions/setup-gcloud@v2'
+
+      - name: Get deployed service URL
+        id: get_url
+        run: |
+          URL=$(gcloud run services describe ${{ matrix.service }} --platform managed --region ${{ env.REGION }} --format 'value(status.url)')
+          echo "service_url=$URL" >> $GITHUB_OUTPUT
+
+      - name: Smoke test /healthz endpoint
+        run: |
+          echo "Pinging ${{ steps.get_url.outputs.service_url }}/healthz"
+          curl -f -s --retry 5 --retry-delay 10 "${{ steps.get_url.outputs.service_url }}/healthz"
+          echo "Health check passed for ${{ matrix.service }}"
