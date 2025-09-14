@@ -143,7 +143,7 @@ export function OSINTArchiveOptimized({ className }: OSINTArchiveOptimizedProps)
 
         <div className="border border-border rounded-lg overflow-hidden">
           <OSINTArchiveList
-            items={filteredAndSortedData}
+            items={filteredAndSortedData as any} // Cast here until OSINTArchiveItem is fixed
             onItemClick={handleActorClick}
             className="bg-background"
           />

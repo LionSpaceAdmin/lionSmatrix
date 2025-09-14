@@ -78,38 +78,21 @@ export const deepDiveData: Record<string, DeepDive> = {
   },
 };
 
-// Helper functions to work with the new data structures
 
-/**
- * Returns the full array of OSINT actors.
- */
 export function getOsintActorsArray(): OSINTActor[] {
   return mergedOsintActors;
 }
 
-/**
- * Gets enriched data for a specific actor for panel display.
- * @param actorId The ID of the actor to retrieve data for.
- * @returns Enriched data for the actor panel, or undefined if not found.
- */
+
 export function getActorPanelData(actorId: string): IntelligencePanelData['data'] | undefined {
   const actor = mergedOsintActors.find(a => a.id === actorId);
   if (!actor) return undefined;
 
-  // In a real application, you would enrich this with more data.
-  // For now, we combine the actor data with their network connections.
-  return {
-    ...actor,
-    risk_level: 'high', // Placeholder, as this is not in the OSINTActor type
+
     network_connections: networkConnections.filter(c => c.source === actorId || c.target === actorId),
   };
 }
 
-/**
- * Searches for OSINT actors based on a query string.
- * @param query The search term.
- * @returns An array of matching OSINT actors.
- */
 export function searchOsintActors(query: string): OSINTActor[] {
   if (!query) return mergedOsintActors;
 
@@ -120,15 +103,5 @@ export function searchOsintActors(query: string): OSINTActor[] {
     (actor.aliases && actor.aliases.some(a => a.toLowerCase().includes(searchTerm)))
   );
 }
-
-/**
- * Returns a slice of the actors array.
- * Note: The original sorting logic by 'Audience' is removed as this property
- * is no longer part of the OSINTActor type. This function can be extended
- * in the future if a 'followers' or similar metric is added to the type.
- * @param limit The number of actors to return.
- * @returns A sliced array of OSINT actors.
- */
-export function getTopActorsByAudience(limit: number = 10): OSINTActor[] {
     return mergedOsintActors.slice(0, limit);
 }
