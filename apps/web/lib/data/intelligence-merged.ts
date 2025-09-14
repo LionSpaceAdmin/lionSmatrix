@@ -78,19 +78,17 @@ export const deepDiveData: Record<string, DeepDive> = {
   },
 };
 
-// Helper functions need to be updated to work with the new data structures.
 
 export function getOsintActorsArray(): OSINTActor[] {
   return mergedOsintActors;
 }
 
+
 export function getActorPanelData(actorId: string): IntelligencePanelData['data'] | undefined {
   const actor = mergedOsintActors.find(a => a.id === actorId);
   if (!actor) return undefined;
 
-  return {
-    ...actor,
-    risk_level: 'high', // Placeholder
+
     network_connections: networkConnections.filter(c => c.source === actorId || c.target === actorId),
   };
 }
@@ -105,10 +103,5 @@ export function searchOsintActors(query: string): OSINTActor[] {
     (actor.aliases && actor.aliases.some(a => a.toLowerCase().includes(searchTerm)))
   );
 }
-
-export function getTopActorsByAudience(limit: number = 10): OSINTActor[] {
-    // Note: 'followers' is not part of the OSINTActor type anymore.
-    // This function needs to be re-thought or the type needs to be extended.
-    // For now, returning a simple slice.
     return mergedOsintActors.slice(0, limit);
 }
