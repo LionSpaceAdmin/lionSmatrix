@@ -342,38 +342,54 @@ export const translations: Record<string, TranslationStrings> = {
 };
 
 export const languages: Record<string, LanguageConfig> = {
-  en: { 
-    name: "English", 
-    flag: "https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.5.0/flags/4x3/us.svg" 
+  en: {
+    code: 'en',
+    name: 'English',
+    nativeName: 'English',
+    rtl: false,
   },
-  he: { 
-    name: "עברית", 
-    flag: "https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.5.0/flags/4x3/il.svg" 
+  he: {
+    code: 'he',
+    name: 'Hebrew',
+    nativeName: 'עברית',
+    rtl: true,
   },
-  ar: { 
-    name: "العربية", 
-    flag: "https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.5.0/flags/4x3/sa.svg" 
+  ar: {
+    code: 'ar',
+    name: 'Arabic',
+    nativeName: 'العربية',
+    rtl: true,
   },
-  ru: { 
-    name: "Русский", 
-    flag: "https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.5.0/flags/4x3/ru.svg" 
+  ru: {
+    code: 'ru',
+    name: 'Russian',
+    nativeName: 'Русский',
+    rtl: false,
   },
-  es: { 
-    name: "Español", 
-    flag: "https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.5.0/flags/4x3/es.svg" 
+  es: {
+    code: 'es',
+    name: 'Spanish',
+    nativeName: 'Español',
+    rtl: false,
   },
-  fr: { 
-    name: "Français", 
-    flag: "https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.5.0/flags/4x3/fr.svg" 
+  fr: {
+    code: 'fr',
+    name: 'French',
+    nativeName: 'Français',
+    rtl: false,
   },
-  de: { 
-    name: "Deutsch", 
-    flag: "https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.5.0/flags/4x3/de.svg" 
+  de: {
+    code: 'de',
+    name: 'German',
+    nativeName: 'Deutsch',
+    rtl: false,
   },
-  zh: { 
-    name: "中文", 
-    flag: "https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.5.0/flags/4x3/cn.svg" 
-  }
+  zh: {
+    code: 'zh',
+    name: 'Chinese',
+    nativeName: '中文',
+    rtl: false,
+  },
 };
 
 // Helper function to get translation

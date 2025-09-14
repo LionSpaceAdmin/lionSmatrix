@@ -1,19 +1,12 @@
 'use client';
 
 import React, { useState, useMemo, useCallback } from 'react';
-import { VirtualScrollList, OSINTArchiveList } from '@/components/performance/VirtualScrollList';
+import { OSINTArchiveList } from '@/components/performance/VirtualScrollList';
 import { AnimatedCanvas } from '@/components/performance/AnimatedCanvas';
-import { useDebounce, useIdleCallback } from '@/lib/hooks/usePerformanceOptimizations';
-import { extendedOsintData, deepDives, wordBank } from '@/lib/data/osint-extended';
+import { useDebounce } from '@/lib/hooks/usePerformanceOptimizations';
+import { mergedOsintActors } from '@/lib/data/intelligence-merged';
+import { OSINTActor } from '@/types/intelligence';
 import { cn } from '@/lib/utils';
-
-interface OSINTActor {
-  Name: string;
-  Platform: string;
-  Audience: number;
-  Narrative: string;
-  Affiliation: string;
-}
 
 interface OSINTArchiveOptimizedProps {
   className?: string;
@@ -23,59 +16,44 @@ export function OSINTArchiveOptimized({ className }: OSINTArchiveOptimizedProps)
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedActor, setSelectedActor] = useState<OSINTActor | null>(null);
   const [filterPlatform, setFilterPlatform] = useState<string>('all');
-  const [sortBy, setSortBy] = useState<'audience' | 'name' | 'platform'>('audience');
-  const [isLoading, setIsLoading] = useState(false);
+  const [sortBy, setSortBy] = useState<'name' | 'type'>('name');
 
-  // Debounced search to prevent excessive filtering
   const debouncedSearch = useDebounce((term: string) => {
     setSearchTerm(term);
   }, 300);
 
-  // Use idle callback for non-critical data processing
-  useIdleCallback(() => {
-    // Pre-process data for better performance
-    console.log('Background processing: analyzing OSINT patterns...');
-  }, [extendedOsintData]);
-
-  // Optimized filtering and sorting
   const filteredAndSortedData = useMemo(() => {
-    let filtered = extendedOsintData;
+    let filtered = mergedOsintActors;
 
-    // Filter by search term
     if (searchTerm.trim()) {
       const term = searchTerm.toLowerCase();
-      filtered = filtered.filter(actor => 
+      filtered = filtered.filter(actor =>
         actor.name.toLowerCase().includes(term) ||
         actor.description.toLowerCase().includes(term) ||
-        actor.aliases.some(alias => alias.toLowerCase().includes(term))
+        (actor.aliases && actor.aliases.some(alias => alias.toLowerCase().includes(term)))
       );
     }
 
-    // Filter by platform
     if (filterPlatform !== 'all') {
-      filtered = filtered.filter(actor => 
-        actor.description.toLowerCase().includes(filterPlatform.toLowerCase())
+      filtered = filtered.filter(actor =>
+        actor.type.toLowerCase() === filterPlatform.toLowerCase()
       );
     }
 
-    // Sort data
     return [...filtered].sort((a, b) => {
       switch (sortBy) {
-        case 'audience':
-          return b.name.localeCompare(a.name); // Fallback to name sorting
         case 'name':
           return a.name.localeCompare(b.name);
-        case 'platform':
-          return a.description.localeCompare(b.description);
+        case 'type':
+          return a.type.localeCompare(b.type);
         default:
           return 0;
       }
     });
   }, [searchTerm, filterPlatform, sortBy]);
 
-  // Get unique platforms for filter dropdown
   const platforms = useMemo(() => {
-    const unique = new Set(extendedOsintData.map(actor => actor.description.split(' - ')[0]));
+    const unique = new Set(mergedOsintActors.map(actor => actor.type));
     return Array.from(unique);
   }, []);
 
@@ -83,32 +61,22 @@ export function OSINTArchiveOptimized({ className }: OSINTArchiveOptimizedProps)
     setSelectedActor(actor);
   }, []);
 
-  const handleLoadMore = useCallback(() => {
-    setIsLoading(true);
-    // Simulate loading more data
-    setTimeout(() => {
-      setIsLoading(false);
-    }, 1000);
-  }, []);
-
   return (
-    <AnimatedCanvas 
+    <AnimatedCanvas
       className={cn("w-full", className)}
       priority="medium"
       respectReducedMotion
     >
       <div className="space-y-6">
-        {/* Header */}
         <div className="flex flex-col space-y-4">
           <h1 className="text-2xl font-bold text-foreground">
             OSINT Archive
           </h1>
           <p className="text-muted-foreground">
-            Comprehensive database of {extendedOsintData.length} analyzed information warfare actors
+            Comprehensive database of {mergedOsintActors.length} analyzed information warfare actors
           </p>
         </div>
 
-        {/* Search and Filters */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           <div className="space-y-2">
             <label className="text-sm font-medium text-foreground">
@@ -116,7 +84,7 @@ export function OSINTArchiveOptimized({ className }: OSINTArchiveOptimizedProps)
             </label>
             <input
               type="text"
-              placeholder="Search by name, platform, narrative..."
+              placeholder="Search by name, description, alias..."
               className={cn(
                 "w-full px-3 py-2 border border-border rounded-md",
                 "bg-background text-foreground",
@@ -128,7 +96,7 @@ export function OSINTArchiveOptimized({ className }: OSINTArchiveOptimizedProps)
 
           <div className="space-y-2">
             <label className="text-sm font-medium text-foreground">
-              Filter by Platform
+              Filter by Type
             </label>
             <select
               value={filterPlatform}
@@ -139,7 +107,7 @@ export function OSINTArchiveOptimized({ className }: OSINTArchiveOptimizedProps)
                 "focus:outline-none focus:ring-2 focus:ring-primary"
               )}
             >
-              <option value="all">All Platforms</option>
+              <option value="all">All Types</option>
               {platforms.map(platform => (
                 <option key={platform} value={platform}>
                   {platform}
@@ -161,62 +129,33 @@ export function OSINTArchiveOptimized({ className }: OSINTArchiveOptimizedProps)
                 "focus:outline-none focus:ring-2 focus:ring-primary"
               )}
             >
-              <option value="audience">Audience Size</option>
               <option value="name">Name</option>
-              <option value="platform">Platform</option>
+              <option value="type">Type</option>
             </select>
           </div>
         </div>
 
-        {/* Results Summary */}
         <div className="flex items-center justify-between">
           <div className="text-sm text-muted-foreground">
-            Showing {filteredAndSortedData.length} of {extendedOsintData.length} actors
-          </div>
-          <div className="text-sm text-muted-foreground">
-            Total Actors: {filteredAndSortedData.length}
+            Showing {filteredAndSortedData.length} of {mergedOsintActors.length} actors
           </div>
         </div>
 
-        {/* Virtual Scrolled List */}
         <div className="border border-border rounded-lg overflow-hidden">
           <OSINTArchiveList
-            items={filteredAndSortedData}
+            items={filteredAndSortedData as any} // Cast here until OSINTArchiveItem is fixed
             onItemClick={handleActorClick}
             className="bg-background"
           />
         </div>
 
-        {/* Word Bank for Context */}
-        <div className="space-y-4">
-          <h2 className="text-lg font-semibold text-foreground">
-            Intelligence Keywords
-          </h2>
-          <div className="flex flex-wrap gap-2">
-            {wordBank.map((word, index) => (
-              <span
-                key={index}
-                className={cn(
-                  "px-2 py-1 text-xs rounded-md",
-                  "bg-secondary text-secondary-foreground",
-                  "hover:bg-secondary/80 transition-colors cursor-pointer"
-                )}
-                onClick={() => debouncedSearch(word)}
-              >
-                {word}
-              </span>
-            ))}
-          </div>
-        </div>
-
-        {/* Selected Actor Details Modal */}
         {selectedActor && (
           <div className="fixed inset-0 bg-black/50 flex items-center justify-center p-4 z-50">
             <div className="bg-background border border-border rounded-lg max-w-2xl w-full max-h-[80vh] overflow-y-auto">
               <div className="p-6 space-y-4">
                 <div className="flex items-center justify-between">
                   <h3 className="text-xl font-bold text-foreground">
-                    {selectedActor.Name}
+                    {selectedActor.name}
                   </h3>
                   <button
                     onClick={() => setSelectedActor(null)}
@@ -229,46 +168,23 @@ export function OSINTArchiveOptimized({ className }: OSINTArchiveOptimizedProps)
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
                     <label className="text-sm font-medium text-muted-foreground">
-                      Platform
+                      Type
                     </label>
-                    <p className="text-foreground">{selectedActor.Platform}</p>
+                    <p className="text-foreground">{selectedActor.type}</p>
                   </div>
                   <div>
                     <label className="text-sm font-medium text-muted-foreground">
-                      Audience
+                      Aliases
                     </label>
-                    <p className="text-foreground">
-                      {selectedActor.Audience.toLocaleString()} followers
-                    </p>
-                  </div>
-                  <div>
-                    <label className="text-sm font-medium text-muted-foreground">
-                      Narrative
-                    </label>
-                    <p className="text-foreground">{selectedActor.Narrative}</p>
-                  </div>
-                  <div>
-                    <label className="text-sm font-medium text-muted-foreground">
-                      Affiliation
-                    </label>
-                    <p className="text-foreground">{selectedActor.Affiliation}</p>
+                    <p className="text-foreground">{selectedActor.aliases.join(', ')}</p>
                   </div>
                 </div>
-
-                {/* Deep Dive Report if Available */}
-                {deepDives[selectedActor.Name] && (
-                  <div className="space-y-2">
-                    <label className="text-sm font-medium text-muted-foreground">
-                      Intelligence Report
-                    </label>
-                    <div 
-                      className="prose prose-sm max-w-none text-foreground"
-                      dangerouslySetInnerHTML={{ 
-                        __html: deepDives[selectedActor.Name].report 
-                      }}
-                    />
-                  </div>
-                )}
+                <div>
+                  <label className="text-sm font-medium text-muted-foreground">
+                    Description
+                  </label>
+                  <p className="text-foreground">{selectedActor.description}</p>
+                </div>
               </div>
             </div>
           </div>
