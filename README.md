@@ -91,14 +91,14 @@ git clone https://github.com/lions-of-zion/platform.git
 cd lionspace-merged
 
 # Install dependencies
-npm install
+pnpm install
 
 # Set up environment variables
 cp .env.example .env.local
 # Edit .env.local with your values
 
 # Run development server
-npm run dev
+pnpm run dev
 
 # Open http://localhost:3000
 ```
@@ -107,13 +107,13 @@ npm run dev
 
 ```bash
 # Run all tests
-npm run test:all
+pnpm run test:all
 
 # Unit tests
-npm run test
+pnpm run test
 
 # E2E tests
-npm run test:e2e
+pnpm run test:e2e
 
 # Accessibility tests
 npm run test:a11y
@@ -126,7 +126,7 @@ npm run test:perf
 
 ### Vercel (Recommended)
 ```bash
-npm i -g vercel
+pnpm i -g vercel
 vercel --prod
 ```
 
@@ -138,8 +138,8 @@ docker run -p 3000:3000 lions-of-zion
 
 ### Manual
 ```bash
-npm run build
-npm start
+pnpm run build
+pnpm start
 ```
 
 ## 📁 Project Structure
