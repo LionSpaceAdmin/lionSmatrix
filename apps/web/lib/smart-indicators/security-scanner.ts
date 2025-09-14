@@ -3,14 +3,14 @@
  * Advanced security vulnerability detection and assessment
  */
 
-import { SmartIndicator, IndicatorThresholds } from './index';
+import { SmartIndicator, IndicatorThresholds, IndicatorLevel } from './index';
 import { existsSync, readFileSync } from 'fs';
 import { join } from 'path';
 import { glob } from 'glob';
 
 interface SecurityVulnerability {
   id: string;
-  severity: 'critical' | 'high' | 'medium' | 'low';
+  severity: IndicatorLevel.CRITICAL | 'high' | 'medium' | 'low';
   category: 'xss' | 'injection' | 'auth' | 'data-exposure' | 'dependency' | 'configuration';
   title: string;
   description: string;
@@ -66,10 +66,10 @@ export class SecurityScanner {
   // Security patterns to detect
   private sensitivePatterns = {
     secrets: [
-      { name: 'API Key', pattern: /(?:api[_-]?key|apikey|secret[_-]?key)\s*[=:]\s*['"]\w{10,}['"]/, severity: 'critical' as const },
-      { name: 'Database Password', pattern: /(?:db[_-]?pass|database[_-]?password|mysql[_-]?pass)\s*[=:]\s*['"]\w{6,}['"]/, severity: 'critical' as const },
-      { name: 'JWT Secret', pattern: /(?:jwt[_-]?secret|token[_-]?secret)\s*[=:]\s*['"]\w{16,}['"]/, severity: 'critical' as const },
-      { name: 'Private Key', pattern: /-----BEGIN (?:RSA )?PRIVATE KEY-----/, severity: 'critical' as const },
+      { name: 'API Key', pattern: /(?:api[_-]?key|apikey|secret[_-]?key)\s*[=:]\s*['"]\w{10,}['"]/, severity: IndicatorLevel.CRITICAL as const },
+      { name: 'Database Password', pattern: /(?:db[_-]?pass|database[_-]?password|mysql[_-]?pass)\s*[=:]\s*['"]\w{6,}['"]/, severity: IndicatorLevel.CRITICAL as const },
+      { name: 'JWT Secret', pattern: /(?:jwt[_-]?secret|token[_-]?secret)\s*[=:]\s*['"]\w{16,}['"]/, severity: IndicatorLevel.CRITICAL as const },
+      { name: 'Private Key', pattern: /-----BEGIN (?:RSA )?PRIVATE KEY-----/, severity: IndicatorLevel.CRITICAL as const },
       { name: 'OAuth Token', pattern: /(?:oauth[_-]?token|access[_-]?token)\s*[=:]\s*['"]\w{20,}['"]/, severity: 'high' as const },
       { name: 'Email Credentials', pattern: /(?:smtp[_-]?pass|email[_-]?pass|mail[_-]?pass)\s*[=:]\s*['"]\w{6,}['"]/, severity: 'high' as const },
     ],
@@ -80,12 +80,12 @@ export class SecurityScanner {
       { name: 'Function constructor', pattern: /new\s+Function\s*\(/, severity: 'medium' as const },
     ],
     injection: [
-      { name: 'SQL Injection Risk', pattern: /(['"]).*\+.*\1.*(?:SELECT|INSERT|UPDATE|DELETE)/i, severity: 'critical' as const },
-      { name: 'Command Injection', pattern: /exec\s*\(\s*[^)]*\+/, severity: 'critical' as const },
+      { name: 'SQL Injection Risk', pattern: /(['"]).*\+.*\1.*(?:SELECT|INSERT|UPDATE|DELETE)/i, severity: IndicatorLevel.CRITICAL as const },
+      { name: 'Command Injection', pattern: /exec\s*\(\s*[^)]*\+/, severity: IndicatorLevel.CRITICAL as const },
       { name: 'Path Traversal', pattern: /(?:\.\.\/|\.\.\\)+/, severity: 'medium' as const },
     ],
     insecureAuth: [
-      { name: 'Hardcoded Password', pattern: /password\s*[=:]\s*['"][^'"]{1,}['"]/, severity: 'critical' as const },
+      { name: 'Hardcoded Password', pattern: /password\s*[=:]\s*['"][^'"]{1,}['"]/, severity: IndicatorLevel.CRITICAL as const },
       { name: 'Weak Session ID', pattern: /sessionid\s*[=:]\s*['"][^'"]{'<'10}['"]/, severity: 'high' as const },
       { name: 'Insecure Random', pattern: /Math\.random\(\)/, severity: 'low' as const },
     ],
@@ -701,7 +701,7 @@ export class SecurityScanner {
           value: Math.round(securityRatio),
           unit: '%',
           category: 'configuration',
-          level: securityRatio < 80 ? 'warning' : 'info'
+          level: securityRatio < 80 ? IndicatorLevel.WARNING : IndicatorLevel.INFO
         }));
         
         if (insecureVars > 0) {
@@ -712,7 +712,7 @@ export class SecurityScanner {
             description: `${insecureVars} environment variables may be insecurely configured`,
             value: insecureVars,
             category: 'configuration',
-            level: 'warning',
+            level: IndicatorLevel.WARNING,
             actionable: true,
             suggestion: 'Ensure sensitive environment variables are properly quoted and validated'
           }));
@@ -843,7 +843,7 @@ export class SecurityScanner {
   private createVulnerabilityIndicators(vulnerabilities: SecurityVulnerability[]): SmartIndicator[] {
     const indicators: SmartIndicator[] = [];
     
-    const criticalVulns = vulnerabilities.filter(v => v.severity === 'critical');
+    const criticalVulns = vulnerabilities.filter(v => v.severity === IndicatorLevel.CRITICAL);
     const highVulns = vulnerabilities.filter(v => v.severity === 'high');
     const mediumVulns = vulnerabilities.filter(v => v.severity === 'medium');
     const lowVulns = vulnerabilities.filter(v => v.severity === 'low');
@@ -856,7 +856,7 @@ export class SecurityScanner {
         description: `${criticalVulns.length} critical security issues found`,
         value: criticalVulns.length,
         category: 'vulnerabilities',
-        level: 'critical',
+        level: IndicatorLevel.CRITICAL,
         actionable: true,
         suggestion: 'Immediate action required - fix critical vulnerabilities first'
       }));
@@ -870,7 +870,7 @@ export class SecurityScanner {
         description: `${highVulns.length} high-priority security issues`,
         value: highVulns.length,
         category: 'vulnerabilities',
-        level: 'warning',
+        level: IndicatorLevel.WARNING,
         actionable: true,
         suggestion: 'Address high-priority vulnerabilities as soon as possible'
       }));
@@ -884,7 +884,7 @@ export class SecurityScanner {
         description: `${mediumVulns.length + lowVulns.length} medium and low priority security issues`,
         value: mediumVulns.length + lowVulns.length,
         category: 'vulnerabilities',
-        level: 'info',
+        level: IndicatorLevel.INFO,
         actionable: true,
         suggestion: 'Address these issues during regular maintenance cycles'
       }));
@@ -907,7 +907,7 @@ export class SecurityScanner {
         description: `${vulnerabilities.length} dependencies have known vulnerabilities`,
         value: vulnerabilities.length,
         category: 'dependencies',
-        level: highSeverity > 0 ? 'critical' : mediumSeverity > 0 ? 'warning' : 'info',
+        level: highSeverity > 0 ? IndicatorLevel.CRITICAL : mediumSeverity > 0 ? IndicatorLevel.WARNING : IndicatorLevel.INFO,
         actionable: true,
         suggestion: 'Update vulnerable dependencies to latest secure versions'
       }));
@@ -927,7 +927,7 @@ export class SecurityScanner {
         description: `${gaps.missingAuthentication.length} endpoints lack authentication`,
         value: gaps.missingAuthentication.length,
         category: 'authentication',
-        level: 'critical',
+        level: IndicatorLevel.CRITICAL,
         actionable: true,
         suggestion: 'Add authentication middleware to protected endpoints'
       }));
@@ -941,7 +941,7 @@ export class SecurityScanner {
         description: `${gaps.insecureSessionHandling.length} files have insecure session practices`,
         value: gaps.insecureSessionHandling.length,
         category: 'authentication',
-        level: 'warning',
+        level: IndicatorLevel.WARNING,
         actionable: true,
         suggestion: 'Use cryptographically secure random number generation for sessions'
       }));
@@ -955,7 +955,7 @@ export class SecurityScanner {
         description: `${gaps.missingRoleBasedAccess.length} auth files lack RBAC implementation`,
         value: gaps.missingRoleBasedAccess.length,
         category: 'authentication',
-        level: 'info',
+        level: IndicatorLevel.INFO,
         actionable: true,
         suggestion: 'Implement role-based access control for better security'
       }));
@@ -975,7 +975,7 @@ export class SecurityScanner {
         description: `${risks.hardcodedSecrets.length} hardcoded secrets detected`,
         value: risks.hardcodedSecrets.length,
         category: 'data-exposure',
-        level: 'critical',
+        level: IndicatorLevel.CRITICAL,
         actionable: true,
         suggestion: 'Move all secrets to environment variables immediately'
       }));
@@ -989,7 +989,7 @@ export class SecurityScanner {
         description: `${risks.clientSideSecrets.length} files contain client-exposed secrets`,
         value: risks.clientSideSecrets.length,
         category: 'data-exposure',
-        level: 'critical',
+        level: IndicatorLevel.CRITICAL,
         actionable: true,
         suggestion: 'Never include secrets in client-side code'
       }));
@@ -1003,7 +1003,7 @@ export class SecurityScanner {
         description: `${risks.loggingSensitiveData.length} files log sensitive information`,
         value: risks.loggingSensitiveData.length,
         category: 'data-exposure',
-        level: 'warning',
+        level: IndicatorLevel.WARNING,
         actionable: true,
         suggestion: 'Remove or sanitize sensitive data from logs'
       }));
@@ -1023,7 +1023,7 @@ export class SecurityScanner {
         description: `${issues.missingSecurityHeaders.length} recommended security headers missing`,
         value: issues.missingSecurityHeaders.length,
         category: 'configuration',
-        level: 'warning',
+        level: IndicatorLevel.WARNING,
         actionable: true,
         suggestion: 'Add missing security headers to middleware configuration'
       }));
@@ -1037,7 +1037,7 @@ export class SecurityScanner {
         description: 'Debug mode may be enabled in production environment',
         value: issues.debugModeInProduction.length,
         category: 'configuration',
-        level: 'warning',
+        level: IndicatorLevel.WARNING,
         actionable: true,
         suggestion: 'Disable debug mode in production configurations'
       }));
@@ -1059,7 +1059,7 @@ export class SecurityScanner {
       value: Math.round(avgCompliance),
       unit: '%',
       category: 'compliance',
-      level: avgCompliance < 70 ? 'warning' : 'info'
+      level: avgCompliance < 70 ? IndicatorLevel.WARNING : IndicatorLevel.INFO
     }));
 
     // Add indicators for the worst compliance categories
@@ -1075,7 +1075,7 @@ export class SecurityScanner {
         value: Math.round(score),
         unit: '%',
         category: 'compliance',
-        level: score < 60 ? 'warning' : 'info',
+        level: score < 60 ? IndicatorLevel.WARNING : IndicatorLevel.INFO,
         actionable: true,
         suggestion: `Address vulnerabilities related to ${category}`
       }));
@@ -1092,7 +1092,7 @@ export class SecurityScanner {
     value: number | string; 
     category: string; 
   }): SmartIndicator {
-    const level = config.level || 'info';
+    const level = config.level || IndicatorLevel.INFO;
     
     return {
       id: config.id,
@@ -1110,7 +1110,7 @@ export class SecurityScanner {
       visualConfig: {
         color: this.getLevelColor(level),
         icon: this.getTypeIcon(config.type),
-        animation: level === 'critical' ? 'pulse' : undefined
+        animation: level === IndicatorLevel.CRITICAL ? 'pulse' : undefined
       }
     };
   }
@@ -1123,7 +1123,7 @@ export class SecurityScanner {
       description: `Security analysis encountered an error: ${error.message}`,
       value: 'Error',
       category: 'system',
-      level: 'critical',
+      level: IndicatorLevel.CRITICAL,
       actionable: true,
       suggestion: 'Check system permissions and file access'
     });

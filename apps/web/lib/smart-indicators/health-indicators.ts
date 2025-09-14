@@ -3,7 +3,7 @@
  * Comprehensive project health monitoring and analysis
  */
 
-import { SmartIndicator, IndicatorThresholds } from './index';
+import { SmartIndicator, IndicatorThresholds, IndicatorLevel } from './index';
 import { existsSync, readFileSync, statSync } from 'fs';
 import { join } from 'path';
 import { glob } from 'glob';
@@ -266,7 +266,7 @@ export class HealthIndicatorsEngine {
           description: `${largeFiles.length} files exceed recommended size limit`,
           value: largeFiles.length,
           category: 'performance',
-          level: largeFiles.length > 5 ? 'warning' : 'info',
+          level: largeFiles.length > 5 ? IndicatorLevel.WARNING : IndicatorLevel.INFO,
           actionable: true,
           suggestion: 'Consider splitting large files or optimizing bundle size'
         }));
@@ -282,7 +282,7 @@ export class HealthIndicatorsEngine {
           description: `${heavyImports.length} potentially heavy library imports found`,
           value: heavyImports.length,
           category: 'performance',
-          level: 'warning',
+          level: IndicatorLevel.WARNING,
           actionable: true,
           suggestion: 'Consider dynamic imports or lighter alternatives'
         }));
@@ -320,7 +320,7 @@ export class HealthIndicatorsEngine {
           description: `${missingFiles.join(', ')} not found`,
           value: missingFiles.length,
           category: 'structure',
-          level: missingFiles.includes('package.json') ? 'critical' : 'warning',
+          level: missingFiles.includes('package.json') ? IndicatorLevel.CRITICAL : IndicatorLevel.WARNING,
           actionable: true,
           suggestion: `Create missing files: ${missingFiles.join(', ')}`
         }));
@@ -534,7 +534,7 @@ export class HealthIndicatorsEngine {
         description: 'Average cyclomatic complexity across codebase',
         value: metrics.complexity,
         category: 'code-quality',
-        level: metrics.complexity > 15 ? 'warning' : metrics.complexity > 10 ? 'info' : 'success'
+        level: metrics.complexity > 15 ? IndicatorLevel.WARNING : metrics.complexity > 10 ? IndicatorLevel.INFO : IndicatorLevel.SUCCESS
       }),
       this.createIndicator({
         id: 'maintainability-index',
@@ -553,7 +553,7 @@ export class HealthIndicatorsEngine {
         value: metrics.technicalDebt,
         unit: 'hours',
         category: 'code-quality',
-        level: metrics.technicalDebt > 40 ? 'warning' : 'info',
+        level: metrics.technicalDebt > 40 ? IndicatorLevel.WARNING : IndicatorLevel.INFO,
         actionable: metrics.technicalDebt > 0
       })
     ];
@@ -580,7 +580,7 @@ export class HealthIndicatorsEngine {
         description: 'Number of dependencies with available updates',
         value: health.outdated,
         category: 'dependencies',
-        level: health.outdated > 10 ? 'warning' : 'info',
+        level: health.outdated > 10 ? IndicatorLevel.WARNING : IndicatorLevel.INFO,
         actionable: true,
         suggestion: 'Run npm update or check for breaking changes before updating'
       }));
@@ -594,7 +594,7 @@ export class HealthIndicatorsEngine {
         description: 'Dependencies with known security vulnerabilities',
         value: health.vulnerable,
         category: 'dependencies',
-        level: 'critical',
+        level: IndicatorLevel.CRITICAL,
         actionable: true,
         suggestion: 'Run npm audit fix to resolve vulnerabilities'
       }));
@@ -613,7 +613,7 @@ export class HealthIndicatorsEngine {
         value: coverage.overall,
         unit: '%',
         category: 'testing',
-        level: coverage.overall < 60 ? 'warning' : coverage.overall < 80 ? 'info' : 'success'
+        level: coverage.overall < 60 ? IndicatorLevel.WARNING : coverage.overall < 80 ? IndicatorLevel.INFO : IndicatorLevel.SUCCESS
       }),
       this.createIndicator({
         id: 'branch-coverage',
@@ -646,7 +646,7 @@ export class HealthIndicatorsEngine {
         value: docs.inlineComments,
         unit: '%',
         category: 'documentation',
-        level: docs.inlineComments < 10 ? 'warning' : 'info'
+        level: docs.inlineComments < 10 ? IndicatorLevel.WARNING : IndicatorLevel.INFO
       })
     ];
   }
@@ -677,7 +677,7 @@ export class HealthIndicatorsEngine {
       visualConfig: {
         color: this.getLevelColor(level),
         icon: this.getTypeIcon(config.type),
-        animation: level === 'critical' ? 'pulse' : undefined
+        animation: level === IndicatorLevel.CRITICAL ? 'pulse' : undefined
       }
     };
   }
@@ -690,19 +690,19 @@ export class HealthIndicatorsEngine {
       description: `Health analysis encountered an error: ${error.message}`,
       value: 'Error',
       category: 'system',
-      level: 'critical',
+      level: IndicatorLevel.CRITICAL,
       actionable: true,
       suggestion: 'Check system logs and ensure all dependencies are properly installed'
     });
   }
 
   private determineLevel(value: number | string): SmartIndicator['level'] {
-    if (typeof value !== 'number') return 'info';
+    if (typeof value !== 'number') return IndicatorLevel.INFO;
     
-    if (value >= this.thresholds.excellent) return 'success';
-    if (value >= this.thresholds.good) return 'info';
-    if (value >= this.thresholds.warning) return 'warning';
-    return 'critical';
+    if (value >= this.thresholds.excellent) return IndicatorLevel.SUCCESS;
+    if (value >= this.thresholds.good) return IndicatorLevel.INFO;
+    if (value >= this.thresholds.warning) return IndicatorLevel.WARNING;
+    return IndicatorLevel.CRITICAL;
   }
 
   private getLevelColor(level: SmartIndicator['level']): string {

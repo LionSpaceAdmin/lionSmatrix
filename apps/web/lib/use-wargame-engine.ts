@@ -1,7 +1,7 @@
 'use client'
 
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
-import { INTELLIGENCE_DATA } from './intelligence-data'
+import { getOsintActorsArray } from './intelligence-data'
 
 export interface Node {
   id: string
@@ -68,8 +68,7 @@ export const useWargameEngine = (
   
   // Initialize nodes and edges data
   const initializeNetworkData = useCallback(() => {
-    const actors = INTELLIGENCE_DATA.data_categories.primary_actors
-    const actorData = INTELLIGENCE_DATA.intelligence_panel_data
+    const actors = getOsintActorsArray()
     
     // Create nodes with physics properties
     const nodes: Node[] = actors.map((actor, index) => {

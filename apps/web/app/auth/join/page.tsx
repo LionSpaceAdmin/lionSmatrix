@@ -123,7 +123,7 @@ export default function JoinPage() {
       {/* Enhanced Terminal Background */}
       <EnhancedTerminalBackground 
         intensity="low"
-        mode="matrix"
+        mode="intelligence"
         className="fixed inset-0 z-0"
       />
       

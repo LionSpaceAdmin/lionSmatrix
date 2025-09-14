@@ -65,7 +65,7 @@ export default function FactCheckPage() {
       type: 'neutral',
       source: '',
       sourceUrl: '',
-      date: new Date().toISOString().split('T')[0],
+      date: new Date().toISOString().split('T')[0] || new Date().toISOString(),
       content: '',
       reliability: 3,
       verified: false

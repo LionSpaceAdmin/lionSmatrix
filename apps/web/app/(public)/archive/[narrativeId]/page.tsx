@@ -63,42 +63,46 @@ const mockNarratives = {
     evidence: [
       {
         id: 'ev1',
-        type: 'Social Media Analysis',
+        type: 'document' as const,
         title: 'Account Network Map',
         description: 'Visualization showing connections between bot accounts',
         source: 'Platform API Analysis',
         confidence: 95,
         timestamp: new Date(Date.now() - 86400000 * 3).toISOString(),
+        date: new Date(Date.now() - 86400000 * 3).toISOString(),
         verified: true
       },
       {
         id: 'ev2',
-        type: 'Content Analysis',
+        type: 'document' as const,
         title: 'Message Pattern Analysis',
         description: 'Statistical analysis of posting patterns and timing',
         source: 'Natural Language Processing',
         confidence: 91,
         timestamp: new Date(Date.now() - 86400000 * 3).toISOString(),
+        date: new Date(Date.now() - 86400000 * 3).toISOString(),
         verified: true
       },
       {
         id: 'ev3',
-        type: 'Technical Evidence',
+        type: 'document' as const,
         title: 'IP Geolocation Data',
         description: 'Geographic clustering of account origins',
         source: 'Network Analysis',
         confidence: 88,
         timestamp: new Date(Date.now() - 86400000 * 2).toISOString(),
+        date: new Date(Date.now() - 86400000 * 2).toISOString(),
         verified: true
       },
       {
         id: 'ev4',
-        type: 'External Verification',
+        type: 'document' as const,
         title: 'Election Security Assessment',
         description: 'Independent verification by election security experts',
         source: 'Department of Homeland Security',
         confidence: 96,
         timestamp: new Date(Date.now() - 86400000 * 1).toISOString(),
+        date: new Date(Date.now() - 86400000 * 1).toISOString(),
         verified: true
       }
     ],
@@ -166,22 +170,24 @@ const mockNarratives = {
     evidence: [
       {
         id: 'ev5',
-        type: 'Technical Analysis',
+        type: 'document' as const,
         title: 'Deepfake Detection Results',
         description: 'AI analysis showing video manipulation indicators',
         source: 'Deepfake Detection AI',
         confidence: 97,
         timestamp: new Date(Date.now() - 86400000 * 1.5).toISOString(),
+        date: new Date(Date.now() - 86400000 * 1.5).toISOString(),
         verified: true
       },
       {
         id: 'ev6',
-        type: 'Archive Verification',
+        type: 'document' as const,
         title: 'Official Archive Search',
         description: 'No matching footage found in official records',
         source: 'Government Archives',
         confidence: 100,
         timestamp: new Date(Date.now() - 86400000 * 1).toISOString(),
+        date: new Date(Date.now() - 86400000 * 1).toISOString(),
         verified: true
       }
     ],

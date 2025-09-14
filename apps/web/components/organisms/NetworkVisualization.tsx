@@ -30,7 +30,7 @@ export function NetworkVisualization({
   showActivity = true
 }: NetworkVisualizationProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null)
-  const animationRef = useRef<number>()
+  const animationRef = useRef<number | undefined>()
   const [nodes, setNodes] = useState<NetworkNode[]>([])
   const [pulsePhase, setPulsePhase] = useState(0)
 
@@ -66,7 +66,7 @@ export function NetworkVisualization({
         y: Math.random() * 600,
         vx: (Math.random() - 0.5) * 1,
         vy: (Math.random() - 0.5) * 1,
-        type,
+        type: type || 'node',
         size: type === 'threat' ? 6 : 4,
         connections: [],
         activity: Math.random()
@@ -81,7 +81,7 @@ export function NetworkVisualization({
         for (let j = 0; j < connectionCount; j++) {
           const targetIndex = Math.floor(Math.random() * newNodes.length)
           if (targetIndex !== i) {
-            node.connections.push(newNodes[targetIndex].id)
+            node.connections.push(newNodes[targetIndex]?.id || '')
           }
         }
       } else {
@@ -90,7 +90,7 @@ export function NetworkVisualization({
         for (let j = 0; j < connectionCount; j++) {
           const targetIndex = Math.floor(Math.random() * newNodes.length)
           if (targetIndex !== i) {
-            node.connections.push(newNodes[targetIndex].id)
+            node.connections.push(newNodes[targetIndex]?.id || '')
           }
         }
       }

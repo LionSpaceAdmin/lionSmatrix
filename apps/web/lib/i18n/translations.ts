@@ -147,7 +147,15 @@ export function t(key: string, locale: Locale = 'en', params?: Record<string, an
         tagline: 'Defensores de la Verdad Contra la Desinformación',
         loading: 'Cargando...',
         error: 'Algo salió mal',
-        retry: 'Intentar de nuevo'
+        retry: 'Intentar de nuevo',
+        cancel: 'Cancelar',
+        save: 'Guardar',
+        delete: 'Eliminar',
+        edit: 'Editar',
+        close: 'Cerrar',
+        search: 'Buscar',
+        filter: 'Filtrar',
+        sortBy: 'Ordenar por'
       }
     },
     fr: {
@@ -156,7 +164,15 @@ export function t(key: string, locale: Locale = 'en', params?: Record<string, an
         tagline: 'Défenseurs de la Vérité Contre la Désinformation',
         loading: 'Chargement...',
         error: 'Quelque chose a mal tourné',
-        retry: 'Réessayer'
+        retry: 'Réessayer',
+        cancel: 'Annuler',
+        save: 'Sauvegarder',
+        delete: 'Supprimer',
+        edit: 'Modifier',
+        close: 'Fermer',
+        search: 'Rechercher',
+        filter: 'Filtrer',
+        sortBy: 'Trier par'
       }
     },
     de: {
@@ -165,7 +181,15 @@ export function t(key: string, locale: Locale = 'en', params?: Record<string, an
         tagline: 'Verteidiger der Wahrheit gegen Desinformation',
         loading: 'Laden...',
         error: 'Etwas ist schief gelaufen',
-        retry: 'Erneut versuchen'
+        retry: 'Erneut versuchen',
+        cancel: 'Abbrechen',
+        save: 'Speichern',
+        delete: 'Löschen',
+        edit: 'Bearbeiten',
+        close: 'Schließen',
+        search: 'Suchen',
+        filter: 'Filtern',
+        sortBy: 'Sortieren nach'
       }
     },
     ar: {
@@ -174,7 +198,15 @@ export function t(key: string, locale: Locale = 'en', params?: Record<string, an
         tagline: 'المدافعون عن الحقيقة ضد التضليل',
         loading: 'جاري التحميل...',
         error: 'حدث خطأ ما',
-        retry: 'حاول مرة أخرى'
+        retry: 'حاول مرة أخرى',
+        cancel: 'إلغاء',
+        save: 'حفظ',
+        delete: 'حذف',
+        edit: 'تعديل',
+        close: 'إغلاق',
+        search: 'بحث',
+        filter: 'تصفية',
+        sortBy: 'ترتيب حسب'
       }
     }
   }
@@ -209,3 +241,5 @@ export function t(key: string, locale: Locale = 'en', params?: Record<string, an
 
   return typeof value === 'string' ? value : key
 }
+
+export { translations, getTranslation }

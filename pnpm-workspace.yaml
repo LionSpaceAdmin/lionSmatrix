@@ -1,4 +1,11 @@
 packages:
-  - "apps/*"
-  - "packages/*"
-  - "services/*"
+  - apps/*
+  - packages/*
+  - services/*
+
+# Allow essential build scripts
+ignoredBuiltDependencies:
+  - '@tensorflow/tfjs-node'
+  - 'opencv-build'
+  - 'opencv4nodejs'
+  - 'unrs-resolver'

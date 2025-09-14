@@ -1,7 +1,7 @@
 "use client"
 
-import { AppNavigation, AppSidebar } from "@/components/molecules"
-import { UnifiedBackground } from "@/components/organisms"
+// import { AppNavigation, AppSidebar } from "@/components/molecules" // TODO: Create these components
+// import { UnifiedBackground } from "@/components/organisms" // TODO: Create this component
 import { useEffect, useState } from "react"
 
 export function DashboardLayoutClient({ children }: { children: React.ReactNode }) {
@@ -28,6 +28,7 @@ export function DashboardLayoutClient({ children }: { children: React.ReactNode 
         e.preventDefault()
         return false
       }
+      return true
     }
 
     document.addEventListener("contextmenu", handleContextMenu)
@@ -41,8 +42,7 @@ export function DashboardLayoutClient({ children }: { children: React.ReactNode 
 
   return (
     <div className="bg-terminal-bg text-terminal-text relative min-h-screen overflow-hidden">
-      {/* Unified background (eliminates duplicate canvases) */}
-      <UnifiedBackground variant="platform" intensity="medium" interactive />
+      {/* Background placeholder - UnifiedBackground component not yet created */}
 
       {/* Optional border overlay using tokenized color */}
       <div className="pointer-events-none fixed inset-0 z-20">
@@ -60,18 +60,10 @@ export function DashboardLayoutClient({ children }: { children: React.ReactNode 
 
       {/* Main application layer */}
       <div className="relative z-10 min-h-screen bg-black/10 backdrop-blur-sm">
-        {/* Navigation Header */}
-        <AppNavigation onMenuToggle={() => setSidebarOpen(!sidebarOpen)} sidebarOpen={sidebarOpen} />
-
-        <div className="flex">
-          {/* Sidebar */}
-          <AppSidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} />
-
-          {/* Main Content */}
-          <main className={`flex-1 pt-16 transition-all duration-300 ${sidebarOpen ? "ml-64" : "ml-0"}`}>
-            <div className="p-6">{children}</div>
-          </main>
-        </div>
+        {/* Main Content - Navigation temporarily disabled */}
+        <main className="flex-1 pt-16">
+          <div className="p-6">{children}</div>
+        </main>
       </div>
 
       {/* Global styles for dashboard platform */}

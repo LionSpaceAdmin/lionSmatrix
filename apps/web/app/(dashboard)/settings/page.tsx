@@ -35,7 +35,7 @@ export default function SettingsPage() {
               onChange={(e) => setLanguage(e.target.value)}
               className="terminal-input w-full md:w-auto"
             >
-              {availableLanguages.map((lang) => (
+              {availableLanguages.map((lang: string) => (
                 <option key={lang} value={lang}>
                   {lang.toUpperCase()}
                 </option>

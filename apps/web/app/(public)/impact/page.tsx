@@ -6,7 +6,7 @@ import dynamic from 'next/dynamic'
 import { EnhancedTerminalBackground } from '@/components/organisms/EnhancedTerminalBackground'
 
 // Lazy load chart component for better performance
-const ImpactChart = dynamic(() => import('@/components/charts/ImpactChart'), {
+const ImpactChart = dynamic(() => import('@/components/charts/ImpactChart').then(mod => ({ default: mod.ImpactChart })), {
   loading: () => (
     <div className="h-64 bg-terminal-secondary border border-terminal-border rounded-lg animate-pulse" />
   ),

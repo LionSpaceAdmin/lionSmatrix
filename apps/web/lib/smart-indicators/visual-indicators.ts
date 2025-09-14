@@ -3,7 +3,7 @@
  * Advanced visual representations and UI components for smart indicators
  */
 
-import { SmartIndicator } from './index';
+import { SmartIndicator, IndicatorLevel } from './index';
 
 interface VisualPreferences {
   enableAnimations: boolean;
@@ -174,7 +174,7 @@ export class VisualIndicators {
       },
       categories: Object.entries(categories).reduce((acc, [category, categoryIndicators]) => {
         const categoryScore = this.calculateCategoryScore(categoryIndicators);
-        const issues = categoryIndicators.filter(i => i.level === 'critical' || i.level === 'warning').length;
+        const issues = categoryIndicators.filter(i => i.level === IndicatorLevel.CRITICAL || i.level === IndicatorLevel.WARNING).length;
         const trend = this.calculateTrend(categoryIndicators);
 
         acc[category] = {
@@ -347,8 +347,8 @@ export class VisualIndicators {
    */
   generateDashboard(indicators: SmartIndicator[]): string {
     const healthViz = this.generateHealthVisualization(indicators);
-    const criticalIndicators = indicators.filter(i => i.level === 'critical');
-    const warningIndicators = indicators.filter(i => i.level === 'warning');
+    const criticalIndicators = indicators.filter(i => i.level === IndicatorLevel.CRITICAL);
+    const warningIndicators = indicators.filter(i => i.level === IndicatorLevel.WARNING);
     const suggestions = indicators.filter(i => i.type === 'suggestion');
 
     return `
@@ -475,7 +475,7 @@ export class VisualIndicators {
       background: isDark ? this.theme.colors.background : this.theme.gradients[level],
       color: isDark ? this.theme.colors.text : this.theme.colors.text,
       border: `1px solid ${this.theme.colors[level]}`,
-      shadow: level === 'critical' ? this.theme.shadows.glow : this.theme.shadows.subtle
+      shadow: level === IndicatorLevel.CRITICAL ? this.theme.shadows.glow : this.theme.shadows.subtle
     };
   }
 
@@ -492,7 +492,7 @@ export class VisualIndicators {
   }
 
   private getComponentType(indicator: SmartIndicator): VisualComponent['type'] {
-    if (indicator.level === 'critical') return 'alert';
+    if (indicator.level === IndicatorLevel.CRITICAL) return 'alert';
     if (indicator.type === 'suggestion') return 'card';
     if (typeof indicator.value === 'number' && indicator.unit === '%') return 'progress';
     return 'card';
@@ -503,7 +503,7 @@ export class VisualIndicators {
       return { width: 200, height: 80 };
     }
     
-    return indicator.level === 'critical' ? { width: 300, height: 120 } : { width: 250, height: 100 };
+    return indicator.level === IndicatorLevel.CRITICAL ? { width: 300, height: 120 } : { width: 250, height: 100 };
   }
 
   private formatValue(value: number | string, unit?: string): string {
@@ -536,8 +536,8 @@ export class VisualIndicators {
   private calculateOverallHealthScore(indicators: SmartIndicator[]): number {
     if (indicators.length === 0) return 0;
     
-    const criticalCount = indicators.filter(i => i.level === 'critical').length;
-    const warningCount = indicators.filter(i => i.level === 'warning').length;
+    const criticalCount = indicators.filter(i => i.level === IndicatorLevel.CRITICAL).length;
+    const warningCount = indicators.filter(i => i.level === IndicatorLevel.WARNING).length;
     
     let score = 100;
     score -= criticalCount * 20; // 20 points per critical issue
@@ -560,8 +560,8 @@ export class VisualIndicators {
   private calculateCategoryScore(indicators: SmartIndicator[]): number {
     if (indicators.length === 0) return 100;
     
-    const criticalCount = indicators.filter(i => i.level === 'critical').length;
-    const warningCount = indicators.filter(i => i.level === 'warning').length;
+    const criticalCount = indicators.filter(i => i.level === IndicatorLevel.CRITICAL).length;
+    const warningCount = indicators.filter(i => i.level === IndicatorLevel.WARNING).length;
     
     let score = 100;
     score -= criticalCount * 25;
@@ -608,18 +608,18 @@ export class VisualIndicators {
 
   private createIssueNodes(indicators: SmartIndicator[]): NetworkVisualization['nodes'] {
     return indicators
-      .filter(i => i.level === 'critical' || i.level === 'warning')
+      .filter(i => i.level === IndicatorLevel.CRITICAL || i.level === IndicatorLevel.WARNING)
       .map(indicator => ({
         id: `issue-${indicator.id}`,
         type: 'issue' as const,
-        health: indicator.level === 'critical' ? 10 : 50,
+        health: indicator.level === IndicatorLevel.CRITICAL ? 10 : 50,
         connections: [],
         position: { x: Math.random() * 800, y: Math.random() * 600 },
         visual: {
-          size: indicator.level === 'critical' ? 15 : 10,
+          size: indicator.level === IndicatorLevel.CRITICAL ? 15 : 10,
           color: this.theme.colors[indicator.level],
-          pulse: indicator.level === 'critical',
-          glow: indicator.level === 'critical'
+          pulse: indicator.level === IndicatorLevel.CRITICAL,
+          glow: indicator.level === IndicatorLevel.CRITICAL
         }
       }));
   }

@@ -18,14 +18,12 @@ Sentry.init({
   integrations: [
     // Http integration for tracking HTTP requests
     Sentry.httpIntegration({
-      tracing: {
-        ignoreIncomingRequests: (url) => {
-          // Ignore health checks and static assets
-          return url.includes('/api/health') || 
-                 url.includes('/_next/static') || 
-                 url.includes('/favicon.ico') ||
-                 url.includes('/_vercel');
-        },
+      ignoreIncomingRequests: (url: string) => {
+        // Ignore health checks and static assets
+        return url.includes('/api/health') || 
+               url.includes('/_next/static') || 
+               url.includes('/favicon.ico') ||
+               url.includes('/_vercel');
       },
     }),
     
@@ -36,7 +34,7 @@ Sentry.init({
     
     // Node profiling integration (optional)
     ...(process.env.NODE_ENV === "production" ? [
-      Sentry.nodeProfilingIntegration(),
+      Sentry.browserProfilingIntegration(),
     ] : []),
   ],
   

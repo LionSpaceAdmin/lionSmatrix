@@ -151,7 +151,7 @@ export default function PlaybooksPage() {
       {/* Enhanced Terminal Background */}
       <EnhancedTerminalBackground 
         intensity="medium"
-        mode="code"
+        mode="analysis"
         className="fixed inset-0 z-0"
       />
       

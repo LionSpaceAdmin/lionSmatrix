@@ -41,7 +41,7 @@ export function FocusTrap({
 
     // Focus the first focusable element
     const focusableElements = getFocusableElements()
-    if (focusableElements.length > 0) {
+    if (focusableElements.length > 0 && focusableElements[0]) {
       focusableElements[0].focus()
     }
 
@@ -57,12 +57,12 @@ export function FocusTrap({
 
       // Trap focus within the container
       if (event.shiftKey) {
-        if (document.activeElement === firstElement) {
+        if (document.activeElement === firstElement && lastElement) {
           event.preventDefault()
           lastElement.focus()
         }
       } else {
-        if (document.activeElement === lastElement) {
+        if (document.activeElement === lastElement && firstElement) {
           event.preventDefault()
           firstElement.focus()
         }

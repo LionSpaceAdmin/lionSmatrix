@@ -299,7 +299,7 @@ export const mergedOsintActors = {
 };
 
 // Network connections for visualization
-export const networkConnections: NetworkConnection = {
+export const networkConnections: Record<string, string[]> = {
   "Jackson Hinkle": ["Max Blumenthal", "Rania Khalek", "Quds News Network", "Sulaiman Ahmed"],
   "Max Blumenthal": ["Jackson Hinkle", "Abby Martin", "Aaron Maté", "Ben Norton", "Vanessa Beeley"],
   "Rania Khalek": ["Max Blumenthal", "Ben Norton", "Abby Martin", "Jackson Hinkle"],
@@ -345,16 +345,17 @@ export const deepDiveData: Record<string, DeepDive> = {
 // Convert to array format for compatibility
 export function getOsintActorsArray(): OSINTActor[] {
   return Object.values(mergedOsintActors).map(actor => ({
-    Name: actor.Name,
-    Platform: actor.Platform,
-    Audience: actor.Audience,
-    Narrative: actor.Narrative,
-    Affiliation: actor.Affiliation
+    id: actor.Name.toLowerCase().replace(/\s+/g, '-'),
+    name: actor.Name,
+    type: 'individual' as const,
+    aliases: [actor.alias || ''],
+    description: `${actor.Narrative} - ${actor.Affiliation}`,
+    lastSeen: new Date().toISOString()
   }));
 }
 
 // Get actor details for panel display
-export function getActorPanelData(actorName: string): IntelligencePanelData[string] | undefined {
+export function getActorPanelData(actorName: string): IntelligencePanelData | undefined {
   const actor = (mergedOsintActors as any)[actorName];
   if (!actor) return undefined;
   

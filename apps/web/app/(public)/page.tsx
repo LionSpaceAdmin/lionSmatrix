@@ -93,15 +93,13 @@ export default function HomePage() {
     {
       id: 'election-2024',
       level: 'critical' as const,
-      title: 'Election Interference Campaign Active',
-      description: 'Coordinated disinformation targeting democratic processes detected across multiple platforms.',
+      message: 'Election Interference Campaign Active - Coordinated disinformation targeting democratic processes detected across multiple platforms.',
       timestamp: new Date().toISOString()
     },
     {
       id: 'deepfake-surge',
-      level: 'high' as const,
-      title: 'AI-Generated Content Surge',
-      description: 'Significant increase in sophisticated deepfake videos spreading false narratives.',
+      level: 'critical' as const,
+      message: 'AI-Generated Content Surge - Significant increase in sophisticated deepfake videos spreading false narratives.',
       timestamp: new Date(Date.now() - 3600000).toISOString()
     }
   ]
@@ -113,7 +111,7 @@ export default function HomePage() {
     
     const interval = setInterval(() => {
       currentIndex = (currentIndex + 1) % modes.length
-      setBackgroundMode(modes[currentIndex])
+      setBackgroundMode(modes[currentIndex] || 'intelligence')
     }, 15000) // Change every 15 seconds
 
     return () => clearInterval(interval)
@@ -167,9 +165,8 @@ export default function HomePage() {
             {/* Trust Cues */}
             <div className="flex flex-wrap items-center justify-center gap-4 mb-8">
               <ProvenanceBadge
-                status="verified"
-                confidence={96}
-                lastVerified={new Date().toISOString()}
+                state="verified"
+                showDetails={true}
               />
               <div className="flex items-center gap-2 text-sm text-terminal-muted">
                 <Globe className="w-4 h-4" />
