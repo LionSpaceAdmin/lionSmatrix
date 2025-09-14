@@ -86,4 +86,31 @@
   .bg-scanline {
     background: linear-gradient(180deg, transparent 0%, rgba(var(--terminal-cyan), 0.1) 50%, transparent 100%);
   }
+
+  /* Text Shadow Utilities */
+  .text-shadow-terminal {
+    text-shadow: 0 0 5px rgba(0, 255, 136, 0.7), 0 0 10px rgba(0, 255, 136, 0.5);
+  }
+
+  .text-shadow-cyber {
+    text-shadow: 0 0 5px rgba(0, 255, 255, 0.7), 0 0 10px rgba(0, 255, 255, 0.5);
+  }
+
+  /* Matrix Background */
+  .matrix-bg {
+    background-color: #0d0d0d;
+    overflow: hidden;
+    position: relative;
+  }
+
+  /* Background Patterns */
+  .bg-pattern-radial-green {
+    background-image: radial-gradient(circle, rgba(0, 255, 136, 0.1) 1px, transparent 1px);
+    background-size: 1rem 1rem;
+  }
+
+  .bg-pattern-radial-cyan {
+    background-image: radial-gradient(circle, rgba(0, 255, 255, 0.1) 1px, transparent 1px);
+    background-size: 1rem 1rem;
+  }
 }

@@ -44,6 +44,9 @@ importers:
       '@radix-ui/react-slider':
         specifier: ^1.3.4
         version: 1.3.6(@types/react-dom@18.3.7(@types/react@18.3.24))(@types/react@18.3.24)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
+      '@radix-ui/react-slot':
+        specifier: ^1.2.3
+        version: 1.2.3(@types/react@18.3.24)(react@18.2.0)
       '@radix-ui/react-switch':
         specifier: ^1.2.4
         version: 1.2.6(@types/react-dom@18.3.7(@types/react@18.3.24))(@types/react@18.3.24)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
@@ -58,7 +61,7 @@ importers:
         version: 1.2.8(@types/react-dom@18.3.7(@types/react@18.3.24))(@types/react@18.3.24)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
       '@sentry/nextjs':
         specifier: ^10.10.0
-        version: 10.11.0(@opentelemetry/context-async-hooks@2.1.0(@opentelemetry/api@1.7.0))(@opentelemetry/core@2.1.0(@opentelemetry/api@1.7.0))(@opentelemetry/sdk-trace-base@2.1.0(@opentelemetry/api@1.7.0))(next@15.5.3(@babel/core@7.28.4)(@opentelemetry/api@1.7.0)(@playwright/test@1.55.0)(react-dom@18.2.0(react@18.2.0))(react@18.2.0))(react@18.2.0)(webpack@5.101.3(esbuild@0.25.9))
+        version: 10.11.0(@opentelemetry/context-async-hooks@2.1.0(@opentelemetry/api@1.9.0))(@opentelemetry/core@2.1.0(@opentelemetry/api@1.9.0))(@opentelemetry/sdk-trace-base@2.1.0(@opentelemetry/api@1.9.0))(next@15.5.3(@babel/core@7.28.4)(@opentelemetry/api@1.7.0)(@playwright/test@1.55.0)(react-dom@18.2.0(react@18.2.0))(react@18.2.0))(react@18.2.0)(webpack@5.101.3(esbuild@0.25.9))
       '@t3-oss/env-nextjs':
         specifier: ^0.10.1
         version: 0.10.1(typescript@5.9.2)(zod@3.25.76)
@@ -67,7 +70,7 @@ importers:
         version: 7.10.10
       '@vercel/otel':
         specifier: ^1.12.0
-        version: 1.13.0(@opentelemetry/api-logs@0.204.0)(@opentelemetry/api@1.7.0)(@opentelemetry/instrumentation@0.204.0(@opentelemetry/api@1.7.0))(@opentelemetry/resources@1.18.1(@opentelemetry/api@1.7.0))(@opentelemetry/sdk-logs@0.45.1(@opentelemetry/api-logs@0.204.0)(@opentelemetry/api@1.7.0))(@opentelemetry/sdk-metrics@1.18.1(@opentelemetry/api@1.7.0))(@opentelemetry/sdk-trace-base@2.1.0(@opentelemetry/api@1.7.0))
+        version: 1.13.0(@opentelemetry/api-logs@0.45.1)(@opentelemetry/api@1.7.0)(@opentelemetry/instrumentation@0.203.0(@opentelemetry/api@1.9.0))(@opentelemetry/resources@1.18.1(@opentelemetry/api@1.7.0))(@opentelemetry/sdk-logs@0.45.1(@opentelemetry/api-logs@0.45.1)(@opentelemetry/api@1.7.0))(@opentelemetry/sdk-metrics@1.18.1(@opentelemetry/api@1.7.0))(@opentelemetry/sdk-trace-base@2.1.0(@opentelemetry/api@1.9.0))
       chart.js:
         specifier: ^4.5.0
         version: 4.5.0
@@ -122,9 +125,12 @@ importers:
       tailwind-merge:
         specifier: ^2.6.0
         version: 2.6.0
+      tailwindcss-animate:
+        specifier: ^1.0.7
+        version: 1.0.7(tailwindcss@4.1.13)
       vis-network:
         specifier: ^9.1.9
-        version: 9.1.13(@egjs/hammerjs@2.0.17)(component-emitter@2.0.0)(keycharm@0.4.0)(uuid@9.0.1)(vis-data@7.1.10(uuid@9.0.1)(vis-util@5.0.7(@egjs/hammerjs@2.0.17)(component-emitter@2.0.0)))(vis-util@5.0.7(@egjs/hammerjs@2.0.17)(component-emitter@2.0.0))
+        version: 9.1.13(@egjs/hammerjs@2.0.17)(component-emitter@2.0.0)(keycharm@0.4.0)(uuid@2.0.3)(vis-data@7.1.10(uuid@2.0.3)(vis-util@5.0.7(@egjs/hammerjs@2.0.17)(component-emitter@2.0.0)))(vis-util@5.0.7(@egjs/hammerjs@2.0.17)(component-emitter@2.0.0))
       web-vitals:
         specifier: ^4.2.4
         version: 4.2.4
@@ -7691,6 +7697,11 @@ packages:
   tailwind-merge@2.6.0:
     resolution: {integrity: sha512-P+Vu1qXfzediirmHOC3xKGAYeZtPcV9g76X+xg2FD4tYgR71ewMA35Y3sCz3zhiN/dwefRpJX0yBcgwi1fXNQA==}
 
+  tailwindcss-animate@1.0.7:
+    resolution: {integrity: sha512-bl6mpH3T7I3UFxuvDEXLxy/VuFxBk5bbzplh7tXI68mwMokNYd1t9qPBHlnyTwfa4JGC4zP516I1hYYtQ/vspA==}
+    peerDependencies:
+      tailwindcss: '>=3.0.0 || insiders'
+
   tailwindcss@4.1.13:
     resolution: {integrity: sha512-i+zidfmTqtwquj4hMEwdjshYYgMbOrPzb9a0M3ZgNa0JMoZeFC6bxZvO8yr8ozS6ix2SDz0+mvryPeBs2TFE+w==}
 
@@ -9332,10 +9343,6 @@ snapshots:
     dependencies:
       '@opentelemetry/api': 1.7.0
 
-  '@opentelemetry/context-async-hooks@2.1.0(@opentelemetry/api@1.7.0)':
-    dependencies:
-      '@opentelemetry/api': 1.7.0
-
   '@opentelemetry/context-async-hooks@2.1.0(@opentelemetry/api@1.9.0)':
     dependencies:
       '@opentelemetry/api': 1.9.0
@@ -9348,11 +9355,6 @@ snapshots:
   '@opentelemetry/core@2.0.1(@opentelemetry/api@1.9.0)':
     dependencies:
       '@opentelemetry/api': 1.9.0
-      '@opentelemetry/semantic-conventions': 1.37.0
-
-  '@opentelemetry/core@2.1.0(@opentelemetry/api@1.7.0)':
-    dependencies:
-      '@opentelemetry/api': 1.7.0
       '@opentelemetry/semantic-conventions': 1.37.0
 
   '@opentelemetry/core@2.1.0(@opentelemetry/api@1.9.0)':
@@ -9596,15 +9598,6 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@opentelemetry/instrumentation@0.204.0(@opentelemetry/api@1.7.0)':
-    dependencies:
-      '@opentelemetry/api': 1.7.0
-      '@opentelemetry/api-logs': 0.204.0
-      import-in-the-middle: 1.14.2
-      require-in-the-middle: 7.5.2
-    transitivePeerDependencies:
-      - supports-color
-
   '@opentelemetry/instrumentation@0.204.0(@opentelemetry/api@1.9.0)':
     dependencies:
       '@opentelemetry/api': 1.9.0
@@ -9685,24 +9678,11 @@ snapshots:
       '@opentelemetry/core': 1.18.1(@opentelemetry/api@1.7.0)
       '@opentelemetry/semantic-conventions': 1.18.1
 
-  '@opentelemetry/resources@2.1.0(@opentelemetry/api@1.7.0)':
-    dependencies:
-      '@opentelemetry/api': 1.7.0
-      '@opentelemetry/core': 2.1.0(@opentelemetry/api@1.7.0)
-      '@opentelemetry/semantic-conventions': 1.37.0
-
   '@opentelemetry/resources@2.1.0(@opentelemetry/api@1.9.0)':
     dependencies:
       '@opentelemetry/api': 1.9.0
       '@opentelemetry/core': 2.1.0(@opentelemetry/api@1.9.0)
       '@opentelemetry/semantic-conventions': 1.37.0
-
-  '@opentelemetry/sdk-logs@0.45.1(@opentelemetry/api-logs@0.204.0)(@opentelemetry/api@1.7.0)':
-    dependencies:
-      '@opentelemetry/api': 1.7.0
-      '@opentelemetry/api-logs': 0.204.0
-      '@opentelemetry/core': 1.18.1(@opentelemetry/api@1.7.0)
-      '@opentelemetry/resources': 1.18.1(@opentelemetry/api@1.7.0)
 
   '@opentelemetry/sdk-logs@0.45.1(@opentelemetry/api-logs@0.45.1)(@opentelemetry/api@1.7.0)':
     dependencies:
@@ -9743,13 +9723,6 @@ snapshots:
       '@opentelemetry/core': 1.18.1(@opentelemetry/api@1.7.0)
       '@opentelemetry/resources': 1.18.1(@opentelemetry/api@1.7.0)
       '@opentelemetry/semantic-conventions': 1.18.1
-
-  '@opentelemetry/sdk-trace-base@2.1.0(@opentelemetry/api@1.7.0)':
-    dependencies:
-      '@opentelemetry/api': 1.7.0
-      '@opentelemetry/core': 2.1.0(@opentelemetry/api@1.7.0)
-      '@opentelemetry/resources': 2.1.0(@opentelemetry/api@1.7.0)
-      '@opentelemetry/semantic-conventions': 1.37.0
 
   '@opentelemetry/sdk-trace-base@2.1.0(@opentelemetry/api@1.9.0)':
     dependencies:
@@ -11863,33 +11836,6 @@ snapshots:
 
   '@sentry/core@10.11.0': {}
 
-  '@sentry/nextjs@10.11.0(@opentelemetry/context-async-hooks@2.1.0(@opentelemetry/api@1.7.0))(@opentelemetry/core@2.1.0(@opentelemetry/api@1.7.0))(@opentelemetry/sdk-trace-base@2.1.0(@opentelemetry/api@1.7.0))(next@15.5.3(@babel/core@7.28.4)(@opentelemetry/api@1.7.0)(@playwright/test@1.55.0)(react-dom@18.2.0(react@18.2.0))(react@18.2.0))(react@18.2.0)(webpack@5.101.3(esbuild@0.25.9))':
-    dependencies:
-      '@opentelemetry/api': 1.9.0
-      '@opentelemetry/semantic-conventions': 1.37.0
-      '@rollup/plugin-commonjs': 28.0.1(rollup@4.50.1)
-      '@sentry-internal/browser-utils': 10.11.0
-      '@sentry/bundler-plugin-core': 4.3.0
-      '@sentry/core': 10.11.0
-      '@sentry/node': 10.11.0
-      '@sentry/opentelemetry': 10.11.0(@opentelemetry/api@1.9.0)(@opentelemetry/context-async-hooks@2.1.0(@opentelemetry/api@1.7.0))(@opentelemetry/core@2.1.0(@opentelemetry/api@1.7.0))(@opentelemetry/sdk-trace-base@2.1.0(@opentelemetry/api@1.7.0))(@opentelemetry/semantic-conventions@1.37.0)
-      '@sentry/react': 10.11.0(react@18.2.0)
-      '@sentry/vercel-edge': 10.11.0
-      '@sentry/webpack-plugin': 4.3.0(webpack@5.101.3(esbuild@0.25.9))
-      chalk: 3.0.0
-      next: 15.5.3(@babel/core@7.28.4)(@opentelemetry/api@1.7.0)(@playwright/test@1.55.0)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
-      resolve: 1.22.8
-      rollup: 4.50.1
-      stacktrace-parser: 0.1.11
-    transitivePeerDependencies:
-      - '@opentelemetry/context-async-hooks'
-      - '@opentelemetry/core'
-      - '@opentelemetry/sdk-trace-base'
-      - encoding
-      - react
-      - supports-color
-      - webpack
-
   '@sentry/nextjs@10.11.0(@opentelemetry/context-async-hooks@2.1.0(@opentelemetry/api@1.9.0))(@opentelemetry/core@2.1.0(@opentelemetry/api@1.9.0))(@opentelemetry/sdk-trace-base@2.1.0(@opentelemetry/api@1.9.0))(next@14.2.32(@babel/core@7.28.4)(@opentelemetry/api@1.7.0)(@playwright/test@1.55.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react@18.3.1)(webpack@5.101.3(esbuild@0.25.9))':
     dependencies:
       '@opentelemetry/api': 1.9.0
@@ -11917,14 +11863,41 @@ snapshots:
       - supports-color
       - webpack
 
-  '@sentry/node-core@10.11.0(@opentelemetry/api@1.9.0)(@opentelemetry/context-async-hooks@2.1.0(@opentelemetry/api@1.7.0))(@opentelemetry/core@2.1.0(@opentelemetry/api@1.7.0))(@opentelemetry/instrumentation@0.203.0(@opentelemetry/api@1.9.0))(@opentelemetry/resources@2.1.0(@opentelemetry/api@1.9.0))(@opentelemetry/sdk-trace-base@2.1.0(@opentelemetry/api@1.7.0))(@opentelemetry/semantic-conventions@1.37.0)':
+  '@sentry/nextjs@10.11.0(@opentelemetry/context-async-hooks@2.1.0(@opentelemetry/api@1.9.0))(@opentelemetry/core@2.1.0(@opentelemetry/api@1.9.0))(@opentelemetry/sdk-trace-base@2.1.0(@opentelemetry/api@1.9.0))(next@15.5.3(@babel/core@7.28.4)(@opentelemetry/api@1.7.0)(@playwright/test@1.55.0)(react-dom@18.2.0(react@18.2.0))(react@18.2.0))(react@18.2.0)(webpack@5.101.3(esbuild@0.25.9))':
     dependencies:
       '@opentelemetry/api': 1.9.0
-      '@opentelemetry/context-async-hooks': 2.1.0(@opentelemetry/api@1.7.0)
-      '@opentelemetry/core': 2.1.0(@opentelemetry/api@1.7.0)
+      '@opentelemetry/semantic-conventions': 1.37.0
+      '@rollup/plugin-commonjs': 28.0.1(rollup@4.50.1)
+      '@sentry-internal/browser-utils': 10.11.0
+      '@sentry/bundler-plugin-core': 4.3.0
+      '@sentry/core': 10.11.0
+      '@sentry/node': 10.11.0
+      '@sentry/opentelemetry': 10.11.0(@opentelemetry/api@1.9.0)(@opentelemetry/context-async-hooks@2.1.0(@opentelemetry/api@1.7.0))(@opentelemetry/core@2.1.0(@opentelemetry/api@1.7.0))(@opentelemetry/sdk-trace-base@2.1.0(@opentelemetry/api@1.7.0))(@opentelemetry/semantic-conventions@1.37.0)
+      '@sentry/react': 10.11.0(react@18.2.0)
+      '@sentry/vercel-edge': 10.11.0
+      '@sentry/webpack-plugin': 4.3.0(webpack@5.101.3(esbuild@0.25.9))
+      chalk: 3.0.0
+      next: 15.5.3(@babel/core@7.28.4)(@opentelemetry/api@1.7.0)(@playwright/test@1.55.0)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
+      resolve: 1.22.8
+      rollup: 4.50.1
+      stacktrace-parser: 0.1.11
+    transitivePeerDependencies:
+      - '@opentelemetry/context-async-hooks'
+      - '@opentelemetry/core'
+      - '@opentelemetry/sdk-trace-base'
+      - encoding
+      - react
+      - supports-color
+      - webpack
+
+  '@sentry/node-core@10.11.0(@opentelemetry/api@1.9.0)(@opentelemetry/context-async-hooks@2.1.0(@opentelemetry/api@1.9.0))(@opentelemetry/core@2.1.0(@opentelemetry/api@1.9.0))(@opentelemetry/instrumentation@0.203.0(@opentelemetry/api@1.9.0))(@opentelemetry/resources@2.1.0(@opentelemetry/api@1.9.0))(@opentelemetry/sdk-trace-base@2.1.0(@opentelemetry/api@1.9.0))(@opentelemetry/semantic-conventions@1.37.0)':
+    dependencies:
+      '@opentelemetry/api': 1.9.0
+      '@opentelemetry/context-async-hooks': 2.1.0(@opentelemetry/api@1.9.0)
+      '@opentelemetry/core': 2.1.0(@opentelemetry/api@1.9.0)
       '@opentelemetry/instrumentation': 0.203.0(@opentelemetry/api@1.9.0)
       '@opentelemetry/resources': 2.1.0(@opentelemetry/api@1.9.0)
-      '@opentelemetry/sdk-trace-base': 2.1.0(@opentelemetry/api@1.7.0)
+      '@opentelemetry/sdk-trace-base': 2.1.0(@opentelemetry/api@1.9.0)
       '@opentelemetry/semantic-conventions': 1.37.0
       '@sentry/core': 10.11.0
       '@sentry/opentelemetry': 10.11.0(@opentelemetry/api@1.9.0)(@opentelemetry/context-async-hooks@2.1.0(@opentelemetry/api@1.7.0))(@opentelemetry/core@2.1.0(@opentelemetry/api@1.7.0))(@opentelemetry/sdk-trace-base@2.1.0(@opentelemetry/api@1.7.0))(@opentelemetry/semantic-conventions@1.37.0)
@@ -11963,7 +11936,7 @@ snapshots:
       '@opentelemetry/semantic-conventions': 1.37.0
       '@prisma/instrumentation': 6.14.0(@opentelemetry/api@1.9.0)
       '@sentry/core': 10.11.0
-      '@sentry/node-core': 10.11.0(@opentelemetry/api@1.9.0)(@opentelemetry/context-async-hooks@2.1.0(@opentelemetry/api@1.7.0))(@opentelemetry/core@2.1.0(@opentelemetry/api@1.7.0))(@opentelemetry/instrumentation@0.203.0(@opentelemetry/api@1.9.0))(@opentelemetry/resources@2.1.0(@opentelemetry/api@1.9.0))(@opentelemetry/sdk-trace-base@2.1.0(@opentelemetry/api@1.7.0))(@opentelemetry/semantic-conventions@1.37.0)
+      '@sentry/node-core': 10.11.0(@opentelemetry/api@1.9.0)(@opentelemetry/context-async-hooks@2.1.0(@opentelemetry/api@1.9.0))(@opentelemetry/core@2.1.0(@opentelemetry/api@1.9.0))(@opentelemetry/instrumentation@0.203.0(@opentelemetry/api@1.9.0))(@opentelemetry/resources@2.1.0(@opentelemetry/api@1.9.0))(@opentelemetry/sdk-trace-base@2.1.0(@opentelemetry/api@1.9.0))(@opentelemetry/semantic-conventions@1.37.0)
       '@sentry/opentelemetry': 10.11.0(@opentelemetry/api@1.9.0)(@opentelemetry/context-async-hooks@2.1.0(@opentelemetry/api@1.7.0))(@opentelemetry/core@2.1.0(@opentelemetry/api@1.7.0))(@opentelemetry/sdk-trace-base@2.1.0(@opentelemetry/api@1.7.0))(@opentelemetry/semantic-conventions@1.37.0)
       import-in-the-middle: 1.14.2
       minimatch: 9.0.5
@@ -11973,9 +11946,9 @@ snapshots:
   '@sentry/opentelemetry@10.11.0(@opentelemetry/api@1.9.0)(@opentelemetry/context-async-hooks@2.1.0(@opentelemetry/api@1.7.0))(@opentelemetry/core@2.1.0(@opentelemetry/api@1.7.0))(@opentelemetry/sdk-trace-base@2.1.0(@opentelemetry/api@1.7.0))(@opentelemetry/semantic-conventions@1.37.0)':
     dependencies:
       '@opentelemetry/api': 1.9.0
-      '@opentelemetry/context-async-hooks': 2.1.0(@opentelemetry/api@1.7.0)
-      '@opentelemetry/core': 2.1.0(@opentelemetry/api@1.7.0)
-      '@opentelemetry/sdk-trace-base': 2.1.0(@opentelemetry/api@1.7.0)
+      '@opentelemetry/context-async-hooks': 2.1.0(@opentelemetry/api@1.9.0)
+      '@opentelemetry/core': 2.1.0(@opentelemetry/api@1.9.0)
+      '@opentelemetry/sdk-trace-base': 2.1.0(@opentelemetry/api@1.9.0)
       '@opentelemetry/semantic-conventions': 1.37.0
       '@sentry/core': 10.11.0
 
@@ -12857,16 +12830,6 @@ snapshots:
     dependencies:
       '@use-gesture/core': 10.3.1
       react: 18.3.1
-
-  '@vercel/otel@1.13.0(@opentelemetry/api-logs@0.204.0)(@opentelemetry/api@1.7.0)(@opentelemetry/instrumentation@0.204.0(@opentelemetry/api@1.7.0))(@opentelemetry/resources@1.18.1(@opentelemetry/api@1.7.0))(@opentelemetry/sdk-logs@0.45.1(@opentelemetry/api-logs@0.204.0)(@opentelemetry/api@1.7.0))(@opentelemetry/sdk-metrics@1.18.1(@opentelemetry/api@1.7.0))(@opentelemetry/sdk-trace-base@2.1.0(@opentelemetry/api@1.7.0))':
-    dependencies:
-      '@opentelemetry/api': 1.7.0
-      '@opentelemetry/api-logs': 0.204.0
-      '@opentelemetry/instrumentation': 0.204.0(@opentelemetry/api@1.7.0)
-      '@opentelemetry/resources': 1.18.1(@opentelemetry/api@1.7.0)
-      '@opentelemetry/sdk-logs': 0.45.1(@opentelemetry/api-logs@0.204.0)(@opentelemetry/api@1.7.0)
-      '@opentelemetry/sdk-metrics': 1.18.1(@opentelemetry/api@1.7.0)
-      '@opentelemetry/sdk-trace-base': 2.1.0(@opentelemetry/api@1.7.0)
 
   '@vercel/otel@1.13.0(@opentelemetry/api-logs@0.45.1)(@opentelemetry/api@1.7.0)(@opentelemetry/instrumentation@0.203.0(@opentelemetry/api@1.9.0))(@opentelemetry/resources@1.18.1(@opentelemetry/api@1.7.0))(@opentelemetry/sdk-logs@0.45.1(@opentelemetry/api-logs@0.45.1)(@opentelemetry/api@1.7.0))(@opentelemetry/sdk-metrics@1.18.1(@opentelemetry/api@1.7.0))(@opentelemetry/sdk-trace-base@2.1.0(@opentelemetry/api@1.9.0))':
     dependencies:
@@ -16341,7 +16304,7 @@ snapshots:
       react: 18.2.0
       uuid: 2.0.3
       vis-data: 7.1.10(uuid@2.0.3)(vis-util@5.0.7(@egjs/hammerjs@2.0.17)(component-emitter@2.0.0))
-      vis-network: 9.1.13(@egjs/hammerjs@2.0.17)(component-emitter@2.0.0)(keycharm@0.4.0)(uuid@2.0.3)(vis-data@7.1.10(uuid@9.0.1)(vis-util@5.0.7(@egjs/hammerjs@2.0.17)(component-emitter@2.0.0)))(vis-util@5.0.7(@egjs/hammerjs@2.0.17)(component-emitter@2.0.0))
+      vis-network: 9.1.13(@egjs/hammerjs@2.0.17)(component-emitter@2.0.0)(keycharm@0.4.0)(uuid@2.0.3)(vis-data@7.1.10(uuid@2.0.3)(vis-util@5.0.7(@egjs/hammerjs@2.0.17)(component-emitter@2.0.0)))(vis-util@5.0.7(@egjs/hammerjs@2.0.17)(component-emitter@2.0.0))
     transitivePeerDependencies:
       - '@egjs/hammerjs'
       - component-emitter
@@ -17174,6 +17137,10 @@ snapshots:
 
   tailwind-merge@2.6.0: {}
 
+  tailwindcss-animate@1.0.7(tailwindcss@4.1.13):
+    dependencies:
+      tailwindcss: 4.1.13
+
   tailwindcss@4.1.13: {}
 
   tapable@2.2.3: {}
@@ -17532,11 +17499,6 @@ snapshots:
       uuid: 2.0.3
       vis-util: 5.0.7(@egjs/hammerjs@2.0.17)(component-emitter@2.0.0)
 
-  vis-data@7.1.10(uuid@9.0.1)(vis-util@5.0.7(@egjs/hammerjs@2.0.17)(component-emitter@2.0.0)):
-    dependencies:
-      uuid: 9.0.1
-      vis-util: 5.0.7(@egjs/hammerjs@2.0.17)(component-emitter@2.0.0)
-
   vis-network@9.1.13(@egjs/hammerjs@2.0.17)(component-emitter@2.0.0)(keycharm@0.4.0)(uuid@2.0.3)(vis-data@7.1.10(uuid@2.0.3)(vis-util@5.0.7(@egjs/hammerjs@2.0.17)(component-emitter@2.0.0)))(vis-util@5.0.7(@egjs/hammerjs@2.0.17)(component-emitter@2.0.0)):
     dependencies:
       '@egjs/hammerjs': 2.0.17
@@ -17544,24 +17506,6 @@ snapshots:
       keycharm: 0.4.0
       uuid: 2.0.3
       vis-data: 7.1.10(uuid@2.0.3)(vis-util@5.0.7(@egjs/hammerjs@2.0.17)(component-emitter@2.0.0))
-      vis-util: 5.0.7(@egjs/hammerjs@2.0.17)(component-emitter@2.0.0)
-
-  vis-network@9.1.13(@egjs/hammerjs@2.0.17)(component-emitter@2.0.0)(keycharm@0.4.0)(uuid@2.0.3)(vis-data@7.1.10(uuid@9.0.1)(vis-util@5.0.7(@egjs/hammerjs@2.0.17)(component-emitter@2.0.0)))(vis-util@5.0.7(@egjs/hammerjs@2.0.17)(component-emitter@2.0.0)):
-    dependencies:
-      '@egjs/hammerjs': 2.0.17
-      component-emitter: 2.0.0
-      keycharm: 0.4.0
-      uuid: 2.0.3
-      vis-data: 7.1.10(uuid@9.0.1)(vis-util@5.0.7(@egjs/hammerjs@2.0.17)(component-emitter@2.0.0))
-      vis-util: 5.0.7(@egjs/hammerjs@2.0.17)(component-emitter@2.0.0)
-
-  vis-network@9.1.13(@egjs/hammerjs@2.0.17)(component-emitter@2.0.0)(keycharm@0.4.0)(uuid@9.0.1)(vis-data@7.1.10(uuid@9.0.1)(vis-util@5.0.7(@egjs/hammerjs@2.0.17)(component-emitter@2.0.0)))(vis-util@5.0.7(@egjs/hammerjs@2.0.17)(component-emitter@2.0.0)):
-    dependencies:
-      '@egjs/hammerjs': 2.0.17
-      component-emitter: 2.0.0
-      keycharm: 0.4.0
-      uuid: 9.0.1
-      vis-data: 7.1.10(uuid@9.0.1)(vis-util@5.0.7(@egjs/hammerjs@2.0.17)(component-emitter@2.0.0))
       vis-util: 5.0.7(@egjs/hammerjs@2.0.17)(component-emitter@2.0.0)
 
   vis-util@5.0.7(@egjs/hammerjs@2.0.17)(component-emitter@2.0.0):
