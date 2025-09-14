@@ -67,6 +67,7 @@ const ALLOW_DIRS = new Set([
   "infrastructure",
   "scripts",
   "docs",
+  "docs/assets",
   ".github",
   ".git",
   ".devcontainer",
@@ -77,6 +78,7 @@ const ALLOW_DIRS = new Set([
   ".claude",
   "libs",
   "claude-code-configs",
+  "node_modules",
 ])
 
 const disallowed = []
