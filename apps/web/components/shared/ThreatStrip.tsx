@@ -153,7 +153,7 @@ export function ThreatStrip({
           <div
             className={cn(
               'h-full transition-all duration-[5000ms] ease-linear',
-              config.color.split(' ')[0].replace('text', 'bg'),
+              (config.color.split(' ')[0] || '').replace('text', 'bg'),
               !isPaused && 'animate-progress'
             )}
             style={{

@@ -27,7 +27,7 @@
     
     // Language and Environment (defaults - can be overridden)
     "target": "ES2020",
-    "lib": ["ES2020"],
+    "lib": ["ES2020", "dom", "dom.iterable"],
     "module": "ESNext",
     "moduleResolution": "bundler"
   },

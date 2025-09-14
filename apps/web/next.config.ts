@@ -117,12 +117,12 @@ const config: NextConfig = {
   },
   
   // Performance optimizations
-  experimental: {
-    // Optimize CSS
-    optimizeCss: true,
-    // Cache Server Components during HMR
-    serverComponentsHmrCache: process.env.NODE_ENV === 'development'
-  },
+  // experimental: {
+  //   // Optimize CSS
+  //   optimizeCss: true,
+  //   // Cache Server Components during HMR
+  //   serverComponentsHmrCache: process.env.NODE_ENV === 'development'
+  // },
   
   // Turbopack configuration (moved from experimental.turbo)
   // turbopack: custom loader rules removed to avoid conflicts

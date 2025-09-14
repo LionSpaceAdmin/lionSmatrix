@@ -218,7 +218,7 @@ export function MatrixDataFlow({
         speed: 1 + Math.random() * 3,
         opacity: 0.4 + Math.random() * 0.4,
         width: container.offsetWidth + 200,
-        category
+        category: category || 'intelligence'
       })
     }
     

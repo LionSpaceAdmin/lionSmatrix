@@ -7,7 +7,7 @@ import { useEffect, useRef, useState, useCallback, useMemo } from 'react';
  * Optimizes performance by only animating when visible
  */
 export function useIntersectionObserver(
-  elementRef: React.RefObject<Element>,
+  elementRef: React.RefObject<Element | null>,
   options: IntersectionObserverInit = {}
 ) {
   const [isVisible, setIsVisible] = useState(false);
@@ -261,7 +261,7 @@ export function useTabVisibility() {
  * Combines intersection observer, tab visibility, and user preferences
  */
 export function useAnimationController(
-  elementRef: React.RefObject<Element>,
+  elementRef: React.RefObject<Element | null>,
   options: {
     threshold?: number;
     rootMargin?: string;
@@ -396,7 +396,7 @@ export function useVirtualScrolling<T>(
     itemHeight: number;
     containerHeight: number;
     overscan?: number;
-    scrollElement?: React.RefObject<HTMLElement>;
+    scrollElement?: React.RefObject<HTMLElement | null>;
   }
 ) {
   const {

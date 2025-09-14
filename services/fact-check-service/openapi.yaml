@@ -1,0 +1,125 @@
+openapi: 3.0.3
+info:
+  title: Fact-Check Service
+  description: A service to submit text for fact-checking and retrieve the results.
+  version: 1.0.0
+paths:
+  /healthz:
+    get:
+      summary: Health Check
+      tags:
+        - Health
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HealthResponse'
+  /v1/factcheck/submit:
+    post:
+      summary: Submit for Fact-Check
+      tags:
+        - Fact-Check
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FactCheckRequest'
+      responses:
+        '200':
+          description: Successful Submission
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FactCheckSubmissionResponse'
+  /v1/factcheck/{jobId}:
+    get:
+      summary: Get Fact-Check Status
+      tags:
+        - Fact-Check
+      parameters:
+        - name: jobId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/JobStatusResponse'
+
+components:
+  schemas:
+    HealthResponse:
+      type: object
+      properties:
+        ok:
+          type: boolean
+          default: true
+      required:
+        - ok
+    FactCheckRequest:
+      type: object
+      properties:
+        text_to_check:
+          type: string
+        source_url:
+          type: string
+          nullable: true
+      required:
+        - text_to_check
+    FactCheckSubmissionResponse:
+      type: object
+      properties:
+        job_id:
+          type: string
+          format: uuid
+        status:
+          type: string
+          enum: [pending, in_progress]
+      required:
+        - job_id
+        - status
+    Claim:
+      type: object
+      properties:
+        claim:
+          type: string
+        is_true:
+          type: boolean
+          nullable: true
+        confidence:
+          type: number
+          format: float
+          nullable: true
+        explanation:
+          type: string
+      required:
+        - claim
+        - explanation
+    JobStatusResponse:
+      type: object
+      properties:
+        job_id:
+          type: string
+          format: uuid
+        status:
+          type: string
+          enum: [pending, in_progress, completed, failed]
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/Claim'
+          nullable: true
+        error_message:
+          type: string
+          nullable: true
+      required:
+        - job_id
+        - status

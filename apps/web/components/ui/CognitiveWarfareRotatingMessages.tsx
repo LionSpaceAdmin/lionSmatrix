@@ -281,7 +281,10 @@ export function CognitiveWarfareRotatingMessages({
     const timer = setTimeout(() => {
       const nextIndex = (currentMessageIndex + 1) % messages.length
       setCurrentMessageIndex(nextIndex)
-      onMessageChange?.(messages[nextIndex]?.id)
+      const nextMessage = messages[nextIndex]
+      if (nextMessage) {
+        onMessageChange?.(nextMessage.id)
+      }
     }, TYPEWRITER_CONFIG.holdPerMessage + 1000) // Extra time for transitions
 
     return () => clearTimeout(timer)
@@ -291,13 +294,15 @@ export function CognitiveWarfareRotatingMessages({
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
-        setIsVisible(entry.isIntersecting)
-        if (entry.isIntersecting && !hasStarted) {
-          // Defer start until idle or first interaction
-          if ('requestIdleCallback' in window) {
-            requestIdleCallback(() => setHasStarted(true))
-          } else {
-            setTimeout(() => setHasStarted(true), 100)
+        if (entry) {
+          setIsVisible(entry.isIntersecting)
+          if (entry.isIntersecting && !hasStarted) {
+            // Defer start until idle or first interaction
+            if ('requestIdleCallback' in window) {
+              requestIdleCallback(() => setHasStarted(true))
+            } else {
+              setTimeout(() => setHasStarted(true), 100)
+            }
           }
         }
       },

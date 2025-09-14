@@ -88,7 +88,11 @@ export function getActorPanelData(actorId: string): IntelligencePanelData['data'
   const actor = mergedOsintActors.find(a => a.id === actorId);
   if (!actor) return undefined;
 
+  const deepDive = deepDiveData[actorId];
 
+  return {
+    actor_details: actor,
+    deep_dive_report: deepDive,
     network_connections: networkConnections.filter(c => c.source === actorId || c.target === actorId),
   };
 }
@@ -103,5 +107,7 @@ export function searchOsintActors(query: string): OSINTActor[] {
     (actor.aliases && actor.aliases.some(a => a.toLowerCase().includes(searchTerm)))
   );
 }
+
+export function getLimitedOsintActors(limit: number): OSINTActor[] {
     return mergedOsintActors.slice(0, limit);
 }
