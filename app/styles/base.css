@@ -19,35 +19,33 @@
   --color-terminal-bg: 3 7 18;
   --color-terminal-secondary: 15 23 42;
   --color-terminal-text: 248 250 252;
-  --color-terminal-cyan: 34 211 238;
+  --color-terminal-cyan: 0 255 255;
   --color-terminal-gold: 251 191 36;
   --color-terminal-red: 239 68 68;
   --color-terminal-border: 30 41 59;
   --color-terminal-muted: 156 163 175;
-  --color-terminal-green: 110 231 183;
+  --color-terminal-green: 0 255 136;
 }
 
 @layer base {
   :root {
-    /* LionSpace Terminal Color System - Now aligned with @theme variables */
-    --terminal-bg: 3 7 18; /* #030712 */
-    --terminal-secondary: 15 23 42; /* #0F172A */
-    --terminal-cyan: 34 211 238; /* rgb(34 211 238) */
-    --terminal-gold: 251 191 36; /* rgb(251 191 36) */
-    --terminal-red: 239 68 68; /* rgb(239 68 68) */
-    --terminal-text: 248 250 252; /* rgb(248 250 252) */
-    --terminal-muted: 156 163 175; /* rgb(156 163 175) */
-    --terminal-border: 30 41 59; /* #1E293B */
+    /* Intelligence Context Colors */
+    --intelligence-threat: 0 100% 50%;      /* HSL for red */
+    --intelligence-warning: 39 100% 50%;   /* HSL for orange */
+    --intelligence-secure: 120 100% 50%;   /* HSL for green */
+    --intelligence-unknown: 240 2% 50%;    /* HSL for gray */
+    --intelligence-classified: 275 100% 50%;/* HSL for purple */
+
     /* Semantic aliases (first step – can expand later) */
-    --color-surface-base: rgb(var(--terminal-bg));
-    --color-surface-alt: rgb(var(--terminal-secondary));
-    --color-border-default: rgb(var(--terminal-border));
-    --color-text-primary: rgb(var(--terminal-text));
-    --color-text-muted: rgb(var(--terminal-muted));
-    --color-accent-primary: rgb(var(--terminal-cyan));
-    --color-accent-warn: rgb(var(--terminal-gold));
-    --color-accent-error: rgb(var(--terminal-red));
-    --color-focus-ring: rgb(var(--terminal-cyan));
+    --color-surface-base: rgb(var(--color-terminal-bg));
+    --color-surface-alt: rgb(var(--color-terminal-secondary));
+    --color-border-default: rgb(var(--color-terminal-border));
+    --color-text-primary: rgb(var(--color-terminal-text));
+    --color-text-muted: rgb(var(--color-terminal-muted));
+    --color-accent-primary: rgb(var(--color-terminal-cyan));
+    --color-accent-warn: rgb(var(--color-terminal-gold));
+    --color-accent-error: rgb(var(--color-terminal-red));
+    --color-focus-ring: rgb(var(--color-terminal-cyan));
 
     /* Animation speeds */
     --scan-speed: 8s;
@@ -127,26 +125,26 @@
   }
 
   * {
-    border-color: rgba(var(--terminal-border), 0.3);
+    border-color: rgba(var(--color-terminal-border), 0.3);
   }
 
   body {
     /* Use token instead of hard-coded base color */
-    background-color: rgb(var(--terminal-bg));
-    color: #e5e7eb;
+    background-color: rgb(var(--color-terminal-bg));
+    color: rgb(var(--color-terminal-text));
     font-family: "Space Mono", monospace;
     letter-spacing: 0.02em;
     @apply antialiased;
   }
 
   html.dark body {
-    background-color: rgb(var(--terminal-bg));
-    color: #e5e7eb;
+    background-color: rgb(var(--color-terminal-bg));
+    color: rgb(var(--color-terminal-text));
   }
 
   /* Terminal cursor effect */
   ::selection {
-    background: rgba(var(--terminal-cyan), 0.3);
-    color: rgb(var(--terminal-text));
+    background: rgba(var(--color-terminal-cyan), 0.3);
+    color: rgb(var(--color-terminal-text));
   }
 }
