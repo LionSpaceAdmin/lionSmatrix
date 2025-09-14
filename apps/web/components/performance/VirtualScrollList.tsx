@@ -3,6 +3,7 @@
 import React, { forwardRef, useMemo, useRef, useImperativeHandle } from 'react';
 import { useVirtualScrolling } from '@/lib/hooks/usePerformanceOptimizations';
 import { cn } from '@/lib/utils';
+import { OSINTActor } from '@/types/intelligence';
 
 interface VirtualScrollListProps<T> {
   items: T[];
@@ -47,7 +48,6 @@ function VirtualScrollListComponent<T>(
     scrollElement: scrollElementRef
   });
 
-  // Handle scroll end detection
   const handleScroll = useMemo(() => {
     if (!onScrollEnd) return undefined;
 
@@ -69,7 +69,6 @@ function VirtualScrollListComponent<T>(
     };
   }, [onScrollEnd]);
 
-  // Expose scroll methods via ref
   useImperativeHandle(ref, () => ({
     scrollToIndex: (index: number) => {
       const element = scrollElementRef.current;
@@ -86,7 +85,6 @@ function VirtualScrollListComponent<T>(
     }
   }), [itemHeight]);
 
-  // Show empty state if no items
   if (!loading && items.length === 0) {
     return (
       <div 
@@ -120,9 +118,7 @@ function VirtualScrollListComponent<T>(
           scrollbarColor: 'rgba(155, 155, 155, 0.5) transparent'
         }}
       >
-        {/* Total height spacer for scrollbar */}
         <div style={{ height: totalHeight, position: 'relative' }}>
-          {/* Visible items */}
           {visibleItems.items.map(({ item, index, offsetY }) => (
             <div
               key={index}
@@ -136,7 +132,6 @@ function VirtualScrollListComponent<T>(
             </div>
           ))}
           
-          {/* Loading indicator at the bottom */}
           {loading && (
             <div
               className="absolute w-full flex items-center justify-center"
@@ -159,26 +154,13 @@ function VirtualScrollListComponent<T>(
   );
 }
 
-// Export with forwardRef wrapper to maintain TypeScript types
 export const VirtualScrollList = forwardRef(VirtualScrollListComponent) as <T>(
   props: VirtualScrollListProps<T> & { ref?: React.Ref<VirtualScrollListRef> }
 ) => React.ReactElement;
 
-/**
- * Optimized OSINT Archive List Component
- * Uses virtual scrolling for large datasets
- */
-interface OSINTArchiveItem {
-  Name: string;
-  Platform: string;
-  Audience: number;
-  Narrative: string;
-  Affiliation: string;
-}
-
 interface OSINTArchiveListProps {
-  items: OSINTArchiveItem[];
-  onItemClick?: (item: OSINTArchiveItem) => void;
+  items: OSINTActor[];
+  onItemClick?: (item: OSINTActor) => void;
   className?: string;
 }
 
@@ -187,7 +169,7 @@ export function OSINTArchiveList({
   onItemClick, 
   className 
 }: OSINTArchiveListProps) {
-  const renderItem = (item: OSINTArchiveItem, index: number) => (
+  const renderItem = (item: OSINTActor, index: number) => (
     <div
       className={cn(
         "flex items-center space-x-4 p-4 border-b border-border/40",
@@ -198,22 +180,14 @@ export function OSINTArchiveList({
     >
       <div className="flex-1">
         <div className="flex items-center space-x-2">
-          <h3 className="font-semibold text-sm">{item.Name}</h3>
+          <h3 className="font-semibold text-sm">{item.name}</h3>
           <span className="text-xs text-muted-foreground">
-            {item.Platform}
+            {item.type}
           </span>
         </div>
         <p className="text-xs text-muted-foreground mt-1">
-          {item.Narrative}
+          {item.description}
         </p>
-        <div className="flex items-center space-x-4 mt-2 text-xs">
-          <span className="text-blue-400">
-            {item.Audience.toLocaleString()} followers
-          </span>
-          <span className="text-orange-400">
-            {item.Affiliation}
-          </span>
-        </div>
       </div>
     </div>
   );
@@ -234,10 +208,6 @@ export function OSINTArchiveList({
   );
 }
 
-/**
- * Optimized Threat List Component
- * Uses virtual scrolling for large threat datasets
- */
 interface ThreatItem {
   id: string;
   title: string;
