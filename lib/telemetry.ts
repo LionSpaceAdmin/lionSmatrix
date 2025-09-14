@@ -6,7 +6,8 @@ type TelemetryEvent =
   | { name: 'cta_click', properties: { button_id: string; page: string; } }
   | { name: 'page_view', properties: { page: string; } }
   | { name: 'search', properties: { query: string; result_count: number; } }
-  | { name: 'auth_action', properties: { action: 'login' | 'logout' | 'signup'; provider?: string; } };
+  | { name: 'auth_action', properties: { action: 'login' | 'logout' | 'signup'; provider?: string; } }
+  | { name: 'pledge_consent', properties: { timestamp: string; } };
 
 /**
  * Records a telemetry event.
@@ -36,4 +37,8 @@ export function trackSearch(query: string, result_count: number) {
 
 export function trackAuthAction(action: 'login' | 'logout' | 'signup', provider?: string) {
   recordTelemetry({ name: 'auth_action', properties: { action, provider } });
+}
+
+export function trackPledgeConsent() {
+  recordTelemetry({ name: 'pledge_consent', properties: { timestamp: new Date().toISOString() } });
 }

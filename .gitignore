@@ -11,3 +11,5 @@ coverage/
 .env.*.local
 /.vercel
 /.storybook-out
+test-results/
+playwright-report/
