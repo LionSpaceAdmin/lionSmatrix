@@ -8,6 +8,7 @@ import { AlertBanner } from '@/components/shared/AlertBanner'
 import { EnhancedTerminalBackground } from '@/components/organisms/EnhancedTerminalBackground'
 import { CognitiveWarfareRotatingMessages } from '@/components/ui/CognitiveWarfareRotatingMessages'
 import { useLocale } from '@/lib/hooks/useLocale'
+import { trackPledgeConsent } from '@/lib/telemetry'
 
 export default function OpeningPage() {
   const router = useRouter()
@@ -30,6 +31,9 @@ export default function OpeningPage() {
   const handleContinue = async () => {
     setIsLoading(true)
     
+    // Track the pledge action
+    trackPledgeConsent()
+
     // Set consent cookie (expires in 1 year)
     const expiryDate = new Date()
     expiryDate.setFullYear(expiryDate.getFullYear() + 1)

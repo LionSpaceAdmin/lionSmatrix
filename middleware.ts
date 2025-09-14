@@ -3,30 +3,41 @@ import type { NextRequest } from "next/server"
 
 export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl
-  
-  // Public routes that don't require authentication
-  const publicRoutes = [
-    '/',
-    '/about',
-    '/academy',
-    '/daily-brief', 
-    '/archive',
-    '/trust',
-    '/api/health'
-  ]
-  
-  // Check if the current path is public
-  const isPublicRoute = publicRoutes.some(route => 
-    pathname === route || pathname.startsWith(route + '/')
-  )
-  
-  // For now, allow all routes since auth is mocked
-  if (isPublicRoute || pathname.startsWith('/auth') || pathname.startsWith('/api')) {
+  const hasConsent = request.cookies.has('lions-consent')
+
+  // Prevent redirect loops for the opening page itself
+  if (pathname === '/opening') {
     return NextResponse.next()
   }
+
+  // If user has not consented, and they are trying to access a public-facing page,
+  // redirect them to the opening page.
+  if (!hasConsent) {
+    // These are pages a user might try to access directly that should be gated by the pledge.
+    const gatedPublicPaths = [
+      '/',
+      '/daily-brief',
+      '/about',
+      '/contact',
+      '/faq',
+      '/demo',
+      '/archive',
+      '/legal',
+      '/search',
+      '/impact',
+    ]
+
+    const requiresPledge = gatedPublicPaths.some(path => pathname === path || (path !== '/' && pathname.startsWith(path + '/')))
+
+    if (requiresPledge) {
+      const url = request.nextUrl.clone()
+      url.pathname = '/opening'
+      return NextResponse.redirect(url)
+    }
+  }
   
-  // For protected routes, for now just continue
-  // TODO: Implement actual auth check when auth packages are installed
+  // Existing logic for auth and other routes can continue below.
+  // For now, allow all other routes.
   return NextResponse.next()
 }
 
