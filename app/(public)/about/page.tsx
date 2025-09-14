@@ -103,22 +103,20 @@ export default function AboutPage() {
           <h2 className="text-2xl font-bold font-mono text-terminal-cyan mb-8 text-center">
             OUR VALUES
           </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {values.map((value) => {
-              const Icon = value.icon;
+              const Icon = value.icon
               if (!Icon) {
-                console.error('Missing icon for value:', value.title);
-                return null;
+                console.error('Missing icon for value:', value.title)
+                return null
               }
               return (
-                <div key={value.title} className="flex flex-col items-center text-center p-6 rounded-lg bg-terminal-secondary border border-terminal-border transition-all duration-300 hover:border-terminal-cyan hover:shadow-cyber">
-                  <div className="flex items-center justify-center w-16 h-16 rounded-full bg-terminal-bg border-2 border-terminal-cyan mb-4">
-                    <Icon className="w-8 h-8 text-terminal-cyan" />
-                  </div>
-                  <h3 className="font-bold font-mono text-lg text-terminal-cyan mb-2">{value.title}</h3>
+                <div key={value.title} className="p-6 rounded-lg bg-terminal-secondary border border-terminal-border">
+                  <Icon className="w-8 h-8 text-terminal-cyan mb-3" />
+                  <h3 className="font-bold font-mono text-terminal-cyan mb-2">{value.title}</h3>
                   <p className="text-sm text-terminal-muted">{value.description}</p>
                 </div>
-              );
+              )
             })}
           </div>
         </section>
