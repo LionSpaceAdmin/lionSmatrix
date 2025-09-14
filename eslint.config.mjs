@@ -1,86 +1,96 @@
-import tsParser from '@typescript-eslint/parser';
-import tsPlugin from '@typescript-eslint/eslint-plugin';
+import globals from 'globals';
+import tseslint from 'typescript-eslint';
+import pluginReact from 'eslint-plugin-react';
+import pluginReactHooks from 'eslint-plugin-react-hooks';
+import pluginJsxA11y from 'eslint-plugin-jsx-a11y';
+import pluginNext from '@next/eslint-plugin-next';
+import eslintConfigPrettier from 'eslint-config-prettier';
 
-export default [
+export default tseslint.config(
   {
     // Global ignores
     ignores: [
-      'node_modules/**',
-      '.next/**',
-      'dist/**',
-      'build/**',
-      '.turbo/**',
-      'coverage/**',
-      '*.config.js',
-      '*.config.mjs',
-      'public/**'
-    ]
+      '**/node_modules/**',
+      '**/.next/**',
+      '**/dist/**',
+      '**/build/**',
+      '**/.turbo/**',
+      '**/coverage/**',
+      '**/*.config.js',
+      '**/*.config.mjs',
+      '**/public/**',
+      '**/playwright-report/**',
+    ],
   },
+  // Base configuration for all JS/TS files
   {
-    // Base configuration for all files
+    files: ['**/*.{js,mjs,cjs,ts,mts,cts,jsx,tsx}'],
     languageOptions: {
       ecmaVersion: 'latest',
       sourceType: 'module',
       globals: {
-        console: 'readonly',
+        ...globals.browser,
+        ...globals.node,
         process: 'readonly',
-        Buffer: 'readonly',
-        __dirname: 'readonly',
-        __filename: 'readonly',
-        global: 'readonly',
-        module: 'readonly',
-        require: 'readonly'
-      }
+      },
     },
     rules: {
-      // Code quality
-      'no-console': ['warn', { allow: ['warn', 'error'] }],
+      'no-console': ['warn', { allow: ['warn', 'error', 'info'] }],
       'no-debugger': 'error',
-      'no-unused-vars': ['error', { argsIgnorePattern: '^_' }],
-      'prefer-const': 'error',
-      'no-var': 'error',
-      
-      // Security
-      'no-eval': 'error',
-      'no-implied-eval': 'error',
-      'no-new-func': 'error',
-      
-      // Performance
-      'no-await-in-loop': 'warn',
-      'prefer-promise-reject-errors': 'error'
-    }
+    },
   },
-  {
-    // TypeScript files
+  // TypeScript configuration
+  ...tseslint.configs.recommended.map(config => ({
+    ...config,
     files: ['**/*.{ts,tsx}'],
-    languageOptions: {
-      parser: tsParser,
-      parserOptions: {
-        ecmaFeatures: {
-          jsx: true
-        }
-      }
-    },
-    plugins: {
-      '@typescript-eslint': tsPlugin
-    },
-    rules: {
-      // Turn off base rules that TypeScript handles
-      'no-unused-vars': 'off',
-      
-      // TypeScript specific rules (basic only)
-      '@typescript-eslint/no-unused-vars': ['error', { argsIgnorePattern: '^_' }],
-      '@typescript-eslint/no-explicit-any': 'warn',
-      '@typescript-eslint/no-non-null-assertion': 'warn',
-      '@typescript-eslint/ban-ts-comment': 'error'
-    }
-  },
+  })),
   {
-    // Test files - more relaxed rules
-    files: ['**/*.{test,spec}.{js,ts,jsx,tsx}', '**/__tests__/**/*.{js,ts,jsx,tsx}'],
+    files: ['**/*.{ts,tsx}'],
     rules: {
-      '@typescript-eslint/no-explicit-any': 'off',
-      'no-console': 'off'
-    }
-  }
-];
+      '@typescript-eslint/no-unused-vars': ['warn', { argsIgnorePattern: '^_' }],
+      '@typescript-eslint/no-explicit-any': 'warn',
+    },
+  },
+  // React configuration
+  {
+    files: ['**/*.{jsx,tsx}'],
+    plugins: {
+      react: pluginReact,
+      'react-hooks': pluginReactHooks,
+    },
+    settings: {
+      react: {
+        version: 'detect',
+      },
+    },
+    rules: {
+      ...pluginReact.configs.recommended.rules,
+      ...pluginReactHooks.configs.recommended.rules,
+      'react/react-in-jsx-scope': 'off',
+      'react/prop-types': 'off',
+    },
+  },
+  // JSX A11y configuration
+  {
+    files: ['**/*.{jsx,tsx}'],
+    plugins: {
+      'jsx-a11y': pluginJsxA11y,
+    },
+    rules: {
+      ...pluginJsxA11y.configs.recommended.rules,
+    },
+  },
+  // Next.js configuration
+  {
+    files: ['apps/web/**/*.{ts,tsx}'],
+    plugins: {
+      '@next/next': pluginNext,
+    },
+    rules: {
+      ...pluginNext.configs.recommended.rules,
+      ...pluginNext.configs['core-web-vitals'].rules,
+    },
+  },
+  // Disables rules that conflict with Prettier
+  eslintConfigPrettier,
+);

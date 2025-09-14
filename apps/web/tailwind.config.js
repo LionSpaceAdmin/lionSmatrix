@@ -8,6 +8,7 @@ module.exports = {
     "./contexts/**/*.{js,ts,jsx,tsx}",
     "./agents/**/*.{js,ts,jsx,tsx}",
     "./src/**/*.{js,ts,jsx,tsx,mdx}",
+    "../../packages/@lionspace/*/src/**/*.{js,ts,jsx,tsx}",
   ],
   darkMode: "class",
   theme: {
