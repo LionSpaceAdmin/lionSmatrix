@@ -126,8 +126,10 @@ const config = {
     // Optimize CSS
     optimizeCss: true,
     // Cache Server Components during HMR
-	outputFileTracingRoot: path.join(__dirname, '../../'),
   },
+  
+  // Fix workspace root warning
+  outputFileTracingRoot: path.join(__dirname, './'),
   
   // Turbopack configuration (moved from experimental.turbo)
   // turbopack: custom loader rules removed to avoid conflicts

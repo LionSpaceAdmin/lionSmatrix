@@ -1,14 +1,23 @@
 {
   "$schema": "https://json.schemastore.org/tsconfig",
   "display": "Next.js Web App",
-  "extends": "./tsconfig.base.json",
   "compilerOptions": {
-    // Next.js specific overrides
+    // TypeScript base settings
     "target": "es2017",
     "lib": ["dom", "dom.iterable", "esnext"],
-    "jsx": "preserve",
+    "allowJs": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "noEmit": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
     "module": "esnext",
     "moduleResolution": "bundler",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "jsx": "preserve",
+    "incremental": true,
+    "forceConsistentCasingInFileNames": true,
     
     // Next.js paths
     "baseUrl": ".",
