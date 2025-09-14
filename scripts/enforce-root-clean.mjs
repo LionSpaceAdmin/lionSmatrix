@@ -78,7 +78,10 @@ const ALLOW_DIRS = new Set([
   ".claude",
   "libs",
   "claude-code-configs",
+<<<<<<< HEAD
   "node_modules",
+=======
+>>>>>>> origin/chore/local-sync-2025-09-14
 ])
 
 const disallowed = []

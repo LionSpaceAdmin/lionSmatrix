@@ -211,6 +211,147 @@ const translations: Record<Locale, Partial<TranslationKeys>> = {
 // Mock translation function (to be replaced with actual implementation)
 export function t(key: string, locale: Locale = 'en', params?: Record<string, any>): string {
   // This is a simplified mock - in production, load from JSON files
+  const translations: Record<Locale, Partial<TranslationKeys>> = {
+    en: {
+      common: {
+        appName: 'Lions of Zion',
+        tagline: 'Truth Defenders Against Disinformation',
+        loading: 'Loading...',
+        error: 'Something went wrong',
+        retry: 'Try Again',
+        cancel: 'Cancel',
+        save: 'Save',
+        delete: 'Delete',
+        edit: 'Edit',
+        close: 'Close',
+        search: 'Search',
+        filter: 'Filter',
+        sortBy: 'Sort by'
+      },
+      nav: {
+        home: 'Home',
+        dailyBrief: 'Daily Brief',
+        archive: 'Archive',
+        warMachine: 'War Machine',
+        about: 'About',
+        contact: 'Contact',
+        signIn: 'Sign In',
+        signOut: 'Sign Out',
+        join: 'Join',
+        dashboard: 'Dashboard'
+      },
+      hero: {
+        title: 'Fight Disinformation',
+        subtitle: 'Join thousands defending truth in the information age',
+        ctaPrimary: 'Join the Fight - Free',
+        ctaSecondary: 'Explore the War Machine'
+      }
+    },
+    he: {
+      common: {
+        appName: 'אריות ציון',
+        tagline: 'מגיני האמת נגד דיסאינפורמציה',
+        loading: 'טוען...',
+        error: 'משהו השתבש',
+        retry: 'נסה שוב',
+        cancel: 'ביטול',
+        save: 'שמור',
+        delete: 'מחק',
+        edit: 'ערוך',
+        close: 'סגור',
+        search: 'חיפוש',
+        filter: 'סינון',
+        sortBy: 'מיין לפי'
+      },
+      nav: {
+        home: 'בית',
+        dailyBrief: 'תקציר יומי',
+        archive: 'ארכיון',
+        warMachine: 'מכונת המלחמה',
+        about: 'אודות',
+        contact: 'צור קשר',
+        signIn: 'כניסה',
+        signOut: 'יציאה',
+        join: 'הצטרף',
+        dashboard: 'לוח בקרה'
+      },
+      hero: {
+        title: 'להילחם בדיסאינפורמציה',
+        subtitle: 'הצטרף לאלפים המגינים על האמת בעידן המידע',
+        ctaPrimary: 'הצטרף למאבק - חינם',
+        ctaSecondary: 'חקור את מכונת המלחמה'
+      }
+    },
+    es: {
+      common: {
+        appName: 'Leones de Sion',
+        tagline: 'Defensores de la Verdad Contra la Desinformación',
+        loading: 'Cargando...',
+        error: 'Algo salió mal',
+        retry: 'Intentar de nuevo',
+        cancel: 'Cancelar',
+        save: 'Guardar',
+        delete: 'Eliminar',
+        edit: 'Editar',
+        close: 'Cerrar',
+        search: 'Buscar',
+        filter: 'Filtrar',
+        sortBy: 'Ordenar por'
+      }
+    },
+    fr: {
+      common: {
+        appName: 'Lions de Sion',
+        tagline: 'Défenseurs de la Vérité Contre la Désinformation',
+        loading: 'Chargement...',
+        error: 'Quelque chose a mal tourné',
+        retry: 'Réessayer',
+        cancel: 'Annuler',
+        save: 'Sauvegarder',
+        delete: 'Supprimer',
+        edit: 'Modifier',
+        close: 'Fermer',
+        search: 'Rechercher',
+        filter: 'Filtrer',
+        sortBy: 'Trier par'
+      }
+    },
+    de: {
+      common: {
+        appName: 'Löwen von Zion',
+        tagline: 'Verteidiger der Wahrheit gegen Desinformation',
+        loading: 'Laden...',
+        error: 'Etwas ist schief gelaufen',
+        retry: 'Erneut versuchen',
+        cancel: 'Abbrechen',
+        save: 'Speichern',
+        delete: 'Löschen',
+        edit: 'Bearbeiten',
+        close: 'Schließen',
+        search: 'Suchen',
+        filter: 'Filtern',
+        sortBy: 'Sortieren nach'
+      }
+    },
+    ar: {
+      common: {
+        appName: 'أسود صهيون',
+        tagline: 'المدافعون عن الحقيقة ضد التضليل',
+        loading: 'جاري التحميل...',
+        error: 'حدث خطأ ما',
+        retry: 'حاول مرة أخرى',
+        cancel: 'إلغاء',
+        save: 'حفظ',
+        delete: 'حذف',
+        edit: 'تعديل',
+        close: 'إغلاق',
+        search: 'بحث',
+        filter: 'تصفية',
+        sortBy: 'ترتيب حسب'
+      }
+    }
+  }
+>>>>>>> origin/chore/local-sync-2025-09-14
 
   // Navigate to the key in translations
   const keys = key.split('.')

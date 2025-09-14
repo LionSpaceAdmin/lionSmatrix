@@ -27,25 +27,46 @@ export function OSINTArchiveOptimized({ className }: OSINTArchiveOptimizedProps)
 
     if (searchTerm.trim()) {
       const term = searchTerm.toLowerCase();
+<<<<<<< HEAD
       filtered = filtered.filter(actor =>
         actor.name.toLowerCase().includes(term) ||
         actor.description.toLowerCase().includes(term) ||
         (actor.aliases && actor.aliases.some(alias => alias.toLowerCase().includes(term)))
+=======
+      filtered = filtered.filter(actor => 
+        actor.name.toLowerCase().includes(term) ||
+        actor.description.toLowerCase().includes(term) ||
+        actor.aliases.some(alias => alias.toLowerCase().includes(term))
+>>>>>>> origin/chore/local-sync-2025-09-14
       );
     }
 
     if (filterPlatform !== 'all') {
+<<<<<<< HEAD
       filtered = filtered.filter(actor =>
         actor.type.toLowerCase() === filterPlatform.toLowerCase()
+=======
+      filtered = filtered.filter(actor => 
+        actor.description.toLowerCase().includes(filterPlatform.toLowerCase())
+>>>>>>> origin/chore/local-sync-2025-09-14
       );
     }
 
     return [...filtered].sort((a, b) => {
       switch (sortBy) {
+<<<<<<< HEAD
         case 'name':
           return a.name.localeCompare(b.name);
         case 'type':
           return a.type.localeCompare(b.type);
+=======
+        case 'audience':
+          return b.name.localeCompare(a.name); // Fallback to name sorting
+        case 'name':
+          return a.name.localeCompare(b.name);
+        case 'platform':
+          return a.description.localeCompare(b.description);
+>>>>>>> origin/chore/local-sync-2025-09-14
         default:
           return 0;
       }
@@ -53,7 +74,11 @@ export function OSINTArchiveOptimized({ className }: OSINTArchiveOptimizedProps)
   }, [searchTerm, filterPlatform, sortBy]);
 
   const platforms = useMemo(() => {
+<<<<<<< HEAD
     const unique = new Set(mergedOsintActors.map(actor => actor.type));
+=======
+    const unique = new Set(extendedOsintData.map(actor => actor.description.split(' - ')[0]));
+>>>>>>> origin/chore/local-sync-2025-09-14
     return Array.from(unique);
   }, []);
 
@@ -137,7 +162,14 @@ export function OSINTArchiveOptimized({ className }: OSINTArchiveOptimizedProps)
 
         <div className="flex items-center justify-between">
           <div className="text-sm text-muted-foreground">
+<<<<<<< HEAD
             Showing {filteredAndSortedData.length} of {mergedOsintActors.length} actors
+=======
+            Showing {filteredAndSortedData.length} of {extendedOsintData.length} actors
+          </div>
+          <div className="text-sm text-muted-foreground">
+            Total Actors: {filteredAndSortedData.length}
+>>>>>>> origin/chore/local-sync-2025-09-14
           </div>
         </div>
 

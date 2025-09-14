@@ -132,6 +132,9 @@ const config = {
   // Turbopack configuration (moved from experimental.turbo)
   // turbopack: custom loader rules removed to avoid conflicts
   
+  // External packages configuration
+  serverExternalPackages: ['@lionspace/ui'],
+  
   // Fix workspace root warning
   
   logging: {
