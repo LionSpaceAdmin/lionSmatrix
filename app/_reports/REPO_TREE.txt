@@ -1,0 +1,698 @@
+.
+├── .env.example
+├── .gitignore
+├── DESIGN_SYSTEM_TASKS.md
+├── DESIGN_TOKENS.md
+├── Dockerfile
+├── L-M-v-_S.I.l-v-e-r-L-i-n-g-S-h-e-d-m-a-i-n-t-e-n-a-n-c-e-A-p-p-l-i-c-a-t-i-o-n.md
+├── LIONSPACE_PROJECT_BLUEPRINT.md
+├── MONITORING.md
+├── PLAYWRIGHT_FINAL_REPORT.md
+├── app
+│   ├── (academy)
+│   │   ├── [slug]
+│   │   │   └── page.tsx
+│   │   ├── courses
+│   │   │   └── page.tsx
+│   │   ├── layout.tsx
+│   │   ├── page.tsx.bak
+│   │   ├── playbooks
+│   │   │   └── page.tsx
+│   │   └── tutorials
+│   │       └── page.tsx
+│   ├── (auth)
+│   │   ├── error.tsx
+│   │   ├── join
+│   │   │   └── page.tsx
+│   │   ├── loading.tsx
+│   │   ├── onboarding
+│   │   │   └── page.tsx
+│   │   ├── reset-password
+│   │   │   └── page.tsx
+│   │   └── sign-in
+│   │       └── page.tsx
+│   ├── (dashboard)
+│   │   ├── analytics
+│   │   │   └── page.tsx
+│   │   ├── campaigns
+│   │   │   └── page.tsx
+│   │   ├── command-center
+│   │   │   ├── loading.tsx
+│   │   │   └── page.tsx
+│   │   ├── community
+│   │   │   └── page.tsx
+│   │   ├── error.tsx
+│   │   ├── layout-client.tsx
+│   │   ├── layout.tsx
+│   │   ├── loading.tsx
+│   │   ├── matrix
+│   │   │   └── page.tsx
+│   │   ├── settings
+│   │   │   └── page.tsx
+│   │   ├── social
+│   │   │   └── page.tsx
+│   │   ├── tools
+│   │   │   ├── deep-research-daily
+│   │   │   │   └── page.tsx
+│   │   │   ├── fact-check
+│   │   │   │   └── page.tsx
+│   │   │   ├── fake-resistance-tracker
+│   │   │   │   └── page.tsx
+│   │   │   ├── image-influence-lab
+│   │   │   │   └── page.tsx
+│   │   │   └── report-research
+│   │   │       └── page.tsx
+│   │   ├── war-machine
+│   │   │   └── page.tsx
+│   │   └── war-room
+│   │       └── page.tsx
+│   ├── (enterprise)
+│   │   ├── alerts
+│   │   │   └── page.tsx
+│   │   ├── compliance
+│   │   │   └── page.tsx
+│   │   ├── layout.tsx
+│   │   ├── organization
+│   │   │   └── page.tsx
+│   │   ├── page.tsx
+│   │   ├── page.tsx.bak
+│   │   └── threats
+│   │       └── page.tsx
+│   ├── (public)
+│   │   ├── about
+│   │   │   └── page.tsx
+│   │   ├── archive
+│   │   │   ├── [narrativeId]
+│   │   │   │   ├── narrative-detail-client.tsx
+│   │   │   │   └── page.tsx
+│   │   │   └── page.tsx
+│   │   ├── contact
+│   │   │   └── page.tsx
+│   │   ├── daily-brief
+│   │   │   └── page.tsx
+│   │   ├── demo
+│   │   │   └── page.tsx
+│   │   ├── faq
+│   │   │   └── page.tsx
+│   │   ├── head.tsx
+│   │   ├── impact
+│   │   │   └── page.tsx
+│   │   ├── layout.tsx
+│   │   ├── legal
+│   │   │   ├── privacy
+│   │   │   │   └── page.tsx
+│   │   │   └── terms
+│   │   │       └── page.tsx
+│   │   ├── opening
+│   │   │   └── page.tsx
+│   │   ├── page.tsx
+│   │   └── search
+│   │       └── page.tsx
+│   ├── (trust)
+│   │   ├── audit
+│   │   │   └── page.tsx
+│   │   ├── dsr
+│   │   │   └── page.tsx
+│   │   ├── layout.tsx
+│   │   ├── privacy
+│   │   │   └── page.tsx
+│   │   ├── provenance
+│   │   │   └── page.tsx
+│   │   └── transparency
+│   │       └── page.tsx
+│   ├── _reports
+│   │   ├── DEPENDENCY_AUDIT.md
+│   │   └── REPO_TREE.txt
+│   ├── actions.ts
+│   ├── api
+│   │   ├── auth
+│   │   │   └── [...nextauth]
+│   │   │       └── route.ts
+│   │   ├── example.test.ts
+│   │   ├── health
+│   │   │   └── route.ts
+│   │   ├── middleware
+│   │   │   └── rbac.ts
+│   │   ├── middleware.ts
+│   │   ├── monitoring
+│   │   │   └── route.ts
+│   │   └── war-room
+│   │       └── stream
+│   │           └── route.ts
+│   ├── auth
+│   │   ├── join
+│   │   │   └── page.tsx
+│   │   └── login
+│   │       └── page.tsx
+│   ├── error.tsx
+│   ├── global-error.tsx
+│   ├── globals.css
+│   ├── layout.tsx
+│   ├── not-found.tsx
+│   ├── providers.tsx
+│   ├── routes
+│   │   └── route-1
+│   │       └── design
+│   │           └── page.tsx
+│   ├── showcase
+│   │   └── navigation
+│   │       └── page.tsx
+│   ├── sitemap.ts
+│   ├── styles
+│   │   ├── animations.css
+│   │   ├── base.css
+│   │   ├── components.css
+│   │   ├── legacy.css
+│   │   └── utilities.css
+│   └── test
+│       └── page.tsx
+├── components
+│   ├── README.md
+│   ├── accessibility
+│   │   ├── AccessibleButton.tsx
+│   │   ├── AccessibleForm.tsx
+│   │   ├── AccessibleModal.tsx
+│   │   ├── AccessibleNavigation.tsx
+│   │   ├── FocusTrap.tsx
+│   │   ├── ScreenReaderOnly.tsx
+│   │   ├── SkipLinks.tsx
+│   │   └── index.ts
+│   ├── ai
+│   │   ├── AdversarySimConsole.tsx
+│   │   ├── DeepfakeDetector.tsx
+│   │   ├── EarlyWarningWidget.tsx
+│   │   ├── NarrativeTracker.tsx
+│   │   ├── NetworkVisualizer.tsx
+│   │   ├── PrebunkingKitBuilder.tsx
+│   │   ├── ProvenanceBadge.tsx
+│   │   └── ThreatAnalyzer.tsx
+│   ├── atoms
+│   │   └── index.ts
+│   ├── auth
+│   │   ├── AuthContext.tsx
+│   │   └── ProtectedRoute.tsx
+│   ├── charts
+│   │   └── ImpactChart.tsx
+│   ├── examples
+│   │   ├── MonitoredComponent.tsx
+│   │   └── NetworkVisualizationDemo.tsx
+│   ├── hooks
+│   │   ├── useProgressiveEnhancement.ts
+│   │   └── useProgressiveEnhancement.tsx
+│   ├── intelligence
+│   │   └── threat-indicator.tsx
+│   ├── landing
+│   │   └── LandingHero.tsx
+│   ├── layouts
+│   │   ├── Footer.tsx
+│   │   └── Header.tsx
+│   ├── lazy
+│   │   └── LazyComponents.tsx
+│   ├── molecules
+│   │   ├── LanguageSwitcher.tsx
+│   │   └── index.ts
+│   ├── monitoring
+│   │   ├── ErrorBoundary.tsx
+│   │   └── PerformanceDashboard.tsx
+│   ├── navigation
+│   │   ├── NavigationShowcase.tsx
+│   │   ├── PsychologicalBreadcrumbs.tsx
+│   │   ├── PsychologicalNavigation.tsx
+│   │   ├── PsychologicalSidebar.tsx
+│   │   ├── README.md
+│   │   └── SkipToContent.tsx
+│   ├── organisms
+│   │   ├── ActionGrid.tsx
+│   │   ├── AdvancedNetworkVisualization.tsx
+│   │   ├── EnhancedTerminalBackground.tsx
+│   │   ├── HeroSection.tsx
+│   │   ├── IntelligenceMatrix.tsx
+│   │   ├── MatrixDataFlow.tsx
+│   │   ├── NetworkVisualization.tsx
+│   │   ├── README.md
+│   │   ├── ThreatStrip.tsx
+│   │   └── index.ts
+│   ├── osint
+│   │   └── OSINTArchiveOptimized.tsx
+│   ├── performance
+│   │   ├── AnimatedCanvas.tsx
+│   │   └── VirtualScrollList.tsx
+│   ├── progressive
+│   │   └── ProgressiveAnimations.tsx
+│   ├── shared
+│   │   ├── ActionGrid.tsx
+│   │   ├── AlertBanner.tsx
+│   │   ├── EvidenceList.tsx
+│   │   ├── NarrativeCard.tsx
+│   │   ├── OptimizedImage.tsx
+│   │   ├── PledgeBox.tsx
+│   │   ├── ProvenanceBadge.tsx
+│   │   ├── SharePackModule.tsx
+│   │   ├── ThreatStrip.tsx
+│   │   └── UseNowSnippet.tsx
+│   ├── terminal-ui
+│   │   └── layout
+│   │       └── navigation-header.tsx
+│   ├── typography-example.tsx
+│   ├── ui
+│   │   ├── CognitiveWarfareRotatingMessages.tsx
+│   │   ├── CognitiveWarfareTestPage.tsx
+│   │   ├── alert.tsx
+│   │   ├── avatar.tsx
+│   │   ├── badge.tsx
+│   │   ├── button.tsx
+│   │   ├── card.tsx
+│   │   ├── checkbox.tsx
+│   │   ├── dialog.tsx
+│   │   ├── dropdown-menu.tsx
+│   │   ├── input.tsx
+│   │   ├── label.tsx
+│   │   ├── progress.tsx
+│   │   ├── radio-group.tsx
+│   │   ├── select.tsx
+│   │   ├── slider.tsx
+│   │   ├── switch.tsx
+│   │   ├── table.tsx
+│   │   ├── tabs.tsx
+│   │   ├── terminal
+│   │   │   ├── matrix-bg.tsx
+│   │   │   └── terminal-window.tsx
+│   │   ├── textarea.tsx
+│   │   ├── toaster.tsx
+│   │   └── tooltip.tsx
+│   └── visuals
+│       └── use-wargame-engine.ts
+├── contexts
+│   └── translation-context.tsx
+├── corrected_prompts.md
+├── env.mjs
+├── instrumentation.ts
+├── lib
+│   ├── api
+│   │   ├── gemini.ts
+│   │   └── middleware-helpers.ts
+│   ├── auth
+│   │   ├── handlers.ts
+│   │   ├── hooks.ts
+│   │   ├── index.ts
+│   │   ├── options.ts
+│   │   ├── provider.tsx
+│   │   └── rbac.ts
+│   ├── auth.ts
+│   ├── data
+│   │   ├── chart-configs.ts
+│   │   ├── intelligence-merged.ts
+│   │   ├── lp-items.tsx
+│   │   ├── osint-actors.ts
+│   │   ├── osint-extended.ts
+│   │   └── translations.ts
+│   ├── data-loaders.ts
+│   ├── data-parsers.ts
+│   ├── db
+│   │   ├── index.ts
+│   │   ├── migrations
+│   │   │   └── 0001_initial_full_schema.sql
+│   │   ├── schema
+│   │   │   ├── index.ts
+│   │   │   ├── sessions.ts
+│   │   │   └── users.ts
+│   │   ├── schema-examples.ts
+│   │   └── schema.ts
+│   ├── design-tokens.ts
+│   ├── env.ts
+│   ├── hooks
+│   │   ├── use-accessibility.ts
+│   │   ├── use-canvas-animation.ts
+│   │   ├── use-i18n.ts
+│   │   ├── use-monitoring.ts
+│   │   ├── use-typewriter.ts
+│   │   ├── useLocale.ts
+│   │   └── usePerformanceOptimizations.ts
+│   ├── i18n
+│   │   ├── config.ts
+│   │   ├── helpers.ts
+│   │   ├── index.ts
+│   │   ├── translations.ts
+│   │   └── use-translation.ts
+│   ├── image-loader.ts
+│   ├── image-utils.ts
+│   ├── intelligence-data.ts
+│   ├── monitoring.ts
+│   ├── security
+│   │   ├── csrf.ts
+│   │   ├── headers.ts
+│   │   ├── index.ts
+│   │   └── rate-limit.ts
+│   ├── smart-indicators
+│   │   ├── ai-suggestions.ts
+│   │   ├── connection-analyzer.ts
+│   │   ├── health-indicators.ts
+│   │   ├── index.ts
+│   │   ├── performance-metrics.ts
+│   │   ├── security-scanner.ts
+│   │   └── visual-indicators.ts
+│   ├── telemetry.ts
+│   ├── use-wargame-engine.ts
+│   ├── utils
+│   │   ├── accessibility-test.ts
+│   │   ├── loading-states.ts
+│   │   ├── markdown-parser.ts
+│   │   └── performance.ts
+│   ├── utils.test.ts
+│   ├── utils.ts
+│   └── web-vitals.ts
+├── logs
+│   └── README.md
+├── middleware.ts
+├── next-env.d.ts
+├── next.config.mjs
+├── package.json
+├── playwright.config.ts
+├── pnpm-lock.yaml
+├── public
+│   ├── apple-icon.png
+│   ├── favicon.ico
+│   ├── file.svg
+│   ├── fix-green-circle.css
+│   ├── globe.svg
+│   ├── i18n
+│   │   └── cognitive_warfare_messages_multilingual.json
+│   ├── icon-16x16.png
+│   ├── icon-32x32.png
+│   ├── manifest.json
+│   ├── next.svg
+│   ├── og-image.png
+│   ├── robots.txt
+│   ├── vercel.svg
+│   └── window.svg
+├── scripts
+│   ├── analyze-bundle.js
+│   ├── log-analyzer.js
+│   ├── monitor-chromium.sh
+│   └── realtime-monitor.js
+├── sentry.client.config.ts
+├── sentry.edge.config.ts
+├── sentry.server.config.ts
+├── services
+│   └── core-engine
+│       └── rbac
+│           └── service.ts
+├── tailwind.config.ts
+├── task_template.md
+├── tests
+│   ├── basic-smoke.spec.ts
+│   ├── connectivity-test.spec.ts
+│   ├── global-setup.ts
+│   ├── lions-comprehensive.spec.ts
+│   ├── monitoring.spec.ts
+│   ├── smoke.spec.ts
+│   └── utils
+│       ├── custom-reporter.ts
+│       ├── global-setup.ts
+│       ├── global-teardown.ts
+│       └── performance-monitor.ts
+├── tsconfig.json
+├── types
+│   ├── intelligence.ts
+│   └── next-auth.d.ts
+├── vitest.config.ts
+└── ניקוי
+    ├── .dockerignore
+    ├── .env.example
+    ├── .github
+    │   └── workflows
+    │       ├── ci.yml
+    │       ├── claude-code-review.yml
+    │       ├── claude-code.yml
+    │       ├── claude.yml
+    │       └── deploy-cloudrun.yaml
+    ├── .gitignore
+    ├── .npmrc
+    ├── .nvmrc
+    ├── .pnpmrc
+    ├── .vscode
+    │   ├── keybindings.json
+    │   ├── launch.json
+    │   ├── settings.json
+    │   └── tasks.json
+    ├── AGENTS.md
+    ├── CLAUDE.md
+    ├── FLOWRISE_INTERACTIVE_CANVAS_README.md
+    ├── LICENSE
+    ├── README.md
+    ├── TODO.md
+    ├── check-environment.sh
+    ├── check-health.js
+    ├── database
+    │   └── schema.sql
+    ├── debug-visual.spec.ts
+    ├── dev.sh
+    ├── docker-compose.yml
+    ├── docs
+    │   ├── ACCESSIBILITY.md
+    │   ├── AGENT_GUIDE.md
+    │   ├── CODESPACES-INTEGRATION.md
+    │   ├── DEPLOYMENT_GUIDE.md
+    │   ├── DESIGN_SYSTEM_TASKS.md
+    │   ├── DESIGN_TOKENS.md
+    │   ├── DEVELOPER_GUIDE.md
+    │   ├── GCP_SERVICE_ACCOUNT_SETUP.md
+    │   ├── IMPLEMENTATION_PLAN.md
+    │   ├── PROJECT_ORDER_MISSION.md
+    │   ├── SECRETS_MANAGEMENT.md
+    │   ├── STRUCTURE_VERIFICATION_TREE.md
+    │   ├── TESTING.md
+    │   ├── adr
+    │   │   ├── 001-monorepo-structure.md
+    │   │   └── 002-nextjs-app-router.md
+    │   ├── api
+    │   │   └── README.md
+    │   ├── archived
+    │   │   ├── PROJECT_MASTER_TASK.md
+    │   │   └── TODO_COMPLETION_TASKS.md
+    │   ├── assets
+    │   │   ├── dashboard-full.png
+    │   │   └── test-page-error.png
+    │   ├── components
+    │   │   └── README.md
+    │   ├── investigation_log.md
+    │   ├── lions_of_zion_agent_prompts_claude_spark_full_pack.md
+    │   ├── project-flowrise-mapper.html
+    │   ├── project-summary-hebrew.html
+    │   └── task_template.md
+    ├── env
+    │   └── .env.example
+    ├── eslint.config.mjs
+    ├── libs
+    │   ├── analytics-engine
+    │   │   ├── ai-recommendations.ts
+    │   │   ├── ai-suggestions-engine.ts
+    │   │   ├── data-collector.ts
+    │   │   ├── index.ts
+    │   │   ├── metrics-calculator.ts
+    │   │   ├── pattern-analyzer.ts
+    │   │   ├── pattern-detector.ts
+    │   │   ├── performance-analyzer.ts
+    │   │   ├── project-analytics.ts
+    │   │   ├── recommendation-engine.ts
+    │   │   ├── report-generator.ts
+    │   │   ├── security-analytics.ts
+    │   │   ├── team-insights.ts
+    │   │   ├── technical-debt-analyzer.ts
+    │   │   ├── trend-analyzer.ts
+    │   │   └── trend-predictor.ts
+    │   ├── file-scanner
+    │   │   ├── README.md
+    │   │   ├── agent-prompts-analyzer.ts
+    │   │   ├── dependency-analyzer.ts
+    │   │   ├── example.ts
+    │   │   ├── health-monitor.ts
+    │   │   ├── index.ts
+    │   │   ├── package.json
+    │   │   └── types.ts
+    │   ├── network-topology
+    │   │   ├── component-analyzer.ts
+    │   │   ├── dependency-mapper.ts
+    │   │   ├── index.ts
+    │   │   ├── project-analyzer.ts
+    │   │   ├── route-analyzer.ts
+    │   │   ├── test-integration.ts
+    │   │   ├── topology-builder.ts
+    │   │   └── types.ts
+    │   └── sync-engine
+    │       ├── change-processor.ts
+    │       ├── dependency-tracker.ts
+    │       ├── file-watcher.ts
+    │       ├── git-monitor.ts
+    │       ├── index.ts
+    │       ├── state-manager.ts
+    │       └── sync-client.ts
+    ├── matrix_words.txt
+    ├── network-connections-targets.txt
+    ├── package.json
+    ├── packages
+    │   └── @lionspace
+    │       ├── abtest
+    │       │   └── README.md
+    │       ├── ai
+    │       │   ├── package.json
+    │       │   └── src
+    │       │       └── index.ts
+    │       ├── core
+    │       │   ├── constants
+    │       │   │   └── index.ts
+    │       │   ├── contracts
+    │       │   │   └── index.ts
+    │       │   ├── package.json
+    │       │   ├── src
+    │       │   │   ├── constants
+    │       │   │   ├── contracts
+    │       │   │   ├── enums
+    │       │   │   ├── index.ts
+    │       │   │   ├── interfaces
+    │       │   │   ├── types
+    │       │   │   └── utils
+    │       │   ├── tsconfig.json
+    │       │   └── utils
+    │       │       └── index.ts
+    │       ├── experiments
+    │       │   └── README.md
+    │       ├── message-bus
+    │       │   └── README.md
+    │       ├── mock-data
+    │       │   ├── campaigns
+    │       │   │   └── index.ts
+    │       │   ├── evidence
+    │       │   │   └── index.ts
+    │       │   ├── narratives
+    │       │   │   └── index.ts
+    │       │   ├── package.json
+    │       │   ├── src
+    │       │   │   ├── actors
+    │       │   │   ├── actors.ts
+    │       │   │   ├── chart-configs.ts
+    │       │   │   ├── index.ts
+    │       │   │   ├── intelligence-merged.ts
+    │       │   │   ├── intelligence.ts
+    │       │   │   ├── messages
+    │       │   │   ├── messages.ts
+    │       │   │   ├── osint-actors.ts
+    │       │   │   ├── osint-extended.ts
+    │       │   │   ├── translations.ts
+    │       │   │   └── vocabulary
+    │       │   ├── threats
+    │       │   │   └── index.ts
+    │       │   └── users
+    │       │       └── index.ts
+    │       ├── osint
+    │       │   └── README.md
+    │       ├── payments
+    │       │   └── README.md
+    │       ├── policy
+    │       │   ├── package.json
+    │       │   └── src
+    │       │       └── index.ts
+    │       ├── provenance
+    │       │   ├── package.json
+    │       │   └── src
+    │       │       └── index.ts
+    │       ├── risk
+    │       │   └── README.md
+    │       ├── sdk-js
+    │       │   ├── package.json
+    │       │   └── src
+    │       │       └── index.ts
+    │       ├── social
+    │       │   ├── package.json
+    │       │   └── src
+    │       │       └── index.ts
+    │       └── ui
+    │           ├── .storybook
+    │           │   ├── main.ts
+    │           │   └── preview.ts
+    │           ├── README.md
+    │           ├── atoms
+    │           │   └── index.ts
+    │           ├── index.ts
+    │           ├── molecules
+    │           │   └── index.ts
+    │           ├── organisms
+    │           │   └── index.ts
+    │           ├── package.json
+    │           ├── src
+    │           │   ├── atoms
+    │           │   ├── index.ts
+    │           │   ├── molecules
+    │           │   ├── organisms
+    │           │   └── templates
+    │           └── templates
+    │               └── index.ts
+    ├── pnpm-lock.yaml
+    ├── pnpm-workspace.yaml
+    ├── prettier.config.js
+    ├── run-scanner.js
+    ├── scripts
+    │   ├── agent-orchestrator.js
+    │   ├── bug-linker.js
+    │   ├── bug-linker.mjs
+    │   ├── check-visual-before-complete.sh
+    │   ├── enforce-root-clean.mjs
+    │   ├── init-db.sql
+    │   ├── restructure.js
+    │   ├── sync-from-ready.mjs
+    │   ├── test-gcp-connection.js
+    │   ├── validate-structure.js
+    │   ├── visual-verification.js
+    │   └── visual-verification.mjs
+    ├── services
+    │   ├── README.md
+    │   ├── ai-gateway
+    │   │   ├── Dockerfile
+    │   │   ├── main.py
+    │   │   ├── openapi.yaml
+    │   │   └── requirements.txt
+    │   ├── analytics
+    │   │   └── README.md
+    │   ├── api
+    │   │   └── README.md
+    │   ├── auth
+    │   │   ├── eslint.config.mjs
+    │   │   ├── package.json
+    │   │   ├── src
+    │   │   │   └── index.ts
+    │   │   └── tsconfig.json
+    │   ├── auth-api
+    │   │   ├── Dockerfile
+    │   │   ├── main.py
+    │   │   ├── openapi.yaml
+    │   │   └── requirements.txt
+    │   ├── fact-check-service
+    │   │   ├── Dockerfile
+    │   │   ├── main.py
+    │   │   ├── openapi.yaml
+    │   │   └── requirements.txt
+    │   ├── monitoring
+    │   │   └── README.md
+    │   ├── rag-service
+    │   │   ├── Dockerfile
+    │   │   ├── main.py
+    │   │   ├── openapi.yaml
+    │   │   └── requirements.txt
+    │   └── war-machine
+    │       ├── eslint.config.mjs
+    │       ├── package.json
+    │       ├── src
+    │       │   └── index.ts
+    │       └── tsconfig.json
+    ├── setup-extensions.sh
+    ├── start-dev.sh
+    ├── start-devcontainer.sh
+    ├── sync-project-data.js
+    ├── target-metrics.txt
+    ├── test-simple.spec.ts
+    ├── tsconfig.base.json
+    ├── tsconfig.json
+    ├── turbo.json
+    └── wezterm-dev.sh
+
+200 directories, 496 files
