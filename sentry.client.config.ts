@@ -21,10 +21,10 @@ Sentry.init({
   // Performance monitoring
   integrations: [
     Sentry.replayIntegration({
-      // Capture 90% of all sessions for error replay
-      sessionReplaySampleRate: 0.1,
+      // Capture 10% of all sessions for error replay
+      replaysSessionSampleRate: 0.1,
       // Capture 100% of sessions with errors for replay
-      errorSampleRate: 1.0,
+      replaysOnErrorSampleRate: 1.0,
       // Mask all text and input content for privacy
       maskAllText: true,
       blockAllMedia: true,
