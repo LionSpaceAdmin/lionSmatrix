@@ -1,3 +1,16 @@
 {
-  "placeholderImages": []
+  "placeholderImages": [
+    {
+      "id": "hero-network",
+      "description": "Abstract network graph visualization.",
+      "imageUrl": "https://picsum.photos/seed/101/1600/900",
+      "imageHint": "network abstract"
+    },
+    {
+      "id": "daily-brief-header",
+      "description": "A person reading a report in a modern office.",
+      "imageUrl": "https://picsum.photos/seed/102/1200/400",
+      "imageHint": "data analysis"
+    }
+  ]
 }
