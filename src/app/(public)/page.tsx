@@ -6,7 +6,7 @@ import { ActionGrid } from '@/components/shared/action-grid';
 export default function HomePage() {
   const featuredNarratives = narratives.slice(0, 3);
   return (
-    <div className="relative">
+    <>
       <Hero />
       <div className="container py-12 md:py-24 space-y-24">
         <section>
@@ -32,6 +32,6 @@ export default function HomePage() {
           <ActionGrid />
         </section>
       </div>
-    </div>
+    </>
   );
 }
