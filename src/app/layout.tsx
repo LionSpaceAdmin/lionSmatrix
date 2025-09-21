@@ -1,23 +1,25 @@
+'use client';
 import type { Metadata } from 'next';
 import { Space_Mono } from 'next/font/google';
 import { Providers } from './providers';
 import './globals.css';
 import { isRTL } from '@/lib/i18n';
-import { locales } from '@/lib/i18n/config';
+import Link from 'next/link';
+import { useParams } from 'next/navigation';
 
 const spaceMono = Space_Mono({ subsets: ['latin'], weight: ['400', '700'] });
 
 export const metadata: Metadata = {
   title: {
-    default: "Zion's Shield",
-    template: "%s | Zion's Shield",
+    default: "Zion&apos;s Shield",
+    template: "%s | Zion&apos;s Shield",
   },
   description: 'A collective defense platform against digital threats. We identify, analyze, and combat coordinated misinformation campaigns in real-time.',
   openGraph: {
-    title: "Zion's Shield",
+    title: "Zion&apos;s Shield",
     description: 'A collective defense platform against digital threats.',
     url: 'https://zions-shield.com',
-    siteName: "Zion's Shield",
+    siteName: "Zion&apos;s Shield",
     images: [
       {
         url: 'https://zions-shield.com/og-image.png',
@@ -30,7 +32,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: "Zion's Shield",
+    title: "Zion&apos;s Shield",
     description: 'A collective defense platform against digital threats.',
     images: ['https://zions-shield.com/twitter-image.png'],
   },
@@ -38,11 +40,11 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
-  params: { locale },
 }: {
   children: React.ReactNode;
-  params: { locale: string };
 }) {
+  const params = useParams();
+  const locale = typeof params.locale === 'string' ? params.locale : 'en';
   const direction = isRTL(locale) ? 'rtl' : 'ltr';
 
   return (
@@ -56,7 +58,7 @@ export default function RootLayout({
           <header className="p-4 border-b border-terminal-border">
             {/* Basic Header Content */}
             <nav>
-              <a href="/" className="text-terminal-green text-xl font-bold">Zion's Shield</a>
+              <Link href="/" className="text-terminal-green text-xl font-bold">Zion&apos;s Shield</Link>
             </nav>
           </header>
           <main id="main-content" className="flex-grow">
@@ -64,10 +66,10 @@ export default function RootLayout({
           </main>
           <footer className="p-4 border-t border-terminal-border text-center text-terminal-muted text-sm">
             {/* Basic Footer Content */}
-            <p>&copy; {new Date().getFullYear()} Zion's Shield. All rights reserved.</p>
+            <p>&copy; {new Date().getFullYear()} Zion&apos;s Shield. All rights reserved.</p>
             <nav className="mt-2">
-              <a href="/legal/privacy" className="text-terminal-cyan hover:underline mx-2">Privacy Policy</a>
-              <a href="/legal/terms" className="text-terminal-cyan hover:underline mx-2">Terms of Service</a>
+              <Link href="/legal/privacy" className="text-terminal-cyan hover:underline mx-2">Privacy Policy</Link>
+              <Link href="/legal/terms" className="text-terminal-cyan hover:underline mx-2">Terms of Service</Link>
             </nav>
           </footer>
         </Providers>

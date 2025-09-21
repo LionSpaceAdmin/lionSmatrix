@@ -27,7 +27,7 @@ export function Header() {
                   <div className="p-4">
                       <Link href="/" className="mb-8 flex items-center space-x-2">
                           <Shield className="h-6 w-6 text-primary" />
-                          <span className="font-bold font-headline">Zion's Shield</span>
+                          <span className="font-bold font-headline">Zion&apos;s Shield</span>
                       </Link>
                       <nav className="flex flex-col gap-4">
                           {navItems.map((item) => (
@@ -49,7 +49,7 @@ export function Header() {
           <Link href="/" className="mr-6 flex items-center space-x-2">
             <Shield className="h-6 w-6 text-primary" />
             <span className="hidden font-bold sm:inline-block font-headline">
-              Zion's Shield
+              Zion&apos;s Shield
             </span>
           </Link>
           <nav className="flex items-center gap-6 text-sm">

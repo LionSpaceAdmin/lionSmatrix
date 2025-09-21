@@ -25,7 +25,7 @@ export function Hero() {
             Countering Disinformation, Together.
           </h1>
           <p className="mt-4 max-w-xl mx-auto text-muted-foreground md:text-xl">
-            Zion's Shield is a collective defense platform against digital threats. We identify, analyze, and combat coordinated misinformation campaigns in real-time.
+            Zion&apos;s Shield is a collective defense platform against digital threats. We identify, analyze, and combat coordinated misinformation campaigns in real-time.
           </p>
           <div className="mt-8 flex flex-wrap justify-center gap-4">
             <Button asChild size="lg">
