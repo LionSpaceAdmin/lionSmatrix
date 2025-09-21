@@ -2,7 +2,8 @@ import type { Metadata } from 'next';
 import { Space_Mono } from 'next/font/google';
 import { Providers } from './providers';
 import './globals.css';
-import { isRTL, locales } from '@/lib/i18n';
+import { isRTL } from '@/lib/i18n';
+import { locales } from '@/lib/i18n/config';
 
 const spaceMono = Space_Mono({ subsets: ['latin'], weight: ['400', '700'] });
 
@@ -38,10 +39,10 @@ export const metadata: Metadata = {
 export default function RootLayout({
   children,
   params: { locale },
-}: Readonly<{
+}: {
   children: React.ReactNode;
   params: { locale: string };
-}>) {
+}) {
   const direction = isRTL(locale) ? 'rtl' : 'ltr';
 
   return (

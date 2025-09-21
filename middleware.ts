@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { defaultLocale, locales, isRTL } from '@/lib/i18n';
+import { isRTL } from '@/lib/i18n';
+import { defaultLocale, locales } from '@/lib/i18n/config';
 
 const PUBLIC_FILE = /\.(.*)$/; // Files
 
@@ -47,7 +48,7 @@ export function middleware(request: NextRequest) {
 
   // Set the `dir` header for RTL languages
   const response = NextResponse.next();
-  if (isRTL(locale)) {
+  if (isRTL(locale as string)) {
     response.headers.set('dir', 'rtl');
   } else {
     response.headers.set('dir', 'ltr');
@@ -57,5 +58,5 @@ export function middleware(request: NextRequest) {
 
 export const config = {
   // Matcher to run middleware on all paths except static files and API routes
-  matcher: ['/((?!api|_next/static|_next/image|favicon.ico).*)],
+  matcher: ['/((?!api|_next/static|_next/image|favicon.ico$).*)'],
 };
