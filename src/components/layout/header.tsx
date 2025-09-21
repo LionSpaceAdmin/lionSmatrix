@@ -32,7 +32,7 @@ export function Header() {
                       <nav className="flex flex-col gap-4">
                           {navItems.map((item) => (
                             <Link
-                              key={item.href}
+                              key={item.label}
                               href={item.href}
                               className='text-lg font-medium text-foreground/80 hover:text-foreground'
                             >
@@ -42,7 +42,7 @@ export function Header() {
                       </nav>
                   </div>
               </SheetContent>
-          </Sheet>>
+          </Sheet>
         </div>
         
         <div className="mr-4 hidden md:flex">
@@ -55,7 +55,7 @@ export function Header() {
           <nav className="flex items-center gap-6 text-sm">
             {navItems.map((item) => (
               <Link
-                key={item.href}
+                key={item.label}
                 href={item.href}
                 className={cn(
                   'transition-colors hover:text-foreground/80 text-foreground/60'
