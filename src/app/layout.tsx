@@ -36,14 +36,15 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
   params,
 }: {
   children: React.ReactNode;
-  params: { locale?: string };
+  params: Promise<{ locale?: string }>;
 }) {
-  const locale = params?.locale || 'en';
+  const resolvedParams = await params;
+  const locale = resolvedParams?.locale || 'en';
   const direction = isRTL(locale) ? 'rtl' : 'ltr';
 
   return (

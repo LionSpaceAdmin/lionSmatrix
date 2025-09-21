@@ -23,6 +23,8 @@ pnpm build
 echo "✅ Running smoke tests..."
 echo "Node.js version: $(node -v)"
 echo "pnpm version: $(pnpm -v)"
+echo "Linting code..."
+pnpm lint || { echo "⚠️  Linting failed but continuing..."; }
 echo "TypeScript check..."
 pnpm typecheck
 
