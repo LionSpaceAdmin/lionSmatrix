@@ -7,7 +7,7 @@ export function Hero() {
   const heroImage = PlaceHolderImages.find(p => p.id === 'hero-network');
 
   return (
-    <section className="relative w-full h-[70vh] min-h-[500px] flex items-center justify-center">
+    <section className="relative w-full h-[550px] flex items-center justify-center">
       {heroImage && (
         <Image
           src={heroImage.imageUrl}
