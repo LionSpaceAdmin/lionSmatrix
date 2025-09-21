@@ -7,19 +7,21 @@ export function Hero() {
   const heroImage = PlaceHolderImages.find(p => p.id === 'hero-network');
 
   return (
-    <section className="relative w-full h-[550px] flex items-center justify-center">
-      {heroImage && (
-        <Image
-          src={heroImage.imageUrl}
-          alt={heroImage.description}
-          fill
-          className="object-cover object-center opacity-20"
-          data-ai-hint={heroImage.imageHint}
-          priority
-        />
-      )}
-      <div className="absolute inset-0 bg-gradient-to-t from-background via-background/80 to-transparent"></div>
-      <div className="relative z-10 container px-4 md:px-6 text-center">
+    <section className="relative w-full h-[550px]">
+      <div className="absolute inset-0">
+        {heroImage && (
+          <Image
+            src={heroImage.imageUrl}
+            alt={heroImage.description}
+            fill
+            className="object-cover object-center opacity-20"
+            data-ai-hint={heroImage.imageHint}
+            priority
+          />
+        )}
+        <div className="absolute inset-0 bg-gradient-to-t from-background via-background/80 to-transparent"></div>
+      </div>
+      <div className="relative z-10 container h-full flex flex-col items-center justify-center text-center px-4 md:px-6">
         <div className="max-w-3xl mx-auto">
           <h1 className="text-4xl font-headline font-bold tracking-tighter sm:text-5xl md:text-6xl lg:text-7xl">
             Countering Disinformation, Together.
