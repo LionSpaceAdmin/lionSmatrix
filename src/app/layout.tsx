@@ -1,11 +1,9 @@
-'use client';
 import type { Metadata } from 'next';
 import { Space_Mono } from 'next/font/google';
 import { Providers } from './providers';
 import './globals.css';
 import { isRTL } from '@/lib/i18n';
 import Link from 'next/link';
-import { useParams } from 'next/navigation';
 
 const spaceMono = Space_Mono({ subsets: ['latin'], weight: ['400', '700'] });
 
@@ -40,11 +38,12 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
+  params,
 }: {
   children: React.ReactNode;
+  params: { locale?: string };
 }) {
-  const params = useParams();
-  const locale = typeof params.locale === 'string' ? params.locale : 'en';
+  const locale = params?.locale || 'en';
   const direction = isRTL(locale) ? 'rtl' : 'ltr';
 
   return (

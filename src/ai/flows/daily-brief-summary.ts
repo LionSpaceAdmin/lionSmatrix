@@ -9,7 +9,7 @@
  */
 
 import {ai} from '@/ai/genkit';
-import {z} from 'genkit';
+import {z} from 'zod';
 
 const GenerateDailyBriefInputSchema = z.object({
   narratives: z.array(z.string()).describe('A list of top narratives.'),
