@@ -9,19 +9,19 @@ import { ProvenanceBadge } from './provenance-badge';
 
 const severityConfig = {
     Critical: {
-        className: 'bg-red-900/50 text-red-300 border-red-500/30',
+        className: 'border-red-500/30 text-red-300',
         icon: ShieldAlert,
     },
     High: {
-        className: 'bg-orange-900/50 text-orange-300 border-orange-500/30',
+        className: 'border-orange-500/30 text-orange-300',
         icon: ShieldAlert,
     },
     Medium: {
-        className: 'bg-yellow-900/50 text-yellow-300 border-yellow-500/30',
+        className: 'border-yellow-500/30 text-yellow-300',
         icon: BarChart
     },
     Low: {
-        className: 'bg-green-900/50 text-green-300 border-green-500/30',
+        className: 'border-green-500/30 text-green-300',
         icon: BarChart
     },
 };
