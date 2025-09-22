@@ -5,15 +5,20 @@
   "type": "module",
   "scripts": {
     "dev": "next dev",
+    "dev:open": "concurrently \"next dev\" \"wait-port 3000 && open-cli http://localhost:3000\"",
+    "dev:browser": "node scripts/dev-with-browser.cjs",
+    "dev:auto": "node scripts/dev-with-browser.cjs",
     "genkit:dev": "genkit start -- tsx src/ai/dev.ts",
     "genkit:watch": "genkit start -- tsx --watch src/ai/dev.ts",
     "build": "next build",
     "start": "next start",
+    "start:open": "concurrently \"next start\" \"wait-port 3000 && open-cli http://localhost:3000\"",
     "lint": "eslint --fix .",
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
     "test:e2e": "playwright test",
     "storybook": "storybook dev -p 6006",
+    "storybook:open": "concurrently \"storybook dev -p 6006\" \"wait-port 6006 && open-cli http://localhost:6006\"",
     "build-storybook": "storybook build"
   },
   "dependencies": {
@@ -90,16 +95,19 @@
     "@typescript-eslint/parser": "^8.44.0",
     "@vitejs/plugin-react": "^5.0.3",
     "axe-core": "^4.10.3",
+    "concurrently": "^9.2.1",
     "eslint": "^9.36.0",
     "eslint-config-next": "15.5.3",
     "genkit-cli": "^1.19.3",
     "globals": "^16.4.0",
     "jsdom": "^27.0.0",
+    "open-cli": "^8.0.0",
     "postcss": "^8.5.6",
     "storybook": "^8.6.14",
     "tailwindcss": "^4.1.13",
     "typescript": "^5.9.2",
-    "vitest": "^3.2.4"
+    "vitest": "^3.2.4",
+    "wait-port": "^1.1.0"
   },
   "packageManager": "pnpm@10.17.0+sha512.fce8a3dd29a4ed2ec566fb53efbb04d8c44a0f05bc6f24a73046910fb9c3ce7afa35a0980500668fa3573345bd644644fa98338fa168235c80f4aa17aa17fbef"
 }
