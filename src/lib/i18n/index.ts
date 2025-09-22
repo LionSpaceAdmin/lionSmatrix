@@ -26,9 +26,15 @@ export function getLocaleFromRequest(request: NextRequest): string {
   return defaultLocale;
 }
 
-// Stub for translation function
+import { translations } from './translations';
+
+// Translation function
 export function t(key: string, locale: string): string {
-  // This is a stub. In a real implementation, it would load translations from JSON files.
+  const lang = locale as keyof typeof translations;
+  if (translations[lang] && translations[lang][key as keyof typeof translations[typeof lang]]) {
+    return translations[lang][key as keyof typeof translations[typeof lang]];
+  }
+
   console.warn(`[i18n] Missing translation for key: ${key} in locale: ${locale}`);
   return key; // Return the key itself as a fallback
 }
