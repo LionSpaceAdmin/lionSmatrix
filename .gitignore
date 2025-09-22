@@ -48,3 +48,5 @@ firestore-debug.log
 /playwright-report/
 /test-results/
 dev.log
+*storybook.log
+storybook-static

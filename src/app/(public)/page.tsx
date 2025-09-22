@@ -1,7 +1,8 @@
-import { NarrativeCard } from '@/components/ui/narrative-card';
-import { ActionGrid } from '@/components/ui/action-grid';
-import { ProvenanceBadge } from '@/components/ui/provenance-badge';
+import { NarrativeCard } from '@/components/shared/narrative-card';
+import { ActionGrid } from '@/components/shared/action-grid';
+import { ProvenanceBadge } from '@/components/shared/provenance-badge';
 import content from './_content/landing.copy.json';
+import { narratives } from '@/lib/data';
 
 export default function LandingPage() {
   return (
@@ -11,26 +12,15 @@ export default function LandingPage() {
         <p>{content.hero.subtitle}</p>
         <button>{content.hero.cta_primary}</button>
         <button>{content.hero.cta_secondary}</button>
-        <ProvenanceBadge />
+        <ProvenanceBadge verdict="Unverified" />
       </section>
-      <section className="narratives">
-        <NarrativeCard>
-            <p>Narrative 1</p>
-        </NarrativeCard>
-        <NarrativeCard>
-            <p>Narrative 2</p>
-        </NarrativeCard>
-        <NarrativeCard>
-            <p>Narrative 3</p>
-        </NarrativeCard>
+      <section className="narratives grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        {narratives.slice(0, 3).map((narrative) => (
+          <NarrativeCard key={narrative.id} narrative={narrative} />
+        ))}
       </section>
       <section className="actions">
-        <ActionGrid>
-            <p>Action 1</p>
-            <p>Action 2</p>
-            <p>Action 3</p>
-            <p>Action 4</p>
-        </ActionGrid>
+        <ActionGrid />
       </section>
     </main>
   );

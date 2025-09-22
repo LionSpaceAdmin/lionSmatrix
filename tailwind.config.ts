@@ -22,11 +22,11 @@ const config = {
     },
     extend: {
       colors: {
-        "terminal-green": "#00ff88",
-        "terminal-cyan": "#00ffff",
+        "terminal-green": "hsl(var(--terminal-text))",
+        "terminal-cyan": "hsl(var(--terminal-cyan))",
         // Intelligence context colors (placeholders)
-        threat: "#ff0000",
-        warning: "#ffff00",
+        threat: "hsl(var(--terminal-red))",
+        warning: "hsl(var(--terminal-gold))",
         secure: "#00ff00",
         unknown: "#808080",
         classified: "#ff00ff",
@@ -75,14 +75,14 @@ const config = {
         "matrix-rain": "matrix-rain 10s infinite linear",
       },
       boxShadow: {
-        terminal: "0 0 5px #00ff88, 0 0 10px #00ff88, 0 0 15px #00ff88",
-        cyber: "0 0 5px #00ffff, 0 0 10px #00ffff, 0 0 15px #00ffff",
-        threat: "0 0 5px #ff0000, 0 0 10px #ff0000, 0 0 15px #ff0000",
+        terminal: "0 0 5px hsl(var(--terminal-text)), 0 0 10px hsl(var(--terminal-text)), 0 0 15px hsl(var(--terminal-text))",
+        cyber: "0 0 5px hsl(var(--terminal-cyan)), 0 0 10px hsl(var(--terminal-cyan)), 0 0 15px hsl(var(--terminal-cyan))",
+        threat: "0 0 5px hsl(var(--terminal-red)), 0 0 10px hsl(var(--terminal-red)), 0 0 15px hsl(var(--terminal-red))",
       },
       dropShadow: {
-        terminal: "0 0 5px #00ff88",
-        cyber: "0 0 5px #00ffff",
-        threat: "0 0 5px #ff0000",
+        terminal: "0 0 5px hsl(var(--terminal-text))",
+        cyber: "0 0 5px hsl(var(--terminal-cyan))",
+        threat: "0 0 5px hsl(var(--terminal-red))",
       },
     },
   },
