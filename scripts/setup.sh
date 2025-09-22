@@ -1,18 +1,18 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-echo "🚀 Starting project setup..."
+echo "🚀 Starting project setup for Jules environment..."
 
-# Check Node.js version
-echo "📋 Checking Node.js version..."
-node -v || { echo "❌ Node.js not found"; exit 1; }
+# Environment check
+echo "📋 Environment verification..."
+echo "Node.js: $(node -v)"
+echo "npm: $(npm -v)" 
+echo "pnpm: $(pnpm -v)"
+echo "Git: $(git --version)"
+echo "OS: $(cat /etc/os-release | grep PRETTY_NAME | cut -d'"' -f2)"
 
-# Check pnpm version
-echo "📋 Checking pnpm version..."
-pnpm -v || { echo "❌ pnpm not found"; exit 1; }
-
-# Install dependencies with frozen lockfile
-echo "📦 Installing dependencies..."
+# Install dependencies with frozen lockfile (recommended for CI/Jules)
+echo "📦 Installing dependencies with frozen lockfile..."
 pnpm install --frozen-lockfile
 
 # Build the project
