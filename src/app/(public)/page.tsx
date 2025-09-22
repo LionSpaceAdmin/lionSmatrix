@@ -1,37 +1,34 @@
-import { NarrativeCard } from '@/components/ui/narrative-card';
-import { ActionGrid } from '@/components/ui/action-grid';
-import { ProvenanceBadge } from '@/components/ui/provenance-badge';
-import content from './_content/landing.copy.json';
+"use client";
+
+import { useState } from 'react';
+import AiTerminal from '@/components/shared/ai-terminal';
+import DossierModal from '@/components/shared/dossier-modal';
+import HeroSection from '@/components/shared/hero-section';
+import { osintData, OsintActor } from '@/lib/data';
 
 export default function LandingPage() {
+  const [isDossierOpen, setIsDossierOpen] = useState(false);
+  const [selectedActor, setSelectedActor] = useState<OsintActor | null>(null);
+
+  const handleOpenDossier = (actorName: string) => {
+    const actor = osintData.find(a => a.Name === actorName);
+    setSelectedActor(actor || null);
+    setIsDossierOpen(true);
+  };
+
+  const handleCloseDossier = () => {
+    setIsDossierOpen(false);
+  };
+
   return (
-    <main>
-      <section className="hero">
-        <h1>{content.hero.title}</h1>
-        <p>{content.hero.subtitle}</p>
-        <button>{content.hero.cta_primary}</button>
-        <button>{content.hero.cta_secondary}</button>
-        <ProvenanceBadge />
-      </section>
-      <section className="narratives">
-        <NarrativeCard>
-            <p>Narrative 1</p>
-        </NarrativeCard>
-        <NarrativeCard>
-            <p>Narrative 2</p>
-        </NarrativeCard>
-        <NarrativeCard>
-            <p>Narrative 3</p>
-        </NarrativeCard>
-      </section>
-      <section className="actions">
-        <ActionGrid>
-            <p>Action 1</p>
-            <p>Action 2</p>
-            <p>Action 3</p>
-            <p>Action 4</p>
-        </ActionGrid>
-      </section>
-    </main>
+    <>
+      <HeroSection />
+      <AiTerminal onOpenDossier={handleOpenDossier} />
+      <DossierModal
+        isOpen={isDossierOpen}
+        onClose={handleCloseDossier}
+        actor={selectedActor}
+      />
+    </>
   );
 }

@@ -3,32 +3,175 @@
 @tailwind utilities;
 
 @layer base {
-  :root {
-    /* Primitive Tokens */
-    --terminal-bg: 220 10% 5%; /* Dark background */
-    --terminal-secondary: 215 15% 15%;
-    --terminal-cyan: 180 100% 50%;
-    --terminal-gold: 40 100% 50%;
-    --terminal-red: 0 100% 50%;
-    --terminal-text: 120 100% 70%; /* Green text */
-    --terminal-muted: 120 10% 40%;
-    --terminal-border: 120 100% 40%;
-
-    /* Semantic Tokens */
-    --color-surface-base: var(--terminal-bg);
-    --color-surface-alt: var(--terminal-secondary);
-    --color-border-default: var(--terminal-border);
-    --color-text-primary: var(--terminal-text);
-    --color-text-muted: var(--terminal-muted);
-    --color-accent-primary: var(--terminal-cyan);
-    --color-accent-warn: var(--terminal-gold);
-    --color-accent-error: var(--terminal-red);
-    --color-focus-ring: var(--terminal-cyan);
+  html {
+      scroll-behavior: smooth;
   }
-
   body {
-    background-color: hsl(var(--terminal-bg));
-    color: hsl(var(--terminal-text));
-    font-family: "Space Mono", monospace;
+      background-color: #0B1220;
+      overflow-x: hidden;
+  }
+  .font-headline {
+      font-family: var(--font-space-mono), monospace;
+  }
+  .font-body {
+      font-family: var(--font-source-sans-3), sans-serif;
+  }
+  #code-veil {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+  }
+  .content-wrapper {
+      position: relative;
+      z-index: 1;
+  }
+  .typewriter-cursor::after {
+      content: '█';
+      animation: blink 1.2s step-end infinite;
+      text-shadow: 0 0 5px #B8FFF2;
+      color: #B8FFF2;
+  }
+  @keyframes blink {
+      50% {
+          opacity: 0;
+      }
+  }
+  .cta-button, .gemini-button {
+      transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+      font-family: var(--font-space-mono), monospace;
+  }
+  .cta-button:hover, .gemini-button:hover {
+      background-color: #B8FFF2;
+      color: #0B1220;
+      transform: translateY(-3px);
+      box-shadow: 0 10px 20px rgba(184, 255, 242, 0.2);
+  }
+  .cta-button:focus, .gemini-button:focus {
+      outline: 2px solid #B8FFF2;
+      outline-offset: 3px;
+  }
+  .gemini-button {
+      background-color: rgba(184, 255, 242, 0.1);
+      border: 1px solid rgba(184, 255, 242, 0.5);
+  }
+   .gemini-button:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      transform: translateY(0);
+      box-shadow: none;
+  }
+  .ai-terminal {
+      border: 1px solid rgba(184, 255, 242, 0.2);
+      background: rgba(11, 18, 32, 0.7);
+      backdrop-filter: blur(10px);
+  }
+  .ai-result h2, #chat-history h2, #dossier-content h2, .network-insights h2 {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: #B8FFF2;
+      margin-top: 1rem;
+      margin-bottom: 0.5rem;
+      font-family: var(--font-space-mono), monospace;
+  }
+  #dossier-content h3, .campaign-plan h3, .network-insights h3 {
+       font-size: 1.1rem;
+      font-weight: 700;
+      color: #a7e6ff;
+      margin-top: 1.5rem;
+      margin-bottom: 0.5rem;
+      font-family: var(--font-space-mono), monospace;
+  }
+   .ai-result p, .ai-result li, #chat-history p, #dossier-content p, .campaign-plan p, .campaign-plan li, .network-insights p, .network-insights li {
+      margin-bottom: 1rem;
+      line-height: 1.6;
+  }
+  .ai-result ul, #dossier-content ul, .campaign-plan ul, .network-insights ul {
+      list-style: none;
+      padding-left: 0;
+  }
+  .ai-result li::before, #dossier-content li::before, .campaign-plan li::before, .network-insights li::before {
+      content: '›';
+      color: #B8FFF2;
+      margin-right: 0.5rem;
+      font-weight: bold;
+  }
+  .campaign-plan blockquote {
+      border-right: 3px solid #B8FFF2;
+      padding-right: 1rem;
+      margin-right: 0;
+      font-style: italic;
+      color: #e2e8f0;
+  }
+  .tab {
+      transition: all 0.2s ease-in-out;
+      font-family: var(--font-space-mono), monospace;
+  }
+  .tab.active {
+      background-color: rgba(184, 255, 242, 0.2);
+      border-bottom-color: #B8FFF2;
+      color: #B8FFF2;
+  }
+  .tab-content {
+      display: none;
+  }
+  .tab-content.active {
+      display: block;
+  }
+  .chat-bubble {
+      padding: 0.75rem 1rem;
+      border-radius: 0.75rem;
+      max-width: 80%;
+      margin-bottom: 0.5rem;
+  }
+  .chat-bubble.user {
+      background-color: rgba(184, 255, 242, 0.2);
+      align-self: flex-end;
+      text-align: right;
+  }
+  .chat-bubble.model {
+      background-color: #1E293B;
+      align-self: flex-start;
+  }
+  #osint-table th {
+      cursor: pointer;
+      font-family: var(--font-space-mono), monospace;
+  }
+  #dossier-modal {
+      background: rgba(11, 18, 32, 0.9);
+      backdrop-filter: blur(15px);
+  }
+  .chart-container {
+      position: relative;
+      width: 100%;
+      height: 400px;
+  }
+  #audio-upload-label {
+       background-color: rgba(184, 255, 242, 0.1);
+      border: 1px solid rgba(184, 255, 242, 0.5);
+  }
+  #audio-upload-label:hover {
+      background-color: #B8FFF2;
+      color: #0B1220;
+  }
+  .kpi-card {
+      background-color: rgba(184, 255, 242, 0.05);
+      border: 1px solid rgba(184, 255, 242, 0.2);
+      border-radius: 0.5rem;
+      padding: 1.5rem;
+      text-align: center;
+  }
+  .kpi-value {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: #B8FFF2;
+      font-family: var(--font-space-mono), monospace;
+  }
+  .kpi-label {
+      font-size: 1rem;
+      color: #cbd5e1;
+      font-family: var(--font-source-sans-3), sans-serif;
   }
 }

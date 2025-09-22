@@ -96,3 +96,23 @@ export const dailyBriefData = {
   narratives: narratives.slice(0, 5).map(n => n.title),
   actions: actions.map(a => `${a.title}: ${a.description}`),
 };
+
+export type OsintActor = {
+  Name: string;
+  Platform: string;
+  Audience: number;
+  Narrative: string;
+  Affiliation: string;
+};
+
+export const osintData: OsintActor[] = [
+    { "Name": "Jackson Hinkle", "Platform": "X / Rumble", "Audience": 3400000, "Narrative": "Pro-Iran/Russia", "Affiliation": "Grayzone orbit; RT" },
+    { "Name": "Sulaiman Ahmed", "Platform": "X / Telegram", "Audience": 722000, "Narrative": "Anti-Israel", "Affiliation": "PressTV/RT Arabic" },
+    { "Name": "Khalissee", "Platform": "X", "Audience": 376000, "Narrative": "Anti-US/West", "Affiliation": "Pro-Pal networks" },
+    { "Name": "Motaz Azaiza", "Platform": "X / IG", "Audience": 18500000, "Narrative": "Gaza-centric visual", "Affiliation": "Broad pro-Pal ecosystem" },
+    { "Name": "Mohamad Safa", "Platform": "X", "Audience": 1300000, "Narrative": "Pro-Lebanon/anti-Israel", "Affiliation": "Lebanon-aligned media" },
+    { "Name": "Anastasia Maria Loupis", "Platform": "X", "Audience": 950000, "Narrative": "Anti-West/anti-vax", "Affiliation": "Disinfo influencer cluster" },
+    { "Name": "Quds News Network", "Platform": "X / Telegram", "Audience": 2100000, "Narrative": "Hamas-aligned news", "Affiliation": "Amplification accelerator" },
+    { "Name": "The Grayzone", "Platform": "Web / X", "Audience": 800000, "Narrative": "Pro-Russia/Iran/Assad", "Affiliation": "Core Hub" },
+    { "Name": "MintPress News", "Platform": "Web / X", "Audience": 750000, "Narrative": "Pro-Russia; anti-Israel", "Affiliation": "Core Hub" }
+];
