@@ -27,5 +27,7 @@ echo "Linting code..."
 pnpm lint || { echo "⚠️  Linting failed but continuing..."; }
 echo "TypeScript check..."
 pnpm typecheck
+echo "Running tests..."
+pnpm test
 
 echo "🎉 Setup completed successfully!"
