@@ -3,7 +3,8 @@ import { Space_Mono } from 'next/font/google';
 import { Providers } from './providers';
 import './globals.css';
 import { isRTL } from '@/lib/i18n';
-import Link from 'next/link';
+import { Header } from '@/components/layout/header';
+import { Footer } from '@/components/layout/footer';
 
 const spaceMono = Space_Mono({ subsets: ['latin'], weight: ['400', '700'] });
 
@@ -55,23 +56,11 @@ export default async function RootLayout({
       </head>
       <body className={`${spaceMono.className} dark`}>
         <Providers locale={locale}>
-          <header className="p-4 border-b border-terminal-border">
-            {/* Basic Header Content */}
-            <nav>
-              <Link href="/" className="text-terminal-green text-xl font-bold">Zion&apos;s Shield</Link>
-            </nav>
-          </header>
+          <Header />
           <main id="main-content" className="flex-grow">
             {children}
           </main>
-          <footer className="p-4 border-t border-terminal-border text-center text-terminal-muted text-sm">
-            {/* Basic Footer Content */}
-            <p>&copy; {new Date().getFullYear()} Zion&apos;s Shield. All rights reserved.</p>
-            <nav className="mt-2">
-              <Link href="/legal/privacy" className="text-terminal-cyan hover:underline mx-2">Privacy Policy</Link>
-              <Link href="/legal/terms" className="text-terminal-cyan hover:underline mx-2">Terms of Service</Link>
-            </nav>
-          </footer>
+          <Footer />
         </Providers>
       </body>
     </html>
