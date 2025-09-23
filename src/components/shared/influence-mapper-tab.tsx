@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef } from 'react';
 import { callGeminiWithBackoff } from '@/lib/api';
-import { Chart } from 'chart.js';
+import { Chart } from 'chart.js/auto';
 
 export default function InfluenceMapperTab() {
   const [target, setTarget] = useState('');
