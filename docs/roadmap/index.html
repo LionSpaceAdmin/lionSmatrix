@@ -1,0 +1,789 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>מפת דרכים – דיאגרמות זורמות (Cytoscape.js)</title>
+    <style>
+      :root {
+        --bg: #0f1115;
+        --panel: #12151c;
+        --panel-2: #0d1016;
+        --muted: #8a93a5;
+        --text: #e6eaf2;
+        --accent: #53a3ff;
+        --warn: #f1c40f;
+        --grid-1: rgba(255,255,255,0.05);
+        --grid-2: rgba(255,255,255,0.03);
+        --ok: #27ae60;
+        --danger: #e74c3c;
+      }
+      * { box-sizing: border-box; }
+      html, body { height: 100%; }
+      body { margin: 0; font-family: system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,"Noto Sans Hebrew","Apple Color Emoji","Segoe UI Emoji"; background: var(--bg); color: var(--text); overflow: hidden; }
+      [dir="rtl"] { direction: rtl; }
+
+      /* סרגל עליון */
+      .toolbar { height: 52px; display: flex; align-items: center; gap: 10px; padding: 0 12px; background: linear-gradient(180deg,#151924,#0f131c); border-bottom: 1px solid rgba(255,255,255,0.06); z-index:5; user-select:none; }
+      .title { font-weight: 700; color: #dde6ff; margin-inline: 8px 12px; white-space: nowrap; }
+      .spacer { flex: 1; }
+      .icon-btn { width: 34px; height: 34px; border-radius: 8px; display: inline-flex; align-items:center; justify-content:center; font-size: 18px; background: #1a2030; border: 1px solid rgba(255,255,255,0.08); color: var(--text); }
+      .btn, .select, .range { background: #1a2030; color: var(--text); border: 1px solid rgba(255,255,255,0.12); border-radius: 8px; padding: 6px 10px; font-size: 13px; height: 32px; display: inline-flex; align-items:center; gap: 6px; }
+      .btn:hover,.select:hover { border-color: rgba(255,255,255,0.18); }
+      .btn:active { transform: translateY(1px); }
+      label { font-size: 12px; color: var(--muted); margin-inline-start: 6px; }
+      select.select, input[type=range].range { height: 32px; }
+      input[type=range].range { width: 150px; accent-color: var(--accent); }
+      .seg { display: inline-flex; align-items: center; gap: 6px; }
+
+      /* פריסה כללית */
+      .layout { display: grid; grid-template-columns: 300px 1fr 360px; grid-template-rows: 1fr; height: calc(100% - 52px); }
+      .panel { background: var(--panel); border-inline-end: 1px solid rgba(255,255,255,0.06); display:flex; flex-direction:column; overflow:auto; }
+      .panel.right { border-inline-end: none; border-inline-start: 1px solid rgba(255,255,255,0.06); }
+      .panel-header { padding: 10px 12px; background: var(--panel-2); border-bottom: 1px solid rgba(255,255,255,0.06); font-weight: 700; color: #d7deed; display:flex; align-items:center; justify-content:space-between; }
+      .panel-body { padding: 10px; }
+
+      /* קנבס + רשת רקע */
+      .graph-wrap { position: relative; background-image: linear-gradient(var(--grid-1) 1px, transparent 1px), linear-gradient(90deg, var(--grid-1) 1px, transparent 1px), linear-gradient(var(--grid-2) 1px, transparent 1px), linear-gradient(90deg, var(--grid-2) 1px, transparent 1px); background-size: 40px 40px, 40px 40px, 8px 8px, 8px 8px; }
+      #cy { position: absolute; inset: 0; }
+      #pyramid-overlay { position: absolute; inset: 0; pointer-events: none; z-index:2; display: none; }
+      #pyramid-overlay svg { width: 100%; height: 100%; }
+      #pyramid-overlay polygon { fill: rgba(241,196,15,0.06); stroke: rgba(241,196,15,0.9); stroke-width: 2; stroke-dasharray: 8 6; }
+
+      /* מתווה */
+      .outline-info { color: var(--muted); font-size: 12px; margin-bottom: 8px; }
+      .group-item { margin: 8px 0 6px; display:flex; align-items:center; gap:6px; }
+      .group-toggle { width: 24px; height: 24px; border-radius: 6px; border: 1px solid rgba(255,255,255,0.1); background:#1a2030; color:#e6eaf2; display:flex; align-items:center; justify-content:center; cursor:pointer; }
+      .group-title { font-weight: 700; color:#e9f0ff; font-size: 13px; cursor:pointer; }
+      .outline-list { list-style: none; padding: 0 8px 0 0; margin: 0; }
+      .outline-list li { padding: 6px 8px; border-radius: 6px; cursor: pointer; color: #dbe3f7; font-size: 13px; }
+      .outline-list li:hover { background: rgba(255,255,255,0.06); }
+
+      /* Tooltip */
+      #tooltip { position: absolute; pointer-events: none; z-index: 10; padding: 8px 10px; border-radius: 8px; background: rgba(7,10,15,0.96); border: 1px solid rgba(255,255,255,0.12); color: #e8eefc; font-size: 12px; box-shadow: 0 10px 24px rgba(0,0,0,0.5); display: none; max-width: 320px; text-align: right; direction: rtl; }
+      #tooltip .tag { display: inline-block; margin-top: 6px; padding: 2px 6px; border-radius: 999px; font-size: 11px; color: #111; background: #f5dc82; }
+
+      /* עורך צף */
+      #editor { position: absolute; z-index: 15; background:#0a0f17; border:1px solid rgba(255,255,255,0.16); border-radius:10px; box-shadow:0 10px 30px rgba(0,0,0,0.55); padding:10px; width: 320px; display:none; }
+      #editor h4 { margin: 0 0 6px 0; font-size: 13px; color:#d7deed; }
+      #editor label { display:block; font-size:12px; color:#9fb0cc; margin:6px 0 4px; }
+      #editor input[type=text], #editor textarea { width:100%; background:#121929; color:#eaf0ff; border:1px solid rgba(255,255,255,0.14); border-radius:8px; padding:6px 8px; font-size:13px; direction: rtl; text-align: right; }
+      #editor textarea { min-height: 70px; resize: vertical; }
+      #editor .row { display:flex; gap:8px; margin-top:8px; justify-content:flex-start; }
+      #editor .row .btn { height: 30px; }
+
+      /* RTL */
+      .rtl { direction: rtl; text-align: right; }
+
+      @media (max-width: 1100px) {
+        .layout { grid-template-columns: 0 1fr 0; }
+        .panel { display:none; }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="toolbar">
+      <button id="toggleLeft" class="icon-btn" title="פתח/סגור מתווה">☰</button>
+      <div class="title">מפת דרכים</div>
+
+      <div class="seg">
+        <label for="layoutSelect">פריסה</label>
+        <select id="layoutSelect" class="select">
+          <option value="free">חופשי</option>
+          <option value="pyramid">פירמידה</option>
+          <option value="paths">שבילים</option>
+          <option value="flowrise">עלייה־זורמת</option>
+        </select>
+      </div>
+
+      <div class="seg">
+        <label>זרימה חיה</label>
+        <button id="play" class="btn">הפעלה</button>
+        <button id="pause" class="btn">השהיה</button>
+        <button id="step" class="btn">צעד</button>
+      </div>
+
+      <div class="seg">
+        <label for="headSelect">נקודת התחלה</label>
+        <select id="headSelect" class="select"></select>
+      </div>
+
+      <div class="seg">
+        <label for="speedRange">מהירות</label>
+        <input id="speedRange" class="range" type="range" min="0" max="100" value="45"/>
+      </div>
+
+      <div class="spacer"></div>
+
+      <div class="seg">
+        <button id="seedBtn" class="btn" title="פריסה אקראית לפי זרע קבוע">זרע</button>
+        <button id="fitBtn" class="btn">התאם</button>
+        <button id="resetBtn" class="btn">איפוס</button>
+        <button id="exportBtn" class="btn">יצוא</button>
+        <button id="importBtn" class="btn">יבוא</button>
+        <input id="importInput" type="file" accept="application/json" style="display:none"/>
+      </div>
+
+      <button id="toggleRight" class="icon-btn" title="מידע">ℹ</button>
+    </div>
+
+    <div class="layout">
+      <!-- מתווה -->
+      <aside id="leftPanel" class="panel">
+        <div class="panel-header">מתווה</div>
+        <div class="panel-body">
+          <div class="outline-info">לחיצה על קבוצה/פריט תמקד את התצוגה. לחיצה על החץ תכווץ/תפרוס קבוצה. לחיצה כפולה תאפשר עריכה.</div>
+          <div id="outline" class="rtl"></div>
+        </div>
+      </aside>
+
+      <!-- מרכז -->
+      <main class="graph-wrap" id="graphWrap">
+        <div id="cy"></div>
+        <div id="pyramid-overlay"><svg><polygon points=""/></svg></div>
+        <div id="tooltip" class="rtl"></div>
+        <div id="editor" class="rtl">
+          <h4 id="editorTitle">עריכה</h4>
+          <label for="editName">כותרת</label>
+          <input id="editName" type="text" />
+          <label for="editDesc">תיאור</label>
+          <textarea id="editDesc"></textarea>
+          <div class="row">
+            <button id="editorSave" class="btn" style="background:#15321f;border-color:#275c3d">שמירה</button>
+            <button id="editorCancel" class="btn">ביטול</button>
+          </div>
+        </div>
+      </main>
+
+      <!-- מידע וצעדים -->
+      <aside id="rightPanel" class="panel right">
+        <div class="panel-header">מידע וצעדים</div>
+        <div class="panel-body" id="infoPanel" class="rtl">
+          <div id="infoIntro" class="rtl" style="color:#a8b3c7; font-size:13px; line-height:1.5; margin-bottom: 8px;">
+            הדיאגרמה בנויה מנתוני JSON משובצים בעברית. ניתן לערוך כותרות ותיאורים בלחיצה כפולה, לייצא/לייבא JSON, ולהחליף בין פריסות.
+          </div>
+          <div id="infoContent" class="rtl"></div>
+        </div>
+      </aside>
+    </div>
+
+      <!-- Cytoscape + dagre (לשבילים) -->
+      <script src="https://unpkg.com/cytoscape@3.29.2/dist/cytoscape.min.js"></script>
+      <script src="https://unpkg.com/dagre@0.8.5/dist/dagre.min.js"></script>
+      <script src="https://unpkg.com/cytoscape-dagre@2.5.0/cytoscape-dagre.js"></script>
+
+      <!-- מקור נתונים בעברית (JSON) -->
+    <script id="seed-json" type="application/json">{
+      "groups": [
+        {"id":"short","title":"קצר טווח (0–2 שבועות)","desc":"משימות מיידיות כדי לייצב את המערכת."},
+        {"id":"mid","title":"בינוני טווח (2–8 שבועות)","desc":"שיפורים עם ערך משמעותי לטווח בינוני."},
+        {"id":"long","title":"ארוך טווח (>8 שבועות)","desc":"תשתית ותיעוד להרחבה עתידית."}
+      ],
+      "nodes": [
+        {"id":"t1","group":"short","title":"אבטחת מפתח API והעברת קריאות לשרת","desc":"העברת קריאות לגוגל דרך \u2068API Routes\u2069 בשרת. המפתח נשמר בצד השרת בלבד (\u2068GEMINI_API_KEY\u2069)."},
+        {"id":"t2","group":"short","title":"ניהול מצב משותף","desc":"ביטול Prop Drilling והחלפתו בפתרון מצב גלובלי קליל (\u2068Context/Zustand\u2069)."},
+        {"id":"t3","group":"mid","title":"הגדלת כיסוי בדיקות ושיפור איכות","desc":"בדיקות יחידה/אינטגרציה, ייצוב בדיקות תנודתיות, בדיקות נגישות אוטומטיות (\u2068axe\u2069)."},
+        {"id":"t4","group":"long","title":"תיעוד מלא ב‑\u2068Storybook\u2069","desc":"Stories לכל רכיבי ה‑UI ותיעוד מצבי קצה לשימוש חוזר ומהיר."}
+      ],
+      "edges": [
+        {"source":"t1","target":"t2"},
+        {"source":"t2","target":"t3"},
+        {"source":"t3","target":"t4"}
+      ],
+      "positions": {}
+    }</script>
+
+    <script>
+      // רישום הרחבה לשבילים
+      if (typeof cytoscape !== 'undefined' && typeof cytoscapeDagre !== 'undefined') {
+        cytoscape.use(cytoscapeDagre);
+      }
+
+      // --- מצב גלובלי ---
+      let cy;
+      let currentLayout = 'free';
+      let headId = null;
+      let flowPlaying = false;
+      let flowOffset = 0;
+      let lastStepTime = 0;
+      let flowIdx = 0;
+      let bfsEdgesOrder = [];
+      let groupCollapsed = new Set();
+      let activeEdit = null; // {type:'node'|'group', id}
+
+      const dom = {
+        wrap: document.getElementById('graphWrap'),
+        cy: document.getElementById('cy'),
+        pyramid: document.getElementById('pyramid-overlay'),
+        pyramidPoly: document.querySelector('#pyramid-overlay polygon'),
+        tooltip: document.getElementById('tooltip'),
+        layoutSelect: document.getElementById('layoutSelect'),
+        headSelect: document.getElementById('headSelect'),
+        speedRange: document.getElementById('speedRange'),
+        importInput: document.getElementById('importInput'),
+        leftPanel: document.getElementById('leftPanel'),
+        rightPanel: document.getElementById('rightPanel'),
+        outline: document.getElementById('outline'),
+        editor: document.getElementById('editor'),
+        editName: document.getElementById('editName'),
+        editDesc: document.getElementById('editDesc'),
+        editorTitle: document.getElementById('editorTitle'),
+        editorSave: document.getElementById('editorSave'),
+        editorCancel: document.getElementById('editorCancel'),
+        infoContent: document.getElementById('infoContent')
+      };
+
+      // מקור JSON (המקור לשחזור מלא)
+      const SEED_SRC = JSON.parse(document.getElementById('seed-json').textContent);
+      let SEED = deepClone(SEED_SRC);
+
+      // זיהוי מקומי לשמירה ב‑localStorage
+      const LS_KEY = 'roadmap_state_v1';
+
+      // --- כלים ---
+      function deepClone(o){ return JSON.parse(JSON.stringify(o)); }
+      function escapeHtml(s){ return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;','\'':'&#39;'}[c])); }
+      function mulberry32(a){ return function(){ let t=a+=0x6D2B79F5; t=Math.imul(t^t>>>15,t|1); t^=t+Math.imul(t^t>>>7,t|61); return ((t^t>>>14)>>>0)/4294967296; } }
+      function speedConfig(){ const v = Number(dom.speedRange.value); const t = 200 + Math.round((100 - v) * 12); const dash = 0.5 + v / 20; return { animMs: t, dashSpeed: dash }; }
+      function stepIntervalMs(){ const v = Number(dom.speedRange.value); return 1600 - Math.round(v * 14.8); }
+
+      // קריאה/כתיבה ל‑localStorage
+      function loadState(){ try { return JSON.parse(localStorage.getItem(LS_KEY) || '{}'); } catch { return {}; } }
+      function saveState(state){ try { localStorage.setItem(LS_KEY, JSON.stringify(state)); } catch{} }
+      function mergeStateIntoSeed(){ const st = loadState(); if (!st) return; if (st.positions){ SEED.positions = SEED.positions || {}; Object.assign(SEED.positions, st.positions); } if (st.groups){ SEED.groups.forEach(g=>{ const ov=st.groups[g.id]; if (ov){ if (ov.title) g.title=ov.title; if (ov.desc) g.desc=ov.desc; if (ov.collapsed) groupCollapsed.add(g.id); }}); } if (st.nodes){ const byId=new Map(SEED.nodes.map(n=>[n.id,n])); Object.entries(st.nodes).forEach(([id,ov])=>{ const n=byId.get(id); if(n){ if(ov.title) n.title=ov.title; if(ov.desc) n.desc=ov.desc; }}); } }
+      function persistPosition(id, p){ const st = loadState(); st.positions = st.positions || {}; st.positions[id] = {x:p.x, y:p.y}; saveState(st); }
+      function persistNodeEdit(id, title, desc){ const st = loadState(); st.nodes = st.nodes || {}; st.nodes[id] = { title, desc }; saveState(st); }
+      function persistGroupEdit(id, title, desc){ const st = loadState(); st.groups = st.groups || {}; st.groups[id] = Object.assign(st.groups[id]||{}, { title, desc }); saveState(st); }
+      function persistGroupCollapse(id, collapsed){ const st = loadState(); st.groups = st.groups || {}; st.groups[id] = Object.assign(st.groups[id]||{}, { collapsed }); saveState(st); }
+
+      // הפקת אלמנטים ל‑Cytoscape כולל צמתי קבוצה (Compound)
+      function elementsFromSeed(seed){
+        const parents = seed.groups.map(g=>({ data:{ id: 'g_'+g.id, title: g.title, desc: g.desc, type: 'group', groupId: g.id } }));
+        const nodes = seed.nodes.map(n=>({ data:{ id:n.id, title:n.title, desc:n.desc||'', type:'task', group: n.group, parent: 'g_'+n.group }, position: seed.positions && seed.positions[n.id] ? seed.positions[n.id] : undefined }));
+        const edges = seed.edges.map((e,i)=>({ data:{ id:'e'+i, source:e.source, target:e.target }}));
+        return [...parents, ...nodes, ...edges];
+      }
+
+      function initCy(){
+        if (cy) cy.destroy();
+        cy = cytoscape({
+          container: dom.cy,
+          elements: elementsFromSeed(SEED),
+          wheelSensitivity: 0.2, minZoom: 0.2, maxZoom: 4, pixelRatio: 1,
+          style: [
+            { selector: 'node[type="group"]', style: {
+              'shape':'round-rectangle', 'background-color':'#0f1727', 'border-color':'#425178', 'border-width':2,
+              'label': ele => ele.data('title') || ele.id(), 'color':'#e9f0ff', 'font-size': 13,
+              'text-valign':'top', 'text-halign':'right', 'text-margin-x': '-6px',
+              'padding':'12px', 'text-wrap':'wrap', 'text-max-width': 260,
+            }},
+            { selector: '$node > node', style: { 'padding':'18px', 'background-opacity': 0.6 } },
+            { selector: 'node[type="task"]', style: {
+              'shape':'round-rectangle', 'background-color':'#101521', 'border-color':'#384561','border-width':2,
+              'label': ele => ele.data('title') || ele.id(), 'color':'#dfe8ff', 'font-size':12, 'text-wrap':'wrap', 'text-max-width': 160,
+              'text-valign':'center','text-halign':'right','text-margin-x': '-6px','width':'label','height':'label','padding':'10px','z-index':5
+            }},
+            { selector: 'node.active', style: { 'border-color':'#53a3ff', 'background-color':'#102134' }},
+            { selector: 'edge', style: {
+              'width':2, 'curve-style':'bezier', 'line-color':'#5d6a86','target-arrow-color':'#5d6a86','target-arrow-shape':'triangle','arrow-scale':0.8,
+              'line-style':'dashed','line-dash-pattern':[8,6], 'line-dash-offset':0,'opacity':0.9,'z-index':2
+            }},
+            { selector: 'edge.flowing', style: { 'line-color':'#00d5ff','target-arrow-color':'#00d5ff','width':3 }},
+            { selector: 'edge.visited', style: { 'line-color':'#7db8ff','target-arrow-color':'#7db8ff','line-style':'solid','width':2.5 }}
+          ],
+          layout: { name: 'preset', fit: true, animate: true, animationDuration: speedConfig().animMs },
+        });
+
+        // גרירה + שמירת מיקום
+        cy.on('dragfreeon', 'node[type="task"]', (evt)=>{
+          const n = evt.target; const p = n.position();
+          SEED.positions = SEED.positions || {}; SEED.positions[n.id()] = { x:p.x, y:p.y }; persistPosition(n.id(), p);
+        });
+
+        // Tooltip
+        cy.on('mouseover', 'node', (evt) => showTooltip(evt.target, evt.renderedPosition));
+        cy.on('mousemove', 'node', (evt) => moveTooltip(evt.renderedPosition));
+        cy.on('mouseout', 'node', hideTooltip);
+
+        // עריכה כפולה (ללא תוסף): נזהה הקשה כפולה ידנית
+        let lastTap = { id: null, time: 0 };
+        cy.on('tap', 'node', (evt) => {
+          const now = Date.now();
+          const id = evt.target.id();
+          if (lastTap.id === id && (now - lastTap.time) < 350) {
+            openEditorFor(evt.target);
+            lastTap = { id: null, time: 0 };
+          } else {
+            lastTap = { id, time: now };
+          }
+        });
+
+        // לחיצה להתמקדות
+        cy.on('tap', 'node', (evt) => focusNode(evt.target));
+
+        // עדכון מבני UI
+        updateOutline();
+        updateHeadSelect();
+        computeFlowOrder();
+        requestAnimationFrame(tickFlow);
+      }
+
+      // --- Tooltip ---
+      function showTooltip(node, renderedPos){
+        const title = node.data('title') || node.id();
+        const desc = node.data('desc') || '';
+        dom.tooltip.innerHTML = `<div>${escapeHtml(title)}</div>` + (desc?`<div class="tag">${escapeHtml(desc)}</div>`:'');
+        dom.tooltip.style.display = 'block';
+        moveTooltip(renderedPos);
+      }
+      function moveTooltip(renderedPos){ if(!renderedPos) return; const rect = dom.cy.getBoundingClientRect(); dom.tooltip.style.left = (renderedPos.x + rect.left + 14) + 'px'; dom.tooltip.style.top = (renderedPos.y + rect.top + 14) + 'px'; }
+      function hideTooltip(){ dom.tooltip.style.display='none'; }
+
+      // --- עורך ---
+      function openEditorFor(ele){
+        activeEdit = { type: ele.data('type')==='group' ? 'group' : 'node', id: ele.id(), ref: ele };
+        const pos = ele.renderedPosition(); const rect = dom.cy.getBoundingClientRect();
+        dom.editorTitle.textContent = activeEdit.type === 'group' ? 'עריכת קבוצה' : 'עריכת משימה';
+        dom.editName.value = ele.data('title') || '';
+        dom.editDesc.value = ele.data('desc') || '';
+        dom.editor.style.left = (rect.left + pos.x + 16) + 'px';
+        dom.editor.style.top = (rect.top + pos.y + 16) + 'px';
+        dom.editor.style.display = 'block';
+        dom.editName.focus();
+      }
+      function closeEditor(){ dom.editor.style.display='none'; activeEdit = null; }
+      dom.editorCancel.addEventListener('click', closeEditor);
+      dom.editorSave.addEventListener('click', ()=>{
+        if(!activeEdit) return; const name = dom.editName.value.trim(); const desc = dom.editDesc.value.trim();
+        if(activeEdit.type==='group'){
+          const gid = activeEdit.id.replace(/^g_/,'');
+          const g = SEED.groups.find(x=>x.id===gid); if(g){ g.title = name; g.desc = desc; persistGroupEdit(g.id, name, desc); }
+          activeEdit.ref.data('title', name); activeEdit.ref.data('desc', desc);
+          updateOutline();
+        } else {
+          const n = SEED.nodes.find(x=>x.id===activeEdit.id); if(n){ n.title=name; n.desc=desc; persistNodeEdit(n.id, name, desc); }
+          activeEdit.ref.data('title', name); activeEdit.ref.data('desc', desc);
+          updateOutline(); updateInfoPanel(activeEdit.ref);
+        }
+        closeEditor();
+      });
+
+      // --- Outline ---
+      function updateOutline(){
+        const container = dom.outline; container.innerHTML = '';
+        const groups = new Map(SEED.groups.map(g=>[g.id,g]));
+        // סדר קבוע של קבוצות
+        SEED.groups.forEach(g=>{
+          const header = document.createElement('div'); header.className='group-item';
+          const toggle = document.createElement('button'); toggle.className='group-toggle'; toggle.textContent = groupCollapsed.has(g.id) ? '▸' : '▾';
+          const title = document.createElement('div'); title.className='group-title'; title.textContent = g.title;
+          header.appendChild(toggle); header.appendChild(title);
+          container.appendChild(header);
+          toggle.addEventListener('click',()=>{ toggleGroup(g.id); updateOutline(); });
+          title.addEventListener('click',()=>focusGroup(g.id));
+          title.addEventListener('dblclick',()=>{ const node = cy.getElementById('g_'+g.id); openEditorFor(node); });
+
+          if (!groupCollapsed.has(g.id)){
+            const ul = document.createElement('ul'); ul.className='outline-list';
+            cy.nodes(`node[type='task'][[group = '${CSS.escape(g.id)}']]`).sort((a,b)=>a.id().localeCompare(b.id())).forEach(n=>{
+              const li = document.createElement('li'); li.textContent = n.data('title') || n.id();
+              li.title = `#${n.id()}`;
+              li.addEventListener('click',()=>focusNode(n));
+              li.addEventListener('dblclick',()=>openEditorFor(n));
+              ul.appendChild(li);
+            });
+            container.appendChild(ul);
+          }
+        });
+      }
+      function toggleGroup(groupId){
+        if (groupCollapsed.has(groupId)){
+          groupCollapsed.delete(groupId); persistGroupCollapse(groupId, false);
+          cy.nodes(`node[type='task'][[group = '${CSS.escape(groupId)}']]`).style('display','element');
+        } else {
+          groupCollapsed.add(groupId); persistGroupCollapse(groupId, true);
+          cy.nodes(`node[type='task'][[group = '${CSS.escape(groupId)}']]`).style('display','none');
+        }
+      }
+      function focusGroup(groupId){
+        const parent = cy.getElementById('g_'+groupId);
+        if(!parent) return;
+        cy.$('node').removeClass('active'); parent.addClass('active');
+        cy.animate({ fit: { eles: parent, padding: 80 } }, { duration: 240 });
+        updateInfoPanel(parent);
+      }
+
+      // --- בחירת ראש זרימה ---
+      function updateHeadSelect(){
+        dom.headSelect.innerHTML = '';
+        const indeg = new Map(); cy.nodes('node[type="task"]').forEach(n=>indeg.set(n.id(),0));
+        cy.edges().forEach(e=>indeg.set(e.target().id(), (indeg.get(e.target().id())||0)+1));
+        const roots = [...indeg.entries()].filter(([,v])=>v===0).map(([k])=>k);
+        const ids = cy.nodes('node[type="task"]').map(n=>n.id());
+        const list = roots.length ? roots : ids;
+        list.forEach(id=>{ const n=cy.getElementById(id); const opt=document.createElement('option'); opt.value=id; opt.textContent=`${id} — ${n.data('title')||id}`; dom.headSelect.appendChild(opt); });
+        headId = headId && ids.includes(headId) ? headId : (list[0] || (ids[0] || null)); if (headId) dom.headSelect.value = headId;
+      }
+
+      // --- פריסות ---
+      function applyLayout(name){
+        currentLayout = name;
+        dom.pyramid.style.display = (name==='pyramid')? 'block' : 'none';
+        const { animMs } = speedConfig();
+        cy.nodes().forEach(n => (name==='free'? n.unlock() : n.lock()));
+
+        const opts = (()=>{
+          if (name==='free') return { name:'preset', fit:true, animate:true, animationDuration:animMs };
+          if (name==='pyramid') return { name:'breadthfirst', directed:true, spacingFactor:1.2, circle:false, fit:true, animate:true, animationDuration:animMs, roots: headId? `#${CSS.escape(headId)}`:undefined };
+          if (name==='paths') return { name:'dagre', rankDir:'LR', fit:true, animate:true, animationDuration:animMs, roots: headId? `#${CSS.escape(headId)}`:undefined };
+          if (name==='flowrise'){
+            // מעגלי לפי עומק BFS (קירוב לתנועה "עולה")
+            const dist = bfsDistances();
+            return { name:'concentric', concentric: n => - (dist.get(n.id())||0), levelWidth: () => 1, minNodeSpacing: 40, animate:true, animationDuration:animMs, fit:true };
+          }
+          return { name:'grid', fit:true, animate:true, animationDuration:animMs };
+        })();
+
+        let layout;
+        try { layout = cy.layout(opts); layout.run(); } catch (e) {
+          if (opts.name==='dagre'){ const fallback = {...opts, name:'breadthfirst'}; layout = cy.layout(fallback); layout.run(); } else { throw e; }
+        }
+
+        setTimeout(()=>{ if (name==='pyramid') updatePyramidOverlay(); computeFlowOrder(); }, animMs + 30);
+      }
+      function updatePyramidOverlay(){ const nodes = cy.nodes('node[type="task"]'); if(!nodes.length) return; const bb = nodes.boundingBox(); const pan = cy.pan(); const zoom = cy.zoom(); const toView=(x,y)=>({ x:(x*zoom)+pan.x, y:(y*zoom)+pan.y }); const top=toView((bb.x1+bb.x2)/2, bb.y1 - (bb.h*0.15)); const left=toView(bb.x1-(bb.w*0.08), bb.y2+(bb.h*0.06)); const right=toView(bb.x2+(bb.w*0.08), bb.y2+(bb.h*0.06)); dom.pyramidPoly.setAttribute('points', `${Math.round(top.x)},${Math.round(top.y)} ${Math.round(left.x)},${Math.round(left.y)} ${Math.round(right.x)},${Math.round(right.y)}`); }
+
+      function bfsDistances(){
+        const start = headId || (cy.nodes('node[type="task"]')[0] && cy.nodes('node[type="task"]')[0].id());
+        const dist = new Map(); if (!start) return dist; dist.set(start,0); const q=[start]; while(q.length){ const u=q.shift(); cy.getElementById(u).outgoers('edge').forEach(e=>{ const v=e.target().id(); if(!dist.has(v)){ dist.set(v,(dist.get(u)||0)+1); q.push(v); } }); }
+        return dist;
+      }
+
+      // --- זרימה חיה ---
+      function computeFlowOrder(){ bfsEdgesOrder=[]; const start=headId || (cy.nodes('node[type="task"]')[0] && cy.nodes('node[type="task"]')[0].id()); if(!start) return; const visited=new Set([start]); const q=[start]; const edges=[]; while(q.length){ const u=q.shift(); cy.getElementById(u).outgoers('edge').forEach(e=>{ const v=e.target().id(); edges.push(e); if(!visited.has(v)){ visited.add(v); q.push(v); } }); } bfsEdgesOrder=edges; flowIdx=0; cy.edges().removeClass('flowing visited'); }
+      function tickFlow(){ const {dashSpeed}=speedConfig(); if(flowPlaying){ flowOffset=(flowOffset+dashSpeed)%64; cy.edges('.flowing').style('line-dash-offset', flowOffset); const now=performance.now(); if(now-lastStepTime>=stepIntervalMs()){ stepFlow(); lastStepTime=now; } } if(currentLayout==='pyramid' && dom.pyramid.style.display!=='none') updatePyramidOverlay(); requestAnimationFrame(tickFlow); }
+      function playFlow(){ if(flowPlaying) return; flowPlaying=true; stepFlow(); lastStepTime=performance.now(); }
+      function pauseFlow(){ flowPlaying=false; }
+      function stepFlow(){ if(bfsEdgesOrder.length===0) return; cy.edges('.flowing').removeClass('flowing').addClass('visited'); const e=bfsEdgesOrder[flowIdx % bfsEdgesOrder.length]; e.removeClass('visited').addClass('flowing'); flowOffset=0; flowIdx++; }
+
+      // --- מטא ---
+      function focusNode(node){ cy.$('node').removeClass('active'); node.addClass('active'); cy.animate({ fit:{eles: node, padding: 80} }, { duration: 240 }); updateInfoPanel(node); }
+      function updateInfoPanel(ele){ const type = ele.data('type'); const t = ele.data('title')||ele.id(); const d = ele.data('desc')||''; dom.infoContent.innerHTML = `<div style="font-weight:700;margin-bottom:6px">${escapeHtml(t)}</div><div style="white-space:pre-wrap">${escapeHtml(d)}</div>`; }
+      // הצגת פרטי משימות (מטא) בפאנל הימני
+      const META = JSON.parse(document.getElementById('seed-meta').textContent);
+      function renderTaskDetails(id){
+        const meta = META[id]; if(!meta){ return ''; }
+        const order = ['בעיה','שינוי מוצע','השפעה','מאמץ','אחראי','תלויות','הגדרת סיום','סיכון','מזעור'];
+        let html = '<ul style="padding-inline-start:18px; margin:8px 0">';
+        for(const key of order){ if(!(key in meta)) continue; const val = meta[key];
+          if(Array.isArray(val)){
+            html += `<li><span style="color:#a9b3c7">${key}</span>:`;
+            html += '<ol style="padding-inline-start:18px; margin:6px 0">';
+            val.forEach(x=> html += `<li>${escapeHtml(x)}</li>`);
+            html += '</ol></li>';
+          } else {
+            html += `<li><span style=\"color:#a9b3c7\">${key}</span>: ${escapeHtml(String(val))}</li>`;
+          }
+        }
+        html += '</ul>';
+        return html;
+      }
+      function updateInfoPanel(ele){
+        const isGroup = ele.data('type') === 'group';
+        const t = ele.data('title') || ele.id();
+        const d = ele.data('desc') || '';
+        let html = `<div style="font-weight:700;margin-bottom:4px">${escapeHtml(t)}</div>`;
+        if (d) html += `<div style="white-space:pre-wrap;margin-bottom:8px">${escapeHtml(d)}</div>`;
+        if (!isGroup) {
+          html += renderTaskDetails(ele.id());
+        } else {
+          // רשימת משימות בקבוצה
+          const groupId = ele.data('groupId');
+          const tasks = cy.nodes(`node[type='task'][[group = '${CSS.escape(groupId)}']]`);
+          if (tasks.length) {
+            html += '<div style="margin-top:6px;color:#a9b3c7">משימות בקבוצה:</div><ul style="padding-inline-start:18px; margin:6px 0">';
+            tasks.forEach(n => { html += `<li>${escapeHtml(n.data('title')||n.id())}</li>`; });
+            html += '</ul>';
+          }
+        }
+        dom.infoContent.innerHTML = html;
+      }
+
+      function seedRandomize(){
+        // בקש/י זרע מהמשתמש/ת (לשחזור), או השתמש/י בזרע שמור
+        const st = loadState(); let seed = st.lastSeed; const user = prompt('בחר/י זרע מספרי לפריסה (אותו זרע → אותה פריסה):', seed || Math.floor(Math.random()*1e9)); if(!user) return; seed = Number(user)||0; st.lastSeed = seed; saveState(st);
+        const rnd = mulberry32(seed);
+        const bb = cy.nodes('node[type="task"]').boundingBox(); const cx=(bb.x1+bb.x2)/2, cyy=(bb.y1+bb.y2)/2; const spreadX = Math.max(300, bb.w*0.8||600), spreadY = Math.max(200, bb.h*0.8||400);
+        cy.nodes('node[type="task"]').forEach(n=>{ const x = cx + (rnd()-0.5)*spreadX; const y = cyy + (rnd()-0.5)*spreadY; n.position({x,y}); SEED.positions[n.id()] = {x,y}; persistPosition(n.id(), {x,y}); });
+        cy.fit(); currentLayout='free'; dom.layoutSelect.value='free';
+      }
+
+      function exportSeed(){
+        // עדכון מיקומים לפני יצוא
+        SEED.positions = SEED.positions || {}; cy.nodes('node[type="task"]').forEach(n=>{ const p=n.position(); SEED.positions[n.id()]={x:p.x,y:p.y}; });
+        const data = { groups: SEED.groups, nodes: SEED.nodes, edges: SEED.edges, positions: SEED.positions };
+        const a=document.createElement('a'); a.href='data:text/json;charset=utf-8,'+encodeURIComponent(JSON.stringify(data,null,2)); a.download='roadmap.json'; a.click();
+      }
+      function importSeedFromFile(file){ const fr=new FileReader(); fr.onload = (e)=>{ try{ const obj=JSON.parse(String(e.target.result)); if(!obj||!obj.nodes||!obj.edges||!obj.groups) throw new Error('מבנה JSON שגוי'); SEED = deepClone(obj); // נקה מצבים מקומיים
+            localStorage.removeItem(LS_KEY); groupCollapsed.clear(); initCy(); applyLayout(currentLayout); } catch(err){ alert('ייבוא נכשל: '+err.message); } }; fr.readAsText(file); }
+
+      function resetAll(){ SEED = deepClone(SEED_SRC); localStorage.removeItem(LS_KEY); groupCollapsed.clear(); initCy(); applyLayout('free'); dom.layoutSelect.value='free'; }
+
+      // --- חיבורי UI ---
+      function bindUI(){
+        document.getElementById('toggleLeft').addEventListener('click', ()=>{ dom.leftPanel.style.display = dom.leftPanel.style.display==='none' ? 'flex' : 'none'; });
+        document.getElementById('toggleRight').addEventListener('click', ()=>{ dom.rightPanel.style.display = dom.rightPanel.style.display==='none' ? 'flex' : 'none'; });
+        dom.layoutSelect.addEventListener('change',(e)=>applyLayout(e.target.value));
+        dom.headSelect.addEventListener('change',(e)=>{ headId=e.target.value; computeFlowOrder(); applyLayout(currentLayout); });
+        dom.speedRange.addEventListener('input', ()=>applyLayout(currentLayout));
+        document.getElementById('play').addEventListener('click', playFlow);
+        document.getElementById('pause').addEventListener('click', pauseFlow);
+        document.getElementById('step').addEventListener('click', stepFlow);
+        document.getElementById('seedBtn').addEventListener('click', seedRandomize);
+        document.getElementById('fitBtn').addEventListener('click', ()=>cy.fit());
+        document.getElementById('resetBtn').addEventListener('click', resetAll);
+        document.getElementById('exportBtn').addEventListener('click', exportSeed);
+        document.getElementById('importBtn').addEventListener('click', ()=>dom.importInput.click());
+        dom.importInput.addEventListener('change',(e)=>{ const f=e.target.files&&e.target.files[0]; if(f) importSeedFromFile(f); e.target.value=''; });
+        // עדכון פירמידה ב‑pan/zoom/resize
+        ['pan','zoom','resize'].forEach(ev => cy.on(ev, ()=>{ if(currentLayout==='pyramid' && dom.pyramid.style.display!=='none') updatePyramidOverlay(); }));
+      }
+
+      // --- מבנה קבצים (פאנל ימין) ---
+      function renderFileTree(){
+        const files = JSON.parse(document.getElementById('repo-files').textContent);
+        // בנה עץ מספר הנתיבים
+        const root = {};
+        for (const p of files){ const parts = p.split('/'); let cur = root; for(let i=0;i<parts.length;i++){ const part=parts[i]; const isFile = i===parts.length-1; cur.children = cur.children || {}; cur.children[part] = cur.children[part] || {}; cur = cur.children[part]; if (isFile) cur.file = true; } }
+        function toHTML(node, name, depth=0){
+          const indent = '&nbsp;'.repeat(depth*2);
+          if (!node.children) return '';
+          let out = '';
+          const entries = Object.entries(node.children).sort(([a,na],[b,nb])=>a.localeCompare(b, 'en'));
+          for(const [k,v] of entries){
+            const isDir = !v.file;
+            const safe = `<span dir=\"ltr\">${escapeHtml(k)}</span>`;
+            if (isDir){
+              out += `${indent}<div><span style=\"color:#d7deed;font-weight:600\">▸ ${safe}</span></div>`;
+              out += toHTML(v, k, depth+1);
+            } else {
+              out += `${indent}<div style=\"color:#c6cee2\">• ${safe}</div>`;
+            }
+          }
+          return out;
+        }
+        const container = document.createElement('div');
+        container.innerHTML = `<div style="font-weight:700;margin-top:10px;margin-bottom:6px">מבנה הקבצים</div>` + toHTML(root,'');
+        dom.infoContent.parentElement.appendChild(container);
+      }
+
+      // --- אתחול ---
+      window.addEventListener('load', ()=>{
+        mergeStateIntoSeed();
+        initCy();
+        bindUI();
+        applyLayout('free');
+        renderFileTree();
+      });
+    </script>
+
+    <!-- פירוט מטא למשימות (מתורגם לעברית) -->
+    <script id="seed-meta" type="application/json">{
+      "t1": {
+        "בעיה": "מפתח Google Gemini נחשף בצד הלקוח ומהווה סיכון אבטחה.",
+        "שינוי מוצע": ["יצירת נתיבי \u2068API Routes\u2069 ב־Next.js שישמשו פרוקסי לקריאות לגוגל.", "שמירת המפתח בשרת בלבד (\u2068GEMINI_API_KEY\u2069) והוספתו בקריאת השרת."],
+        "השפעה": "גבוה",
+        "מאמץ": "M",
+        "אחראי": "Jules",
+        "תלויות": "אין",
+        "הגדרת סיום": "כל הקריאות עוברות דרך /api, המפתח בצד השרת, האפליקציה עובדת כרגיל.",
+        "סיכון": "נמוך",
+        "מזעור": "N/A"
+      },
+      "t2": {
+        "בעיה": "Prop Drilling של מצבים ופעולות (למשל onOpenDossier).",
+        "שינוי מוצע": ["החלפת Prop Drilling בפתרון ניהול מצב גלובלי קליל (\u2068Context/Zustand/Jotai\u2069)."],
+        "השפעה": "בינוני",
+        "מאמץ": "M",
+        "אחראי": "Jules",
+        "תלויות": "אין",
+        "הגדרת סיום": "onOpenDossier אינו מועבר ב־props; מנוהל ברמת הגלובל.",
+        "סיכון": "נמוך",
+        "מזעור": "N/A"
+      },
+      "t3": {
+        "בעיה": "פערי כיסוי בדיקות וחוסר יציבות בחלק מהבדיקות.",
+        "שינוי מוצע": ["הגדלת כיסוי יחידה/אינטגרציה בלוגיקה קריטית.", "ייצוב בדיקות תנודתיות (למשל calendar.test.tsx).", "הטמעת בדיקות נגישות אוטומטיות עם \u2068axe\u2069."] ,
+        "השפעה": "בינוני",
+        "מאמץ": "L",
+        "אחראי": "Jules",
+        "תלויות": "אין",
+        "הגדרת סיום": "+15% כיסוי; כל הבדיקות יציבות ב־CI; פעולה שנכשלת על הפרות \u2068axe\u2069.",
+        "סיכון": "נמוך",
+        "מזעור": "N/A"
+      },
+      "t4": {
+        "בעיה": "חוסר תיעוד רכיבים ב־\u2068Storybook\u2069 מקשה על שימוש חוזר ובדיקות.",
+        "שינוי מוצע": ["יצירת Stories לכל רכיבי \u2068UI\u2069, תיעוד פרופס, וריאציות ומצבים."] ,
+        "השפעה": "בינוני",
+        "מאמץ": "XL",
+        "אחראי": "Jules",
+        "תלויות": "אין",
+        "הגדרת סיום": "לכל רכיב יש .stories.tsx; ה־\u2068Storybook\u2069 פרוס ונגיש לצוות.",
+        "סיכון": "נמוך",
+        "מזעור": "N/A"
+      }
+    }</script>
+
+    <!-- מבנה קבצים של הריפו (צילום מצב) -->
+    <script id="repo-files" type="application/json">[
+".github/workflows/ci.yml",
+".gitignore",
+".idx/dev.nix",
+".idx/integrations.json",
+".modified",
+".npmrc",
+".storybook/main.ts",
+".storybook/preview.ts",
+".storybook/vitest.setup.ts",
+"agents.md",
+"apphosting.yaml",
+"CHANGELOG-INITIAL-AUDIT.md",
+"components.json",
+"DESIGN_SYSTEM_TASKS.md",
+"DESIGN_TOKENS.md",
+"docs/blueprint.md",
+"docs/cleanup/patches.md",
+"docs/cleanup/plan.md",
+"docs/development-setup.md",
+"docs/review/inventory.md",
+"docs/review/quality-report.md",
+"docs/roadmap/index.html",
+"docs/roadmap/plan.csv",
+"docs/roadmap/roadmap.md",
+"eslint.config.mjs",
+"GEMINI.md",
+"lions_of_zion_agent_prompts_claude_spark_full_pack.md",
+"middleware.ts",
+"next.config.ts",
+"package.json",
+"playwright.config.ts",
+"pnpm-lock.yaml",
+"pnpm-workspace.yaml",
+"postcss.config.mjs",
+"README.md",
+"scripts/dev-with-browser.cjs",
+"scripts/setup.sh",
+"src/ai/dev.ts",
+"src/ai/flows/daily-brief-summary.ts",
+"src/ai/flows/threat-narrative-summary.ts",
+"src/ai/genkit.ts",
+"src/app/_reports/02-stabilization-and-landing-page.PROGRESS.md",
+"src/app/(public)/_content/landing.copy.json",
+"src/app/(public)/daily-brief/_components/brief-header.tsx",
+"src/app/(public)/daily-brief/_components/daily-brief-summary.tsx",
+"src/app/(public)/daily-brief/page.tsx",
+"src/app/(public)/head.tsx",
+"src/app/(public)/page.tsx",
+"src/app/globals.css",
+"src/app/layout.tsx",
+"src/app/providers.tsx",
+"src/components/shared/action-grid.tsx",
+"src/components/shared/ai-terminal.tsx",
+"src/components/shared/analytics-dashboard.tsx",
+"src/components/shared/audio-analysis-tab.tsx",
+"src/components/shared/automations-tab.tsx",
+"src/components/shared/campaign-generator-tab.tsx",
+"src/components/shared/dossier-modal.tsx",
+"src/components/shared/hero-section.tsx",
+"src/components/shared/image-studio-tab.tsx",
+"src/components/shared/influence-mapper-tab.tsx",
+"src/components/shared/investigation-tab.tsx",
+"src/components/shared/keywords-chart.tsx",
+"src/components/shared/narrative-card.tsx",
+"src/components/shared/news-pulse-tab.tsx",
+"src/components/shared/osint-archive-tab.tsx",
+"src/components/shared/platform-chart.tsx",
+"src/components/shared/provenance-badge.tsx",
+"src/components/shared/sentiment-chart.tsx",
+"src/components/shared/sov-chart.tsx",
+"src/components/shared/strategic-assessment-tab.tsx",
+"src/components/shared/text-analysis-tab.tsx",
+"src/components/shared/trust-verification-tab.tsx",
+"src/components/shared/video-analysis-tab.tsx",
+"src/components/ui/accordion.tsx",
+"src/components/ui/alert-banner.tsx",
+"src/components/ui/alert-dialog.tsx",
+"src/components/ui/alert.tsx",
+"src/components/ui/avatar.tsx",
+"src/components/ui/badge.tsx",
+"src/components/ui/button.stories.tsx",
+"src/components/ui/button.tsx",
+"src/components/ui/calendar.test.tsx",
+"src/components/ui/calendar.tsx",
+"src/components/ui/card.tsx",
+"src/components/ui/carousel.tsx",
+"src/components/ui/chart.tsx",
+"src/components/ui/checkbox.tsx",
+"src/components/ui/collapsible.tsx",
+"src/components/ui/dialog.tsx",
+"src/components/ui/dropdown-menu.tsx",
+"src/components/ui/form.tsx",
+"src/components/ui/input.tsx",
+"src/components/ui/label.tsx",
+"src/components/ui/menubar.tsx",
+"src/components/ui/pledge-box.tsx",
+"src/components/ui/popover.tsx",
+"src/components/ui/progress.tsx",
+"src/components/ui/radio-group.tsx",
+"src/components/ui/scroll-area.tsx",
+"src/components/ui/select.tsx",
+"src/components/ui/separator.tsx",
+"src/components/ui/share-pack-module.tsx",
+"src/components/ui/sheet.tsx",
+"src/components/ui/sidebar.tsx",
+"src/components/ui/skeleton.tsx",
+"src/components/ui/slider.tsx",
+"src/components/ui/switch.tsx",
+"src/components/ui/table.tsx",
+"src/components/ui/tabs.tsx",
+"src/components/ui/textarea.tsx",
+"src/components/ui/threat-strip.tsx",
+"src/components/ui/toast.tsx",
+"src/components/ui/toaster.tsx",
+"src/components/ui/tooltip.tsx",
+"src/components/ui/use-now-snippet.tsx",
+"src/hooks/use-i18n.ts",
+"src/hooks/use-mobile.tsx",
+"src/hooks/use-toast.ts",
+"src/lib/api.ts",
+"src/lib/data.ts",
+"src/lib/firebase/client.ts",
+"src/lib/i18n/config.ts",
+"src/lib/i18n/index.ts",
+"src/lib/i18n/translations.ts",
+"src/lib/placeholder-images.json",
+"src/lib/placeholder-images.ts",
+"src/lib/utils.test.ts",
+"src/lib/utils.ts",
+"src/stories/assets/avif-test-image.avif",
+"src/stories/button.css",
+"src/stories/Button.stories.ts",
+"src/stories/Button.tsx",
+"src/stories/Configure.mdx",
+"src/stories/header.css",
+"src/stories/Header.stories.ts",
+"src/stories/Header.tsx",
+"src/stories/page.css",
+"src/stories/Page.stories.ts",
+"src/stories/Page.tsx",
+"src/types/test.d.ts",
+"tailwind.config.ts",
+"test/e2e/homepage.spec.ts",
+"test/setup.ts",
+"tsconfig.json",
+"vitest.config.ts",
+"vitest.shims.d.ts"
+]</script>
+  </body>
+  </html>
