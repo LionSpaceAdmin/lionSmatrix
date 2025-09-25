@@ -4,51 +4,37 @@
 
 This project requires Node.js, pnpm, and Next.js environment.
 
-### Setup Script
-
-Run the setup script to prepare the environment:
-
-```bash
-./scripts/setup.sh
-```
-
 ### Manual Setup
 
-If you need to set up manually:
-
-```bash
-# Install dependencies
-pnpm install --frozen-lockfile
-
-# Build the project
-pnpm build
-
-# Run tests
-pnpm test
-
-# Type check
-pnpm typecheck
-
-# Lint code
-pnpm lint
-```
-
-## Project Structure
-
-- **Framework**: Next.js 15.5.3 with TypeScript
-- **Package Manager**: pnpm
-- **Testing**: Vitest with @testing-library/react
-- **Linting**: ESLint with Next.js config
-- **AI Integration**: Google Genkit for AI flows
+1.  **Install Dependencies**: `pnpm install`
+2.  **Build Project**: `pnpm build`
+3.  **Run Dev Server**: `pnpm dev`
 
 ## Key Commands
 
-- `pnpm dev` - Start development server
-- `pnpm build` - Build for production
-- `pnpm test` - Run unit tests
-- `pnpm typecheck` - TypeScript validation
-- `pnpm lint` - Code linting
+-   `pnpm dev`: Start development server.
+-   `pnpm build`: Build for production.
+-   `pnpm test`: Run unit tests with Vitest.
+-   `pnpm test:e2e`: Run E2E tests with Playwright.
+-   `pnpm lint`: Lint the code.
+-   `pnpm typecheck`: Run TypeScript validation.
 
-## Dependencies
+## Guardrails & Process
 
-All dependencies are managed through pnpm with a frozen lockfile for consistency.
+### Progress Discipline
+
+-   For every new page or major component group (e.g., "Foundations"), you **must** create a `_reports/[feature-name].PROGRESS.md` file.
+-   This file should be updated with the status, key decisions, and next steps for that unit of work.
+
+### Testing
+
+-   **Unit Tests**: All new logic and components should be accompanied by unit tests.
+-   **E2E Tests**: The CI pipeline runs a full suite of E2E tests using Playwright.
+    -   `test/e2e/basic.spec.ts`: Smoke tests for basic navigation.
+    -   `test/e2e/axe.spec.ts`: Accessibility tests for key pages.
+-   **Lighthouse**: The CI pipeline also runs Lighthouse to enforce performance and accessibility budgets defined in `lighthouserc.json`.
+
+### Telemetry
+
+-   Use the `track(event, payload)` function from `lib/telemetry.ts` for key user interactions.
+-   Available events: `cta_click`, `tool_opened`.

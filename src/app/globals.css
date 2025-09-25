@@ -150,7 +150,7 @@
   }
   #audio-upload-label {
        background-color: rgba(184, 255, 242, 0.1);
-      border: 1px solid rgba(184, 255, 242, 0.5);
+      border: 1px solid rgba(184, 255, 242, .5);
   }
   #audio-upload-label:hover {
       background-color: #B8FFF2;
