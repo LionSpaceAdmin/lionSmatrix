@@ -1,62 +1,38 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { isRTL } from '@/lib/i18n';
-import { defaultLocale, locales } from '@/lib/i18n/config';
-
-const PUBLIC_FILE = /\.(.*)$/; // Files
+import { locales, defaultLocale } from '@/lib/i18n/config';
+import { getLocaleFromRequest } from '@/lib/i18n';
 
 export function middleware(request: NextRequest) {
-  const pathname = request.nextUrl.pathname;
+  const { pathname } = request.nextUrl;
 
-  // Ignore public files
+  // Skip static assets
   if (
     pathname.startsWith('/_next') ||
     pathname.startsWith('/api') ||
-    pathname.startsWith('/static') ||
-    PUBLIC_FILE.test(pathname)
+    pathname.includes('.')
   ) {
     return;
   }
 
-  // Get locale from cookie or Accept-Language header
-  let locale = request.cookies.get('locale')?.value;
-  if (!locale) {
-    const acceptLanguageHeader = request.headers.get('Accept-Language');
-    if (acceptLanguageHeader) {
-      const acceptedLocales = acceptLanguageHeader.split(',').map(lang => lang.split(';')[0].trim());
-      for (const acceptedLocale of acceptedLocales) {
-        if (locales.includes(acceptedLocale)) {
-          locale = acceptedLocale;
-          break;
-        }
-      }
-    }
-  }
+  const pathnameIsMissingLocale = locales.every(
+    (locale) => !pathname.startsWith(`/${locale}/`) && pathname !== `/${locale}`
+  );
 
-  if (!locale || !locales.includes(locale)) {
-    locale = defaultLocale;
-  }
+  if (pathnameIsMissingLocale) {
+    const locale = getLocaleFromRequest(request);
 
-  // Redirect if locale is not in the pathname
-  if (!pathname.startsWith(`/${locale}`) && locale !== defaultLocale) {
-    return NextResponse.redirect(new URL(`/${locale}${pathname}`, request.url));
+    return NextResponse.redirect(
+      new URL(
+        `/${locale}${pathname.startsWith('/') ? '' : '/'}${pathname}`,
+        request.url
+      )
+    );
   }
-
-  // If it's the default locale and it's prefixed, remove the prefix
-  if (pathname.startsWith(`/${defaultLocale}/`) && locale === defaultLocale) {
-    return NextResponse.redirect(new URL(pathname.replace(`/${defaultLocale}`, ''), request.url));
-  }
-
-  // Set the `dir` header for RTL languages
-  const response = NextResponse.next();
-  if (isRTL(locale as string)) {
-    response.headers.set('dir', 'rtl');
-  } else {
-    response.headers.set('dir', 'ltr');
-  }
-  return response;
 }
 
 export const config = {
-  // Matcher to run middleware on all paths except static files and API routes
-  matcher: ['/((?!api|_next/static|_next/image|favicon.ico$).*)'],
+  matcher: [
+    // Skip all internal paths (_next) and static files
+    '/((?!api|_next/static|_next/image|assets|favicon.ico|sw.js).*)',
+  ],
 };
