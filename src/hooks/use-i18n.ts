@@ -17,9 +17,12 @@ export function useI18n() {
             if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
                 (el as HTMLInputElement).placeholder = translation;
             } else {
-                const icon = el.firstChild && (el.firstChild.nodeType === 1) ? el.firstChild.cloneNode(true) : null;
-                el.textContent = translation;
-                if(icon) el.prepend(icon, " ");
+                // Find and replace only text nodes, preserving other elements
+                Array.from(el.childNodes).forEach(child => {
+                    if (child.nodeType === Node.TEXT_NODE) {
+                        child.textContent = translation;
+                    }
+                });
             }
         }
     });
