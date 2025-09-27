@@ -69,3 +69,9 @@ The application will be available at [http://localhost:3000](http://localhost:30
 -   `pnpm storybook`: Starts the Storybook development server.
 -   `pnpm storybook:open`: Starts the Storybook development server and opens browser automatically.
 -   `pnpm build-storybook`: Builds the Storybook for deployment.
+
+## Live Map (GitHub Pages)
+
+- מפה אינטראקטיבית של מבנה הריפו זמינה כעמוד סטטי:
+- URL: https://lionspaceadmin.github.io/lionSmatrix/lionsflow/lionsflow.html
+- מתעדכן אוטומטית בכל push ל־`main` באמצעות GitHub Pages.
