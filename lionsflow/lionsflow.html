@@ -1,0 +1,374 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>מפת הפרויקט — lionSmatrix</title>
+  <link rel="preconnect" href="https://unpkg.com" />
+  <style>
+    html, body, #cy { height: 100%; margin: 0; padding: 0 }
+    body { font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif; background: #0b0d12; color: #e6eaf2 }
+    #cy { position: absolute; inset: 0 }
+    .legend { position: fixed; right: 12px; bottom: 12px; background: #111827; border: 1px solid #1f2937; padding: 12px 14px; border-radius: 10px; font-size: 12px; line-height: 1.6; box-shadow: 0 8px 28px rgba(0,0,0,.35) }
+    .legend h3 { margin: 0 0 6px; font-size: 12px; color: #93c5fd }
+    .row { display: flex; align-items: center; gap: 8px; margin: 2px 0 }
+    .sw { width: 12px; height: 12px; border-radius: 3px; display: inline-block; border: 1px solid rgba(255,255,255,.2) }
+    .titlebar { position: fixed; top: 10px; left: 50%; transform: translateX(-50%); background: rgba(17,24,39,.6); padding: 6px 14px; border-radius: 999px; border: 1px solid #1f2937; font-size: 12px; backdrop-filter: blur(6px) }
+    .tooltip { position: fixed; max-width: 520px; background: #0f172a; color: #e2e8f0; border: 1px solid #1f2937; padding: 10px 12px; border-radius: 10px; pointer-events: none; white-space: pre-wrap; box-shadow: 0 14px 40px rgba(0,0,0,.5); font-size: 12px; z-index: 10 }
+  </style>
+  <script src="https://unpkg.com/cytoscape@3.28.0/dist/cytoscape.min.js"></script>
+  <script src="https://unpkg.com/dagre@0.8.5/dist/dagre.min.js"></script>
+  <script src="https://unpkg.com/cytoscape-dagre@2.5.0/cytoscape-dagre.js"></script>
+</head>
+<body>
+  <div class="titlebar">פירמידת פייפליין: lionSmatrix</div>
+  <div id="cy"></div>
+  <div class="legend">
+    <h3>קטגוריות</h3>
+    <div class="row"><span class="sw" style="background:#3b82f6"></span> Main Pipeline</div>
+    <div class="row"><span class="sw" style="background:#10b981"></span> Config/Infra</div>
+    <div class="row"><span class="sw" style="background:#8b5cf6"></span> Tests/Storybook</div>
+    <div class="row"><span class="sw" style="background:#f59e0b"></span> Docs/Reports</div>
+    <div class="row"><span class="sw" style="background:#ef4444"></span> Cleanup</div>
+    <h3>סוגי קישורים</h3>
+    <div class="row"><span class="sw" style="background:#94a3b8"></span> היררכיה (ללא חץ)</div>
+    <div class="row"><span class="sw" style="background:#e2e8f0"></span> שימוש/תלות (עם חץ)</div>
+  </div>
+  <script type="application/json" id="graph">{
+    "nodes": [
+      {"id":"root","label":"lionSmatrix","category":"main","type":"dir","tip":"שם: lionSmatrix · תפקיד: שורש המונורפו · שימוש בפועל: מכיל קוד, תצורה, בדיקות ותיעוד · סטטוס בנייה: קריטי · נימוק: בסיס לכל הזרימה"},
+
+      {"id":"src","label":"src/","category":"main","type":"dir","tip":"שם: src · תפקיד: קוד היישום · שימוש בפועל: דפים, רכיבים, ספריות, hooks ו‑AI · סטטוס בנייה: קריטי · נימוק: ליבת הפיתוח"},
+      {"id":"src_app","label":"src/app/","category":"main","type":"dir","tip":"שם: src/app · תפקיד: App Router · שימוש בפועל: דפי Next.js, layouts ו‑providers · סטטוס בנייה: קריטי · נימוק: שכבת ראוטינג ותצוגה"},
+      {"id":"layout","label":"src/app/layout.tsx","category":"main","type":"file","tip":"שם: layout.tsx · תפקיד: שלד ו‑Providers · שימוש בפועל: עוטף כל הדפים והרכיבים · סטטוס בנייה: קריטי · נימוק: קובץ עליון ב‑App Router"},
+      {"id":"home","label":"src/app/page.tsx","category":"main","type":"file","tip":"שם: page.tsx · תפקיד: דף הבית · שימוש בפועל: מציג פתיח ותוכן ראשי · סטטוס בנייה: קריטי · נימוק: מסך כניסה ראשי"},
+      {"id":"providers","label":"src/app/providers.tsx","category":"main","type":"file","tip":"שם: providers.tsx · תפקיד: ספקי הקשר · שימוש בפועל: Theme/Query/Context גלובליים · סטטוס בנייה: תמיכה · נימוק: נצרך ע""י layout"},
+      {"id":"globals","label":"src/app/globals.css","category":"main","type":"file","tip":"שם: globals.css · תפקיד: סגנונות גלובליים · שימוש בפועל: נטען ב‑layout · סטטוס בנייה: תמיכה · נימוק: בסיס עיצוב"},
+      {"id":"middleware","label":"middleware.ts","category":"main","type":"file","tip":"שם: middleware.ts · תפקיד: עיבוד בקשות · שימוש בפועל: ניתוב/אבטחה/Locale · סטטוס בנייה: קריטי · נימוק: נקודת כניסה"},
+      {"id":"instrumentation","label":"instrumentation.ts","category":"main","type":"file","tip":"שם: instrumentation.ts · תפקיד: אינסטרומנטציה · שימוש בפועל: איסוף מדדים/אירועים · סטטוס בנייה: תמיכה · נימוק: חיבורי זמן ריצה"},
+
+      {"id":"page_about","label":"src/app/about/page.tsx","category":"main","type":"file","tip":"שם: about/page.tsx · תפקיד: עמוד עלינו · שימוש בפועל: תוכן סטטי · סטטוס בנייה: משני · נימוק: אינו קריטי לפייפליין"},
+      {"id":"page_faq","label":"src/app/faq/page.tsx","category":"main","type":"file","tip":"שם: faq/page.tsx · תפקיד: שאלות ותשובות · שימוש בפועל: מידע מסייע · סטטוס בנייה: משני · נימוק: עמוד תוכן"},
+      {"id":"page_dashboard","label":"src/app/dashboard/page.tsx","category":"main","type":"file","tip":"שם: dashboard/page.tsx · תפקיד: לוח מחוונים · שימוש בפועל: תצוגות מדדים · סטטוס בנייה: משני · נימוק: מסך תפעולי"},
+      {"id":"page_daily","label":"src/app/daily-brief/page.tsx","category":"main","type":"file","tip":"שם: daily-brief/page.tsx · תפקיד: תדרוך יומי · שימוש בפועל: מציג סיכומי AI · סטטוס בנייה: קריטי · נימוק: מסך מרכזי"},
+      {"id":"page_archive","label":"src/app/archive/page.tsx","category":"main","type":"file","tip":"שם: archive/page.tsx · תפקיד: ארכיון · שימוש בפועל: עיון היסטורי · סטטוס בנייה: משני · נימוק: מסך משלים"},
+      {"id":"page_archive_id","label":"src/app/archive/[narrativeId]/page.tsx","category":"main","type":"file","tip":"שם: archive/[narrativeId]/page.tsx · תפקיד: תצוגה דינמית · שימוש בפועל: פריט ארכיון לפי מזהה · סטטוס בנייה: משני · נימוק: דף עומק"},
+      {"id":"page_contact","label":"src/app/contact/page.tsx","category":"main","type":"file","tip":"שם: contact/page.tsx · תפקיד: יצירת קשר · שימוש בפועל: טופס פנייה · סטטוס בנייה: משני · נימוק: תמיכה תפעולית"},
+
+      {"id":"components","label":"src/components/","category":"main","type":"dir","tip":"שם: src/components · תפקיד: רכיבי UI/Shared · שימוש בפועל: בניית המסכים · סטטוס בנייה: קריטי · נימוק: שכבת תצוגה"},
+      {"id":"cluster_layout","label":"src/components/layout (4)","category":"main","type":"cluster","tip":"שם: src/components/layout · תפקיד: רכיבי מעטפת · שימוש בפועל: Header/Footer/Locale/Splash · סטטוס בנייה: משני · נימוק: קיבוץ ענף גדול","children":["layout_header","layout_footer","layout_locale","layout_splash"],"collapsed":true},
+      {"id":"layout_header","label":"src/components/layout/header.tsx","category":"main","type":"file","tip":"שם: header.tsx · תפקיד: כותרת עליונה · שימוש בפועל: ניווט גלובלי · סטטוס בנייה: קריטי · נימוק: נטען מ‑layout"},
+      {"id":"layout_footer","label":"src/components/layout/footer.tsx","category":"main","type":"file","tip":"שם: footer.tsx · תפקיד: כותרת תחתונה · שימוש בפועל: מידע וקישורים · סטטוס בנייה: תמיכה · נימוק: רכיב מעטפת"},
+      {"id":"layout_locale","label":"src/components/layout/locale-switcher.tsx","category":"main","type":"file","tip":"שם: locale-switcher.tsx · תפקיד: החלפת שפה · שימוש בפועל: i18n בממשק · סטטוס בנייה: משני · נימוק: עוזר שימושיות"},
+      {"id":"layout_splash","label":"src/components/layout/splash-guard.tsx","category":"main","type":"file","tip":"שם: splash-guard.tsx · תפקיד: מסך טעינה · שימוש בפועל: בקרה על מצב טעינה · סטטוס בנייה: משני · נימוק: UX"},
+      {"id":"cluster_ui","label":"src/components/ui (4)","category":"main","type":"cluster","tip":"שם: src/components/ui · תפקיד: פרימיטיבים · שימוש בפועל: כפתורים, קלט, דיאלוג, Toast · סטטוס בנייה: קריטי · נימוק: בסיס UI","children":["ui_button","ui_input","ui_dialog","ui_toast"],"collapsed":true},
+      {"id":"ui_button","label":"src/components/ui/button.tsx","category":"main","type":"file","tip":"שם: button.tsx · תפקיד: כפתור בסיסי · שימוש בפועל: רחב במסכים · סטטוס בנייה: קריטי · נימוק: פרימיטיב נפוץ"},
+      {"id":"ui_input","label":"src/components/ui/input.tsx","category":"main","type":"file","tip":"שם: input.tsx · תפקיד: שדה קלט · שימוש בפועל: טפסים · סטטוס בנייה: משני · נימוק: פרימיטיב טפסים"},
+      {"id":"ui_dialog","label":"src/components/ui/dialog.tsx","category":"main","type":"file","tip":"שם: dialog.tsx · תפקיד: דיאלוג · שימוש בפועל: אינטראקציות מורכבות · סטטוס בנייה: משני · נימוק: רכיב תצוגה"},
+      {"id":"ui_toast","label":"src/components/ui/toast.tsx","category":"main","type":"file","tip":"שם: toast.tsx · תפקיד: התראות · שימוש בפועל: משוב למשתמש · סטטוס בנייה: תמיכה · נימוק: UX"},
+      {"id":"cluster_shared","label":"src/components/shared (2)","category":"main","type":"cluster","tip":"שם: src/components/shared · תפקיד: רכיבי תצוגה משותפים · שימוש בפועל: Hero/Analytics · סטטוס בנייה: משני · נימוק: קיבוץ ענף","children":["shared_hero","shared_analytics"],"collapsed":true},
+      {"id":"shared_hero","label":"src/components/shared/hero-section.tsx","category":"main","type":"file","tip":"שם: hero-section.tsx · תפקיד: אזור פתיח · שימוש בפועל: דף הבית · סטטוס בנייה: משני · נימוק: תוכן תדמיתי"},
+      {"id":"shared_analytics","label":"src/components/shared/analytics-dashboard.tsx","category":"main","type":"file","tip":"שם: analytics-dashboard.tsx · תפקיד: לוח מדדים · שימוש בפועל: Dashboard · סטטוס בנייה: משני · נימוק: רכיב נתונים"},
+
+      {"id":"hooks","label":"src/hooks/","category":"main","type":"dir","tip":"שם: src/hooks · תפקיד: Hooks לשימוש חוזר · שימוש בפועל: לוגיקה פרזנטציונית · סטטוס בנייה: משני · נימוק: שכבת עזר"},
+      {"id":"cluster_hooks","label":"src/hooks (3)","category":"main","type":"cluster","tip":"שם: hooks · תפקיד: Hooks שימושיים · שימוש בפועל: i18n/Toast/Mobile · סטטוס בנייה: משני · נימוק: קיבוץ ענף","children":["hook_i18n","hook_toast","hook_mobile"],"collapsed":true},
+      {"id":"hook_i18n","label":"src/hooks/use-i18n.ts","category":"main","type":"file","tip":"שם: use-i18n.ts · תפקיד: ניהול שפות · שימוש בפועל: החלפת שפה ו‑i18n · סטטוס בנייה: משני · נימוק: Hook שירות"},
+      {"id":"hook_toast","label":"src/hooks/use-toast.ts","category":"main","type":"file","tip":"שם: use-toast.ts · תפקיד: ממשק התראות · שימוש בפועל: רכיבי Toast · סטטוס בנייה: תמיכה · נימוק: Hook UI"},
+      {"id":"hook_mobile","label":"src/hooks/use-mobile.tsx","category":"main","type":"file","tip":"שם: use-mobile.tsx · תפקיד: זיהוי מובייל · שימוש בפועל: התאמות UI · סטטוס בנייה: משני · נימוק: Responsiveness"},
+
+      {"id":"lib","label":"src/lib/","category":"main","type":"dir","tip":"שם: src/lib · תפקיד: כלים ושירותים · שימוש בפועל: API/Telemetry/Utils/i18n · סטטוס בנייה: קריטי · נימוק: שכבת שירות"},
+      {"id":"lib_telemetry","label":"src/lib/telemetry.ts","category":"main","type":"file","tip":"שם: telemetry.ts · תפקיד: טלמטריה · שימוש בפועל: track(event,payload) · סטטוס בנייה: תמיכה · נימוק: מדידה"},
+      {"id":"lib_utils","label":"src/lib/utils.ts","category":"main","type":"file","tip":"שם: utils.ts · תפקיד: עזרי לוגיקה · שימוש בפועל: רכיבים ודפים · סטטוס בנייה: משני · נימוק: Utility"},
+      {"id":"lib_api","label":"src/lib/api.ts","category":"main","type":"file","tip":"שם: api.ts · תפקיד: קריאות קליינט · שימוש בפועל: טעינת נתונים · סטטוס בנייה: משני · נימוק: שכבת API"},
+      {"id":"lib_firebase","label":"src/lib/firebase/client.ts","category":"main","type":"file","tip":"שם: firebase/client.ts · תפקיד: אינטגרציה · שימוש בפועל: שירותי Firebase · סטטוס בנייה: משני · נימוק: צד לקוח"},
+      {"id":"lib_i18n_config","label":"src/lib/i18n/config.ts","category":"main","type":"file","tip":"שם: i18n/config.ts · תפקיד: קונפיג i18n · שימוש בפועל: תמיכה בתרגומים · סטטוס בנייה: תמיכה · נימוק: קובץ הגדרות"},
+
+      {"id":"ai","label":"src/ai/","category":"main","type":"dir","tip":"שם: src/ai · תפקיד: זרימות Genkit · שימוש בפועל: סיכומים ואוטומציות · סטטוס בנייה: משני · נימוק: שכבת AI"},
+      {"id":"cluster_ai","label":"src/ai (4)","category":"main","type":"cluster","tip":"שם: src/ai · תפקיד: Flows ו‑Dev · שימוש בפועל: חיבור למסכים · סטטוס בנייה: משני · נימוק: קיבוץ ענף","children":["ai_daily","ai_threat","ai_genkit","ai_dev"],"collapsed":true},
+      {"id":"ai_daily","label":"src/ai/flows/daily-brief-summary.ts","category":"main","type":"file","tip":"שם: daily-brief-summary.ts · תפקיד: סיכום יומי · שימוש בפועל: מסך Daily Brief · סטטוס בנייה: קריטי · נימוק: מוזן לדף"},
+      {"id":"ai_threat","label":"src/ai/flows/threat-narrative-summary.ts","category":"main","type":"file","tip":"שם: threat-narrative-summary.ts · תפקיד: סיכום איומים · שימוש בפועל: ארכיון/ניתוח · סטטוס בנייה: משני · נימוק: תמיכה"},
+      {"id":"ai_genkit","label":"src/ai/genkit.ts","category":"main","type":"file","tip":"שם: genkit.ts · תפקיד: חיבור Genkit · שימוש בפועל: רישום Flows · סטטוס בנייה: תמיכה · נימוק: קונפיג AI"},
+      {"id":"ai_dev","label":"src/ai/dev.ts","category":"cleanup","type":"file","tip":"שם: ai/dev.ts · תפקיד: הרצה לפיתוח · שימוש בפועל: מקומי בלבד · סטטוס בנייה: מועמד לניקוי · נימוק: לא דרוש בפרודקשן"},
+
+      {"id":"config","label":"Config/Infra","category":"config","type":"dir","tip":"שם: קונפיג/תשתית · תפקיד: בנייה וכללי פיתוח · שימוש בפועל: Next/TS/Tailwind/CI · סטטוס בנייה: תמיכה · נימוק: סביבת עבודה"},
+      {"id":"pkg","label":"package.json","category":"config","type":"file","tip":"שם: package.json · תפקיד: חבילות וסקריפטים · שימוש בפועל: dev/build/test · סטטוס בנייה: תמיכה · נימוק: מנהל פרויקט"},
+      {"id":"tsconfig","label":"tsconfig.json","category":"config","type":"file","tip":"שם: tsconfig.json · תפקיד: TypeScript · שימוש בפועל: בדיקת טיפוסים · סטטוס בנייה: תמיכה · נימוק: קומפילציה סטטית"},
+      {"id":"nextcfg","label":"next.config.ts","category":"config","type":"file","tip":"שם: next.config.ts · תפקיד: תצורת Next · שימוש בפועל: בילד/שרת · סטטוס בנייה: תמיכה · נימוק: קונפיג ריצה"},
+      {"id":"tailwindcfg","label":"tailwind.config.ts","category":"config","type":"file","tip":"שם: tailwind.config.ts · תפקיד: ערכת עיצוב · שימוש בפועל: מחלקות Utility · סטטוס בנייה: תמיכה · נימוק: Styling"},
+      {"id":"postcsscfg","label":"postcss.config.mjs","category":"config","type":"file","tip":"שם: postcss.config.mjs · תפקיד: PostCSS · שימוש בפועל: עיבוד CSS · סטטוס בנייה: תמיכה · נימוק: בניית CSS"},
+      {"id":"eslintcfg","label":"eslint.config.mjs","category":"config","type":"file","tip":"שם: eslint.config.mjs · תפקיד: ESLint · שימוש בפועל: איכות קוד · סטטוס בנייה: תמיכה · נימוק: לינטינג"},
+      {"id":"lighthouse","label":"lighthouserc.json","category":"config","type":"file","tip":"שם: lighthouserc.json · תפקיד: תקציבי Lighthouse · שימוש בפועל: CI · סטטוס בנייה: תמיכה · נימוק: איכות"},
+      {"id":"pnpmws","label":"pnpm-workspace.yaml","category":"config","type":"file","tip":"שם: pnpm-workspace.yaml · תפקיד: וורקספייס · שימוש בפועל: ניהול פרויקטים · סטטוס בנייה: תמיכה · נימוק: Monorepo"},
+
+      {"id":"tests","label":"Tests/Storybook","category":"tests","type":"dir","tip":"שם: בדיקות/Storybook · תפקיד: איכות ורגרסיה · שימוש בפועל: Vitest/Playwright/Storybook · סטטוס בנייה: בדיקות · נימוק: מחוץ לתוצר"},
+      {"id":"vitestcfg","label":"vitest.config.ts","category":"tests","type":"file","tip":"שם: vitest.config.ts · תפקיד: יחידה · שימוש בפועל: jsdom/setup/include · סטטוס בנייה: בדיקות · נימוק: תצורת טסטים"},
+      {"id":"playwrightcfg","label":"playwright.config.ts","category":"tests","type":"file","tip":"שם: playwright.config.ts · תפקיד: E2E · שימוש בפועל: שרת dev ו‑baseURL · סטטוס בנייה: בדיקות · נימוק: הרצת קצה"},
+      {"id":"storybook_main","label":".storybook/main.ts","category":"tests","type":"file","tip":"שם: Storybook main.ts · תפקיד: טעינת סיפורים · שימוש בפועל: פיתוח רכיבים · סטטוס בנייה: בדיקות · נימוק: סביבת Stories"},
+      {"id":"storybook_preview","label":".storybook/preview.ts","category":"tests","type":"file","tip":"שם: Storybook preview.ts · תפקיד: קישוטים · שימוש בפועל: Theme/Providers לסיפורים · סטטוס בנייה: בדיקות · נימוק: הקשרים"},
+      {"id":"story_button","label":"src/stories/Button.stories.ts","category":"tests","type":"file","tip":"שם: Button.stories.ts · תפקיד: דוגמת רכיב · שימוש בפועל: דוקומנטציה אינטראקטיבית · סטטוס בנייה: בדיקות · נימוק: הצגת UI"},
+      {"id":"e2e_basic","label":"test/e2e/basic.spec.ts","category":"tests","type":"file","tip":"שם: basic.spec.ts · תפקיד: עשן ניווט · שימוש בפועל: מסלולים עיקריים · סטטוס בנייה: בדיקות · נימוק: E2E"},
+      {"id":"e2e_axe","label":"test/e2e/axe.spec.ts","category":"tests","type":"file","tip":"שם: axe.spec.ts · תפקיד: נגישות · שימוש בפועל: בדיקות a11y · סטטוס בנייה: בדיקות · נימוק: אבטחת איכות"},
+
+      {"id":"docs","label":"Docs/Reports","category":"docs","type":"dir","tip":"שם: תיעוד · תפקיד: ידע ותהליכים · שימוש בפועל: docs/_reports · סטטוס בנייה: תיעוד · נימוק: מחוץ לבילד"},
+      {"id":"readme","label":"README.md","category":"docs","type":"file","tip":"שם: README.md · תפקיד: מדריך ראשי · שימוש בפועל: נקודת פתיחה · סטטוס בנייה: תיעוד · נימוק: קובץ תיעוד"},
+      {"id":"agentsmd","label":"AGENTS.md","category":"docs","type":"file","tip":"שם: AGENTS.md · תפקיד: הנחיות תרומה · שימוש בפועל: שגרות עבודה · סטטוס בנייה: תיעוד · נימוק: מדריך תהליכים"},
+      {"id":"docs_dev","label":"docs/development-setup.md","category":"docs","type":"file","tip":"שם: development-setup.md · תפקיד: התקנה ופיתוח · שימוש בפועל: הקמת סביבה · סטטוס בנייה: תיעוד · נימוק: מסמך תפעולי"},
+      {"id":"reports_dir","label":"_reports/","category":"docs","type":"dir","tip":"שם: _reports · תפקיד: יומני התקדמות · שימוש בפועל: .PROGRESS לכל פיצ'ר · סטטוס בנייה: תיעוד · נימוק: שקיפות תהליך"},
+      {"id":"report_landing","label":"_reports/landing.PROGRESS.md","category":"docs","type":"file","tip":"שם: landing.PROGRESS.md · תפקיד: מעקב משימה · שימוש בפועל: החלטות וסטטוס · סטטוס בנייה: תיעוד · נימוק: יומן"},
+
+      {"id":"cleanup","label":"מחוץ לפייפליין","category":"cleanup","type":"dir","tip":"שם: מחוץ לפייפליין · תפקיד: קבצים לא נחוצים לזרימה · שימוש בפועל: תומכים/ארכיוניים · סטטוס בנייה: מועמדים לבחינה · נימוק: לא בליבת הבילד"},
+      {"id":"modified","label":".modified","category":"cleanup","type":"file","tip":"שם: .modified · תפקיד: קובץ מצב זמני · שימוש בפועל: ארכיון/מעקב ידני · סטטוס בנייה: מועמד לניקוי · נימוק: ללא תלות"},
+      {"id":"docs_cleanup_plan","label":"docs/cleanup/plan.md","category":"cleanup","type":"file","tip":"שם: docs/cleanup/plan.md · תפקיד: תכנית ניקוי · שימוש בפועל: תעוד פנימי · סטטוס בנייה: מועמד לניקוי · נימוק: ארכיוני"},
+      {"id":"docs_cleanup_patches","label":"docs/cleanup/patches.md","category":"cleanup","type":"file","tip":"שם: docs/cleanup/patches.md · תפקיד: טלאים ישנים · שימוש בפועל: היסטוריה · סטטוס בנייה: מועמד לניקוי · נימוק: לא נצרך"},
+      {"id":"ide_idea","label":".idea/","category":"cleanup","type":"dir","tip":"שם: .idea · תפקיד: קונפיג IDE · שימוש בפועל: מקומי בלבד · סטטוס בנייה: מועמד לניקוי · נימוק: סביבת מפתח"},
+      {"id":"idx","label":".idx/","category":"cleanup","type":"dir","tip":"שם: .idx · תפקיד: קונפיג dev · שימוש בפועל: מקומי/ניסויי · סטטוס בנייה: מועמד לניקוי · נימוק: לא לפרודקשן"},
+
+      {"id":"anchor_main","label":"","category":"anchor","type":"anchor","tip":""},
+      {"id":"anchor_config","label":"","category":"anchor","type":"anchor","tip":""},
+      {"id":"anchor_tests","label":"","category":"anchor","type":"anchor","tip":""},
+      {"id":"anchor_docs","label":"","category":"anchor","type":"anchor","tip":""}
+    ],
+    "edges": [
+      {"source":"root","target":"src","type":"hier"},
+      {"source":"root","target":"config","type":"hier"},
+      {"source":"root","target":"tests","type":"hier"},
+      {"source":"root","target":"docs","type":"hier"},
+      {"source":"root","target":"cleanup","type":"hier"},
+
+      {"source":"src","target":"src_app","type":"hier"},
+      {"source":"src","target":"components","type":"hier"},
+      {"source":"src","target":"hooks","type":"hier"},
+      {"source":"src","target":"lib","type":"hier"},
+      {"source":"src","target":"ai","type":"hier"},
+
+      {"source":"src_app","target":"layout","type":"hier"},
+      {"source":"src_app","target":"home","type":"hier"},
+      {"source":"src_app","target":"providers","type":"hier"},
+      {"source":"src_app","target":"globals","type":"hier"},
+      {"source":"src_app","target":"page_about","type":"hier"},
+      {"source":"src_app","target":"page_faq","type":"hier"},
+      {"source":"src_app","target":"page_dashboard","type":"hier"},
+      {"source":"src_app","target":"page_daily","type":"hier"},
+      {"source":"src_app","target":"page_archive","type":"hier"},
+      {"source":"src_app","target":"page_archive_id","type":"hier"},
+      {"source":"src_app","target":"page_contact","type":"hier"},
+      {"source":"root","target":"middleware","type":"hier"},
+      {"source":"root","target":"instrumentation","type":"hier"},
+
+      {"source":"components","target":"cluster_layout","type":"hier"},
+      {"source":"components","target":"cluster_ui","type":"hier"},
+      {"source":"components","target":"cluster_shared","type":"hier"},
+      {"source":"cluster_layout","target":"layout_header","type":"hier"},
+      {"source":"cluster_layout","target":"layout_footer","type":"hier"},
+      {"source":"cluster_layout","target":"layout_locale","type":"hier"},
+      {"source":"cluster_layout","target":"layout_splash","type":"hier"},
+      {"source":"cluster_ui","target":"ui_button","type":"hier"},
+      {"source":"cluster_ui","target":"ui_input","type":"hier"},
+      {"source":"cluster_ui","target":"ui_dialog","type":"hier"},
+      {"source":"cluster_ui","target":"ui_toast","type":"hier"},
+      {"source":"cluster_shared","target":"shared_hero","type":"hier"},
+      {"source":"cluster_shared","target":"shared_analytics","type":"hier"},
+
+      {"source":"hooks","target":"cluster_hooks","type":"hier"},
+      {"source":"cluster_hooks","target":"hook_i18n","type":"hier"},
+      {"source":"cluster_hooks","target":"hook_toast","type":"hier"},
+      {"source":"cluster_hooks","target":"hook_mobile","type":"hier"},
+
+      {"source":"lib","target":"lib_telemetry","type":"hier"},
+      {"source":"lib","target":"lib_utils","type":"hier"},
+      {"source":"lib","target":"lib_api","type":"hier"},
+      {"source":"lib","target":"lib_firebase","type":"hier"},
+      {"source":"lib","target":"lib_i18n_config","type":"hier"},
+
+      {"source":"ai","target":"cluster_ai","type":"hier"},
+      {"source":"cluster_ai","target":"ai_daily","type":"hier"},
+      {"source":"cluster_ai","target":"ai_threat","type":"hier"},
+      {"source":"cluster_ai","target":"ai_genkit","type":"hier"},
+      {"source":"cluster_ai","target":"ai_dev","type":"hier"},
+
+      {"source":"config","target":"pkg","type":"hier"},
+      {"source":"config","target":"tsconfig","type":"hier"},
+      {"source":"config","target":"nextcfg","type":"hier"},
+      {"source":"config","target":"tailwindcfg","type":"hier"},
+      {"source":"config","target":"postcsscfg","type":"hier"},
+      {"source":"config","target":"eslintcfg","type":"hier"},
+      {"source":"config","target":"lighthouse","type":"hier"},
+      {"source":"config","target":"pnpmws","type":"hier"},
+
+      {"source":"tests","target":"vitestcfg","type":"hier"},
+      {"source":"tests","target":"playwrightcfg","type":"hier"},
+      {"source":"tests","target":"storybook_main","type":"hier"},
+      {"source":"tests","target":"storybook_preview","type":"hier"},
+      {"source":"tests","target":"story_button","type":"hier"},
+      {"source":"tests","target":"e2e_basic","type":"hier"},
+      {"source":"tests","target":"e2e_axe","type":"hier"},
+
+      {"source":"docs","target":"readme","type":"hier"},
+      {"source":"docs","target":"agentsmd","type":"hier"},
+      {"source":"docs","target":"docs_dev","type":"hier"},
+      {"source":"docs","target":"reports_dir","type":"hier"},
+      {"source":"reports_dir","target":"report_landing","type":"hier"},
+
+      {"source":"cleanup","target":"modified","type":"hier"},
+      {"source":"cleanup","target":"docs_cleanup_plan","type":"hier"},
+      {"source":"cleanup","target":"docs_cleanup_patches","type":"hier"},
+      {"source":"cleanup","target":"ide_idea","type":"hier"},
+      {"source":"cleanup","target":"idx","type":"hier"},
+
+      {"source":"layout","target":"layout_header","type":"use"},
+      {"source":"layout","target":"layout_footer","type":"use"},
+      {"source":"layout","target":"layout_locale","type":"use"},
+      {"source":"home","target":"shared_hero","type":"use"},
+      {"source":"home","target":"ui_button","type":"use"},
+      {"source":"page_dashboard","target":"shared_analytics","type":"use"},
+      {"source":"shared_analytics","target":"lib_api","type":"use"},
+      {"source":"page_daily","target":"ai_daily","type":"use"},
+      {"source":"page_archive","target":"ai_threat","type":"use"},
+      {"source":"layout","target":"globals","type":"use"},
+      {"source":"layout","target":"providers","type":"use"},
+      {"source":"ui_toast","target":"hook_toast","type":"use"},
+      {"source":"layout_locale","target":"hook_i18n","type":"use"},
+      {"source":"hook_i18n","target":"lib_i18n_config","type":"use"},
+      {"source":"shared_hero","target":"lib_telemetry","type":"use"},
+      {"source":"nextcfg","target":"src_app","type":"use"},
+      {"source":"tsconfig","target":"src","type":"use"},
+      {"source":"tailwindcfg","target":"globals","type":"use"},
+      {"source":"vitestcfg","target":"lib_utils","type":"use"},
+      {"source":"playwrightcfg","target":"home","type":"use"},
+      {"source":"storybook_main","target":"story_button","type":"use"},
+      {"source":"story_button","target":"ui_button","type":"use"},
+
+      {"source":"root","target":"anchor_main","type":"rank"},
+      {"source":"anchor_main","target":"anchor_config","type":"rank"},
+      {"source":"anchor_config","target":"anchor_tests","type":"rank"},
+      {"source":"anchor_tests","target":"anchor_docs","type":"rank"},
+      {"source":"anchor_main","target":"src_app","type":"rank"},
+      {"source":"anchor_main","target":"middleware","type":"rank"},
+      {"source":"anchor_main","target":"instrumentation","type":"rank"},
+      {"source":"anchor_main","target":"components","type":"rank"},
+      {"source":"anchor_main","target":"hooks","type":"rank"},
+      {"source":"anchor_main","target":"lib","type":"rank"},
+      {"source":"anchor_main","target":"ai","type":"rank"},
+      {"source":"anchor_config","target":"pkg","type":"rank"},
+      {"source":"anchor_config","target":"tsconfig","type":"rank"},
+      {"source":"anchor_config","target":"nextcfg","type":"rank"},
+      {"source":"anchor_config","target":"tailwindcfg","type":"rank"},
+      {"source":"anchor_config","target":"postcsscfg","type":"rank"},
+      {"source":"anchor_config","target":"eslintcfg","type":"rank"},
+      {"source":"anchor_config","target":"lighthouse","type":"rank"},
+      {"source":"anchor_config","target":"pnpmws","type":"rank"},
+      {"source":"anchor_tests","target":"vitestcfg","type":"rank"},
+      {"source":"anchor_tests","target":"playwrightcfg","type":"rank"},
+      {"source":"anchor_tests","target":"storybook_main","type":"rank"},
+      {"source":"anchor_tests","target":"storybook_preview","type":"rank"},
+      {"source":"anchor_tests","target":"story_button","type":"rank"},
+      {"source":"anchor_tests","target":"e2e_basic","type":"rank"},
+      {"source":"anchor_tests","target":"e2e_axe","type":"rank"},
+      {"source":"anchor_docs","target":"readme","type":"rank"},
+      {"source":"anchor_docs","target":"agentsmd","type":"rank"},
+      {"source":"anchor_docs","target":"docs_dev","type":"rank"},
+      {"source":"anchor_docs","target":"reports_dir","type":"rank"}
+    ]
+  }</script>
+  <script>
+    cytoscape.use(window.cytoscapeDagre)
+    const data = JSON.parse(document.getElementById('graph').textContent)
+    const cy = cytoscape({
+      container: document.getElementById('cy'),
+      elements: [
+        ...data.nodes.map(n => ({ data: n, classes: n.category + (n.type === 'dir' ? ' is-dir' : '') + (n.type === 'cluster' ? ' is-cluster' : '') + (n.type === 'anchor' ? ' is-anchor' : '') })),
+        ...data.edges.map(e => ({ data: { id: e.source + '->' + e.target + ':' + e.type, source: e.source, target: e.target, etype: e.type }, classes: e.type }))
+      ],
+      layout: { name: 'dagre', rankDir: 'LR', spacingFactor: 1.2, nodeSep: 18, rankSep: 90, edgeSep: 10 },
+      style: [
+        { selector: 'node', style: { 'background-color': '#334155', 'shape': 'round-rectangle', 'label': 'data(label)', 'color': '#e5e7eb', 'font-size': 11, 'text-wrap': 'wrap', 'text-max-width': 200, 'text-halign': 'center', 'text-valign': 'center', 'width': 'label', 'height': 'label', 'padding': 12, 'border-color': '#1f2937', 'border-width': 1 } },
+        { selector: 'node.is-dir', style: { 'border-width': 2, 'border-color': '#94a3b8' } },
+        { selector: 'node.is-cluster', style: { 'border-width': 2, 'border-color': '#f8fafc' } },
+        { selector: 'node.is-anchor', style: { 'opacity': 0, 'width': 2, 'height': 2, 'label': '' } },
+        { selector: 'node.main', style: { 'background-color': '#3b82f6' } },
+        { selector: 'node.config', style: { 'background-color': '#10b981' } },
+        { selector: 'node.tests', style: { 'background-color': '#8b5cf6' } },
+        { selector: 'node.docs', style: { 'background-color': '#f59e0b' } },
+        { selector: 'node.cleanup', style: { 'background-color': '#ef4444' } },
+        { selector: 'edge', style: { 'curve-style': 'taxi', 'taxi-direction': 'rightward' } },
+        { selector: 'edge.hier', style: { 'width': 1, 'line-color': '#94a3b8', 'target-arrow-shape': 'none' } },
+        { selector: 'edge.use', style: { 'width': 3, 'line-color': '#e2e8f0', 'target-arrow-color': '#e2e8f0', 'target-arrow-shape': 'triangle' } },
+        { selector: 'edge.rank', style: { 'opacity': 0 } },
+        { selector: '.faded', style: { 'opacity': 0.12 } },
+        { selector: '.highlighted', style: { 'border-width': 3, 'border-color': '#f8fafc' } },
+        { selector: 'edge.active', style: { 'width': 3.2, 'line-color': '#f8fafc', 'target-arrow-color': '#f8fafc' } },
+        { selector: '.hidden', style: { 'visibility': 'hidden' } }
+      ]
+    })
+
+    const tip = document.createElement('div')
+    tip.className = 'tooltip'
+    tip.style.display = 'none'
+    document.body.appendChild(tip)
+
+    function showTip(node) {
+      const t = node.data('tip')
+      if (!t) return
+      tip.textContent = t
+      const bb = node.renderedBoundingBox()
+      const x = bb.x2 + 8
+      const y = bb.y1
+      tip.style.left = x + 'px'
+      tip.style.top = y + 'px'
+      tip.style.display = 'block'
+    }
+    function hideTip() { tip.style.display = 'none' }
+
+    cy.on('mouseover', 'node', e => showTip(e.target))
+    cy.on('mouseout', 'node', hideTip)
+
+    let lastTap = 0, lastId = ''
+    cy.on('tap', 'node', e => {
+      const n = e.target
+      const now = Date.now()
+      if (lastId === n.id() && now - lastTap < 300) {
+        cy.center(n)
+        cy.elements().removeClass('faded highlighted active')
+        const nb = n.closedNeighborhood()
+        cy.elements().not(nb).addClass('faded')
+        n.addClass('highlighted')
+        n.connectedEdges().addClass('active')
+      } else {
+        toggleCluster(n)
+      }
+      lastTap = now
+      lastId = n.id()
+    })
+
+    function toggleCluster(n) {
+      const kids = n.data('children') || []
+      if (!kids.length) return
+      const collapsed = n.data('collapsed') !== false
+      if (collapsed) {
+        kids.forEach(id => cy.$id(id).removeClass('hidden'))
+        cy.edges().filter(e => kids.includes(e.data('source')) || kids.includes(e.data('target')) || e.data('source') === n.id()).removeClass('hidden')
+        n.data('collapsed', false)
+      } else {
+        kids.forEach(id => cy.$id(id).addClass('hidden'))
+        cy.edges().filter(e => kids.includes(e.data('source')) || kids.includes(e.data('target')) || e.data('source') === n.id()).addClass('hidden')
+        n.data('collapsed', true)
+      }
+      cy.layout({ name: 'dagre', rankDir: 'LR', spacingFactor: 1.2, nodeSep: 18, rankSep: 90, edgeSep: 10 }).run()
+    }
+
+    cy.nodes().forEach(n => {
+      const kids = n.data('children') || []
+      if (kids.length && (n.data('collapsed') === true || n.data('collapsed') === undefined)) {
+        kids.forEach(id => cy.$id(id).addClass('hidden'))
+        cy.edges().filter(e => kids.includes(e.data('source')) || kids.includes(e.data('target')) || e.data('source') === n.id()).addClass('hidden')
+        n.data('collapsed', true)
+      }
+    })
+
+    window.addEventListener('resize', () => {
+      cy.resize()
+      cy.layout({ name: 'dagre', rankDir: 'LR', spacingFactor: 1.2, nodeSep: 18, rankSep: 90, edgeSep: 10 }).run()
+    })
+  </script>
+</body>
+</html>

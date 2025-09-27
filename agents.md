@@ -1,40 +1,62 @@
-# Agent Configuration
+# Repository Guidelines
 
-## Environment Setup
+This repository is a Next.js (App Router) project managed with pnpm and TypeScript. Use this guide to develop, test, and contribute consistently.
 
-This project requires Node.js, pnpm, and Next.js environment.
+## Project Structure & Module Organization
+- `src/app/` — routes, layouts, and pages (Next.js).
+- `src/components/{ui,shared,layout}/` — UI primitives and composite components.
+- `src/lib/` — utilities, `telemetry.ts`, data helpers; `src/hooks/` — React hooks.
+- `src/ai/` — Genkit flows and dev scripts.
+- `test/` — unit tests (`test/**/*.test.*`) and E2E (`test/e2e/`).
+- `_reports/` — progress logs per feature (see Process).
+- `docs/`, `.storybook/`, `scripts/` — documentation, Storybook, helper scripts.
 
-### Manual Setup
+## Build, Test, and Development Commands
+- `pnpm install` — install dependencies.
+- `pnpm dev` — start local dev server.
+- `pnpm build` / `pnpm start` — production build and run.
+- `pnpm test` — run unit tests (Vitest, jsdom).
+- `pnpm test:e2e` — run Playwright E2E suite.
+- `pnpm lint` — ESLint (Next.js rules) with autofix.
+- `pnpm typecheck` — TypeScript validation.
+- `pnpm storybook` — run Storybook locally.
 
-1.  **Install Dependencies**: `pnpm install`
-2.  **Build Project**: `pnpm build`
-3.  **Run Dev Server**: `pnpm dev`
+## Coding Style & Naming Conventions
+- TypeScript + React; prefer functional components and hooks.
+- Files: kebab-case; components exported in PascalCase.
+- Tests: `*.test.ts(x)` alongside source or in `test/`.
+- Formatting/Linting: ESLint (`next/core-web-vitals`, `next/typescript`). Run `pnpm lint --fix` before commits.
+- Styling: Tailwind CSS; prefer utility-first classes over custom CSS.
 
-## Key Commands
+## Testing Guidelines
+- Unit: cover new logic and components. Config in `vitest.config.ts` (jsdom, `test/setup.ts`).
+- E2E: keep `test/e2e/basic.spec.ts` and `test/e2e/axe.spec.ts` green. Local run via `pnpm test:e2e`.
+- Accessibility & Performance: CI runs axe and Lighthouse with budgets in `lighthouserc.json`. Don’t regress scores.
 
--   `pnpm dev`: Start development server.
--   `pnpm build`: Build for production.
--   `pnpm test`: Run unit tests with Vitest.
--   `pnpm test:e2e`: Run E2E tests with Playwright.
--   `pnpm lint`: Lint the code.
--   `pnpm typecheck`: Run TypeScript validation.
+## Process: Work Tracking & Telemetry
+- For every new page or major component group, create `_reports/<feature>.PROGRESS.md` and update with status, key decisions, and next steps.
+- Instrument key interactions with `track(event, payload)` from `src/lib/telemetry.ts`.
+  - Examples: `track('cta_click', { cta_name: 'Get Started', location: 'hero' })`, `track('tool_opened', { tool_name: 'image-lab' })`.
 
-## Guardrails & Process
+## Commit & Pull Request Guidelines
+- Commits: prefer Conventional Commits (e.g., `feat(scope): ...`, `fix(scope): ...`).
+- PRs: include a clear description, linked issues, screenshots for UI changes, test plan, and updated `_reports` entry.
+- Before opening a PR: `pnpm lint && pnpm typecheck && pnpm test` and, when relevant, `pnpm test:e2e`.
 
-### Progress Discipline
+## Security & Configuration Tips
+- Store secrets in `.env.local`; never commit them. See `src/lib/firebase/client.ts` for runtime usage.
+- Telemetry is console-only in development; avoid sending PII.
 
--   For every new page or major component group (e.g., "Foundations"), you **must** create a `_reports/[feature-name].PROGRESS.md` file.
--   This file should be updated with the status, key decisions, and next steps for that unit of work.
+## Docs Layout
+- All general docs live under `docs/` (review, tasks, roadmap, maps).
+- Progress logs remain under `_reports/` (`*.PROGRESS.md`).
+- Legacy/low-signal docs were archived to `docs/archive/` to reduce noise.
+- Live map: `lionsflow/lionsflow.html` (also published via Pages).
 
-### Testing
-
--   **Unit Tests**: All new logic and components should be accompanied by unit tests.
--   **E2E Tests**: The CI pipeline runs a full suite of E2E tests using Playwright.
-    -   `test/e2e/basic.spec.ts`: Smoke tests for basic navigation.
-    -   `test/e2e/axe.spec.ts`: Accessibility tests for key pages.
--   **Lighthouse**: The CI pipeline also runs Lighthouse to enforce performance and accessibility budgets defined in `lighthouserc.json`.
-
-### Telemetry
-
--   Use the `track(event, payload)` function from `lib/telemetry.ts` for key user interactions.
--   Available events: `cta_click`, `tool_opened`.
+## Studio Mission — Cleanup & UI/UX Alignment
+- Objective: close gaps found in lionsflow map, reach a clean, layered structure, and ensure all code is reflected in real UI/UX.
+- Scope: align files to layers (Main/Config/Tests/Docs/Cleanup), remove or archive unused code, wire `src/components/**` into `src/app/**`, verify AI flows are invoked by pages, standardize telemetry calls, and normalize naming/exports.
+- Deliverables: working app with no dead code, updated tests (Vitest + Playwright), a11y and Lighthouse budgets green, and refreshed docs.
+- Workflow: work on feature branches, keep `_reports/<feature>.PROGRESS.md` updated, open PRs with screenshots and test plan.
+- Acceptance: `pnpm lint && pnpm typecheck && pnpm test && pnpm test:e2e` pass; Lighthouse as per `lighthouserc.json`; key pages function; map at `lionsflow/lionsflow.html` reflects the structure.
+- Autonomy & guardrails: full refactor permission within repo; do not commit secrets; coordinate any breaking URL/route changes in PR.
