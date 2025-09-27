@@ -81,6 +81,7 @@ The application will be available at [http://localhost:3000](http://localhost:30
 - מסמכים מרוכזים בתיקייה `docs/` (tasks, review, roadmap, maps).
 - דוחות התקדמות לפי פיצ׳ר בתיקייה `_reports/`.
 - מסמכים ישנים/רועשים הועברו ל־`docs/archive/` לצמצום בלבול.
+- משימת המשך לסוכן (Jules): `docs/tasks/jules_next_mission.md:1`.
 
 ## Studio Mission — ניקוי ארכיטקטורה ויישור UI/UX
 
