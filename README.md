@@ -69,9 +69,3 @@ The application will be available at [http://localhost:3000](http://localhost:30
 -   `pnpm storybook`: Starts the Storybook development server.
 -   `pnpm storybook:open`: Starts the Storybook development server and opens browser automatically.
 -   `pnpm build-storybook`: Builds the Storybook for deployment.
-
-## CodeSee Map (Repository Insights)
-
-- After the CodeSee GitHub App is installed and the workflow runs on `main`, an interactive CodeSee Map is available under the repository’s Insights tab.
-- Where to find it: GitHub → your repo → Insights → CodeSee Map.
-- Pull Requests include a link to a Map diff that visualizes structural changes.
