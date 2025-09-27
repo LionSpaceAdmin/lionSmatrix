@@ -75,3 +75,11 @@ The application will be available at [http://localhost:3000](http://localhost:30
 - מפה אינטראקטיבית של מבנה הריפו זמינה כעמוד סטטי:
 - URL: https://lionspaceadmin.github.io/lionSmatrix/lionsflow/lionsflow.html
 - מתעדכן אוטומטית בכל push ל־`main` באמצעות GitHub Pages.
+
+## Studio Mission — ניקוי ארכיטקטורה ויישור UI/UX
+
+- מטרה: לסגור פערים שנחשפו במיפוי, להגיע למבנה שכבות נקי (Main / Config / Tests / Docs / Cleanup) ולהבטיח שכל הקוד מחובר למסכים בפועל.
+- תחום עבודה: קיבוץ/העברת קבצים למיקומים נכונים, הסרת קוד לא בשימוש, חיבור `src/components/**` ל‑`src/app/**`, אימות חיבורי `src/ai/flows/**`, יישור טלמטריה (`src/lib/telemetry.ts`) וניקוי שמות/ייצואים.
+- תוצרים: אפליקציה רצה ללא Dead Code, בדיקות מעודכנות (Vitest + Playwright), נגישות/ביצועים ירוקים (Lighthouse), מסמכים מעודכנים.
+- קריטריוני קבלה: `pnpm lint && pnpm typecheck && pnpm test && pnpm test:e2e` ירוקים; תקציבי Lighthouse לפי `lighthouserc.json`; מפה ב‑Pages משקפת את המבנה העדכני.
+- תהליך: עבודה על Branchים ייעודיים, עדכון `_reports/<feature>.PROGRESS.md`, PR עם צילומי מסך ותכנית בדיקות.
