@@ -76,6 +76,12 @@ The application will be available at [http://localhost:3000](http://localhost:30
 - URL: https://lionspaceadmin.github.io/lionSmatrix/lionsflow/lionsflow.html
 - מתעדכן אוטומטית בכל push ל־`main` באמצעות GitHub Pages.
 
+## Documentation
+
+- מסמכים מרוכזים בתיקייה `docs/` (tasks, review, roadmap, maps).
+- דוחות התקדמות לפי פיצ׳ר בתיקייה `_reports/`.
+- מסמכים ישנים/רועשים הועברו ל־`docs/archive/` לצמצום בלבול.
+
 ## Studio Mission — ניקוי ארכיטקטורה ויישור UI/UX
 
 - מטרה: לסגור פערים שנחשפו במיפוי, להגיע למבנה שכבות נקי (Main / Config / Tests / Docs / Cleanup) ולהבטיח שכל הקוד מחובר למסכים בפועל.

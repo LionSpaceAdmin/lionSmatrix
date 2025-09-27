@@ -1,74 +1,43 @@
-# Design Tokens (Foundations)
+# Design Tokens — Current State and Plan
 
-This document outlines the emerging token system refactor (Phase 1).
+This document aligns tokens with the code as it exists now, and defines concrete steps to complete the tokenization.
 
-## Goals
+## Current State
 
-- Single source of truth for core colors and surfaces
-- Improved accessibility contrast (AA baseline)
-- Semantic naming layer to decouple components from raw color primitives
-- Easier theming / future light or high-contrast variants
+- Tailwind is configured (`tailwind.config.ts`) with dark mode class and a terminal/cyber theme.
+- Extended colors include terminal-friendly aliases (terminal-green, terminal-cyan, etc.).
+- CSS custom properties for terminal colors are referenced (e.g., `hsl(var(--terminal-cyan))`), but a complete `:root` token set is not yet formalized in `src/app/globals.css`.
 
-## Layers
+## Token Model
 
-### 1. Primitive Tokens (CSS Variables)
+1) Primitive tokens (CSS variables in `:root`)
+- `--terminal-bg`, `--terminal-text`, `--terminal-cyan`, `--terminal-gold`, `--terminal-red`, `--terminal-muted`, `--terminal-border`
 
-Declared in `app/globals.css` under `:root`:
+2) Semantic tokens (CSS variables layered on primitives)
+- `--surface-base`, `--surface-alt`, `--text-primary`, `--text-muted`, `--accent-primary`, `--accent-warn`, `--accent-error`, `--focus-ring`
 
-- `--terminal-bg`
-- `--terminal-secondary`
-- `--terminal-cyan`
-- `--terminal-gold`
-- `--terminal-red`
-- `--terminal-text`
-- `--terminal-muted`
-- `--terminal-border`
-
-### 2. Semantic Tokens (Phase 1 Set)
-
-Also defined in `:root`:
-
-- `--color-surface-base`
-- `--color-surface-alt`
-- `--color-border-default`
-- `--color-text-primary`
-- `--color-text-muted`
-- `--color-accent-primary`
-- `--color-accent-warn`
-- `--color-accent-error`
-- `--color-focus-ring`
-
-### 3. TypeScript Mapping
-
-`lib/design-tokens.ts` exports `PrimitiveTokens`, `SemanticTokens`, and helper `tokenVar()`.
+3) Tailwind mapping (tailwind.config.ts)
+- Map semantic tokens to `extend.colors` using `hsl(var(--token) / <alpha-value>)` so utilities remain ergonomic.
 
 ## Usage Guidelines
 
-- Prefer semantic tokens in components (`accentPrimary`, `textMuted`) over primitives.
-- Do not hard-code hex/rgb values in JSX; use Tailwind utilities or tokens.
-- When a new contextual meaning emerges (e.g. success, info), add semantic token first.
+- Prefer semantic utilities (e.g., bg-[color:var(--surface-base)], text-[color:var(--text-muted)]) via Tailwind mapping over hard-coded hex.
+- Do not hard-code colors in components; rely on tokens and Tailwind utilities.
+- Introduce a new semantic token before adding a new color context (e.g., success/info).
 
-## Tailwind Integration (Next Step)
+## Action Checklist
 
-Future step: rewrite Tailwind `extend.colors` to reference `rgb(var(--terminal-cyan) / <alpha-value>)` patterns.
-
-## Migration Checklist
-
-- [ ] Replace inline `#B8FFF2`, `#00ff88` usages with tokens.
-- [ ] Unify `.terminal-card` + `Card` component.
-- [ ] Add success/info semantic tokens.
-- [ ] Storybook: Foundations/Colors story.
-- [ ] Add lint rule preventing raw hex (except in token definition files).
+- [ ] Define full `:root` primitive + semantic tokens in `src/app/globals.css`.
+- [ ] Align `tailwind.config.ts` `extend.colors` to consume those variables consistently.
+- [ ] Replace inline hex usages with token-backed utilities.
+- [ ] Add success/info semantic tokens and map them in Tailwind.
+- [ ] Storybook Foundations/Colors page showing tokens and contrast checks.
+- [ ] Optional lint rule to forbid raw hex in components.
 
 ## Accessibility
 
-Updated palette aligns with stronger contrast (brighter foreground, adjusted accent hues). Run automated checks (axe / lighthouse) after full migration.
-
-## Next Phases
-
-Phase 2: Motion tokens (durations, easings), spacing scale, elevation (shadows), radius scale.
-Phase 3: Theming mechanism via `data-theme` attribute.
+Maintain AA contrast (≥ 4.5:1 for body text). Validate token palettes with axe and Lighthouse after refactors.
 
 ---
 
-Questions / proposals: open a discussion or add to `DESIGN_SYSTEM_TASKS.md`.
+Questions and proposals: open a discussion or add to `DESIGN_SYSTEM_TASKS.md`.

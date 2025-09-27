@@ -47,13 +47,11 @@ This repository is a Next.js (App Router) project managed with pnpm and TypeScri
 - Store secrets in `.env.local`; never commit them. See `src/lib/firebase/client.ts` for runtime usage.
 - Telemetry is console-only in development; avoid sending PII.
 
-## Studio Mission — Cleanup & UI/UX Alignment
-- Objective: close gaps found in lionsflow map, reach a clean, layered structure, and ensure all code is reflected in real UI/UX.
-- Scope: align files to layers (Main/Config/Tests/Docs/Cleanup), remove or archive unused code, wire `src/components/**` into `src/app/**`, verify AI flows are invoked by pages, standardize telemetry calls, and normalize naming/exports.
-- Deliverables: working app with no dead code, updated tests (Vitest + Playwright), a11y and Lighthouse budgets green, and refreshed docs.
-- Workflow: work on feature branches, keep `_reports/<feature>.PROGRESS.md` updated, open PRs with screenshots and test plan.
-- Acceptance: `pnpm lint && pnpm typecheck && pnpm test && pnpm test:e2e` pass; Lighthouse as per `lighthouserc.json`; key pages function; map at `lionsflow/lionsflow.html` reflects the structure.
-- Autonomy & guardrails: full refactor permission within repo; do not commit secrets; coordinate any breaking URL/route changes in PR.
+## Docs Layout
+- All general docs live under `docs/` (review, tasks, roadmap, maps).
+- Progress logs remain under `_reports/` (`*.PROGRESS.md`).
+- Legacy/low-signal docs were archived to `docs/archive/` to reduce noise.
+- Live map: `lionsflow/lionsflow.html` (also published via Pages).
 
 ## Studio Mission — Cleanup & UI/UX Alignment
 - Objective: close gaps found in lionsflow map, reach a clean, layered structure, and ensure all code is reflected in real UI/UX.
