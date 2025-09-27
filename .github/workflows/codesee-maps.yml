@@ -1,0 +1,37 @@
+name: CodeSee Maps
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+permissions:
+  contents: read
+  checks: write
+  pull-requests: write
+
+concurrency:
+  group: codesee-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  generate-map:
+    name: Generate CodeSee Map
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Generate and publish CodeSee Map
+        uses: Codesee-io/codesee-map-action@v3
+        with:
+          # No file lists are hardcoded; CodeSee analyzes the repo automatically.
+          # The GitHub App handles authentication; no token input required.
+          # For PRs, the action will annotate with a link to the Map diff.
+          upload: true
+
